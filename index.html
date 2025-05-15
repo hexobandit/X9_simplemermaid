@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SimpleMermaid.com - Simple Online Mermaid Diagram Editor</title>
+
+  <!-- ✅ SEO Meta Tags -->
+  <meta name="description" content="Create flowcharts, sequence diagrams, Gantt charts, and more with SimpleMermaid. An easy, distraction-free Mermaid.js editor with live preview. No setup required!" />
+  <meta name="keywords" content="Mermaid.js, flowchart editor, sequence diagrams, Gantt charts, online diagram tool, UML, markdown diagrams, network diagrams, visualization, SimpleMermaid" />
+  <meta name="author" content="SimpleMermaid.com" />
+
+  <!-- ✅ Open Graph (Facebook & LinkedIn) -->
+  <meta property="og:title" content="SimpleMermaid.com - Online Mermaid Diagram Editor" />
+  <meta property="og:description" content="A simple, distraction-free editor for creating flowcharts, sequence diagrams, Gantt charts, and more with Mermaid.js. Live preview, no installation required!" />
+  <meta property="og:image" content="https://simplemermaid.com/og-image.png" />
+  <meta property="og:url" content="https://simplemermaid.com" />
+  <meta property="og:type" content="website" />
+
+  <!-- ✅ Twitter (X) Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SimpleMermaid - The Best Online Mermaid.js Editor" />
+  <meta name="twitter:description" content="Create flowcharts, sequence diagrams, and Gantt charts with an easy-to-use online Mermaid.js editor. Instant preview, no setup needed!" />
+  <meta name="twitter:image" content="https://simplemermaid.com/twitter-image.png" />
+  <meta name="twitter:site" content="@simplemermaid" />
+
+  <!-- ✅ Structured Data (JSON-LD for Rich Results) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "SimpleMermaid",
+    "description": "An online Mermaid.js editor for creating flowcharts, sequence diagrams, Gantt charts, and more with real-time preview.",
+    "url": "https://simplemermaid.com",
+    "image": "https://simplemermaid.com/og-image.png",
+    "operatingSystem": "Web",
+    "applicationCategory": "Diagramming Tool",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <!-- ✅ Favicon -->
+  <link rel="icon" type="image/png" href="https://simplemermaid.com/favicon.png">
+
+  <!-- ✅ Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --main-bg-light: linear-gradient(45deg, #c8ffff, #ffffff);
+      --main-bg-dark: linear-gradient(45deg, #192833, #081520);
+      --main-bg-colorful: linear-gradient(45deg, #C6E7FF, #D4F6FF);
+      --main-text-light: #262048;
+      --main-text-dark: #ffe0fa;
+      --main-text-colorful: #000000;
+      --max-width: 800px;
+      
+      --code-bg: #272822;
+      --code-text: #f8f8f2;
+    }
+
+    /* Basic reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+      background: var(--main-bg-light);
+      color: var(--main-text-light);
+      transition: background 0.3s, color 0.3s;
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* Headings */
+    h1, h2, h3, h4 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    /* Paragraphs */
+    p {
+      font-size: 1rem;
+      font-weight: 300;
+      color: #2f2e2e; /* Slightly lighter for contrast */
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    /* Section Titles */
+    h2 {
+    font-size: 1.8rem;
+    text-align: center;
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      margin-top: 15px;
+      font-weight: 500;
+      text-align: left;
+    }
+
+    h4 {
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-top: 10px;
+    }
+
+    /* Lists */
+    ul, ol {
+      font-family: 'Poppins', sans-serif;
+      padding-left: 20px;
+    }
+
+    ul li, ol li {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.0rem;
+      margin-bottom: 8px;
+    }
+
+    .container {
+      max-width: var(--max-width);
+      max-width: 1000px;
+      margin: 30px auto; /* Adds spacing from other elements */
+      padding: 25px;
+      border-radius: 12px; /* Rounded corners */
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); /* Soft shadow */
+      text-align: left;
+      background-color: #ffffff39;
+    }
+
+    /* Thematic modes */
+    .dark-mode {
+      background: var(--main-bg-dark);
+      color: var(--main-text-dark) !important;
+    }
+    .dark-mode #mermaid-output svg path,
+    .dark-mode #mermaid-output svg line,
+    .dark-mode #mermaid-output svg polygon,
+    .dark-mode #mermaid-output svg rect {
+      stroke: #ffffffd6 !important; 
+    }
+
+    /* Ensure text inside boxes is black in dark mode */
+    .dark-mode #mermaid-output svg text,
+    .dark-mode #mermaid-output svg tspan {
+      fill: #000 !important;
+    }
+
+    /* Ensure headings and text change in dark mode */
+    .dark-mode p, 
+    .dark-mode ul, 
+    .dark-mode li, 
+    .dark-mode h1, 
+    .dark-mode h2, 
+    .dark-mode h3 {
+      color: var(--main-text-dark) !important; /* Ensures text becomes white */
+    }
+
+    /* Ensure headings and text change in colorful mode */
+    .colorful-mode p, 
+    .colorful-mode ul, 
+    .colorful-mode li, 
+    .colorful-mode h1, 
+    .colorful-mode h2, 
+    .colorful-mode h3 {
+      color: var(--main-text-colorful) !important; /* Uses defined variable */
+    }
+
+    .colorful-mode {
+      background: var(--main-bg-colorful);
+      color: #ffffff;
+    }
+
+    /* Buttons */
+    button {
+      padding: 8px 12px;
+      margin: 3px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .theme-btn {
+      background: #555;
+      color: #fff;
+    }
+    .example-btn {
+      background: #007bff;
+      color: #fff;
+    }
+
+    .example-btn {
+      background: #007bff;
+      color: #fff;
+      padding: 8px 12px;
+      margin: 3px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .example-btn:hover {
+      background: #0056b3;
+    }
+
+
+    /* Mermaid Input */
+    #mermaid-input {
+      width: 100%;
+      height: 200px;
+      font-family: monospace;
+      padding: 10px;
+      margin-top: 10px;
+      background-color: #192833;
+      color: #bfbfbf;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 10px 0;
+      white-space: pre;
+    }
+
+    /* Mermaid Output */
+    #mermaid-output {
+      margin-top: 20px;
+      border: 1px solid #ccc;
+      padding: 15px;
+      background: #fff;
+      width: 100%;
+      overflow-x: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+    .dark-mode #mermaid-output {
+      background: #192833;
+      border-color: #555;
+    }
+    .colorful-mode #mermaid-output {
+      background: rgba(255,255,255,0.2);
+      border-color: #fff;
+    }
+
+    /* "How to" Section */
+    .code-container {
+      background: var(--code-bg);
+      color: var(--code-text);
+      padding: 10px;
+      border-radius: 5px;
+      margin: 10px 0;
+      white-space: pre;
+      overflow-x: auto;
+      font-family: monospace;
+    }
+
+    /* Cookie Popup */
+    #cookie-popup {
+      position: fixed;
+      bottom: 15px;
+      left: 15px;
+      background: rgba(0,0,0,0.8);
+      color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 14px;
+      max-width: 300px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    #cookie-popup button {
+      align-self: flex-end;
+      background: #fff;
+      color: #000;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+      h2 { font-size: 1.5rem; }
+      h3 { font-size: 1.2rem; }
+      h4 { font-size: 1.1rem; }
+      p, ul li, ol li { font-size: 0.95rem; }
+    }
+  </style>
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6FZM0EGT74"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6FZM0EGT74');
+</script>
+
+
+<body>
+  <div class="container">
+    <h1>SimpleMermaid.com</h1>
+    <p>
+      Fast, distraction-free editor where you can 
+      <strong>write, visualize, and experiment</strong> with Mermaid.js diagrams in real time. 
+      Just modify the diagram below and see real-time updates.
+    </p>
+  
+    <!-- Theme Cycle Button -->
+    <button class="theme-btn" onclick="cycleTheme()">Change Theme</button>
+
+    <!-- Empty -->
+    <button class="example-btn" onclick="setExample(``)">
+      Emptychart
+    </button>
+
+    <!-- Simple -->
+    <button class="example-btn" onclick="setExample(`graph LR\nA-->B\nB-.->C`)">
+      Simplistic 
+    </button>
+    
+    <!-- Flowchart -->
+    <button class="example-btn" onclick="setExample(`flowchart TD\nA[Start] --> B{Decision}\nB -- Yes --> C[Do something]\nB -- No --> D[Do something else]\nC --> E[End]\nD --> E`)">
+      Flowchart
+    </button>
+    
+    <!-- Sequence Diagram Button -->
+    <button class="example-btn" onclick="setExample(`sequenceDiagram\nparticipant User\nparticipant Browser\nparticipant Server\nparticipant Database\nUser->>Browser: Request Website\nBrowser->>Server: HTTP Request\nServer->>Database: Query Data\nDatabase-->>Server: Return Data\nServer-->>Browser: HTML Response\nBrowser-->>User: Render Page`)">
+      Sequence Diagram
+    </button>
+
+    <!-- OAuth Login Sequence -->
+    <button class="example-btn" onclick="setExample(`sequenceDiagram\nparticipant User\nparticipant App\nparticipant AuthServer\nparticipant ResourceServer\nUser->>App: Login request\nApp->>AuthServer: Redirect with credentials\nAuthServer-->>User: Auth Code\nUser->>App: Return Auth Code\nApp->>AuthServer: Exchange for Token\nAuthServer-->>App: Access Token\nApp->>ResourceServer: Access resource with Token`)">
+      Sequence Diagram OAuth
+    </button>
+    
+    <!-- Gantt Chart -->
+    <button class="example-btn" onclick="setExample(`gantt\ntitle Project Plan\nsection Phase 1\nTask A :done, a1, 2024-03-01, 10d\nTask B :a2, after a1, 7d\nsection Phase 2\nTask C :a3, after a2, 5d\nTask D :a4, after a3, 8d`)">
+      Gantt Chart
+    </button>
+    
+    <!-- Class Diagram -->
+    <button class="example-btn" onclick="setExample(`classDiagram\nclass Animal{\n+int age\n+String name\n+eat()\n+sleep()\n}\nclass Mammal{\n+boolean hasFur\n+nurseYoung()\n}\nclass Dog{\n+String breed\n+bark()\n}\nclass Cat{\n+boolean isIndoor\n+meow()\n}\nclass Owner{\n+String name\n+adoptPet(Animal pet)\n}\nAnimal <|-- Mammal\nMammal <|-- Dog\nMammal <|-- Cat\nOwner o-- Animal : owns`)">
+      Class Diagram
+    </button>
+    
+    <!-- State Diagram Button -->
+    <button class="example-btn" onclick="setExample(`stateDiagram\n[*] --> Idle\nIdle --> Running : Start Process\nRunning --> Paused : Pause\nPaused --> Running : Resume\nRunning --> Stopped : Stop\nStopped --> [*] : Shutdown\nStopped --> Idle : Restart`)">
+      State Diagram
+    </button>
+    
+    <!-- ERD (Entity Relationship Diagram) -->
+    <button class="example-btn" onclick="setExample(`erDiagram\nCUSTOMER ||--o{ ORDER : places\nORDER ||--|{ LINE-ITEM : contains\nPRODUCT ||--o{ LINE-ITEM : includes`)">
+      Entity-Relationship (ERD)
+    </button>
+    
+    <!-- Journey Diagram -->
+    <button class="example-btn" onclick="setExample(`journey\ntitle User Journey\nsection Experience\nBrowse: 5: Alice\nAdd to Cart: 3: Bob\nCheckout: 2: Alice, Bob`)">
+      Journey Diagram
+    </button>
+
+    <!-- Simple Network Diagram -->
+    <button class="example-btn" onclick="setExample(`flowchart LR\nUser[👤 User] -->|Access Website| Browser[🌐 Browser/Client]\nBrowser -->|HTTPS| LB[🔄 Cloudflare]\nsubgraph VNET1 [VNet - My Virtual Network]\nsubgraph Subnet1 [Subnet 1 - Web]\nVM1[🖥️ VM1 - Web Server]\nend\nsubgraph Subnet2 [Subnet 2 - App]\nVM2[🖥️ VM2 - App Server]\nend\nend\nLB -->|Traffic Distribution| VM1\nVM1 -- API Calls --> VM2`)">
+      Network Diagram
+    </button>
+    
+    <!-- RBAC Roles Class Diagram -->
+    <button class="example-btn" onclick="setExample(`classDiagram\nclass User {\n  +string username\n  +Role[] roles\n}\nclass Role {\n  +string name\n  +Permission[] permissions\n}\nclass Permission {\n  +string action\n  +string resource\n}\nUser --> Role\nRole --> Permission`)">
+      RBAC Model
+    </button>
+
+    <!-- Kubernetes Threat Model Diagram -->
+    <button class="example-btn" onclick="setExample(`graph LR;\n%% Define custom styles\nclassDef threat fill:#fca5a5,stroke:#f66,stroke-width:2px,color:#000,stroke-dasharray:5,stroke-dashoffset:5\n\n%% External\nuser((End-User))\nthreatCreds((Stolen<br/>Credentials))\nthreatDOS((DoS<br/>Attack))\nthreatMisconfig((Misconfiguration))\nmaliciousImage((Malicious<br/>Container<br/>Image))\n\nsubgraph external [External]\n    user\n    threatCreds\n    threatDOS\n    maliciousImage\nend\n\nsubgraph cluster [Kubernetes Cluster]\n    ingress((Ingress<br/>Controller))\n    svc((K8s Service))\n        \n    subgraph node1 [Node #1]\n        pod1((Pod #1<br/>Application))\n    end\n        \n    subgraph node2 [Node #2]\n        pod2((Pod #2<br/>Application))\n    end\n        \n    secrets{{K8s Secrets}}\nend\n\nsubgraph externalDB [External DB or API]\n    db[(SQL Database)]\nend\n\n%% Link them up\nuser -->|HTTPS| ingress\ningress -->|HTTP| svc\nsvc --> pod1\nsvc --> pod2\npod1 -->|TCP/IP| db\npod2 -->|TCP/IP| db\nsecrets -.-> pod1\nsecrets -.-> pod2\n    \n%% Threat vectors as dashed lines\nthreatCreds-.-> user\nthreatDOS-.-> ingress\nthreatMisconfig-.-> secrets\nmaliciousImage-.-> pod2\n\nclass threatCreds,threatDOS,threatMisconfig,maliciousImage threat`)">
+      Kubernetes Threat Model
+    </button>
+
+    <!-- Security Breach Button -->
+    <button class="example-btn" style="background-color: #d9534f;" onclick="setExample(`flowchart TD\nclassDef critical fill:#f66,stroke:#900,stroke-width:2px;\nA[🚨 Security Breach]:::critical`)">
+      Security Breach
+    </button>
+
+    <!-- Secure Button -->
+    <button class="example-btn" style="background-color: #5cb85c;" onclick="setExample(`flowchart TD\nclassDef secure fill:#5cb85c,stroke:#3e8e41,stroke-width:2px;\nB[✅ System Secure]:::secure`)">
+      System Secure
+    </button>
+
+    <!-- CI/CD DevSecOps -->
+    <button class="example-btn" onclick="setExample(`graph LR\nDev[Developer] --> Commit[Code Commit]\nCommit --> Lint[Run Linter]\nLint --> Test[Run Tests]\nTest --> Scan[SAST/DAST Scan]\nScan --> Build[Build Artifact]\nBuild --> Deploy[Deploy to Staging]\nDeploy --> Monitor[Security Monitoring]`)">
+      CI/CD DevSecOps
+    </button>
+
+    <!-- Access Lifecycle State -->
+    <button class="example-btn" onclick="setExample(`stateDiagram-v2\n[*] --> Requested\nRequested --> Approved\nRequested --> Rejected\nApproved --> Provisioned\nProvisioned --> Expired\nExpired --> [*]`)">
+      Access Request Lifecycle
+    </button>
+
+    <!-- Web App OAuth2 Threat Model -->
+    <button class="example-btn" onclick="setExample(`graph LR\nclassDef threat fill:#fca5a5,stroke:#f66,stroke-width:2px,color:#000,stroke-dasharray:5\n\nuser[User] --> client[(Browser/Client)]\nclient -->|HTTPS + OAuth2 PKCE| idp[(Auth0 IdP)]\nidp -->|HTTP + JWT| client\nclient -->|HTTPS + JWT| waf[(Cloudflare WAF)]\n\nsubgraph Internet\nidp\nwaf\nend\n\nsubgraph Internal_Network\nwaf -->|HTTPS + JWT| proxy[(Reverse Proxy)]\nproxy -->|HTTPS + JWT| api[(Flask App)]\n\nsubgraph Kubernetes\napi\nend\n\napi -->|TCP/IP| db[(SQL Database)]\ndb -->|TCP/IP| api\nend\n\nstolenCreds([Stolen<br/>Credentials])\ndos([DoS<br/>Attack])\nmaliciousImage([Malicious<br/>Container<br/>Image])\n\nstolenCreds -.-> client\ndos -.-> waf\nmaliciousImage -.-> api\n\nclass stolenCreds,dos,maliciousImage threat`)">
+      Web App OAuth2 Threat Model
+    </button>
+
+
+    <!-- Diagram Input -->
+    <textarea id="mermaid-input">
+flowchart TD
+    A[Start] --> B{Decision}
+    B -- Yes --> C[Do something]
+    B -- No --> D[Do something else]
+    C --> E[End]
+    D --> E
+    </textarea>
+
+    <!-- Diagram Output -->
+    <div id="mermaid-output">
+      Loading diagram...
+    </div>
+  </div>
+
+  <div class="container"
+    <!-- How to Diagram -->
+    <h2>How to Create Diagrams</h2>
+    <p>Mermaid uses a simple, text-based syntax. Here are examples:</p>
+
+    <h3>All Different Diagram Types</h3>
+    <p style="text-align: left;">Use %% for comments – helpful for documentation.</p>
+    <div class="code-container">
+graph LR	     %% Left-to-right graph (alternative syntax for flowchart)
+graph RL	     %% Right-to-left graph
+graph TD	     %% Top-down graph
+flowchart TD	     %% Standard flowchart (top-down)
+flowchart LR	     %% Left-to-right flowchart
+sequenceDiagram	     %% Interaction between system components
+pie	             %% Pie chart visualization
+gantt	             %% Project timeline representation
+stateDiagram	     %% State machine diagrams
+stateDiagram-v2	     %% Improved state diagram with better syntax
+classDiagram	     %% UML-style class relationships
+erDiagram	     %% Entity-relationship diagrams for databases
+journey	             %% User journey or experience mapping
+quadrantChart	     %% Risk and priority matrices
+    </div>
+
+    <h3>Grouping Elements (Subgraphs & VLANs)</h3>
+    <p style="text-align: left;">Use subgraph to create VLANs or logical groups.</p>
+    <div class="code-container">
+flowchart TD
+subgraph VLAN1 [VLAN 1]
+  A[Server 1] -->|Ethernet| B[Switch]
+  C[Server 2] -->|Ethernet| B
+end
+subgraph VLAN2 [VLAN 2]
+  D[Server 3] -->|Ethernet| E[Switch]
+end
+B -->|Router| E
+    </div>
+    
+  </div> <!-- /container -->
+
+  <div class="container">
+    <h3>Best Practices (What to Do)</h3>
+
+    <ul>
+      <li>Break complex diagrams into multiple smaller ones</li>
+      <li>Use descriptive labels (User, App, DB) instead of A, B, C</li>
+      <li>Use subgraph for logical grouping</li>
+      <li>Define custom styles with classDef</li>
+      <li>Apply styles using class nodeName className</li>
+      <li>Use color coding for threats, servers, and databases</li>
+    </ul>
+
+
+  </div>
+
+  <div class="container">
+    <h2>The Easiest Way to Learn Mermaid.js Diagrams</h2>
+  
+    <p>
+      If you've ever struggled with creating <strong>flowcharts, sequence diagrams, or Gantt charts</strong>,
+      you're not alone. Many diagramming tools come with unnecessary features, cluttered interfaces,
+      and frustrating learning curves. But what if you just need a <strong>quick and simple tool</strong> 
+      to test Mermaid.js <strong>without distractions?</strong>
+    </p>
+
+    <h3>📚 What is Mermaid.js?</h3>
+
+      <p style="text-align: left;">
+        <strong>Mermaid.js</strong> is a powerful, text-based diagramming tool that makes it easy to create 
+        flowcharts, sequence diagrams, Gantt charts, pie charts, entity-relationship diagrams,
+        and more—all using simple, intuitive <strong>Markdown-like syntax</strong>.
+      </p>
+    
+      <p style="text-align: left;">
+        Unlike traditional drag-and-drop diagramming tools, Mermaid.js lets you define 
+        <strong>complex diagrams using plain text</strong>, making it perfect for 
+        developers, technical writers, project managers, and students.
+      </p>
+    
+      <p style="text-align: left;">
+        With its <strong>lightweight, JavaScript-based engine</strong>, Mermaid.js seamlessly integrates into 
+        websites, documentation, and wikis, allowing users to generate, modify, and update diagrams effortlessly 
+        without needing any graphical software.
+      </p>
+ 
+  
+    <h3>🚀 Why Use SimpleMermaid?</h3>
+    <ul>
+      <li><strong>No Setup Needed</strong> – Just open the page and start diagramming.</li>
+      <li><strong>Instant Preview</strong> – Type Mermaid.js syntax and see your diagram update live.</li>
+      <li><strong>Distraction-Free UI</strong> – No pop-ups, no ads, just you and your diagram.</li>
+      <li><strong>Works on Any Device</strong> – Use it on desktop, tablet, or mobile.</li>
+      <li><strong>Dark Mode & Themes</strong> – Switch between light, dark, and gray themes.</li>
+      <li><strong>Preloaded Examples</strong> – Click a button to load flowcharts, sequence diagrams, or Gantt charts instantly.</li>
+    </ul>
+  
+  
+    <h3>🛠️ How to Use SimpleMermaid</h3>
+    <ul>
+      <li><strong>Open SimpleMermaid</strong> – No installation required.</li>
+      <li><strong>Write Mermaid.js Code</strong> – Use the editor to type diagrams.</li>
+      <li><strong>See Instant Updates</strong> – The diagram refreshes as you type.</li>
+      <li><strong>Switch Themes</strong> – Light, Dark, or Gray mode.</li>
+      <li><strong>Load Examples</strong> – Click buttons to insert ready-made diagrams.</li>
+    </ul>
+  
+    <h3>🌍 Who is SimpleMermaid for?</h3>
+    <ul>
+      <li><strong>Students & Beginners</strong> – Learn Mermaid.js without distractions.</li>
+      <li><strong>Developers & Engineers</strong> – Quickly test flowcharts & architecture diagrams.</li>
+      <li><strong>Technical Writers</strong> – Create beautiful documentation diagrams.</li>
+      <li><strong>Project Managers</strong> – Use Gantt charts for simple project tracking.</li>
+    </ul>
+
+  </div>
+
+  <div class="container">
+    <h3>🌍 Other Projects</h3>
+    <ul>
+      <li><strong><a href="https://short-ies.com" target="_blank">short-ies.com</a></strong> - AI news, tech trends, cybersecurity, space, sustainability, biohacking, healthy living</li>
+      <li><strong><a href="https://trackmytime.net" target="_blank">TrackMyTime.net</a></strong> - Simple and effective time management web app</li>
+      <li><strong><a href="https://threatbandit.com" target="_blank">ThreatBandit.com</a></strong> - Cybersecurity Threat Modelling tool for Kubernetes, API, LLM</li>
+      <li><strong><a href="https://emphonic.com" target="_blank">emphonic.com</a></strong> - DnB, Breakbeat, House, Chillout music</li>
+      <li><strong><a href="https://www.youtube.com/@prague-rooftop-lounge" target="_blank">youtube.com/@prague-rooftop-lounge</a></strong> - Prague Rooftop Lounge Youtube House & D&B channel</li>
+    </ul>
+  </div>
+
+  <footer>
+    &copy; 2025 SimpleMermaid.com. All rights reserved. By hexoBandit.
+  </footer>
+
+
+  <!-- Cookie Popup -->
+  <!--
+  <div id="cookie-popup">
+    <p>We use cookies to analyze traffic in an anonymous way. No personal information is collected.</p>
+    <button onclick="document.getElementById('cookie-popup').style.display='none'">Got it</button>
+  </div>
+  -->
+
+  <!-- Mermaid & Script -->
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  
+    // Expose acceptCookies so inline onClick can call it
+    // window.acceptCookies = function() {
+    //  document.cookie = "analyticsCookieAccepted=true; max-age=31536000; path=/";
+    //  const popup = document.getElementById('cookie-popup');
+    //  if (popup) popup.style.display = 'none';
+    //};
+
+    //  // If user already accepted cookies, hide the popup
+    //  if (document.cookie.includes("analyticsCookieAccepted=true")) {
+    //    const popup = document.getElementById('cookie-popup');
+    //    if (popup) popup.style.display = 'none';
+    //  }
+  
+      // Initial diagram render + live re-renders
+      const input = document.getElementById("mermaid-input");
+      if (input) {
+        renderMermaid();
+        input.addEventListener("input", renderMermaid);
+      }
+  
+    let themeIndex = 0; // 0=light, 1=dark, 2=gray-gradient
+  
+    // Expose cycleTheme so inline onClick can call it
+    window.cycleTheme = function() {
+      document.body.classList.remove("dark-mode", "colorful-mode");
+      themeIndex = (themeIndex + 1) % 3;
+      if (themeIndex === 1) {
+        document.body.classList.add("dark-mode");
+      } else if (themeIndex === 2) {
+        document.body.classList.add("colorful-mode");
+      }
+    };
+  
+    // Expose setExample so inline onClick can call it
+    window.setExample = function(example) {
+      const input = document.getElementById("mermaid-input");
+      input.value = example;
+      renderMermaid();
+    };
+  
+    // Render the current Mermaid code
+    async function renderMermaid() {
+      const input = document.getElementById("mermaid-input");
+      const output = document.getElementById("mermaid-output");
+      if (!input || !output) return;
+  
+      try {
+        const { svg } = await mermaid.mermaidAPI.render("generatedDiagram", input.value);
+        output.innerHTML = svg;
+      } catch (err) {
+        output.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
+      }
+    }
+  
+    // Once the DOM is ready, init everything
+    document.addEventListener("DOMContentLoaded", () => {
+      // Initialize Mermaid
+      mermaid.initialize({ 
+        startOnLoad: false 
+        // Optional theme overrides:
+        // theme: "dark",
+        // themeVariables: { lineColor: "#ffffff", textColor: "#ffffff" }
+      });
+  
+    });
+  </script>
+</body>
+</html>
