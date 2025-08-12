@@ -14,7 +14,7 @@
   <!-- ✅ Open Graph (Facebook & LinkedIn) -->
   <meta property="og:title" content="SimpleMermaid.com - Online Mermaid Diagram Editor" />
   <meta property="og:description" content="A simple, distraction-free editor for creating flowcharts, sequence diagrams, Gantt charts, and more with Mermaid.js. Live preview, no installation required!" />
-  <meta property="og:image" content="https://simplemermaid.com/og-image.png" />
+  <meta property="og:image" content="https://simplemermaid.com/simplemermaid.png" />
   <meta property="og:url" content="https://simplemermaid.com" />
   <meta property="og:type" content="website" />
 
@@ -22,7 +22,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="SimpleMermaid - The Best Online Mermaid.js Editor" />
   <meta name="twitter:description" content="Create flowcharts, sequence diagrams, and Gantt charts with an easy-to-use online Mermaid.js editor. Instant preview, no setup needed!" />
-  <meta name="twitter:image" content="https://simplemermaid.com/twitter-image.png" />
+  <meta name="twitter:image" content="https://simplemermaid.com/simplemermaid.png" />
   <meta name="twitter:site" content="@simplemermaid" />
 
   <!-- ✅ Structured Data (JSON-LD for Rich Results) -->
@@ -32,8 +32,8 @@
     "@type": "SoftwareApplication",
     "name": "SimpleMermaid",
     "description": "An online Mermaid.js editor for creating flowcharts, sequence diagrams, Gantt charts, and more with real-time preview.",
-    "url": "https://simplemermaid.com",
-    "image": "https://simplemermaid.com/og-image.png",
+    "url": "https://simplemermaid.com/simplemermaid.png",
+    "image": "simplemermaid.png",
     "operatingSystem": "Web",
     "applicationCategory": "Diagramming Tool",
     "offers": {
@@ -295,6 +295,179 @@
     }
 
 
+    /* CSS Logo Styles */
+    .logo-container {
+      text-align: center;
+      margin: 20px 0 30px 0;
+    }
+
+    .logo-link {
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .css-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo-icon {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 40px;
+      position: relative;
+    }
+
+    .diagram-node {
+      width: 24px;
+      height: 24px;
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .diagram-node::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.9;
+    }
+
+    .diagram-connection {
+      width: 20px;
+      height: 3px;
+      background: linear-gradient(90deg, #4f46e5, #7c3aed);
+      border-radius: 2px;
+      position: relative;
+      box-shadow: 0 2px 8px rgba(79, 70, 229, 0.2);
+    }
+
+    .diagram-connection-2 {
+      transform: rotate(45deg);
+      width: 16px;
+    }
+
+    .diagram-connection::after {
+      content: '';
+      position: absolute;
+      right: -3px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      background: #7c3aed;
+      border-radius: 50%;
+    }
+
+    .logo-text {
+      font-family: 'Poppins', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    .logo-simple {
+      color: #4f46e5;
+      margin-right: 2px;
+    }
+
+    .logo-mermaid {
+      background: linear-gradient(135deg, #4f46e5, #7c3aed, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Logo hover effects */
+    .logo-link:hover .diagram-node {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+    }
+
+    .logo-link:hover .diagram-connection {
+      background: linear-gradient(90deg, #7c3aed, #06b6d4);
+    }
+
+    .logo-link:hover .logo-simple {
+      color: #7c3aed;
+    }
+
+    /* Dark mode logo adjustments */
+    .dark-mode .diagram-node {
+      background: linear-gradient(135deg, #60a5fa, #a78bfa);
+      box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+    }
+
+    .dark-mode .diagram-connection {
+      background: linear-gradient(90deg, #60a5fa, #a78bfa);
+      box-shadow: 0 2px 8px rgba(96, 165, 250, 0.2);
+    }
+
+    .dark-mode .diagram-connection::after {
+      background: #a78bfa;
+    }
+
+    .dark-mode .logo-simple {
+      color: #60a5fa;
+    }
+
+    .dark-mode .logo-mermaid {
+      background: linear-gradient(135deg, #60a5fa, #a78bfa, #22d3ee);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .dark-mode .logo-link:hover .diagram-node {
+      background: linear-gradient(135deg, #93c5fd, #c4b5fd);
+      box-shadow: 0 6px 20px rgba(147, 197, 253, 0.4);
+    }
+
+    .dark-mode .logo-link:hover .diagram-connection {
+      background: linear-gradient(90deg, #a78bfa, #22d3ee);
+    }
+
+    .dark-mode .logo-link:hover .logo-simple {
+      color: #a78bfa;
+    }
+
+    /* Colorful mode logo adjustments */
+    .colorful-mode .diagram-node {
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+
+    .colorful-mode .diagram-connection {
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+    }
+
+    .colorful-mode .diagram-connection::after {
+      background: #8b5cf6;
+    }
+
+    .colorful-mode .logo-simple {
+      color: #1e40af;
+    }
+
+    .colorful-mode .logo-mermaid {
+      background: linear-gradient(135deg, #1e40af, #7c2d12, #0891b2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
     /* Responsive Adjustments */
     @media (max-width: 768px) {
       .container {
@@ -304,6 +477,29 @@
       h3 { font-size: 1.2rem; }
       h4 { font-size: 1.1rem; }
       p, ul li, ol li { font-size: 0.95rem; }
+      
+      .logo-text {
+        font-size: 1.8rem;
+      }
+      
+      .diagram-node {
+        width: 20px;
+        height: 20px;
+      }
+      
+      .diagram-node::before {
+        width: 6px;
+        height: 6px;
+      }
+      
+      .diagram-connection {
+        width: 16px;
+        height: 2px;
+      }
+      
+      .diagram-connection-2 {
+        width: 12px;
+      }
     }
   </style>
 </head>
@@ -321,7 +517,23 @@
 
 <body>
   <div class="container">
-    <h1>SimpleMermaid.com</h1>
+    <h1 class="logo-container">
+      <a href="index.html" title="SimpleMermaid.com - Simple Online Mermaid.js Editor" class="logo-link">
+        <div class="css-logo">
+          <div class="logo-icon">
+            <div class="diagram-node"></div>
+            <div class="diagram-connection"></div>
+            <div class="diagram-node"></div>
+            <div class="diagram-connection diagram-connection-2"></div>
+            <div class="diagram-node"></div>
+          </div>
+          <div class="logo-text">
+            <span class="logo-simple">Simple</span><span class="logo-mermaid">Mermaid</span>
+          </div>
+        </div>
+      </a>
+    </h1>
+
     <p>
       Fast, distraction-free editor where you can 
       <strong>write, visualize, and experiment</strong> with Mermaid.js diagrams in real time. 
@@ -421,6 +633,64 @@
       Web App OAuth2 Threat Model
     </button>
 
+    <!-- CubeSat Threat Model -->
+    <button class="example-btn" onclick="setExample(`flowchart LR
+
+  CubeSat <--> OtherCubeSat
+  CubeSat <--> Antenna
+  OtherCubeSat <--> Antenna
+  GroundStation <--> Antenna
+
+  maliciousAntenna_SDR:::critical -. uplinkJamming .-> CubeSat
+  maliciousAntenna_SDR:::critical -. downlinkInterception .-> CubeSat
+
+  supplyChain:::critical -.-> CubeSat
+  networkAttacks:::critical -.-> GroundStation
+  physicalAttacks:::critical -.-> GroundStation
+
+  supplyChain:::critical -.-> GroundStation
+
+  classDef critical fill:#f66,stroke:#900,stroke-width:0px;`)">
+        CubeSat Threat Model
+    </button>
+
+    <!-- Org Chart -->
+    <button class="example-btn" onclick="setExample(`graph TD
+  CEO[CEO]
+  CTO[CTO]
+  CFO[CFO]
+  COO[COO]
+  LeadDev[Lead Developer]
+  Dev1[Developer 1]
+  Dev2[Developer 2]
+  FinanceMgr[Finance Manager]
+  OpsMgr[Operations Manager]
+
+  CEO --> CTO
+  CEO --> CFO
+  CEO --> COO
+
+  CTO --> LeadDev
+  LeadDev --> Dev1
+  LeadDev --> Dev2
+
+  CFO --> FinanceMgr
+  COO --> OpsMgr`)">
+      Org Chart
+    </button>
+
+    <!-- Shape Examples -->
+    <button class="example-btn" onclick="setExample(`flowchart TD
+  A[Rectangle]
+  B(Round Edges)
+  C((Circle))
+  D{{Diamond}}
+  E>Angled Rectangle]
+  F[/Parallelogram/]
+  G[[Database]]`)">
+      Shape Examples
+    </button>
+
 
     <!-- Diagram Input -->
     <textarea id="mermaid-input">
@@ -477,6 +747,77 @@ B -->|Router| E
     </div>
     
   </div> <!-- /container -->
+
+  <div class="container">
+    <h2>How to Style Nodes and Flows</h2>
+    <p>Mermaid lets you define shapes, text, and relationships using simple syntax:</p>
+
+    <h3>Basic Shapes</h3>
+    <p style="text-align: left;">Surround text with different brackets to create shapes:</p>
+    <div class="code-container">
+flowchart TD
+  A[Rectangle]
+  B(Round Edges)
+  C((Circle))
+  D{{Diamond}}
+  E>Angled Rectangle]
+  F[/Parallelogram/]
+  G[[Database]]
+    </div>
+
+    <h3>Named Arrows (Flows)</h3>
+    <p style="text-align: left;">Label connections using `-->|"text"|` syntax:</p>
+    <div class="code-container">
+flowchart LR
+  A[User] -->|Logs in| B[Login Page]
+  B -->|Sends credentials| C[Server]
+  C -->|Responds| D[Dashboard]
+    </div>
+
+    <h3>Styling with `classDef` and `class`</h3>
+    <p style="text-align: left;">Use custom classes to style nodes:</p>
+    <div class="code-container">
+flowchart TD
+  A[Secure Node]:::secure
+  B[Threat Node]:::threat
+  classDef secure fill:#5cb85c,stroke:#3e8e41,stroke-width:2px;
+  classDef threat fill:#f66,stroke:#900,stroke-width:2px;
+    </div>
+  </div>
+
+  <div class="container">
+  <h2>Named Arrows (Flows) in State Diagrams</h2>
+  <p>In <code>stateDiagram</code>, transitions are labeled using a colon <code>:</code> after the arrow definition:</p>
+
+  <h3>Basic Syntax</h3>
+  <div class="code-container">
+stateDiagram
+    Idle --> Running : Start Process
+    Running --> Paused : Pause
+    Paused --> Running : Resume
+    Running --> Stopped : Stop
+  </div>
+
+  <h3>Entry & Exit States</h3>
+  <div class="code-container">
+stateDiagram
+    [*] --> Idle
+    Stopped --> [*] : Shutdown
+    Stopped --> Idle : Restart
+  </div>
+
+  <h3>Full Example</h3>
+  <div class="code-container">
+stateDiagram
+    [*] --> Idle
+    Idle --> Running : Start Process
+    Running --> Paused : Pause
+    Paused --> Running : Resume
+    Running --> Stopped : Stop
+    Stopped --> [*] : Shutdown
+    Stopped --> Idle : Restart
+  </div>
+</div>
 
   <div class="container">
     <h3>Best Practices (What to Do)</h3>
