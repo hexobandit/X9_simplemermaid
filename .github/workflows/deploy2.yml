@@ -1,0 +1,57 @@
+name: CI/CD – Webglobe FTPS
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+concurrency:
+  group: webglobe-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  gitleaks:
+    name: Gitleaks scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: detect --source . --redact --exit-code 1
+
+
+  deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: gitleaks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Deploy over FTPS (explicit TLS on port 21)
+      - name: Deploy to /public_html
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_HOST }}          # e.g. ftp.trackmytime.net
+          username: ${{ secrets.FTP_USER }}        # e.g. mf...@trackmytime.net
+          password: ${{ secrets.FTP_PASS }}
+          protocol: ftps
+          port: 21
+          local-dir: ./                            # repo root; change if needed
+          server-dir: /public_html/
+          exclude: |
+            **/.git*
+            **/.github/**
+            **/node_modules/**
+            **/.gitleaks.toml
+            CLAUDE.md
+            README.md
+          # Passive mode is default. Keeps a deploy state to speed diffs:
+          state-name: .ftp-deploy-sync-state.json
