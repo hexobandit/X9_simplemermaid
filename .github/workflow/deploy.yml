@@ -39,8 +39,8 @@ jobs:
       - name: Deploy to /public_html
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: ${{ secrets.FTP_HOST }}          # e.g. ftp.trackmytime.net
-          username: ${{ secrets.FTP_USER }}        # e.g. mf...@trackmytime.net
+          server: ${{ secrets.FTP_HOST }}         
+          username: ${{ secrets.FTP_USER }}       
           password: ${{ secrets.FTP_PASS }}
           protocol: ftps
           port: 21
