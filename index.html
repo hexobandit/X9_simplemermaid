@@ -217,6 +217,142 @@
       background: #0056b3;
     }
 
+    /* Controls Section */
+    .controls-section {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin: 20px 0;
+      align-items: center;
+    }
+
+    .examples-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Category Dropdowns */
+    .category-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-btn {
+      background: #007bff;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: background 0.3s;
+    }
+
+    .dropdown-btn:hover {
+      background: #0056b3;
+    }
+
+    .dropdown-btn::after {
+      content: '▼';
+      font-size: 10px;
+      transition: transform 0.3s;
+    }
+
+    .dropdown-btn.active::after {
+      transform: rotate(180deg);
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background: white;
+      min-width: 200px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      border-radius: 5px;
+      z-index: 1000;
+      border: 1px solid #ddd;
+      top: 100%;
+      left: 0;
+      margin-top: 5px;
+    }
+
+    .dropdown-content.show {
+      display: block;
+    }
+
+    .dropdown-item {
+      display: block;
+      padding: 10px 15px;
+      text-decoration: none;
+      color: #333;
+      cursor: pointer;
+      font-size: 14px;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      transition: background 0.3s;
+    }
+
+    .dropdown-item:hover {
+      background: #f8f9fa;
+    }
+
+    .dropdown-item:first-child {
+      border-radius: 5px 5px 0 0;
+    }
+
+    .dropdown-item:last-child {
+      border-radius: 0 0 5px 5px;
+    }
+
+    /* Dark mode dropdown styles */
+    .dark-mode .dropdown-content {
+      background: #2c3e50;
+      border-color: #555;
+    }
+
+    .dark-mode .dropdown-item {
+      color: #ecf0f1;
+    }
+
+    .dark-mode .dropdown-item:hover {
+      background: #34495e;
+    }
+
+    /* Colorful mode dropdown styles */
+    .colorful-mode .dropdown-content {
+      background: rgba(255, 255, 255, 0.95);
+      border-color: #999;
+    }
+
+    @media (max-width: 768px) {
+      .controls-section {
+        gap: 10px;
+      }
+      
+      .examples-controls {
+        flex-direction: column;
+        gap: 8px;
+      }
+      
+      .dropdown-btn {
+        padding: 8px 12px;
+        font-size: 13px;
+      }
+      
+      .dropdown-content {
+        min-width: 180px;
+      }
+    }
+
 
     /* Mermaid Input */
     #mermaid-input {
@@ -540,156 +676,15 @@
       Just modify the diagram below and see real-time updates.
     </p>
   
-    <!-- Theme Cycle Button -->
-    <button class="theme-btn" onclick="cycleTheme()">Change Theme</button>
-
-    <!-- Empty -->
-    <button class="example-btn" onclick="setExample(``)">
-      Emptychart
-    </button>
-
-    <!-- Simple -->
-    <button class="example-btn" onclick="setExample(`graph LR\nA-->B\nB-.->C`)">
-      Simplistic 
-    </button>
-    
-    <!-- Flowchart -->
-    <button class="example-btn" onclick="setExample(`flowchart TD\nA[Start] --> B{Decision}\nB -- Yes --> C[Do something]\nB -- No --> D[Do something else]\nC --> E[End]\nD --> E`)">
-      Flowchart
-    </button>
-    
-    <!-- Sequence Diagram Button -->
-    <button class="example-btn" onclick="setExample(`sequenceDiagram\nparticipant User\nparticipant Browser\nparticipant Server\nparticipant Database\nUser->>Browser: Request Website\nBrowser->>Server: HTTP Request\nServer->>Database: Query Data\nDatabase-->>Server: Return Data\nServer-->>Browser: HTML Response\nBrowser-->>User: Render Page`)">
-      Sequence Diagram
-    </button>
-
-    <!-- OAuth Login Sequence -->
-    <button class="example-btn" onclick="setExample(`sequenceDiagram\nparticipant User\nparticipant App\nparticipant AuthServer\nparticipant ResourceServer\nUser->>App: Login request\nApp->>AuthServer: Redirect with credentials\nAuthServer-->>User: Auth Code\nUser->>App: Return Auth Code\nApp->>AuthServer: Exchange for Token\nAuthServer-->>App: Access Token\nApp->>ResourceServer: Access resource with Token`)">
-      Sequence Diagram OAuth
-    </button>
-    
-    <!-- Gantt Chart -->
-    <button class="example-btn" onclick="setExample(`gantt\ntitle Project Plan\nsection Phase 1\nTask A :done, a1, 2024-03-01, 10d\nTask B :a2, after a1, 7d\nsection Phase 2\nTask C :a3, after a2, 5d\nTask D :a4, after a3, 8d`)">
-      Gantt Chart
-    </button>
-    
-    <!-- Class Diagram -->
-    <button class="example-btn" onclick="setExample(`classDiagram\nclass Animal{\n+int age\n+String name\n+eat()\n+sleep()\n}\nclass Mammal{\n+boolean hasFur\n+nurseYoung()\n}\nclass Dog{\n+String breed\n+bark()\n}\nclass Cat{\n+boolean isIndoor\n+meow()\n}\nclass Owner{\n+String name\n+adoptPet(Animal pet)\n}\nAnimal <|-- Mammal\nMammal <|-- Dog\nMammal <|-- Cat\nOwner o-- Animal : owns`)">
-      Class Diagram
-    </button>
-    
-    <!-- State Diagram Button -->
-    <button class="example-btn" onclick="setExample(`stateDiagram\n[*] --> Idle\nIdle --> Running : Start Process\nRunning --> Paused : Pause\nPaused --> Running : Resume\nRunning --> Stopped : Stop\nStopped --> [*] : Shutdown\nStopped --> Idle : Restart`)">
-      State Diagram
-    </button>
-    
-    <!-- ERD (Entity Relationship Diagram) -->
-    <button class="example-btn" onclick="setExample(`erDiagram\nCUSTOMER ||--o{ ORDER : places\nORDER ||--|{ LINE-ITEM : contains\nPRODUCT ||--o{ LINE-ITEM : includes`)">
-      Entity-Relationship (ERD)
-    </button>
-    
-    <!-- Journey Diagram -->
-    <button class="example-btn" onclick="setExample(`journey\ntitle User Journey\nsection Experience\nBrowse: 5: Alice\nAdd to Cart: 3: Bob\nCheckout: 2: Alice, Bob`)">
-      Journey Diagram
-    </button>
-
-    <!-- Simple Network Diagram -->
-    <button class="example-btn" onclick="setExample(`flowchart LR\nUser[👤 User] -->|Access Website| Browser[🌐 Browser/Client]\nBrowser -->|HTTPS| LB[🔄 Cloudflare]\nsubgraph VNET1 [VNet - My Virtual Network]\nsubgraph Subnet1 [Subnet 1 - Web]\nVM1[🖥️ VM1 - Web Server]\nend\nsubgraph Subnet2 [Subnet 2 - App]\nVM2[🖥️ VM2 - App Server]\nend\nend\nLB -->|Traffic Distribution| VM1\nVM1 -- API Calls --> VM2`)">
-      Network Diagram
-    </button>
-    
-    <!-- RBAC Roles Class Diagram -->
-    <button class="example-btn" onclick="setExample(`classDiagram\nclass User {\n  +string username\n  +Role[] roles\n}\nclass Role {\n  +string name\n  +Permission[] permissions\n}\nclass Permission {\n  +string action\n  +string resource\n}\nUser --> Role\nRole --> Permission`)">
-      RBAC Model
-    </button>
-
-    <!-- Kubernetes Threat Model Diagram -->
-    <button class="example-btn" onclick="setExample(`graph LR;\n%% Define custom styles\nclassDef threat fill:#fca5a5,stroke:#f66,stroke-width:2px,color:#000,stroke-dasharray:5,stroke-dashoffset:5\n\n%% External\nuser((End-User))\nthreatCreds((Stolen<br/>Credentials))\nthreatDOS((DoS<br/>Attack))\nthreatMisconfig((Misconfiguration))\nmaliciousImage((Malicious<br/>Container<br/>Image))\n\nsubgraph external [External]\n    user\n    threatCreds\n    threatDOS\n    maliciousImage\nend\n\nsubgraph cluster [Kubernetes Cluster]\n    ingress((Ingress<br/>Controller))\n    svc((K8s Service))\n        \n    subgraph node1 [Node #1]\n        pod1((Pod #1<br/>Application))\n    end\n        \n    subgraph node2 [Node #2]\n        pod2((Pod #2<br/>Application))\n    end\n        \n    secrets{{K8s Secrets}}\nend\n\nsubgraph externalDB [External DB or API]\n    db[(SQL Database)]\nend\n\n%% Link them up\nuser -->|HTTPS| ingress\ningress -->|HTTP| svc\nsvc --> pod1\nsvc --> pod2\npod1 -->|TCP/IP| db\npod2 -->|TCP/IP| db\nsecrets -.-> pod1\nsecrets -.-> pod2\n    \n%% Threat vectors as dashed lines\nthreatCreds-.-> user\nthreatDOS-.-> ingress\nthreatMisconfig-.-> secrets\nmaliciousImage-.-> pod2\n\nclass threatCreds,threatDOS,threatMisconfig,maliciousImage threat`)">
-      Kubernetes Threat Model
-    </button>
-
-    <!-- Security Breach Button -->
-    <button class="example-btn" style="background-color: #d9534f;" onclick="setExample(`flowchart TD\nclassDef critical fill:#f66,stroke:#900,stroke-width:2px;\nA[🚨 Security Breach]:::critical`)">
-      Security Breach
-    </button>
-
-    <!-- Secure Button -->
-    <button class="example-btn" style="background-color: #5cb85c;" onclick="setExample(`flowchart TD\nclassDef secure fill:#5cb85c,stroke:#3e8e41,stroke-width:2px;\nB[✅ System Secure]:::secure`)">
-      System Secure
-    </button>
-
-    <!-- CI/CD DevSecOps -->
-    <button class="example-btn" onclick="setExample(`graph LR\nDev[Developer] --> Commit[Code Commit]\nCommit --> Lint[Run Linter]\nLint --> Test[Run Tests]\nTest --> Scan[SAST/DAST Scan]\nScan --> Build[Build Artifact]\nBuild --> Deploy[Deploy to Staging]\nDeploy --> Monitor[Security Monitoring]`)">
-      CI/CD DevSecOps
-    </button>
-
-    <!-- Access Lifecycle State -->
-    <button class="example-btn" onclick="setExample(`stateDiagram-v2\n[*] --> Requested\nRequested --> Approved\nRequested --> Rejected\nApproved --> Provisioned\nProvisioned --> Expired\nExpired --> [*]`)">
-      Access Request Lifecycle
-    </button>
-
-    <!-- Web App OAuth2 Threat Model -->
-    <button class="example-btn" onclick="setExample(`graph LR\nclassDef threat fill:#fca5a5,stroke:#f66,stroke-width:2px,color:#000,stroke-dasharray:5\n\nuser[User] --> client[(Browser/Client)]\nclient -->|HTTPS + OAuth2 PKCE| idp[(Auth0 IdP)]\nidp -->|HTTP + JWT| client\nclient -->|HTTPS + JWT| waf[(Cloudflare WAF)]\n\nsubgraph Internet\nidp\nwaf\nend\n\nsubgraph Internal_Network\nwaf -->|HTTPS + JWT| proxy[(Reverse Proxy)]\nproxy -->|HTTPS + JWT| api[(Flask App)]\n\nsubgraph Kubernetes\napi\nend\n\napi -->|TCP/IP| db[(SQL Database)]\ndb -->|TCP/IP| api\nend\n\nstolenCreds([Stolen<br/>Credentials])\ndos([DoS<br/>Attack])\nmaliciousImage([Malicious<br/>Container<br/>Image])\n\nstolenCreds -.-> client\ndos -.-> waf\nmaliciousImage -.-> api\n\nclass stolenCreds,dos,maliciousImage threat`)">
-      Web App OAuth2 Threat Model
-    </button>
-
-    <!-- CubeSat Threat Model -->
-    <button class="example-btn" onclick="setExample(`flowchart LR
-
-  CubeSat <--> OtherCubeSat
-  CubeSat <--> Antenna
-  OtherCubeSat <--> Antenna
-  GroundStation <--> Antenna
-
-  maliciousAntenna_SDR:::critical -. uplinkJamming .-> CubeSat
-  maliciousAntenna_SDR:::critical -. downlinkInterception .-> CubeSat
-
-  supplyChain:::critical -.-> CubeSat
-  networkAttacks:::critical -.-> GroundStation
-  physicalAttacks:::critical -.-> GroundStation
-
-  supplyChain:::critical -.-> GroundStation
-
-  classDef critical fill:#f66,stroke:#900,stroke-width:0px;`)">
-        CubeSat Threat Model
-    </button>
-
-    <!-- Org Chart -->
-    <button class="example-btn" onclick="setExample(`graph TD
-  CEO[CEO]
-  CTO[CTO]
-  CFO[CFO]
-  COO[COO]
-  LeadDev[Lead Developer]
-  Dev1[Developer 1]
-  Dev2[Developer 2]
-  FinanceMgr[Finance Manager]
-  OpsMgr[Operations Manager]
-
-  CEO --> CTO
-  CEO --> CFO
-  CEO --> COO
-
-  CTO --> LeadDev
-  LeadDev --> Dev1
-  LeadDev --> Dev2
-
-  CFO --> FinanceMgr
-  COO --> OpsMgr`)">
-      Org Chart
-    </button>
-
-    <!-- Shape Examples -->
-    <button class="example-btn" onclick="setExample(`flowchart TD
-  A[Rectangle]
-  B(Round Edges)
-  C((Circle))
-  D{{Diamond}}
-  E>Angled Rectangle]
-  F[/Parallelogram/]
-  G[[Database]]`)">
-      Shape Examples
-    </button>
+    <!-- Theme and Examples Controls -->
+    <div class="controls-section">
+      <button class="theme-btn" onclick="cycleTheme()">Change Theme</button>
+      <div class="examples-controls">
+        <div id="category-dropdowns">
+          <!-- Categories will be loaded dynamically -->
+        </div>
+      </div>
+    </div>
 
 
     <!-- Diagram Input -->
@@ -923,27 +918,175 @@ stateDiagram
   <script type="module">
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
   
-    // Expose acceptCookies so inline onClick can call it
-    // window.acceptCookies = function() {
-    //  document.cookie = "analyticsCookieAccepted=true; max-age=31536000; path=/";
-    //  const popup = document.getElementById('cookie-popup');
-    //  if (popup) popup.style.display = 'none';
-    //};
-
-    //  // If user already accepted cookies, hide the popup
-    //  if (document.cookie.includes("analyticsCookieAccepted=true")) {
-    //    const popup = document.getElementById('cookie-popup');
-    //    if (popup) popup.style.display = 'none';
-    //  }
-  
-      // Initial diagram render + live re-renders
-      const input = document.getElementById("mermaid-input");
-      if (input) {
-        renderMermaid();
-        input.addEventListener("input", renderMermaid);
-      }
-  
+    let examplesConfig = null;
     let themeIndex = 0; // 0=light, 1=dark, 2=gray-gradient
+  
+    // Embedded fallback examples (for when opening file:// directly)
+    const embeddedExamples = {
+      "categories": {
+        "basic": {
+          "name": "Basic Diagrams",
+          "examples": [
+            {"id": "empty", "title": "Empty", "content": ""},
+            {"id": "simple", "title": "Simple", "content": "graph LR\nA-->B\nB-.->C"},
+            {"id": "flowchart-basic", "title": "Flowchart", "content": "flowchart TD\nA[Start] --> B{Decision}\nB -- Yes --> C[Do something]\nB -- No --> D[Do something else]\nC --> E[End]\nD --> E"},
+            {"id": "shapes", "title": "Shapes", "content": "flowchart TD\n  A[Rectangle]\n  B(Round Edges)\n  C((Circle))\n  D{{Diamond}}\n  E>Angled Rectangle]\n  F[/Parallelogram/]\n  G[[Database]]"}
+          ]
+        },
+        "sequence": {
+          "name": "Sequence Diagrams",
+          "examples": [
+            {"id": "sequence-basic", "title": "Basic Sequence", "content": "sequenceDiagram\nparticipant User\nparticipant Browser\nparticipant Server\nparticipant Database\nUser->>Browser: Request Website\nBrowser->>Server: HTTP Request\nServer->>Database: Query Data\nDatabase-->>Server: Return Data\nServer-->>Browser: HTML Response\nBrowser-->>User: Render Page"},
+            {"id": "sequence-oauth", "title": "OAuth Flow", "content": "sequenceDiagram\nparticipant User\nparticipant App\nparticipant AuthServer\nparticipant ResourceServer\nUser->>App: Login request\nApp->>AuthServer: Redirect with credentials\nAuthServer-->>User: Auth Code\nUser->>App: Return Auth Code\nApp->>AuthServer: Exchange for Token\nAuthServer-->>App: Access Token\nApp->>ResourceServer: Access resource with Token"}
+          ]
+        },
+        "project": {
+          "name": "Project Management",
+          "examples": [
+            {"id": "gantt-project", "title": "Gantt Chart", "content": "gantt\ntitle Project Plan\nsection Phase 1\nTask A :done, a1, 2024-03-01, 10d\nTask B :a2, after a1, 7d\nsection Phase 2\nTask C :a3, after a2, 5d\nTask D :a4, after a3, 8d"},
+            {"id": "journey", "title": "User Journey", "content": "journey\ntitle User Journey\nsection Experience\nBrowse: 5: Alice\nAdd to Cart: 3: Bob\nCheckout: 2: Alice, Bob"}
+          ]
+        },
+        "architecture": {
+          "name": "System Architecture",
+          "examples": [
+            {"id": "class-diagram", "title": "Class Diagram", "content": "classDiagram\nclass Animal{\n+int age\n+String name\n+eat()\n+sleep()\n}\nclass Mammal{\n+boolean hasFur\n+nurseYoung()\n}\nclass Dog{\n+String breed\n+bark()\n}\nclass Cat{\n+boolean isIndoor\n+meow()\n}\nclass Owner{\n+String name\n+adoptPet(Animal pet)\n}\nAnimal <|-- Mammal\nMammal <|-- Dog\nMammal <|-- Cat\nOwner o-- Animal : owns"},
+            {"id": "state-diagram", "title": "State Diagram", "content": "stateDiagram\n[*] --> Idle\nIdle --> Running : Start Process\nRunning --> Paused : Pause\nPaused --> Running : Resume\nRunning --> Stopped : Stop\nStopped --> [*] : Shutdown\nStopped --> Idle : Restart"},
+            {"id": "erd", "title": "Entity Relationship", "content": "erDiagram\nCUSTOMER ||--o{ ORDER : places\nORDER ||--|{ LINE-ITEM : contains\nPRODUCT ||--o{ LINE-ITEM : includes"},
+            {"id": "network-diagram", "title": "Network Diagram", "content": "flowchart LR\nUser[👤 User] -->|Access Website| Browser[🌐 Browser/Client]\nBrowser -->|HTTPS| LB[🔄 Cloudflare]\nsubgraph VNET1 [VNet - My Virtual Network]\nsubgraph Subnet1 [Subnet 1 - Web]\nVM1[🖥️ VM1 - Web Server]\nend\nsubgraph Subnet2 [Subnet 2 - App]\nVM2[🖥️ VM2 - App Server]\nend\nend\nLB -->|Traffic Distribution| VM1\nVM1 -- API Calls --> VM2"},
+            {"id": "org-chart", "title": "Organization Chart", "content": "graph TD\n  CEO[CEO]\n  CTO[CTO]\n  CFO[CFO]\n  COO[COO]\n  LeadDev[Lead Developer]\n  Dev1[Developer 1]\n  Dev2[Developer 2]\n  FinanceMgr[Finance Manager]\n  OpsMgr[Operations Manager]\n\n  CEO --> CTO\n  CEO --> CFO\n  CEO --> COO\n\n  CTO --> LeadDev\n  LeadDev --> Dev1\n  LeadDev --> Dev2\n\n  CFO --> FinanceMgr\n  COO --> OpsMgr"}
+          ]
+        },
+        "security": {
+          "name": "Security & Threat Models",
+          "examples": [
+            {"id": "rbac", "title": "RBAC Model", "content": "classDiagram\nclass User {\n  +string username\n  +Role[] roles\n}\nclass Role {\n  +string name\n  +Permission[] permissions\n}\nclass Permission {\n  +string action\n  +string resource\n}\nUser --> Role\nRole --> Permission"},
+            {"id": "k8s-threat-model", "title": "Kubernetes Threats", "content": "graph LR;\n%% Define custom styles\nclassDef threat fill:#fca5a5,stroke:#f66,stroke-width:2px,color:#000,stroke-dasharray:5,stroke-dashoffset:5\n\n%% External\nuser((End-User))\nthreatCreds((Stolen<br/>Credentials))\nthreatDOS((DoS<br/>Attack))\nthreatMisconfig((Misconfiguration))\nmaliciousImage((Malicious<br/>Container<br/>Image))\n\nsubgraph external [External]\n    user\n    threatCreds\n    threatDOS\n    maliciousImage\nend\n\nsubgraph cluster [Kubernetes Cluster]\n    ingress((Ingress<br/>Controller))\n    svc((K8s Service))\n        \n    subgraph node1 [Node #1]\n        pod1((Pod #1<br/>Application))\n    end\n        \n    subgraph node2 [Node #2]\n        pod2((Pod #2<br/>Application))\n    end\n        \n    secrets{{K8s Secrets}}\nend\n\nsubgraph externalDB [External DB or API]\n    db[(SQL Database)]\nend\n\n%% Link them up\nuser -->|HTTPS| ingress\ningress -->|HTTP| svc\nsvc --> pod1\nsvc --> pod2\npod1 -->|TCP/IP| db\npod2 -->|TCP/IP| db\nsecrets -.-> pod1\nsecrets -.-> pod2\n    \n%% Threat vectors as dashed lines\nthreatCreds-.-> user\nthreatDOS-.-> ingress\nthreatMisconfig-.-> secrets\nmaliciousImage-.-> pod2\n\nclass threatCreds,threatDOS,threatMisconfig,maliciousImage threat"},
+            {"id": "security-breach", "title": "Security Breach", "content": "flowchart TD\nclassDef critical fill:#f66,stroke:#900,stroke-width:2px;\nA[🚨 Security Breach]:::critical"},
+            {"id": "system-secure", "title": "System Secure", "content": "flowchart TD\nclassDef secure fill:#5cb85c,stroke:#3e8e41,stroke-width:2px;\nB[✅ System Secure]:::secure"},
+            {"id": "cicd-devsecops", "title": "CI/CD DevSecOps", "content": "graph LR\nDev[Developer] --> Commit[Code Commit]\nCommit --> Lint[Run Linter]\nLint --> Test[Run Tests]\nTest --> Scan[SAST/DAST Scan]\nScan --> Build[Build Artifact]\nBuild --> Deploy[Deploy to Staging]\nDeploy --> Monitor[Security Monitoring]"},
+            {"id": "access-lifecycle", "title": "Access Lifecycle", "content": "stateDiagram-v2\n[*] --> Requested\nRequested --> Approved\nRequested --> Rejected\nApproved --> Provisioned\nProvisioned --> Expired\nExpired --> [*]"}
+          ]
+        }
+      }
+    };
+
+    // Load examples configuration
+    async function loadExamplesConfig() {
+      try {
+        // Try to load from external files first (when served via HTTP)
+        const response = await fetch('./examples/config.json');
+        if (!response.ok) throw new Error('Failed to fetch config');
+        examplesConfig = await response.json();
+        await createCategoryDropdowns();
+        console.log('Loaded examples from external files');
+      } catch (error) {
+        console.log('External files not available, using embedded examples');
+        // Fallback to embedded examples (for file:// protocol)
+        examplesConfig = embeddedExamples;
+        await createCategoryDropdowns();
+      }
+    }
+
+    // Create category dropdown menus
+    async function createCategoryDropdowns() {
+      const container = document.getElementById('category-dropdowns');
+      if (!container || !examplesConfig) return;
+
+      for (const [categoryId, category] of Object.entries(examplesConfig.categories)) {
+        const dropdownDiv = document.createElement('div');
+        dropdownDiv.className = 'category-dropdown';
+        
+        const button = document.createElement('button');
+        button.className = 'dropdown-btn';
+        button.textContent = category.name;
+        button.onclick = () => toggleDropdown(categoryId);
+        
+        const content = document.createElement('div');
+        content.className = 'dropdown-content';
+        content.id = `dropdown-${categoryId}`;
+        
+        // Add examples to dropdown
+        for (const example of category.examples) {
+          const item = document.createElement('button');
+          item.className = 'dropdown-item';
+          item.textContent = example.title;
+          item.onclick = () => loadExample(example.file || example.id, example.content);
+          content.appendChild(item);
+        }
+        
+        dropdownDiv.appendChild(button);
+        dropdownDiv.appendChild(content);
+        container.appendChild(dropdownDiv);
+      }
+    }
+
+    // Toggle dropdown visibility
+    window.toggleDropdown = function(categoryId) {
+      // Close all other dropdowns
+      document.querySelectorAll('.dropdown-content').forEach(content => {
+        if (content.id !== `dropdown-${categoryId}`) {
+          content.classList.remove('show');
+        }
+      });
+      
+      document.querySelectorAll('.dropdown-btn').forEach(btn => {
+        if (btn.textContent !== examplesConfig.categories[categoryId].name) {
+          btn.classList.remove('active');
+        }
+      });
+
+      // Toggle current dropdown
+      const dropdown = document.getElementById(`dropdown-${categoryId}`);
+      const button = dropdown.previousElementSibling;
+      
+      dropdown.classList.toggle('show');
+      button.classList.toggle('active');
+    };
+
+    // Load example from file or embedded content
+    async function loadExample(filename, embeddedContent) {
+      try {
+        let content;
+        
+        if (embeddedContent !== undefined) {
+          // Use embedded content (fallback mode)
+          content = embeddedContent;
+        } else {
+          // Try to load from external file
+          const response = await fetch(`./examples/${filename}`);
+          content = await response.text();
+        }
+        
+        window.setExample(content);
+        
+        // Close all dropdowns
+        document.querySelectorAll('.dropdown-content').forEach(content => {
+          content.classList.remove('show');
+        });
+        document.querySelectorAll('.dropdown-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+      } catch (error) {
+        console.error('Failed to load example:', error);
+        // If embedded content is available, use it as final fallback
+        if (embeddedContent !== undefined) {
+          window.setExample(embeddedContent);
+        }
+      }
+    }
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(event) {
+      if (!event.target.matches('.dropdown-btn')) {
+        document.querySelectorAll('.dropdown-content').forEach(content => {
+          content.classList.remove('show');
+        });
+        document.querySelectorAll('.dropdown-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+      }
+    });
   
     // Expose cycleTheme so inline onClick can call it
     window.cycleTheme = function() {
@@ -978,15 +1121,28 @@ stateDiagram
     }
   
     // Once the DOM is ready, init everything
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", async () => {
       // Initialize Mermaid
       mermaid.initialize({ 
         startOnLoad: false 
-        // Optional theme overrides:
-        // theme: "dark",
-        // themeVariables: { lineColor: "#ffffff", textColor: "#ffffff" }
       });
-  
+
+      // Load examples and create dropdowns
+      await loadExamplesConfig();
+      
+      // Set default example
+      window.setExample(`flowchart TD
+    A[Start] --> B{Decision}
+    B -- Yes --> C[Do something]
+    B -- No --> D[Do something else]
+    C --> E[End]
+    D --> E`);
+
+      // Initial diagram render + live re-renders
+      const input = document.getElementById("mermaid-input");
+      if (input) {
+        input.addEventListener("input", renderMermaid);
+      }
     });
   </script>
 </body>

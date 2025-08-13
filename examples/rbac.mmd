@@ -1,0 +1,15 @@
+classDiagram
+class User {
+  +string username
+  +Role[] roles
+}
+class Role {
+  +string name
+  +Permission[] permissions
+}
+class Permission {
+  +string action
+  +string resource
+}
+User --> Role
+Role --> Permission

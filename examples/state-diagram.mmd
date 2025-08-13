@@ -1,0 +1,8 @@
+stateDiagram
+[*] --> Idle
+Idle --> Running : Start Process
+Running --> Paused : Pause
+Paused --> Running : Resume
+Running --> Stopped : Stop
+Stopped --> [*] : Shutdown
+Stopped --> Idle : Restart

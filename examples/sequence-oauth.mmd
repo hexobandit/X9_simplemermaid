@@ -1,0 +1,12 @@
+sequenceDiagram
+participant User
+participant App
+participant AuthServer
+participant ResourceServer
+User->>App: Login request
+App->>AuthServer: Redirect with credentials
+AuthServer-->>User: Auth Code
+User->>App: Return Auth Code
+App->>AuthServer: Exchange for Token
+AuthServer-->>App: Access Token
+App->>ResourceServer: Access resource with Token

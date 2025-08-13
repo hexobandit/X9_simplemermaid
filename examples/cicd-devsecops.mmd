@@ -1,0 +1,8 @@
+graph LR
+Dev[Developer] --> Commit[Code Commit]
+Commit --> Lint[Run Linter]
+Lint --> Test[Run Tests]
+Test --> Scan[SAST/DAST Scan]
+Scan --> Build[Build Artifact]
+Build --> Deploy[Deploy to Staging]
+Deploy --> Monitor[Security Monitoring]

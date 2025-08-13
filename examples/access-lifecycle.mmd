@@ -1,0 +1,7 @@
+stateDiagram-v2
+[*] --> Requested
+Requested --> Approved
+Requested --> Rejected
+Approved --> Provisioned
+Provisioned --> Expired
+Expired --> [*]

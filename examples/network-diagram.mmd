@@ -1,0 +1,13 @@
+flowchart LR
+User[👤 User] -->|Access Website| Browser[🌐 Browser/Client]
+Browser -->|HTTPS| LB[🔄 Cloudflare]
+subgraph VNET1 [VNet - My Virtual Network]
+subgraph Subnet1 [Subnet 1 - Web]
+VM1[🖥️ VM1 - Web Server]
+end
+subgraph Subnet2 [Subnet 2 - App]
+VM2[🖥️ VM2 - App Server]
+end
+end
+LB -->|Traffic Distribution| VM1
+VM1 -- API Calls --> VM2

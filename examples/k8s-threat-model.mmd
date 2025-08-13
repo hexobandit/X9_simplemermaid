@@ -1,0 +1,54 @@
+graph LR;
+%% Define custom styles
+classDef threat fill:#fca5a5,stroke:#f66,stroke-width:2px,color:#000,stroke-dasharray:5,stroke-dashoffset:5
+
+%% External
+user((End-User))
+threatCreds((Stolen<br/>Credentials))
+threatDOS((DoS<br/>Attack))
+threatMisconfig((Misconfiguration))
+maliciousImage((Malicious<br/>Container<br/>Image))
+
+subgraph external [External]
+    user
+    threatCreds
+    threatDOS
+    maliciousImage
+end
+
+subgraph cluster [Kubernetes Cluster]
+    ingress((Ingress<br/>Controller))
+    svc((K8s Service))
+        
+    subgraph node1 [Node #1]
+        pod1((Pod #1<br/>Application))
+    end
+        
+    subgraph node2 [Node #2]
+        pod2((Pod #2<br/>Application))
+    end
+        
+    secrets{{K8s Secrets}}
+end
+
+subgraph externalDB [External DB or API]
+    db[(SQL Database)]
+end
+
+%% Link them up
+user -->|HTTPS| ingress
+ingress -->|HTTP| svc
+svc --> pod1
+svc --> pod2
+pod1 -->|TCP/IP| db
+pod2 -->|TCP/IP| db
+secrets -.-> pod1
+secrets -.-> pod2
+    
+%% Threat vectors as dashed lines
+threatCreds-.-> user
+threatDOS-.-> ingress
+threatMisconfig-.-> secrets
+maliciousImage-.-> pod2
+
+class threatCreds,threatDOS,threatMisconfig,maliciousImage threat

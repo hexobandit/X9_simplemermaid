@@ -1,0 +1,11 @@
+sequenceDiagram
+participant User
+participant Browser
+participant Server
+participant Database
+User->>Browser: Request Website
+Browser->>Server: HTTP Request
+Server->>Database: Query Data
+Database-->>Server: Return Data
+Server-->>Browser: HTML Response
+Browser-->>User: Render Page

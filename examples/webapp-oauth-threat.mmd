@@ -1,0 +1,34 @@
+graph LR
+classDef threat fill:#fca5a5,stroke:#f66,stroke-width:2px,color:#000,stroke-dasharray:5
+
+user[User] --> client[(Browser/Client)]
+client -->|HTTPS + OAuth2 PKCE| idp[(Auth0 IdP)]
+idp -->|HTTP + JWT| client
+client -->|HTTPS + JWT| waf[(Cloudflare WAF)]
+
+subgraph Internet
+idp
+waf
+end
+
+subgraph Internal_Network
+waf -->|HTTPS + JWT| proxy[(Reverse Proxy)]
+proxy -->|HTTPS + JWT| api[(Flask App)]
+
+subgraph Kubernetes
+api
+end
+
+api -->|TCP/IP| db[(SQL Database)]
+db -->|TCP/IP| api
+end
+
+stolenCreds([Stolen<br/>Credentials])
+dos([DoS<br/>Attack])
+maliciousImage([Malicious<br/>Container<br/>Image])
+
+stolenCreds -.-> client
+dos -.-> waf
+maliciousImage -.-> api
+
+class stolenCreds,dos,maliciousImage threat

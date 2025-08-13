@@ -1,0 +1,27 @@
+classDiagram
+class Animal{
++int age
++String name
++eat()
++sleep()
+}
+class Mammal{
++boolean hasFur
++nurseYoung()
+}
+class Dog{
++String breed
++bark()
+}
+class Cat{
++boolean isIndoor
++meow()
+}
+class Owner{
++String name
++adoptPet(Animal pet)
+}
+Animal <|-- Mammal
+Mammal <|-- Dog
+Mammal <|-- Cat
+Owner o-- Animal : owns
