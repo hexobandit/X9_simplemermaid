@@ -51,383 +51,724 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --main-bg-light: linear-gradient(45deg, #c8ffff, #ffffff);
-      --main-bg-dark: linear-gradient(45deg, #192833, #081520);
-      --main-bg-colorful: linear-gradient(45deg, #C6E7FF, #D4F6FF);
-      --main-text-light: #262048;
-      --main-text-dark: #ffe0fa;
-      --main-text-colorful: #000000;
-      --max-width: 800px;
+      /* Modern 2025 Color Palette */
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --primary-light: #a5b4fc;
+      --secondary: #64748b;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --info: #06b6d4;
       
-      --code-bg: #272822;
-      --code-text: #f8f8f2;
+      /* Background System */
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8fafc;
+      --bg-tertiary: #f1f5f9;
+      --surface: #ffffff;
+      --surface-hover: #f8fafc;
+      
+      /* Text Colors */
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --text-inverse: #ffffff;
+      
+      /* Border & Shadow */
+      --border-color: #e2e8f0;
+      --border-light: #f1f5f9;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+      
+      /* Spacing Scale */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2rem;
+      --space-2xl: 3rem;
+      
+      /* Border Radius */
+      --radius-sm: 0.375rem;
+      --radius-md: 0.5rem;
+      --radius-lg: 0.75rem;
+      --radius-xl: 1rem;
+      
+      /* Typography */
+      --font-size-xs: 0.75rem;
+      --font-size-sm: 0.875rem;
+      --font-size-base: 1rem;
+      --font-size-lg: 1.125rem;
+      --font-size-xl: 1.25rem;
+      --font-size-2xl: 1.5rem;
+      --font-size-3xl: 1.875rem;
+      --font-size-4xl: 2.25rem;
+      
+      /* Layout */
+      --container-max: 1280px;
+      --header-height: 4rem;
     }
 
-    /* Basic reset */
-    * {
+    /* Dark Theme */
+    [data-theme="dark"] {
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --bg-tertiary: #334155;
+      --surface: #1e293b;
+      --surface-hover: #334155;
+      
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --text-inverse: #0f172a;
+      
+      --border-color: #334155;
+      --border-light: #475569;
+      
+      --primary: #818cf8;
+      --primary-hover: #6366f1;
+    }
+
+    /* Colorful Theme */
+    [data-theme="colorful"] {
+      --bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --bg-secondary: rgba(255, 255, 255, 0.1);
+      --bg-tertiary: rgba(255, 255, 255, 0.05);
+      --surface: rgba(255, 255, 255, 0.1);
+      --surface-hover: rgba(255, 255, 255, 0.2);
+      
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255, 255, 255, 0.9);
+      --text-muted: rgba(255, 255, 255, 0.7);
+      
+      --border-color: rgba(255, 255, 255, 0.2);
+      --border-light: rgba(255, 255, 255, 0.1);
+      
+      --primary: #ffffff;
+      --primary-hover: rgba(255, 255, 255, 0.9);
+    }
+
+    /* Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      font-family: 'Poppins', sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+      font-size: var(--font-size-base);
       line-height: 1.6;
-      background: var(--main-bg-light);
-      color: var(--main-text-light);
-      transition: background 0.3s, color 0.3s;
-      text-align: center;
-      padding: 20px;
+      color: var(--text-primary);
+      background: var(--bg-primary);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      min-height: 100vh;
     }
 
-    /* Headings */
-    h1, h2, h3, h4 {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 600;
-      text-align: center;
-      margin-top: 20px;
-      margin-bottom: 10px;
+    /* Layout Components */
+    .app-container {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: var(--space-lg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
     }
 
-    /* Paragraphs */
-    p {
-      font-size: 1rem;
-      font-weight: 300;
-      color: #2f2e2e; /* Slightly lighter for contrast */
-      text-align: center;
-      margin-bottom: 15px;
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
     }
 
-    /* Section Titles */
+    .card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary-light);
+    }
+
+    .card-header {
+      padding: var(--space-lg);
+      border-bottom: 1px solid var(--border-light);
+      background: var(--bg-secondary);
+    }
+
+    .card-body {
+      padding: var(--space-lg);
+    }
+
+    /* Typography */
+    h1 {
+      font-size: var(--font-size-4xl);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--text-primary);
+      margin-bottom: var(--space-md);
+    }
+
     h2 {
-    font-size: 1.8rem;
-    text-align: center;
+      font-size: var(--font-size-3xl);
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--space-lg);
     }
 
     h3 {
-      font-size: 1.4rem;
-      margin-top: 15px;
-      font-weight: 500;
-      text-align: left;
+      font-size: var(--font-size-2xl);
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--space-md);
     }
 
     h4 {
-      font-size: 1.2rem;
-      font-weight: 500;
-      margin-top: 10px;
+      font-size: var(--font-size-xl);
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: var(--space-sm);
+    }
+
+    p {
+      color: var(--text-secondary);
+      margin-bottom: var(--space-md);
+      line-height: 1.7;
+    }
+
+    .lead {
+      font-size: var(--font-size-lg);
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
+
+    .text-muted {
+      color: var(--text-muted);
     }
 
     /* Lists */
     ul, ol {
-      font-family: 'Poppins', sans-serif;
-      padding-left: 20px;
+      padding-left: var(--space-lg);
+      margin-bottom: var(--space-md);
     }
 
-    ul li, ol li {
-      font-family: 'Poppins', sans-serif;
-      font-size: 1.0rem;
-      margin-bottom: 8px;
+    li {
+      color: var(--text-secondary);
+      margin-bottom: var(--space-xs);
     }
 
-    .container {
-      max-width: var(--max-width);
-      max-width: 1000px;
-      margin: 30px auto; /* Adds spacing from other elements */
-      padding: 25px;
-      border-radius: 12px; /* Rounded corners */
-      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); /* Soft shadow */
-      text-align: left;
-      background-color: #ffffff39;
+    /* Header Section */
+    .header-section {
+      text-align: center;
+      padding: var(--space-lg) 0;
     }
 
-    /* Thematic modes */
-    .dark-mode {
-      background: var(--main-bg-dark);
-      color: var(--main-text-dark) !important;
-    }
-    .dark-mode #mermaid-output svg path,
-    .dark-mode #mermaid-output svg line,
-    .dark-mode #mermaid-output svg polygon,
-    .dark-mode #mermaid-output svg rect {
-      stroke: #ffffffd6 !important; 
+    .header-section p {
+      max-width: 600px;
+      margin: 0 auto var(--space-lg);
     }
 
-    /* Ensure text inside boxes is black in dark mode */
-    .dark-mode #mermaid-output svg text,
-    .dark-mode #mermaid-output svg tspan {
-      fill: #000 !important;
-    }
-
-    /* Ensure headings and text change in dark mode */
-    .dark-mode p, 
-    .dark-mode ul, 
-    .dark-mode li, 
-    .dark-mode h1, 
-    .dark-mode h2, 
-    .dark-mode h3 {
-      color: var(--main-text-dark) !important; /* Ensures text becomes white */
-    }
-
-    /* Ensure headings and text change in colorful mode */
-    .colorful-mode p, 
-    .colorful-mode ul, 
-    .colorful-mode li, 
-    .colorful-mode h1, 
-    .colorful-mode h2, 
-    .colorful-mode h3 {
-      color: var(--main-text-colorful) !important; /* Uses defined variable */
-    }
-
-    .colorful-mode {
-      background: var(--main-bg-colorful);
-      color: #ffffff;
-    }
-
-    /* Buttons */
-    button {
-      padding: 8px 12px;
-      margin: 3px;
-      border: none;
-      border-radius: 5px;
+    /* Button System */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      padding: var(--space-sm) var(--space-lg);
+      font-size: var(--font-size-sm);
+      font-weight: 500;
+      line-height: 1.5;
+      border: 1px solid transparent;
+      border-radius: var(--radius-md);
       cursor: pointer;
-      font-weight: bold;
-    }
-    .theme-btn {
-      background: #555;
-      color: #fff;
-    }
-    .example-btn {
-      background: #007bff;
-      color: #fff;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none;
+      user-select: none;
+      white-space: nowrap;
     }
 
-    .example-btn {
-      background: #007bff;
-      color: #fff;
-      padding: 8px 12px;
-      margin: 3px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background 0.3s;
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
     }
 
-    .example-btn:hover {
-      background: #0056b3;
+    .btn-primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: var(--text-inverse);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--primary-hover);
+      border-color: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border-color: var(--border-color);
+      color: var(--text-secondary);
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: var(--surface-hover);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-sm {
+      padding: var(--space-xs) var(--space-sm);
+      font-size: var(--font-size-xs);
+    }
+
+    .btn-lg {
+      padding: var(--space-md) var(--space-xl);
+      font-size: var(--font-size-lg);
+    }
+
+    /* Theme Toggle Button */
+    .theme-toggle {
+      position: fixed;
+      top: var(--space-lg);
+      right: var(--space-lg);
+      z-index: 1000;
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-sm);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.05);
     }
 
     /* Controls Section */
     .controls-section {
       display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin: 20px 0;
-      align-items: center;
-    }
-
-    .examples-controls {
-      display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: var(--space-md);
       justify-content: center;
       align-items: center;
+      padding: var(--space-md) 0;
     }
 
     /* Category Dropdowns */
-    .category-dropdown {
+    .dropdown {
       position: relative;
       display: inline-block;
     }
 
-    .dropdown-btn {
-      background: #007bff;
-      color: white;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 14px;
-      display: flex;
+    .dropdown-toggle {
+      display: inline-flex;
       align-items: center;
-      gap: 5px;
-      transition: background 0.3s;
+      gap: var(--space-xs);
+      padding: var(--space-sm) var(--space-lg);
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      font-size: var(--font-size-sm);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      user-select: none;
     }
 
-    .dropdown-btn:hover {
-      background: #0056b3;
+    .dropdown-toggle:hover {
+      background: var(--surface-hover);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-sm);
     }
 
-    .dropdown-btn::after {
-      content: '▼';
-      font-size: 10px;
-      transition: transform 0.3s;
+    .dropdown-toggle[aria-expanded="true"] {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: var(--text-inverse);
     }
 
-    .dropdown-btn.active::after {
+    .dropdown-icon {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.2s;
+    }
+
+    .dropdown-toggle[aria-expanded="true"] .dropdown-icon {
       transform: rotate(180deg);
     }
 
-    .dropdown-content {
-      display: none;
+    .dropdown-menu {
       position: absolute;
-      background: white;
-      min-width: 200px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-      border-radius: 5px;
-      z-index: 1000;
-      border: 1px solid #ddd;
-      top: 100%;
+      top: calc(100% + var(--space-xs));
       left: 0;
-      margin-top: 5px;
+      min-width: 200px;
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1000;
+      max-height: 320px;
+      overflow-y: auto;
     }
 
-    .dropdown-content.show {
-      display: block;
+    .dropdown-menu.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
     }
 
     .dropdown-item {
       display: block;
-      padding: 10px 15px;
-      text-decoration: none;
-      color: #333;
-      cursor: pointer;
-      font-size: 14px;
-      border: none;
-      background: none;
       width: 100%;
+      padding: var(--space-sm) var(--space-lg);
+      color: var(--text-secondary);
+      font-size: var(--font-size-sm);
       text-align: left;
-      transition: background 0.3s;
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-radius: 0;
     }
 
     .dropdown-item:hover {
-      background: #f8f9fa;
+      background: var(--surface-hover);
+      color: var(--primary);
     }
 
     .dropdown-item:first-child {
-      border-radius: 5px 5px 0 0;
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
     }
 
     .dropdown-item:last-child {
-      border-radius: 0 0 5px 5px;
+      border-radius: 0 0 var(--radius-sm) var(--radius-sm);
     }
 
-    /* Dark mode dropdown styles */
-    .dark-mode .dropdown-content {
-      background: #2c3e50;
-      border-color: #555;
+    /* Editor Section */
+    .editor-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg);
+      min-height: 500px;
     }
 
-    .dark-mode .dropdown-item {
-      color: #ecf0f1;
-    }
-
-    .dark-mode .dropdown-item:hover {
-      background: #34495e;
-    }
-
-    /* Colorful mode dropdown styles */
-    .colorful-mode .dropdown-content {
-      background: rgba(255, 255, 255, 0.95);
-      border-color: #999;
-    }
-
-    @media (max-width: 768px) {
-      .controls-section {
-        gap: 10px;
-      }
-      
-      .examples-controls {
-        flex-direction: column;
-        gap: 8px;
-      }
-      
-      .dropdown-btn {
-        padding: 8px 12px;
-        font-size: 13px;
-      }
-      
-      .dropdown-content {
-        min-width: 180px;
-      }
-    }
-
-
-    /* Mermaid Input */
-    #mermaid-input {
-      width: 100%;
-      height: 200px;
-      font-family: monospace;
-      padding: 10px;
-      margin-top: 10px;
-      background-color: #192833;
-      color: #bfbfbf;
-      padding: 10px;
-      border-radius: 5px;
-      margin: 10px 0;
-      white-space: pre;
-    }
-
-    /* Mermaid Output */
-    #mermaid-output {
-      margin-top: 20px;
-      border: 1px solid #ccc;
-      padding: 15px;
-      background: #fff;
-      width: 100%;
-      overflow-x: auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      border-radius: 5px;
-      margin: 10px 0;
-    }
-    .dark-mode #mermaid-output {
-      background: #192833;
-      border-color: #555;
-    }
-    .colorful-mode #mermaid-output {
-      background: rgba(255,255,255,0.2);
-      border-color: #fff;
-    }
-
-    /* "How to" Section */
-    .code-container {
-      background: var(--code-bg);
-      color: var(--code-text);
-      padding: 10px;
-      border-radius: 5px;
-      margin: 10px 0;
-      white-space: pre;
-      overflow-x: auto;
-      font-family: monospace;
-    }
-
-    /* Cookie Popup */
-    #cookie-popup {
-      position: fixed;
-      bottom: 15px;
-      left: 15px;
-      background: rgba(0,0,0,0.8);
-      color: #fff;
-      padding: 15px;
-      border-radius: 8px;
-      font-size: 14px;
-      max-width: 300px;
+    .editor-panel, .preview-panel {
       display: flex;
       flex-direction: column;
-      gap: 10px;
     }
-    #cookie-popup button {
-      align-self: flex-end;
-      background: #fff;
-      color: #000;
-      padding: 5px 10px;
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-md) var(--space-lg);
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-light);
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+
+    .panel-title {
+      font-size: var(--font-size-sm);
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    .panel-body {
+      flex: 1;
+      padding: 0;
+      background: var(--surface);
+      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+      overflow: hidden;
+    }
+
+
+    /* Form Controls */
+    .form-control {
+      width: 100%;
+      padding: var(--space-md);
+      font-size: var(--font-size-sm);
+      line-height: 1.5;
+      color: var(--text-primary);
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      resize: vertical;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+
+    /* Code Editor */
+    .code-editor {
+      height: 100%;
+      min-height: 400px;
+      font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+      font-size: var(--font-size-sm);
+      line-height: 1.6;
+      background: var(--bg-tertiary);
       border: none;
-      border-radius: 5px;
-      cursor: pointer;
+      border-radius: 0;
+      resize: none;
+      tab-size: 2;
+    }
+
+    .code-editor:focus {
+      box-shadow: none;
+      border-color: transparent;
+    }
+
+    /* Preview Panel */
+    .preview-container {
+      height: 100%;
+      min-height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--surface);
+      border-radius: 0;
+      overflow: auto;
+      padding: var(--space-lg);
+    }
+
+    .preview-container svg {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .preview-error {
+      color: var(--danger);
+      font-size: var(--font-size-sm);
+      text-align: center;
+      padding: var(--space-lg);
+    }
+
+    /* Mermaid SVG Theme Adjustments */
+    /* Dark Theme SVG Fixes */
+    [data-theme="dark"] #mermaid-output svg {
+      background: transparent;
+    }
+
+    [data-theme="dark"] #mermaid-output svg .flowchart-link,
+    [data-theme="dark"] #mermaid-output svg .edgePath path,
+    [data-theme="dark"] #mermaid-output svg .edge-pattern-solid,
+    [data-theme="dark"] #mermaid-output svg path,
+    [data-theme="dark"] #mermaid-output svg line,
+    [data-theme="dark"] #mermaid-output svg polygon,
+    [data-theme="dark"] #mermaid-output svg polyline {
+      stroke: #e2e8f0 !important;
+      stroke-width: 2px !important;
+    }
+
+    [data-theme="dark"] #mermaid-output svg .arrowheadPath,
+    [data-theme="dark"] #mermaid-output svg .arrowMarkerPath,
+    [data-theme="dark"] #mermaid-output svg marker path {
+      fill: #e2e8f0 !important;
+      stroke: #e2e8f0 !important;
+    }
+
+    /* Node backgrounds in dark mode */
+    [data-theme="dark"] #mermaid-output svg rect,
+    [data-theme="dark"] #mermaid-output svg circle,
+    [data-theme="dark"] #mermaid-output svg ellipse,
+    [data-theme="dark"] #mermaid-output svg polygon {
+      fill: var(--surface) !important;
+      stroke: #e2e8f0 !important;
+      stroke-width: 2px !important;
+    }
+
+    /* Text color in dark mode - make text white for visibility on dark backgrounds */
+    [data-theme="dark"] #mermaid-output svg text,
+    [data-theme="dark"] #mermaid-output svg tspan {
+      fill: #ffffff !important;
+      color: #ffffff !important;
+    }
+
+    /* Specific text elements that need white text in dark mode */
+    [data-theme="dark"] #mermaid-output svg .nodeLabel,
+    [data-theme="dark"] #mermaid-output svg .cluster-label text,
+    [data-theme="dark"] #mermaid-output svg .edgeLabel text,
+    [data-theme="dark"] #mermaid-output svg foreignObject div {
+      color: #ffffff !important;
+    }
+
+    /* Fix for HTML-based labels in dark mode */
+    [data-theme="dark"] #mermaid-output svg foreignObject {
+      color: #ffffff !important;
+    }
+
+    [data-theme="dark"] #mermaid-output svg foreignObject > div {
+      color: #ffffff !important;
+      background: transparent !important;
+    }
+
+    /* Colorful Theme SVG Fixes */
+    [data-theme="colorful"] #mermaid-output svg .flowchart-link,
+    [data-theme="colorful"] #mermaid-output svg .edgePath path,
+    [data-theme="colorful"] #mermaid-output svg .edge-pattern-solid,
+    [data-theme="colorful"] #mermaid-output svg path,
+    [data-theme="colorful"] #mermaid-output svg line,
+    [data-theme="colorful"] #mermaid-output svg polygon,
+    [data-theme="colorful"] #mermaid-output svg polyline {
+      stroke: rgba(255, 255, 255, 0.9) !important;
+      stroke-width: 2px !important;
+    }
+
+    [data-theme="colorful"] #mermaid-output svg .arrowheadPath,
+    [data-theme="colorful"] #mermaid-output svg .arrowMarkerPath,
+    [data-theme="colorful"] #mermaid-output svg marker path {
+      fill: rgba(255, 255, 255, 0.9) !important;
+      stroke: rgba(255, 255, 255, 0.9) !important;
+    }
+
+    /* Node backgrounds in colorful mode */
+    [data-theme="colorful"] #mermaid-output svg rect,
+    [data-theme="colorful"] #mermaid-output svg circle,
+    [data-theme="colorful"] #mermaid-output svg ellipse {
+      fill: rgba(255, 255, 255, 0.2) !important;
+      stroke: rgba(255, 255, 255, 0.8) !important;
+      stroke-width: 2px !important;
+    }
+
+    /* Text in colorful mode - make text white for visibility */
+    [data-theme="colorful"] #mermaid-output svg text,
+    [data-theme="colorful"] #mermaid-output svg tspan {
+      fill: #ffffff !important;
+      color: #ffffff !important;
+      font-weight: 600 !important;
+    }
+
+    /* Specific text elements for colorful mode */
+    [data-theme="colorful"] #mermaid-output svg .nodeLabel,
+    [data-theme="colorful"] #mermaid-output svg .cluster-label text,
+    [data-theme="colorful"] #mermaid-output svg .edgeLabel text,
+    [data-theme="colorful"] #mermaid-output svg foreignObject div {
+      color: #ffffff !important;
+    }
+
+    [data-theme="colorful"] #mermaid-output svg foreignObject > div {
+      color: #ffffff !important;
+      background: transparent !important;
+    }
+
+    /* Additional Mermaid elements for all dark themes */
+    [data-theme="dark"] #mermaid-output svg .actor,
+    [data-theme="dark"] #mermaid-output svg .note,
+    [data-theme="dark"] #mermaid-output svg .task,
+    [data-theme="dark"] #mermaid-output svg .section,
+    [data-theme="dark"] #mermaid-output svg .grid .tick line,
+    [data-theme="dark"] #mermaid-output svg .statediagram-state rect,
+    [data-theme="dark"] #mermaid-output svg .er.relationshipLine {
+      stroke: #e2e8f0 !important;
+    }
+
+    [data-theme="dark"] #mermaid-output svg .node rect,
+    [data-theme="dark"] #mermaid-output svg .node circle,
+    [data-theme="dark"] #mermaid-output svg .node ellipse,
+    [data-theme="dark"] #mermaid-output svg .node polygon,
+    [data-theme="dark"] #mermaid-output svg .cluster rect {
+      stroke: #e2e8f0 !important;
+      stroke-width: 2px !important;
+    }
+
+    /* Sequence diagram improvements for dark theme */
+    [data-theme="dark"] #mermaid-output svg .messageText,
+    [data-theme="dark"] #mermaid-output svg .labelText,
+    [data-theme="dark"] #mermaid-output svg .loopText {
+      fill: var(--text-primary) !important;
+    }
+
+    /* Gantt chart improvements for dark theme */
+    [data-theme="dark"] #mermaid-output svg .section0,
+    [data-theme="dark"] #mermaid-output svg .section1,
+    [data-theme="dark"] #mermaid-output svg .section2,
+    [data-theme="dark"] #mermaid-output svg .section3 {
+      fill: var(--surface) !important;
+    }
+
+    /* Similar adjustments for colorful theme */
+    [data-theme="colorful"] #mermaid-output svg .actor,
+    [data-theme="colorful"] #mermaid-output svg .note,
+    [data-theme="colorful"] #mermaid-output svg .task,
+    [data-theme="colorful"] #mermaid-output svg .section,
+    [data-theme="colorful"] #mermaid-output svg .grid .tick line,
+    [data-theme="colorful"] #mermaid-output svg .statediagram-state rect,
+    [data-theme="colorful"] #mermaid-output svg .er.relationshipLine {
+      stroke: rgba(255, 255, 255, 0.9) !important;
+    }
+
+    /* Code Examples */
+    .code-example {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      margin: var(--space-md) 0;
+      overflow-x: auto;
+      font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+      font-size: var(--font-size-sm);
+      line-height: 1.6;
+      color: var(--text-primary);
+      white-space: pre-line;
+    }
+
+    .code-example pre {
+      margin: 0;
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    /* Documentation Sections */
+    .docs-section {
+      margin: var(--space-xl) 0;
+    }
+
+    .docs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-lg);
+      margin: var(--space-lg) 0;
+    }
+
+    .docs-card {
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .docs-card:hover {
+      border-color: var(--primary-light);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    /* Full Width Documentation Cards */
+    .docs-full-width {
+      display: block;
+      width: 100%;
+      margin: var(--space-md) 0;
+    }
+
+    .docs-full-width .docs-card {
+      width: 100%;
+      max-width: none;
     }
 
 
@@ -637,6 +978,73 @@
         width: 12px;
       }
     }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .editor-section {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+      }
+      
+      .app-container {
+        padding: var(--space-md);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .theme-toggle {
+        top: var(--space-sm);
+        right: var(--space-sm);
+      }
+      
+      .controls-section {
+        flex-direction: column;
+        gap: var(--space-sm);
+      }
+      
+      .dropdown-menu {
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90vw;
+        max-width: 280px;
+      }
+      
+      .dropdown-menu.show {
+        transform: translateX(-50%);
+      }
+      
+      .code-editor, .preview-container {
+        min-height: 300px;
+      }
+      
+      h1 {
+        font-size: var(--font-size-3xl);
+      }
+      
+      h2 {
+        font-size: var(--font-size-2xl);
+      }
+      
+      .docs-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .app-container {
+        padding: var(--space-sm);
+        gap: var(--space-lg);
+      }
+      
+      .logo-text {
+        font-size: var(--font-size-2xl);
+      }
+      
+      .btn {
+        padding: var(--space-sm);
+        font-size: var(--font-size-xs);
+      }
+    }
   </style>
 </head>
 
@@ -652,85 +1060,109 @@
 
 
 <body>
-  <div class="container">
-    <h1 class="logo-container">
-      <a href="index.html" title="SimpleMermaid.com - Simple Online Mermaid.js Editor" class="logo-link">
-        <div class="css-logo">
-          <div class="logo-icon">
-            <div class="diagram-node"></div>
-            <div class="diagram-connection"></div>
-            <div class="diagram-node"></div>
-            <div class="diagram-connection diagram-connection-2"></div>
-            <div class="diagram-node"></div>
-          </div>
-          <div class="logo-text">
-            <span class="logo-simple">Simple</span><span class="logo-mermaid">Mermaid</span>
-          </div>
-        </div>
-      </a>
-    </h1>
+  <!-- Theme Toggle -->
+  <button class="btn btn-secondary theme-toggle" onclick="cycleTheme()" title="Switch Theme">
+    🎨
+  </button>
 
-    <p>
-      Fast, distraction-free editor where you can 
-      <strong>write, visualize, and experiment</strong> with Mermaid.js diagrams in real time. 
-      Just modify the diagram below and see real-time updates.
-    </p>
-  
-    <!-- Theme and Examples Controls -->
-    <div class="controls-section">
-      <button class="theme-btn" onclick="cycleTheme()">Change Theme</button>
-      <div class="examples-controls">
+  <div class="app-container">
+    <!-- Header Section -->
+    <header class="header-section">
+      <div class="logo-container">
+        <a href="index.html" title="SimpleMermaid.com - Simple Online Mermaid.js Editor" class="logo-link">
+          <div class="css-logo">
+            <div class="logo-icon">
+              <div class="diagram-node"></div>
+              <div class="diagram-connection"></div>
+              <div class="diagram-node"></div>
+              <div class="diagram-connection diagram-connection-2"></div>
+              <div class="diagram-node"></div>
+            </div>
+            <div class="logo-text">
+              <span class="logo-simple">Simple</span><span class="logo-mermaid">Mermaid</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <p class="lead">
+        Fast, distraction-free editor where you can 
+        <strong>write, visualize, and experiment</strong> with Mermaid.js diagrams in real time.
+      </p>
+
+      <!-- Examples Controls -->
+      <div class="controls-section">
         <div id="category-dropdowns">
           <!-- Categories will be loaded dynamically -->
         </div>
       </div>
-    </div>
+    </header>
 
-
-    <!-- Diagram Input -->
-    <textarea id="mermaid-input">
-flowchart TD
+    <!-- Main Editor -->
+    <main class="card">
+      <div class="editor-section">
+        <!-- Code Editor Panel -->
+        <div class="editor-panel">
+          <div class="panel-header">
+            <h3 class="panel-title">📝 Mermaid Code</h3>
+          </div>
+          <div class="panel-body">
+            <textarea 
+              id="mermaid-input" 
+              class="form-control code-editor"
+              placeholder="Enter your Mermaid diagram code here..."
+              spellcheck="false"
+            >flowchart TD
     A[Start] --> B{Decision}
     B -- Yes --> C[Do something]
     B -- No --> D[Do something else]
     C --> E[End]
-    D --> E
-    </textarea>
+    D --> E</textarea>
+          </div>
+        </div>
 
-    <!-- Diagram Output -->
-    <div id="mermaid-output">
-      Loading diagram...
-    </div>
-  </div>
+        <!-- Preview Panel -->
+        <div class="preview-panel">
+          <div class="panel-header">
+            <h3 class="panel-title">👁️ Live Preview</h3>
+          </div>
+          <div class="panel-body">
+            <div id="mermaid-output" class="preview-container">
+              <div class="text-muted">Loading diagram...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
 
-  <div class="container"
-    <!-- How to Diagram -->
-    <h2>How to Create Diagrams</h2>
-    <p>Mermaid uses a simple, text-based syntax. Here are examples:</p>
+    <!-- Documentation Section -->
+    <section class="docs-section">
+      <div class="docs-full-width">
+        <div class="docs-card">
+          <h3>📊 All Diagram Types</h3>
+          <p class="text-muted">Mermaid supports various diagram types. Use %% for comments – helpful for documentation.</p>
+          <div class="code-example"><pre>graph LR         %% Left-to-right graph (alternative syntax for flowchart)
+graph RL         %% Right-to-left graph
+graph TD         %% Top-down graph
+flowchart TD     %% Standard flowchart (top-down)
+flowchart LR     %% Left-to-right flowchart
+sequenceDiagram  %% Interaction between system components
+pie              %% Pie chart visualization
+gantt            %% Project timeline representation
+stateDiagram     %% State machine diagrams
+stateDiagram-v2  %% Improved state diagram with better syntax
+classDiagram     %% UML-style class relationships
+erDiagram        %% Entity-relationship diagrams for databases
+journey          %% User journey or experience mapping
+quadrantChart    %% Risk and priority matrices</pre></div>
+        </div>
+      </div>
 
-    <h3>All Different Diagram Types</h3>
-    <p style="text-align: left;">Use %% for comments – helpful for documentation.</p>
-    <div class="code-container">
-graph LR	     %% Left-to-right graph (alternative syntax for flowchart)
-graph RL	     %% Right-to-left graph
-graph TD	     %% Top-down graph
-flowchart TD	     %% Standard flowchart (top-down)
-flowchart LR	     %% Left-to-right flowchart
-sequenceDiagram	     %% Interaction between system components
-pie	             %% Pie chart visualization
-gantt	             %% Project timeline representation
-stateDiagram	     %% State machine diagrams
-stateDiagram-v2	     %% Improved state diagram with better syntax
-classDiagram	     %% UML-style class relationships
-erDiagram	     %% Entity-relationship diagrams for databases
-journey	             %% User journey or experience mapping
-quadrantChart	     %% Risk and priority matrices
-    </div>
-
-    <h3>Grouping Elements (Subgraphs & VLANs)</h3>
-    <p style="text-align: left;">Use subgraph to create VLANs or logical groups.</p>
-    <div class="code-container">
-flowchart TD
+      <div class="docs-full-width">
+        <div class="docs-card">
+          <h3>🏗️ Grouping Elements (Subgraphs & VLANs)</h3>
+          <p class="text-muted">Use subgraph to create VLANs or logical groups.</p>
+          <div class="code-example"><pre>flowchart TD
 subgraph VLAN1 [VLAN 1]
   A[Server 1] -->|Ethernet| B[Switch]
   C[Server 2] -->|Ethernet| B
@@ -738,171 +1170,99 @@ end
 subgraph VLAN2 [VLAN 2]
   D[Server 3] -->|Ethernet| E[Switch]
 end
-B -->|Router| E
-    </div>
-    
-  </div> <!-- /container -->
+B -->|Router| E</pre></div>
+        </div>
+      </div>
 
-  <div class="container">
-    <h2>How to Style Nodes and Flows</h2>
-    <p>Mermaid lets you define shapes, text, and relationships using simple syntax:</p>
-
-    <h3>Basic Shapes</h3>
-    <p style="text-align: left;">Surround text with different brackets to create shapes:</p>
-    <div class="code-container">
-flowchart TD
+      <div class="docs-full-width">
+        <div class="docs-card">
+          <h3>🔷 Basic Shapes</h3>
+          <p class="text-muted">Surround text with different brackets to create shapes:</p>
+          <div class="code-example"><pre>flowchart TD
   A[Rectangle]
   B(Round Edges)
   C((Circle))
   D{{Diamond}}
   E>Angled Rectangle]
   F[/Parallelogram/]
-  G[[Database]]
-    </div>
+  G[[Database]]</pre></div>
+        </div>
+      </div>
 
-    <h3>Named Arrows (Flows)</h3>
-    <p style="text-align: left;">Label connections using `-->|"text"|` syntax:</p>
-    <div class="code-container">
-flowchart LR
+      <div class="docs-full-width">
+        <div class="docs-card">
+          <h3>➡️ Named Arrows (Flows)</h3>
+          <p class="text-muted">Label connections using `-->|"text"|` syntax:</p>
+          <div class="code-example"><pre>flowchart LR
   A[User] -->|Logs in| B[Login Page]
   B -->|Sends credentials| C[Server]
-  C -->|Responds| D[Dashboard]
-    </div>
+  C -->|Responds| D[Dashboard]</pre></div>
+        </div>
+      </div>
 
-    <h3>Styling with `classDef` and `class`</h3>
-    <p style="text-align: left;">Use custom classes to style nodes:</p>
-    <div class="code-container">
-flowchart TD
+      <div class="docs-full-width">
+        <div class="docs-card">
+          <h3>🎨 Styling with `classDef` and `class`</h3>
+          <p class="text-muted">Use custom classes to style nodes:</p>
+          <div class="code-example"><pre>flowchart TD
   A[Secure Node]:::secure
   B[Threat Node]:::threat
   classDef secure fill:#5cb85c,stroke:#3e8e41,stroke-width:2px;
-  classDef threat fill:#f66,stroke:#900,stroke-width:2px;
-    </div>
-  </div>
+  classDef threat fill:#f66,stroke:#900,stroke-width:2px;</pre></div>
+        </div>
+      </div>
 
-  <div class="container">
-  <h2>Named Arrows (Flows) in State Diagrams</h2>
-  <p>In <code>stateDiagram</code>, transitions are labeled using a colon <code>:</code> after the arrow definition:</p>
-
-  <h3>Basic Syntax</h3>
-  <div class="code-container">
-stateDiagram
-    Idle --> Running : Start Process
-    Running --> Paused : Pause
-    Paused --> Running : Resume
-    Running --> Stopped : Stop
-  </div>
-
-  <h3>Entry & Exit States</h3>
-  <div class="code-container">
-stateDiagram
-    [*] --> Idle
-    Stopped --> [*] : Shutdown
-    Stopped --> Idle : Restart
-  </div>
-
-  <h3>Full Example</h3>
-  <div class="code-container">
-stateDiagram
+      <div class="docs-full-width">
+        <div class="docs-card">
+          <h3>🔄 Named Arrows in State Diagrams</h3>
+          <p class="text-muted">In <code>stateDiagram</code>, transitions are labeled using a colon <code>:</code> after the arrow definition:</p>
+          <div class="code-example"><pre>stateDiagram
     [*] --> Idle
     Idle --> Running : Start Process
     Running --> Paused : Pause
     Paused --> Running : Resume
     Running --> Stopped : Stop
     Stopped --> [*] : Shutdown
-    Stopped --> Idle : Restart
-  </div>
-</div>
+    Stopped --> Idle : Restart</pre></div>
+        </div>
+      </div>
+    </section>
 
-  <div class="container">
-    <h3>Best Practices (What to Do)</h3>
+    <section class="docs-grid">
+      <div class="docs-card">
+        <h3>✅ Best Practices</h3>
+        <p class="text-muted">Follow these guidelines for better diagrams:</p>
+        <ul>
+          <li>Break complex diagrams into multiple smaller ones</li>
+          <li>Use descriptive labels (User, App, DB) instead of A, B, C</li>
+          <li>Use subgraph for logical grouping</li>
+          <li>Define custom styles with classDef</li>
+          <li>Apply styles using class nodeName className</li>
+          <li>Use color coding for threats, servers, and databases</li>
+        </ul>
+      </div>
 
-    <ul>
-      <li>Break complex diagrams into multiple smaller ones</li>
-      <li>Use descriptive labels (User, App, DB) instead of A, B, C</li>
-      <li>Use subgraph for logical grouping</li>
-      <li>Define custom styles with classDef</li>
-      <li>Apply styles using class nodeName className</li>
-      <li>Use color coding for threats, servers, and databases</li>
-    </ul>
+      <div class="docs-card">
+        <h3>📚 About Mermaid.js</h3>
+        <p class="text-muted">Mermaid.js is a powerful, text-based diagramming tool that creates flowcharts, sequence diagrams, Gantt charts, and more using simple, Markdown-like syntax.</p>
+        <p class="text-muted">Perfect for developers, technical writers, project managers, and students who need quick, professional diagrams without complex software.</p>
+      </div>
 
-
-  </div>
-
-  <div class="container">
-    <h2>The Easiest Way to Learn Mermaid.js Diagrams</h2>
-  
-    <p>
-      If you've ever struggled with creating <strong>flowcharts, sequence diagrams, or Gantt charts</strong>,
-      you're not alone. Many diagramming tools come with unnecessary features, cluttered interfaces,
-      and frustrating learning curves. But what if you just need a <strong>quick and simple tool</strong> 
-      to test Mermaid.js <strong>without distractions?</strong>
-    </p>
-
-    <h3>📚 What is Mermaid.js?</h3>
-
-      <p style="text-align: left;">
-        <strong>Mermaid.js</strong> is a powerful, text-based diagramming tool that makes it easy to create 
-        flowcharts, sequence diagrams, Gantt charts, pie charts, entity-relationship diagrams,
-        and more—all using simple, intuitive <strong>Markdown-like syntax</strong>.
-      </p>
-    
-      <p style="text-align: left;">
-        Unlike traditional drag-and-drop diagramming tools, Mermaid.js lets you define 
-        <strong>complex diagrams using plain text</strong>, making it perfect for 
-        developers, technical writers, project managers, and students.
-      </p>
-    
-      <p style="text-align: left;">
-        With its <strong>lightweight, JavaScript-based engine</strong>, Mermaid.js seamlessly integrates into 
-        websites, documentation, and wikis, allowing users to generate, modify, and update diagrams effortlessly 
-        without needing any graphical software.
-      </p>
- 
-  
-    <h3>🚀 Why Use SimpleMermaid?</h3>
-    <ul>
-      <li><strong>No Setup Needed</strong> – Just open the page and start diagramming.</li>
-      <li><strong>Instant Preview</strong> – Type Mermaid.js syntax and see your diagram update live.</li>
-      <li><strong>Distraction-Free UI</strong> – No pop-ups, no ads, just you and your diagram.</li>
-      <li><strong>Works on Any Device</strong> – Use it on desktop, tablet, or mobile.</li>
-      <li><strong>Dark Mode & Themes</strong> – Switch between light, dark, and gray themes.</li>
-      <li><strong>Preloaded Examples</strong> – Click a button to load flowcharts, sequence diagrams, or Gantt charts instantly.</li>
-    </ul>
-  
-  
-    <h3>🛠️ How to Use SimpleMermaid</h3>
-    <ul>
-      <li><strong>Open SimpleMermaid</strong> – No installation required.</li>
-      <li><strong>Write Mermaid.js Code</strong> – Use the editor to type diagrams.</li>
-      <li><strong>See Instant Updates</strong> – The diagram refreshes as you type.</li>
-      <li><strong>Switch Themes</strong> – Light, Dark, or Gray mode.</li>
-      <li><strong>Load Examples</strong> – Click buttons to insert ready-made diagrams.</li>
-    </ul>
-  
-    <h3>🌍 Who is SimpleMermaid for?</h3>
-    <ul>
-      <li><strong>Students & Beginners</strong> – Learn Mermaid.js without distractions.</li>
-      <li><strong>Developers & Engineers</strong> – Quickly test flowcharts & architecture diagrams.</li>
-      <li><strong>Technical Writers</strong> – Create beautiful documentation diagrams.</li>
-      <li><strong>Project Managers</strong> – Use Gantt charts for simple project tracking.</li>
-    </ul>
-
+      <div class="docs-card">
+        <h3>🚀 Why SimpleMermaid?</h3>
+        <ul>
+          <li><strong>No Setup Needed</strong> – Just open and start diagramming</li>
+          <li><strong>Instant Preview</strong> – Live diagram updates as you type</li>
+          <li><strong>Distraction-Free</strong> – Clean, focused interface</li>
+          <li><strong>Multiple Themes</strong> – Light, dark, and colorful modes</li>
+          <li><strong>Preloaded Examples</strong> – Ready-made diagram templates</li>
+        </ul>
+      </div>
+    </section>
   </div>
 
-  <div class="container">
-    <h3>🌍 Other Projects</h3>
-    <ul>
-      <li><strong><a href="https://short-ies.com" target="_blank">short-ies.com</a></strong> - AI news, tech trends, cybersecurity, space, sustainability, biohacking, healthy living</li>
-      <li><strong><a href="https://trackmytime.net" target="_blank">TrackMyTime.net</a></strong> - Simple and effective time management web app</li>
-      <li><strong><a href="https://threatbandit.com" target="_blank">ThreatBandit.com</a></strong> - Cybersecurity Threat Modelling tool for Kubernetes, API, LLM</li>
-      <li><strong><a href="https://emphonic.com" target="_blank">emphonic.com</a></strong> - DnB, Breakbeat, House, Chillout music</li>
-      <li><strong><a href="https://www.youtube.com/@prague-rooftop-lounge" target="_blank">youtube.com/@prague-rooftop-lounge</a></strong> - Prague Rooftop Lounge Youtube House & D&B channel</li>
-    </ul>
-  </div>
-
-  <footer>
-    &copy; 2025 SimpleMermaid.com. All rights reserved. By hexoBandit.
+  <footer style="text-align: center; padding: 2rem; color: var(--text-muted); border-top: 1px solid var(--border-color); margin-top: 3rem;">
+    &copy; 2025 SimpleMermaid.com. All rights reserved.
   </footer>
 
 
@@ -995,15 +1355,22 @@ stateDiagram
 
       for (const [categoryId, category] of Object.entries(examplesConfig.categories)) {
         const dropdownDiv = document.createElement('div');
-        dropdownDiv.className = 'category-dropdown';
+        dropdownDiv.className = 'dropdown';
         
         const button = document.createElement('button');
-        button.className = 'dropdown-btn';
+        button.className = 'dropdown-toggle';
         button.textContent = category.name;
+        button.setAttribute('aria-expanded', 'false');
         button.onclick = () => toggleDropdown(categoryId);
         
+        // Add dropdown icon
+        const icon = document.createElement('span');
+        icon.className = 'dropdown-icon';
+        icon.innerHTML = '▼';
+        button.appendChild(icon);
+        
         const content = document.createElement('div');
-        content.className = 'dropdown-content';
+        content.className = 'dropdown-menu';
         content.id = `dropdown-${categoryId}`;
         
         // Add examples to dropdown
@@ -1024,24 +1391,25 @@ stateDiagram
     // Toggle dropdown visibility
     window.toggleDropdown = function(categoryId) {
       // Close all other dropdowns
-      document.querySelectorAll('.dropdown-content').forEach(content => {
+      document.querySelectorAll('.dropdown-menu').forEach(content => {
         if (content.id !== `dropdown-${categoryId}`) {
           content.classList.remove('show');
         }
       });
       
-      document.querySelectorAll('.dropdown-btn').forEach(btn => {
-        if (btn.textContent !== examplesConfig.categories[categoryId].name) {
-          btn.classList.remove('active');
+      document.querySelectorAll('.dropdown-toggle').forEach(btn => {
+        if (btn.getAttribute('aria-expanded') === 'true' && !btn.textContent.includes(examplesConfig.categories[categoryId].name)) {
+          btn.setAttribute('aria-expanded', 'false');
         }
       });
 
       // Toggle current dropdown
       const dropdown = document.getElementById(`dropdown-${categoryId}`);
       const button = dropdown.previousElementSibling;
+      const isOpen = button.getAttribute('aria-expanded') === 'true';
       
-      dropdown.classList.toggle('show');
-      button.classList.toggle('active');
+      button.setAttribute('aria-expanded', !isOpen);
+      dropdown.classList.toggle('show', !isOpen);
     };
 
     // Load example from file or embedded content
@@ -1061,11 +1429,11 @@ stateDiagram
         window.setExample(content);
         
         // Close all dropdowns
-        document.querySelectorAll('.dropdown-content').forEach(content => {
+        document.querySelectorAll('.dropdown-menu').forEach(content => {
           content.classList.remove('show');
         });
-        document.querySelectorAll('.dropdown-btn').forEach(btn => {
-          btn.classList.remove('active');
+        document.querySelectorAll('.dropdown-toggle').forEach(btn => {
+          btn.setAttribute('aria-expanded', 'false');
         });
       } catch (error) {
         console.error('Failed to load example:', error);
@@ -1078,24 +1446,33 @@ stateDiagram
 
     // Close dropdowns when clicking outside
     document.addEventListener('click', function(event) {
-      if (!event.target.matches('.dropdown-btn')) {
-        document.querySelectorAll('.dropdown-content').forEach(content => {
+      if (!event.target.closest('.dropdown')) {
+        document.querySelectorAll('.dropdown-menu').forEach(content => {
           content.classList.remove('show');
         });
-        document.querySelectorAll('.dropdown-btn').forEach(btn => {
-          btn.classList.remove('active');
+        document.querySelectorAll('.dropdown-toggle').forEach(btn => {
+          btn.setAttribute('aria-expanded', 'false');
         });
       }
     });
   
-    // Expose cycleTheme so inline onClick can call it
+    // Theme cycling function
     window.cycleTheme = function() {
-      document.body.classList.remove("dark-mode", "colorful-mode");
-      themeIndex = (themeIndex + 1) % 3;
-      if (themeIndex === 1) {
-        document.body.classList.add("dark-mode");
-      } else if (themeIndex === 2) {
-        document.body.classList.add("colorful-mode");
+      const themes = ['light', 'dark', 'colorful'];
+      themeIndex = (themeIndex + 1) % themes.length;
+      const newTheme = themes[themeIndex];
+      
+      if (newTheme === 'light') {
+        document.documentElement.removeAttribute('data-theme');
+      } else {
+        document.documentElement.setAttribute('data-theme', newTheme);
+      }
+      
+      // Update theme toggle button text
+      const toggleBtn = document.querySelector('.theme-toggle');
+      if (toggleBtn) {
+        const icons = ['🌞', '🌙', '🎨'];
+        toggleBtn.textContent = icons[themeIndex];
       }
     };
   
@@ -1116,7 +1493,7 @@ stateDiagram
         const { svg } = await mermaid.mermaidAPI.render("generatedDiagram", input.value);
         output.innerHTML = svg;
       } catch (err) {
-        output.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
+        output.innerHTML = `<div class="preview-error">Error: ${err.message}</div>`;
       }
     }
   
