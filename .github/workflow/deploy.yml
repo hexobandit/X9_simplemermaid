@@ -51,6 +51,7 @@ jobs:
             **/.github/**
             **/node_modules/**
             **/.gitleaks.toml
+            CLAUDE.md
             README.md
           # Passive mode is default. Keeps a deploy state to speed diffs:
           state-name: .ftp-deploy-sync-state.json
