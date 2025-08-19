@@ -523,6 +523,71 @@
       border-radius: var(--radius-lg) var(--radius-lg) 0 0;
     }
 
+    /* Share Link Modal */
+    .share-modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      box-shadow: var(--shadow-xl);
+      z-index: 2000;
+      max-width: 500px;
+      width: 90%;
+    }
+
+    .share-modal.show {
+      display: block;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1999;
+    }
+
+    .modal-overlay.show {
+      display: block;
+    }
+
+    .share-input-group {
+      display: flex;
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+
+    .share-input {
+      flex: 1;
+      padding: var(--space-sm);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      font-family: monospace;
+      font-size: var(--font-size-sm);
+      background: var(--bg-tertiary);
+      color: var(--text-primary);
+    }
+
+    .copy-feedback {
+      color: var(--success);
+      font-size: var(--font-size-sm);
+      margin-top: var(--space-sm);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .copy-feedback.show {
+      opacity: 1;
+    }
+
     .panel-title {
       font-size: var(--font-size-sm);
       font-weight: 600;
@@ -1490,6 +1555,9 @@
         <div class="preview-panel">
           <div class="panel-header">
             <h3 class="panel-title">👁️ Live Preview</h3>
+            <button id="share-btn" class="btn btn-primary btn-sm" onclick="generateShareLink()" title="Generate shareable link">
+              🔗 Generate shareable link
+            </button>
           </div>
           <div class="panel-body">
             <div id="mermaid-output" class="preview-container">
@@ -1725,6 +1793,9 @@ B -->|Router| E</pre></div>
     <button onclick="document.getElementById('cookie-popup').style.display='none'">Got it</button>
   </div>
   -->
+
+  <!-- LZ-String Compression Library -->
+  <script src="https://cdn.jsdelivr.net/npm/lz-string@1.5.0/libs/lz-string.min.js"></script>
 
   <!-- Mermaid & Script -->
   <script type="module">
@@ -1968,6 +2039,9 @@ B -->|Router| E</pre></div>
       }
     }
   
+    // Expose renderMermaid globally for share functionality
+    window.renderMermaid = renderMermaid;
+
     // Once the DOM is ready, init everything
     document.addEventListener("DOMContentLoaded", async () => {
       // Initialize Mermaid
@@ -1994,18 +2068,169 @@ B -->|Router| E</pre></div>
         layoutToggleBtn.title = 'Switch to Horizontal Layout';
       }
       
-      // Set default example
-      window.setExample(`flowchart TD
+      // Only set default example if no diagram in URL
+      const hash = window.location.hash;
+      if (!hash || !hash.startsWith('#diagram=')) {
+        // Set default example
+        window.setExample(`flowchart TD
     A[Start] --> B{Decision}
     B -- Yes --> C[Do something]
     B -- No --> D[Do something else]
     C --> E[End]
     D --> E`);
+      }
 
       // Initial diagram render + live re-renders
       const input = document.getElementById("mermaid-input");
       if (input) {
         input.addEventListener("input", renderMermaid);
+      }
+    });
+  </script>
+
+  <!-- Share Link Modal -->
+  <div id="modal-overlay" class="modal-overlay" onclick="closeShareModal()"></div>
+  <div id="share-modal" class="share-modal">
+    <h3>🔗 Share Your Diagram</h3>
+    <p class="text-muted">Copy this link to share your diagram with others:</p>
+    <div class="share-input-group">
+      <input type="text" id="share-link" class="share-input" readonly>
+      <button class="btn btn-primary" onclick="copyShareLink()">📋 Copy</button>
+    </div>
+    <div id="copy-feedback" class="copy-feedback">✅ Link copied to clipboard!</div>
+    <button class="btn btn-secondary" onclick="closeShareModal()" style="margin-top: var(--space-md);">Close</button>
+  </div>
+
+  <!-- Additional JavaScript for sharing functionality -->
+  <script>
+    // Generate shareable link
+    window.generateShareLink = function() {
+      const input = document.getElementById('mermaid-input');
+      const code = input.value;
+      
+      if (!code || code.trim() === '') {
+        alert('Please enter some diagram code first!');
+        return;
+      }
+      
+      // Compress the diagram code using LZ-String
+      const compressed = LZString.compressToEncodedURIComponent(code);
+      
+      // Generate the shareable URL
+      const baseUrl = window.location.origin + window.location.pathname;
+      const shareUrl = `${baseUrl}#diagram=${compressed}`;
+      
+      // Show the modal with the link
+      const modal = document.getElementById('share-modal');
+      const overlay = document.getElementById('modal-overlay');
+      const linkInput = document.getElementById('share-link');
+      
+      linkInput.value = shareUrl;
+      modal.classList.add('show');
+      overlay.classList.add('show');
+      
+      // Select the text for easy copying
+      linkInput.select();
+    };
+    
+    // Copy share link to clipboard
+    window.copyShareLink = function() {
+      const linkInput = document.getElementById('share-link');
+      linkInput.select();
+      
+      // Try modern clipboard API first
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(linkInput.value).then(() => {
+          showCopyFeedback();
+        }).catch(() => {
+          fallbackCopy();
+        });
+      } else {
+        fallbackCopy();
+      }
+      
+      function fallbackCopy() {
+        try {
+          document.execCommand('copy');
+          showCopyFeedback();
+        } catch (err) {
+          alert('Failed to copy. Please copy manually.');
+        }
+      }
+    };
+    
+    // Show copy feedback
+    function showCopyFeedback() {
+      const feedback = document.getElementById('copy-feedback');
+      feedback.classList.add('show');
+      setTimeout(() => {
+        feedback.classList.remove('show');
+      }, 2000);
+    }
+    
+    // Close share modal
+    window.closeShareModal = function() {
+      const modal = document.getElementById('share-modal');
+      const overlay = document.getElementById('modal-overlay');
+      modal.classList.remove('show');
+      overlay.classList.remove('show');
+    };
+    
+    // Load diagram from URL on page load
+    window.addEventListener('DOMContentLoaded', function() {
+      // Check if there's a diagram in the URL hash
+      const hash = window.location.hash;
+      if (hash && hash.startsWith('#diagram=')) {
+        const compressed = hash.substring(9); // Remove '#diagram=' prefix
+        
+        try {
+          // Decompress the diagram code
+          const decompressed = LZString.decompressFromEncodedURIComponent(compressed);
+          
+          if (decompressed) {
+            // Set the diagram in the editor
+            const input = document.getElementById('mermaid-input');
+            input.value = decompressed;
+            
+            // Trigger rendering after a small delay to ensure Mermaid is initialized
+            setTimeout(() => {
+              if (window.renderMermaid) {
+                window.renderMermaid();
+              } else {
+                // If renderMermaid is not available yet, trigger input event
+                input.dispatchEvent(new Event('input'));
+              }
+            }, 500);
+          }
+        } catch (err) {
+          console.error('Failed to load diagram from URL:', err);
+        }
+      }
+    });
+    
+    // Update URL when diagram changes (optional - for browser history)
+    let updateUrlTimeout;
+    window.addEventListener('DOMContentLoaded', function() {
+      const input = document.getElementById('mermaid-input');
+      if (input) {
+        input.addEventListener('input', function() {
+          // Clear previous timeout
+          clearTimeout(updateUrlTimeout);
+          
+          // Update URL after user stops typing for 2 seconds
+          updateUrlTimeout = setTimeout(() => {
+            const code = input.value;
+            if (code && code.trim() !== '') {
+              const compressed = LZString.compressToEncodedURIComponent(code);
+              const newHash = `#diagram=${compressed}`;
+              
+              // Update URL without triggering page reload
+              if (window.history && window.history.replaceState) {
+                window.history.replaceState(null, null, newHash);
+              }
+            }
+          }, 2000);
+        });
       }
     });
   </script>
