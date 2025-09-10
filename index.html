@@ -131,23 +131,31 @@
       --primary-hover: #6366f1;
     }
 
-    /* Colorful Theme */
+    /* Terminal Theme - Oldschool green phosphor CRT monitor */
     [data-theme="colorful"] {
-      --bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      --bg-secondary: rgba(255, 255, 255, 0.1);
-      --bg-tertiary: rgba(255, 255, 255, 0.05);
-      --surface: rgba(255, 255, 255, 0.1);
-      --surface-hover: rgba(255, 255, 255, 0.2);
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #0d0d0d;
+      --bg-tertiary: #111111;
+      --surface: #0f0f0f;
+      --surface-hover: #1a1a1a;
       
-      --text-primary: #ffffff;
-      --text-secondary: rgba(255, 255, 255, 0.9);
-      --text-muted: rgba(255, 255, 255, 0.7);
+      --text-primary: #00ff00;
+      --text-secondary: #00cc00;
+      --text-muted: #009900;
       
-      --border-color: rgba(255, 255, 255, 0.2);
-      --border-light: rgba(255, 255, 255, 0.1);
+      --border-color: #00ff00;
+      --border-light: rgba(0, 255, 0, 0.3);
       
-      --primary: #ffffff;
-      --primary-hover: rgba(255, 255, 255, 0.9);
+      --primary: #00ff00;
+      --primary-hover: #33ff33;
+      --accent: #00ffaa;
+      --accent-secondary: #00ff88;
+      --text-inverse: #0a0a0a;
+    }
+
+    /* Terminal theme text effects */
+    [data-theme="colorful"] * {
+      font-family: 'Courier New', 'SF Mono', Monaco, 'Cascadia Code', monospace !important;
     }
 
     /* Reset */
@@ -430,7 +438,7 @@
       top: calc(100% + var(--space-xs));
       left: 0;
       min-width: 200px;
-      background: var(--surface);
+      background: var(--bg-secondary);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-md);
       box-shadow: var(--shadow-lg);
@@ -701,6 +709,37 @@
       stroke: #e2e8f0 !important;
       stroke-width: 2px !important;
     }
+    
+    /* Special node types - database cylinders and secrets diamonds in dark mode */
+    [data-theme="dark"] #mermaid-output svg .nodeLabel,
+    [data-theme="dark"] #mermaid-output svg path[d*="C"],
+    [data-theme="dark"] #mermaid-output svg g[class*="node"] rect,
+    [data-theme="dark"] #mermaid-output svg g[class*="node"] path,
+    [data-theme="dark"] #mermaid-output svg .node path,
+    [data-theme="dark"] #mermaid-output svg polygon {
+      fill: var(--surface) !important;
+      stroke: #e2e8f0 !important;
+      stroke-width: 2px !important;
+    }
+
+    /* Edge labels in light theme - make them visible with grey text and white background */
+    #mermaid-output svg .edgeLabel {
+      background-color: #ffffff !important;
+      background: #ffffff !important;
+    }
+    
+    #mermaid-output svg .edgeLabel text,
+    #mermaid-output svg .edgeLabel span,
+    #mermaid-output svg .edgeLabel tspan {
+      fill: #666666 !important;
+      color: #666666 !important;
+      opacity: 1 !important;
+    }
+    
+    #mermaid-output svg .edgeLabel rect {
+      fill: #ffffff !important;
+      opacity: 1 !important;
+    }
 
     /* Text color in dark mode - make text white for visibility on dark backgrounds */
     [data-theme="dark"] #mermaid-output svg text,
@@ -712,9 +751,16 @@
     /* Specific text elements that need white text in dark mode */
     [data-theme="dark"] #mermaid-output svg .nodeLabel,
     [data-theme="dark"] #mermaid-output svg .cluster-label text,
-    [data-theme="dark"] #mermaid-output svg .edgeLabel text,
     [data-theme="dark"] #mermaid-output svg foreignObject div {
       color: #ffffff !important;
+    }
+    
+    /* Edge labels in dark theme - dark text on white background for visibility */
+    [data-theme="dark"] #mermaid-output svg .edgeLabel text,
+    [data-theme="dark"] #mermaid-output svg .edgeLabel span,
+    [data-theme="dark"] #mermaid-output svg .edgeLabel tspan {
+      fill: #333333 !important;
+      color: #333333 !important;
     }
 
     /* Database cylinder nodes - black text on white background DOES NOT WORK*/
@@ -737,7 +783,7 @@
       background: transparent !important;
     }
 
-    /* Colorful Theme SVG Fixes */
+    /* Terminal Theme SVG - Green phosphor terminal styling */
     [data-theme="colorful"] #mermaid-output svg .flowchart-link,
     [data-theme="colorful"] #mermaid-output svg .edgePath path,
     [data-theme="colorful"] #mermaid-output svg .edge-pattern-solid,
@@ -745,44 +791,83 @@
     [data-theme="colorful"] #mermaid-output svg line,
     [data-theme="colorful"] #mermaid-output svg polygon,
     [data-theme="colorful"] #mermaid-output svg polyline {
-      stroke: rgba(255, 255, 255, 0.9) !important;
+      stroke: #00ff00 !important;
       stroke-width: 2px !important;
     }
 
     [data-theme="colorful"] #mermaid-output svg .arrowheadPath,
     [data-theme="colorful"] #mermaid-output svg .arrowMarkerPath,
     [data-theme="colorful"] #mermaid-output svg marker path {
-      fill: rgba(255, 255, 255, 0.9) !important;
-      stroke: rgba(255, 255, 255, 0.9) !important;
+      fill: #00ff00 !important;
+      stroke: #00ff00 !important;
     }
 
-    /* Node backgrounds in colorful mode */
-    [data-theme="colorful"] #mermaid-output svg rect,
+    /* Node backgrounds in terminal mode - green terminal styling */
+    [data-theme="colorful"] #mermaid-output svg rect {
+      fill: #001100 !important;
+      stroke: #00ff00 !important;
+      stroke-width: 2px !important;
+    }
+    
     [data-theme="colorful"] #mermaid-output svg circle,
     [data-theme="colorful"] #mermaid-output svg ellipse {
-      fill: rgba(255, 255, 255, 0.2) !important;
-      stroke: rgba(255, 255, 255, 0.8) !important;
+      fill: #001100 !important;
+      stroke: #00ffaa !important;
+      stroke-width: 2px !important;
+    }
+    
+    /* Special node types - database cylinders and secrets diamonds */
+    [data-theme="colorful"] #mermaid-output svg .nodeLabel,
+    [data-theme="colorful"] #mermaid-output svg path[d*="C"],
+    [data-theme="colorful"] #mermaid-output svg g[class*="node"] rect,
+    [data-theme="colorful"] #mermaid-output svg g[class*="node"] path,
+    [data-theme="colorful"] #mermaid-output svg .node path,
+    [data-theme="colorful"] #mermaid-output svg polygon {
+      fill: #001100 !important;
+      stroke: #00ff00 !important;
       stroke-width: 2px !important;
     }
 
-    /* Text in colorful mode - make text white for visibility */
+    /* Text in terminal mode - green phosphor glow */
     [data-theme="colorful"] #mermaid-output svg text,
     [data-theme="colorful"] #mermaid-output svg tspan {
-      fill: #ffffff !important;
-      color: #ffffff !important;
+      fill: #00ff00 !important;
+      color: #00ff00 !important;
       font-weight: 600 !important;
+      font-family: 'Courier New', monospace !important;
     }
 
-    /* Specific text elements for colorful mode */
+    /* Specific text elements for terminal mode */
     [data-theme="colorful"] #mermaid-output svg .nodeLabel,
     [data-theme="colorful"] #mermaid-output svg .cluster-label text,
-    [data-theme="colorful"] #mermaid-output svg .edgeLabel text,
     [data-theme="colorful"] #mermaid-output svg foreignObject div {
-      color: #ffffff !important;
+      color: #00ff00 !important;
+    }
+    
+    /* Edge labels in terminal theme - green terminal style */
+    [data-theme="colorful"] #mermaid-output svg .edgeLabel {
+      background-color: #001100 !important;
+      background: #001100 !important;
+    }
+    
+    [data-theme="colorful"] #mermaid-output svg .edgeLabel rect {
+      fill: #001100 !important;
+      stroke: #00ff00 !important;
+      stroke-width: 1px !important;
+      opacity: 0.95 !important;
+    }
+    
+    [data-theme="colorful"] #mermaid-output svg .edgeLabel text,
+    [data-theme="colorful"] #mermaid-output svg .edgeLabel span,
+    [data-theme="colorful"] #mermaid-output svg .edgeLabel tspan {
+      fill: #00ff00 !important;
+      color: #00ff00 !important;
+      opacity: 1 !important;
+      font-family: 'Courier New', monospace !important;
     }
 
     [data-theme="colorful"] #mermaid-output svg foreignObject > div {
-      color: #ffffff !important;
+      color: #00ff00 !important;
       background: transparent !important;
     }
 
@@ -821,7 +906,7 @@
       fill: var(--surface) !important;
     }
 
-    /* Similar adjustments for colorful theme */
+    /* Similar adjustments for terminal theme */
     [data-theme="colorful"] #mermaid-output svg .actor,
     [data-theme="colorful"] #mermaid-output svg .note,
     [data-theme="colorful"] #mermaid-output svg .task,
@@ -829,7 +914,7 @@
     [data-theme="colorful"] #mermaid-output svg .grid .tick line,
     [data-theme="colorful"] #mermaid-output svg .statediagram-state rect,
     [data-theme="colorful"] #mermaid-output svg .er.relationshipLine {
-      stroke: rgba(255, 255, 255, 0.9) !important;
+      stroke: #00ff00 !important;
     }
 
     /* Code Examples */
