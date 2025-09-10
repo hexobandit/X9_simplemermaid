@@ -717,6 +717,16 @@
       color: #ffffff !important;
     }
 
+    /* Database cylinder nodes - black text on white background DOES NOT WORK*/
+    [data-theme="dark"] #mermaid-output svg g[id*="flowchart-db"] text,
+    [data-theme="dark"] #mermaid-output svg g[id*="db"] text,
+    [data-theme="dark"] #mermaid-output svg .node[id*="db"] text,
+    [data-theme="dark"] #mermaid-output svg rect[class*="cylinderBkg"] + text {
+      color: #000000 !important;
+      fill: #000000 !important;
+    }
+
+
     /* Fix for HTML-based labels in dark mode */
     [data-theme="dark"] #mermaid-output svg foreignObject {
       color: #ffffff !important;
@@ -1436,7 +1446,6 @@
         grid-template-columns: 1fr;
         gap: var(--space-sm);
       }
-    }
 
     @media (max-width: 480px) {
       .app-container {
@@ -1469,6 +1478,27 @@
       .learning-icon {
         font-size: 2rem;
       }
+    }
+
+    #mermaid-output .nodeLabel {
+      overflow: visible !important;
+      white-space: nowrap !important;  /* or 'normal' for wrapping */
+    }
+
+    #mermaid-output .label-container {
+      overflow: visible !important;
+    }
+
+    #mermaid-output svg foreignObject {
+      overflow: visible !important;
+      width: auto !important;
+      height: auto !important;
+    }
+
+    #mermaid-output svg .nodeLabel {
+      display: inline-block !important;
+      width: max-content !important;
+      overflow: visible !important;
     }
   </style>
 </head>
@@ -2142,8 +2172,26 @@ B -->|Router| E</pre></div>
     // Once the DOM is ready, init everything
     document.addEventListener("DOMContentLoaded", async () => {
       // Initialize Mermaid
-      mermaid.initialize({ 
-        startOnLoad: false 
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'default',
+        flowchart: {
+          nodeSpacing: 50,        // horizontal spacing between nodes
+          rankSpacing: 50,        // vertical spacing between ranks
+          padding: 30,            // padding inside nodes
+          htmlLabels: false,
+          curve: 'basis',          // or 'linear', 'step', etc.
+          wrappingWidth: 20,      // wrap labels longer than this
+          useMaxWidth: true,
+        },
+        themeVariables: {
+          primaryColor: '#fff',
+          primaryBorderColor: '#333',
+          nodeBkg: '#fff',
+          nodeBorder: '#333',
+          mainBkg: '#fff',
+          tertiaryColor: '#fff'
+        }
       });
 
       // Load examples and create dropdowns
