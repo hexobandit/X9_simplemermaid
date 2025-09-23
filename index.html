@@ -530,12 +530,28 @@
       border-bottom: 1px solid var(--border-light);
       border-radius: var(--radius-lg) var(--radius-lg) 0 0;
     }
+
+    .panel-footer {
+      padding: var(--space-md) var(--space-lg);
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-light);
+      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    }
+
+    .preview-actions {
+      display: flex;
+      gap: var(--space-sm);
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
     
     .export-buttons {
       display: flex;
       gap: var(--space-xs);
       align-items: center;
     }
+
 
     /* Share Link Modal */
     .share-modal {
@@ -1487,6 +1503,23 @@
         height: 48px;
         font-size: var(--font-size-lg);
       }
+
+      /* Preview actions mobile styles */
+      .panel-footer {
+        padding: var(--space-sm);
+      }
+
+      .preview-actions {
+        gap: var(--space-xs);
+        flex-direction: column;
+      }
+
+      .preview-actions .btn {
+        width: 100%;
+        max-width: 280px;
+        justify-content: center;
+        font-size: var(--font-size-sm);
+      }
     }
       
       .controls-section {
@@ -1744,6 +1777,18 @@
     [data-theme="colorful"] .footer-link:hover {
       border-color: #ff6b6b;
     }
+
+    /* Panel footer theme support */
+    [data-theme="dark"] .panel-footer {
+      background: var(--bg-secondary);
+      border-top-color: var(--border-light);
+    }
+
+    [data-theme="colorful"] .panel-footer {
+      background: var(--bg-secondary);
+      border-top-color: var(--border-light);
+    }
+
     
     /* Responsive footer */
     @media (max-width: 768px) {
@@ -1841,7 +1886,14 @@
         <div class="preview-panel">
           <div class="panel-header">
             <h3 class="panel-title">👁️ Live Preview</h3>
-            <div class="export-buttons">
+          </div>
+          <div class="panel-body">
+            <div id="mermaid-output" class="preview-container">
+              <div class="text-muted">Loading diagram...</div>
+            </div>
+          </div>
+          <div class="panel-footer">
+            <div class="preview-actions">
               <button id="share-btn" class="btn btn-primary btn-sm" onclick="generateShareLink()" title="Generate shareable link">
                 🔗 Generate shareable link
               </button>
@@ -1853,14 +1905,10 @@
               </button>
             </div>
           </div>
-          <div class="panel-body">
-            <div id="mermaid-output" class="preview-container">
-              <div class="text-muted">Loading diagram...</div>
-            </div>
-          </div>
         </div>
       </div>
     </main>
+
 
     <!-- Cyber Divider 
     <div class="cyber-divider"></div>
