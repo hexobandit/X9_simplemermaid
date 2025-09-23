@@ -530,12 +530,28 @@
       border-bottom: 1px solid var(--border-light);
       border-radius: var(--radius-lg) var(--radius-lg) 0 0;
     }
+
+    .panel-footer {
+      padding: var(--space-md) var(--space-lg);
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-light);
+      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    }
+
+    .preview-actions {
+      display: flex;
+      gap: var(--space-sm);
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
     
     .export-buttons {
       display: flex;
       gap: var(--space-xs);
       align-items: center;
     }
+
 
     /* Share Link Modal */
     .share-modal {
@@ -968,6 +984,53 @@
       border-color: var(--primary-light);
       box-shadow: var(--shadow-md);
       transform: translateY(-2px);
+    }
+
+    /* Google Ads Section */
+    .ads-section {
+      margin: var(--space-xl) 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .ads-container {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .ad-placeholder {
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-md);
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .ad-label {
+      font-size: var(--font-size-xs);
+      color: var(--text-muted);
+      margin-bottom: var(--space-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .ad-content {
+      min-height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-tertiary);
+      border-radius: var(--radius-md);
+      border: 1px dashed var(--border-light);
+    }
+
+    .ad-demo {
+      color: var(--text-secondary);
+      font-size: var(--font-size-lg);
+      font-weight: 600;
     }
 
     /* Learning Section */
@@ -1487,6 +1550,23 @@
         height: 48px;
         font-size: var(--font-size-lg);
       }
+
+      /* Preview actions mobile styles */
+      .panel-footer {
+        padding: var(--space-sm);
+      }
+
+      .preview-actions {
+        gap: var(--space-xs);
+        flex-direction: column;
+      }
+
+      .preview-actions .btn {
+        width: 100%;
+        max-width: 280px;
+        justify-content: center;
+        font-size: var(--font-size-sm);
+      }
     }
       
       .controls-section {
@@ -1519,6 +1599,15 @@
       
       .docs-grid {
         grid-template-columns: 1fr;
+      }
+
+      /* Ads responsive */
+      .ads-section {
+        margin: var(--space-lg) 0;
+      }
+
+      .ad-content {
+        min-height: 200px;
       }
 
       .learning-grid {
@@ -1744,6 +1833,39 @@
     [data-theme="colorful"] .footer-link:hover {
       border-color: #ff6b6b;
     }
+
+    /* Panel footer theme support */
+    [data-theme="dark"] .panel-footer {
+      background: var(--bg-secondary);
+      border-top-color: var(--border-light);
+    }
+
+    [data-theme="colorful"] .panel-footer {
+      background: var(--bg-secondary);
+      border-top-color: var(--border-light);
+    }
+
+    /* Ads theme support */
+    [data-theme="dark"] .ad-placeholder {
+      background: var(--surface);
+      border-color: var(--border-color);
+    }
+
+    [data-theme="dark"] .ad-content {
+      background: var(--bg-tertiary);
+      border-color: var(--border-light);
+    }
+
+    [data-theme="colorful"] .ad-placeholder {
+      background: var(--surface);
+      border-color: var(--border-color);
+    }
+
+    [data-theme="colorful"] .ad-content {
+      background: var(--bg-tertiary);
+      border-color: var(--border-light);
+    }
+
     
     /* Responsive footer */
     @media (max-width: 768px) {
@@ -1841,7 +1963,14 @@
         <div class="preview-panel">
           <div class="panel-header">
             <h3 class="panel-title">👁️ Live Preview</h3>
-            <div class="export-buttons">
+          </div>
+          <div class="panel-body">
+            <div id="mermaid-output" class="preview-container">
+              <div class="text-muted">Loading diagram...</div>
+            </div>
+          </div>
+          <div class="panel-footer">
+            <div class="preview-actions">
               <button id="share-btn" class="btn btn-primary btn-sm" onclick="generateShareLink()" title="Generate shareable link">
                 🔗 Generate shareable link
               </button>
@@ -1853,14 +1982,10 @@
               </button>
             </div>
           </div>
-          <div class="panel-body">
-            <div id="mermaid-output" class="preview-container">
-              <div class="text-muted">Loading diagram...</div>
-            </div>
-          </div>
         </div>
       </div>
     </main>
+
 
     <!-- Cyber Divider 
     <div class="cyber-divider"></div>
@@ -1963,6 +2088,20 @@ B -->|Router| E</pre></div>
     <div class="cyber-divider"></div>
      -->
 
+    <!-- Google Ads Section -->
+    <section class="ads-section">
+      <div class="ads-container">
+        <!-- Google Ads will be inserted here -->
+        <div id="google-ads-placeholder" class="ad-placeholder">
+          <div class="ad-label">Advertisement</div>
+          <div class="ad-content">
+            <!-- Google AdSense code will go here -->
+            <div class="ad-demo">Google Ads Placeholder</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="docs-grid">
       <div class="docs-card">
         <h3>🔗 Instant Sharing & Collaboration</h3>
@@ -2019,89 +2158,8 @@ B -->|Router| E</pre></div>
 
     <!-- Cyber Divider 
     <div class="cyber-divider"></div>
-     -->
+    -->
 
-    <!-- Collaboration & Sharing Section -->
-    <section class="docs-section">
-      <div class="docs-full-width">
-        <div class="docs-card">
-          <h3>🤝 Perfect for Team Collaboration & Sharing</h3>
-          <p class="text-muted">SimpleMermaid's shareable links make it the ideal tool for collaborative diagramming across teams, projects, and organizations.</p>
-          
-          <div class="docs-grid" style="margin-top: var(--space-lg);">
-            <div class="docs-card" style="background: var(--bg-secondary);">
-              <h4>📋 Documentation Teams</h4>
-              <ul>
-                <li>Share architecture diagrams in Confluence or Notion</li>
-                <li>Embed flowcharts directly in GitHub README files</li>
-                <li>Create living documentation with shareable links</li>
-                <li>Version control diagrams through URL revisions</li>
-              </ul>
-            </div>
-            
-            <div class="docs-card" style="background: var(--bg-secondary);">
-              <h4>👥 Development Teams</h4>
-              <ul>
-                <li>Share system architecture in code reviews</li>
-                <li>Collaborate on database schema designs</li>
-                <li>Document API flows for stakeholder review</li>
-                <li>Create sequence diagrams for debugging sessions</li>
-              </ul>
-            </div>
-            
-            <div class="docs-card" style="background: var(--bg-secondary);">
-              <h4>📊 Project Managers</h4>
-              <ul>
-                <li>Share Gantt charts with clients instantly</li>
-                <li>Collaborate on project workflows remotely</li>
-                <li>Create user journey maps for stakeholder reviews</li>
-                <li>Document process flows for team alignment</li>
-              </ul>
-            </div>
-            
-            <div class="docs-card" style="background: var(--bg-secondary);">
-              <h4>🎓 Educators & Students</h4>
-              <ul>
-                <li>Share lecture diagrams with students</li>
-                <li>Collaborate on group project flowcharts</li>
-                <li>Submit assignments via shareable links</li>
-                <li>Create study guides with visual diagrams</li>
-              </ul>
-            </div>
-          </div>
-          
-          <div style="margin-top: var(--space-xl); padding: var(--space-lg); background: var(--bg-secondary); border-radius: var(--radius-md);">
-            <h4>🔗 Why Our Sharing Feature Stands Out</h4>
-            <div class="audience-grid">
-              <div class="audience-item">
-                <span class="audience-emoji">⚡</span>
-                <span><strong>Instant Generation:</strong> Links created in milliseconds</span>
-              </div>
-              <div class="audience-item">
-                <span class="audience-emoji">🗜️</span>
-                <span><strong>Advanced Compression:</strong> 10-20x smaller than competitors</span>
-              </div>
-              <div class="audience-item">
-                <span class="audience-emoji">🔒</span>
-                <span><strong>Privacy-First:</strong> No accounts, no tracking, no storage</span>
-              </div>
-              <div class="audience-item">
-                <span class="audience-emoji">♾️</span>
-                <span><strong>Never Expires:</strong> Links work forever, no time limits</span>
-              </div>
-              <div class="audience-item">
-                <span class="audience-emoji">📱</span>
-                <span><strong>Universal Access:</strong> Works on any device or browser</span>
-              </div>
-              <div class="audience-item">
-                <span class="audience-emoji">🚀</span>
-                <span><strong>Zero Latency:</strong> No server delays, instant loading</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- Learning Section -->
     <section class="learning-section">

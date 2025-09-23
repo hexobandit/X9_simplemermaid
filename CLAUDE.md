@@ -38,16 +38,31 @@ npx serve .
 ### Direct File Access
 The application can run directly from `file://` protocol using embedded examples as fallback.
 
+### Testing Changes
+- Test example loading: Modify files in `examples/` directory and verify they load correctly
+- Test compression: Use browser dev tools to verify URL sharing works with `#diagram=` parameter
+- Test themes: Verify all three themes (light/dark/colorful) render diagrams correctly
+- Test responsive design: Check mobile/tablet layouts with browser dev tools
+
+### Deployment
+- **CI/CD Pipeline**: GitHub Actions workflow (`.github/workflow/deploy.yml`)
+- **Security**: Gitleaks scan runs on all pushes and PRs
+- **Deployment**: Automatic FTPS deployment to production on main branch pushes
+- **Excluded Files**: Git files, README.md, CLAUDE.md are excluded from deployment
+- **Branch Strategy**: Deploy only from `main` branch; `zoom` is current working branch
+
 ## File Structure
 ```
 /
-├── index.html          # Complete application (17KB of HTML/CSS/JS)
+├── index.html              # Complete application (HTML/CSS/JS)
 ├── examples/
-│   ├── config.json    # Category configuration for dropdown menus
-│   └── *.mmd          # Individual Mermaid diagram examples
-├── simplemermaid.png  # Logo/favicon
-├── README.md          # User-facing documentation
-└── CLAUDE.md          # This file
+│   ├── config.json        # Category configuration for dropdown menus
+│   └── *.mmd              # Individual Mermaid diagram examples (48 files)
+├── .github/workflow/
+│   └── deploy.yml         # CI/CD pipeline configuration
+├── simplemermaid.png      # Logo/favicon
+├── README.md              # User-facing documentation
+└── CLAUDE.md              # This file
 ```
 
 ## Key Implementation Details
@@ -80,7 +95,15 @@ The application can run directly from `file://` protocol using embedded examples
 ### Adding New Examples
 1. Create `.mmd` file in `examples/` directory
 2. Update `examples/config.json` with category and metadata
-3. Embedded fallback examples must be updated in `index.html` (lines 1905-1952)
+3. Embedded fallback examples must be updated in `index.html` (lines 2314-2380)
+4. Test both HTTP server mode (external files) and file:// mode (embedded fallback)
+
+**Available Categories** (defined in `config.json`):
+- `basic`: Basic Diagrams (empty, simple, flowchart, shapes)
+- `sequence`: Sequence Diagrams (basic, OAuth flow)
+- `project`: Project Management (Gantt charts, user journey)
+- `architecture`: System Architecture (class, state, ERD, network, org charts)
+- `security`: Security & Threat Models (RBAC, K8s threats, web app threats, DevSecOps)
 
 ### Modifying Themes
 - CSS variables defined in `:root` (lines 53-112)
@@ -97,3 +120,27 @@ The application can run directly from `file://` protocol using embedded examples
 - LZ-String v1.5.0: `https://cdn.jsdelivr.net/npm/lz-string@1.5.0/libs/lz-string.min.js`
 - Google Fonts: Inter and Poppins families
 - Google Analytics: gtag.js with ID G-6FZM0EGT74
+
+## Code Organization within index.html
+
+### CSS Structure (lines 53-1400)
+- CSS custom properties for theming (:root, lines 53-112)
+- Theme variations ([data-theme], lines 113-200)
+- Component styles (layout, buttons, editor, preview)
+- SVG overrides for dark/colorful themes (lines 673-825)
+- Responsive design breakpoints throughout
+
+### JavaScript Architecture (lines 2307+)
+- ES6 module imports for Mermaid.js
+- Global state management (theme, layout, examples)
+- Core functions:
+  - `loadExamplesConfig()`: Loads example configuration with fallback
+  - `generateShareLink()`: LZ-String compression for URL sharing
+  - `updateMermaidPreview()`: Real-time diagram rendering
+  - Event listeners for UI interactions and URL updates
+
+### Key Implementation Notes
+- **Dual Example System**: External files + embedded fallback for file:// protocol
+- **URL State Management**: Automatic compression/decompression with 2-second debounce
+- **Theme Switching**: Document-level data attribute controls CSS custom properties
+- **Layout Toggle**: CSS Grid switching between vertical/horizontal modes
