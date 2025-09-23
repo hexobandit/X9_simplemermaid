@@ -7,13 +7,13 @@
   <title>SimpleMermaid.com - Simple Online Mermaid Diagram Editor</title>
 
   <!-- ✅ SEO Meta Tags -->
-  <meta name="description" content="Create and share flowcharts, sequence diagrams, Gantt charts instantly with SimpleMermaid. Generate shareable links for your Mermaid.js diagrams. Free online editor with live preview and collaboration features." />
-  <meta name="keywords" content="Mermaid.js, flowchart editor, sequence diagrams, Gantt charts, online diagram tool, UML, markdown diagrams, network diagrams, visualization, SimpleMermaid, shareable diagrams, collaborative diagrams, share flowcharts, diagram links" />
+  <meta name="description" content="Create and share flowcharts, sequence diagrams, Gantt charts instantly with SimpleMermaid. Generate shareable links and export to PNG/PDF. Free online editor with live preview, multiple export formats, and collaboration features." />
+  <meta name="keywords" content="Mermaid.js, flowchart editor, sequence diagrams, Gantt charts, online diagram tool, UML, markdown diagrams, network diagrams, visualization, SimpleMermaid, shareable diagrams, collaborative diagrams, share flowcharts, diagram links, export PNG, export PDF, download diagrams" />
   <meta name="author" content="SimpleMermaid.com" />
 
   <!-- ✅ Open Graph (Facebook & LinkedIn) -->
   <meta property="og:title" content="SimpleMermaid.com - Online Mermaid Diagram Editor" />
-  <meta property="og:description" content="Create and instantly share flowcharts, sequence diagrams, Gantt charts with SimpleMermaid. Generate shareable links for collaborative diagramming. Free Mermaid.js editor with live preview." />
+  <meta property="og:description" content="Create and instantly share flowcharts, sequence diagrams, Gantt charts with SimpleMermaid. Generate shareable links and export to PNG/PDF for collaborative diagramming. Free Mermaid.js editor with live preview and multiple export formats." />
   <meta property="og:image" content="https://simplemermaid.com/simplemermaid.png" />
   <meta property="og:url" content="https://simplemermaid.com" />
   <meta property="og:type" content="website" />
@@ -21,7 +21,7 @@
   <!-- ✅ Twitter (X) Meta Tags -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="SimpleMermaid - The Best Online Mermaid.js Editor" />
-  <meta name="twitter:description" content="Create and share flowcharts, sequence diagrams, and Gantt charts instantly. Generate shareable links for your Mermaid.js diagrams. Free online collaborative editor." />
+  <meta name="twitter:description" content="Create and share flowcharts, sequence diagrams, and Gantt charts instantly. Generate shareable links and export to PNG/PDF. Free online collaborative editor with multiple export formats." />
   <meta name="twitter:image" content="https://simplemermaid.com/simplemermaid.png" />
   <meta name="twitter:site" content="@simplemermaid" />
 
@@ -31,7 +31,7 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "SimpleMermaid",
-    "description": "An online Mermaid.js editor for creating and sharing flowcharts, sequence diagrams, Gantt charts, and more with real-time preview and shareable links for collaboration.",
+    "description": "An online Mermaid.js editor for creating and sharing flowcharts, sequence diagrams, Gantt charts, and more with real-time preview, shareable links, and PNG/PDF export capabilities for seamless collaboration.",
     "url": "https://simplemermaid.com/simplemermaid.png",
     "image": "simplemermaid.png",
     "operatingSystem": "Web",
@@ -529,6 +529,12 @@
       background: var(--bg-secondary);
       border-bottom: 1px solid var(--border-light);
       border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+    
+    .export-buttons {
+      display: flex;
+      gap: var(--space-xs);
+      align-items: center;
     }
 
     /* Share Link Modal */
@@ -1585,6 +1591,171 @@
       width: max-content !important;
       overflow: visible !important;
     }
+    
+    /* Footer Styles */
+    .main-footer {
+      margin-top: 4rem;
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-light);
+      padding: 3rem 0 1.5rem;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 4rem;
+    }
+    
+    .footer-section {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .footer-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .footer-description {
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+    
+    .footer-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    
+    .footer-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      background: var(--bg);
+      padding: 0.75rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-light);
+    }
+    
+    .footer-feature-icon {
+      font-size: 1.25rem;
+      line-height: 1;
+      margin-top: 0.125rem;
+    }
+    
+    .footer-feature-content {
+      flex: 1;
+    }
+    
+    .footer-feature-title {
+      font-size: 0.875rem;
+      color: var(--text);
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+    
+    .footer-feature-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    .footer-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      background: var(--bg);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    
+    .footer-link:hover {
+      background: var(--bg-secondary);
+      transform: translateX(4px);
+      border-color: var(--primary);
+    }
+    
+    .link-emoji {
+      font-size: 1.5rem;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-sm);
+    }
+    
+    .link-title {
+      font-weight: 500;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+    
+    .link-desc {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-top: 0.125rem;
+    }
+    
+    .footer-bottom {
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-light);
+    }
+    
+    .footer-copyright {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+    
+    /* Dark theme footer adjustments */
+    [data-theme="dark"] .footer-link {
+      background: var(--bg-secondary);
+    }
+    
+    [data-theme="dark"] .footer-link:hover {
+      background: var(--bg);
+    }
+    
+    [data-theme="dark"] .link-emoji {
+      background: var(--bg);
+    }
+    
+    [data-theme="colorful"] .footer-link:hover {
+      border-color: #ff6b6b;
+    }
+    
+    /* Responsive footer */
+    @media (max-width: 768px) {
+      .footer-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .footer-features {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 
@@ -1670,9 +1841,17 @@
         <div class="preview-panel">
           <div class="panel-header">
             <h3 class="panel-title">👁️ Live Preview</h3>
-            <button id="share-btn" class="btn btn-primary btn-sm" onclick="generateShareLink()" title="Generate shareable link">
-              🔗 Generate shareable link
-            </button>
+            <div class="export-buttons">
+              <button id="share-btn" class="btn btn-primary btn-sm" onclick="generateShareLink()" title="Generate shareable link">
+                🔗 Generate shareable link
+              </button>
+              <button id="export-png-btn" class="btn btn-primary btn-sm" onclick="exportToPNG()" title="Export as PNG">
+                🖼️ Export PNG
+              </button>
+              <button id="export-pdf-btn" class="btn btn-primary btn-sm" onclick="exportToPDF()" title="Export as PDF">
+                📄 Export PDF
+              </button>
+            </div>
           </div>
           <div class="panel-body">
             <div id="mermaid-output" class="preview-container">
@@ -1823,9 +2002,17 @@ B -->|Router| E</pre></div>
           <li><strong>No Setup Needed</strong> – Just open and start diagramming</li>
           <li><strong>Instant Preview</strong> – Live diagram updates as you type</li>
           <li><strong>Share Instantly</strong> – Generate shareable links for collaboration</li>
+          <li><strong>Export to PNG/PDF</strong> – Download diagrams in multiple formats</li>
           <li><strong>Distraction-Free</strong> – Clean, focused interface</li>
           <li><strong>Multiple Themes</strong> – Light, dark, and colorful modes</li>
-          <li><strong>Preloaded Examples</strong> – Ready-made diagram templates</li>
+          <li><strong>Preloaded Examples</strong> – 20+ ready-made diagram templates</li>
+          <li><strong>Privacy Focused</strong> – No server storage, all processing in browser</li>
+          <li><strong>Keyboard Shortcuts</strong> – Fast workflow with hotkeys</li>
+          <li><strong>Auto-Save URL</strong> – Never lose your work with automatic URL updates</li>
+          <li><strong>Responsive Design</strong> – Works perfectly on desktop, tablet, and mobile</li>
+          <li><strong>No Login Required</strong> – Start creating immediately, no account needed</li>
+          <li><strong>Version Control Friendly</strong> – Text-based diagrams work great with Git</li>
+          <li><strong>Markdown Compatible</strong> – Embed diagrams in documentation easily</li>
         </ul>
       </div>
     </section>
@@ -1938,9 +2125,13 @@ B -->|Router| E</pre></div>
             <li><span class="feature-dot">•</span><strong>No Setup</strong> – Open and start diagramming instantly</li>
             <li><span class="feature-dot">•</span><strong>Live Preview</strong> – See changes as you type</li>
             <li><span class="feature-dot">•</span><strong>Share Anywhere</strong> – Generate links for instant collaboration</li>
+            <li><span class="feature-dot">•</span><strong>Export Options</strong> – PNG & PDF download formats</li>
             <li><span class="feature-dot">•</span><strong>Multiple Themes</strong> – Dark, light, and colorful modes</li>
             <li><span class="feature-dot">•</span><strong>Rich Examples</strong> – 20+ ready-made templates</li>
             <li><span class="feature-dot">•</span><strong>Mobile Friendly</strong> – Works on any device</li>
+            <li><span class="feature-dot">•</span><strong>Zero Cost</strong> – Completely free, no premium tiers</li>
+            <li><span class="feature-dot">•</span><strong>Fast Performance</strong> – Optimized for instant rendering</li>
+            <li><span class="feature-dot">•</span><strong>URL Persistence</strong> – Diagrams saved in URL automatically</li>
           </ul>
         </div>
 
@@ -1993,8 +2184,111 @@ B -->|Router| E</pre></div>
     </section>
   </div>
 
-  <footer style="text-align: center; padding: 2rem; color: var(--text-muted); border-top: 1px solid var(--border-color); margin-top: 3rem;">
-    &copy; 2025 SimpleMermaid.com. All rights reserved.
+  <footer class="main-footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h4 class="footer-title">SimpleMermaid - Complete Diagramming Suite</h4>
+        <p class="footer-description">The most intuitive online Mermaid.js editor for creating professional diagrams. No signup required, instant results.</p>
+        <div class="footer-features">
+          <div class="footer-feature">
+            <span class="footer-feature-icon">✨</span>
+            <div class="footer-feature-content">
+              <div class="footer-feature-title">Live Preview</div>
+              <div class="footer-feature-desc">Real-time rendering as you type</div>
+            </div>
+          </div>
+          <div class="footer-feature">
+            <span class="footer-feature-icon">🔗</span>
+            <div class="footer-feature-content">
+              <div class="footer-feature-title">Instant Sharing</div>
+              <div class="footer-feature-desc">One-click shareable links</div>
+            </div>
+          </div>
+          <div class="footer-feature">
+            <span class="footer-feature-icon">📥</span>
+            <div class="footer-feature-content">
+              <div class="footer-feature-title">Export Options</div>
+              <div class="footer-feature-desc">Download as PNG or PDF</div>
+            </div>
+          </div>
+          <div class="footer-feature">
+            <span class="footer-feature-icon">📊</span>
+            <div class="footer-feature-content">
+              <div class="footer-feature-title">Multiple Diagrams</div>
+              <div class="footer-feature-desc">Flowcharts, sequences, Gantt & more</div>
+            </div>
+          </div>
+          <div class="footer-feature">
+            <span class="footer-feature-icon">🎨</span>
+            <div class="footer-feature-content">
+              <div class="footer-feature-title">Theme Options</div>
+              <div class="footer-feature-desc">Light, dark & colorful modes</div>
+            </div>
+          </div>
+          <div class="footer-feature">
+            <span class="footer-feature-icon">⚡</span>
+            <div class="footer-feature-content">
+              <div class="footer-feature-title">No Installation</div>
+              <div class="footer-feature-desc">Works instantly in browser</div>
+            </div>
+          </div>
+          <div class="footer-feature">
+            <span class="footer-feature-icon">🔒</span>
+            <div class="footer-feature-content">
+              <div class="footer-feature-title">Privacy First</div>
+              <div class="footer-feature-desc">No data stored on servers</div>
+            </div>
+          </div>
+          <div class="footer-feature">
+            <span class="footer-feature-icon">📱</span>
+            <div class="footer-feature-content">
+              <div class="footer-feature-title">Responsive Design</div>
+              <div class="footer-feature-desc">Works on all devices</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h4 class="footer-title">More Projects</h4>
+        <div class="footer-links">
+          <a href="https://taptapcalculator.com" target="_blank" rel="noopener noreferrer" class="footer-link">
+            <span class="link-emoji">🧮</span>
+            <div>
+              <div class="link-title">TapTapCalculator</div>
+              <div class="link-desc">Smart calculator app</div>
+            </div>
+          </a>
+          <a href="https://threatbandit.com" target="_blank" rel="noopener noreferrer" class="footer-link">
+            <span class="link-emoji">🛡️</span>
+            <div>
+              <div class="link-title">ThreatBandit</div>
+              <div class="link-desc">Security solutions</div>
+            </div>
+          </a>
+          <a href="https://trackmytime.net" target="_blank" rel="noopener noreferrer" class="footer-link">
+            <span class="link-emoji">⏱️</span>
+            <div>
+              <div class="link-title">TrackMyTime</div>
+              <div class="link-desc">Time tracking made simple</div>
+            </div>
+          </a>
+          <a href="https://emphonic.com" target="_blank" rel="noopener noreferrer" class="footer-link">
+            <span class="link-emoji">🎵</span>
+            <div>
+              <div class="link-title">Emphonic</div>
+              <div class="link-desc">Audio experiences</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <div class="footer-copyright">
+        &copy; 2025 SimpleMermaid.com. All rights reserved.
+      </div>
+    </div>
   </footer>
 
 
@@ -2361,6 +2655,137 @@ B -->|Router| E</pre></div>
       
       // Select the text for easy copying
       linkInput.select();
+    };
+    
+    // Export to PNG function
+    window.exportToPNG = function() {
+      const svgElement = document.querySelector('#mermaid-output svg');
+      
+      if (!svgElement) {
+        alert('Please create a diagram first!');
+        return;
+      }
+      
+      // Clone the SVG to avoid modifying the original
+      const svgClone = svgElement.cloneNode(true);
+      
+      // Get the SVG string
+      const svgString = new XMLSerializer().serializeToString(svgClone);
+      
+      // Create a canvas element
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      
+      // Get dimensions from the SVG
+      const bbox = svgElement.getBBox();
+      const width = bbox.width + 40; // Add padding
+      const height = bbox.height + 40;
+      
+      // Set canvas dimensions with scale for better quality
+      const scale = 2;
+      canvas.width = width * scale;
+      canvas.height = height * scale;
+      ctx.scale(scale, scale);
+      
+      // Create an image from the SVG
+      const img = new Image();
+      const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(svgBlob);
+      
+      img.onload = function() {
+        // Fill with white background
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, width, height);
+        
+        // Draw the image centered
+        ctx.drawImage(img, 20, 20, bbox.width, bbox.height);
+        
+        // Convert to PNG and download
+        canvas.toBlob(function(blob) {
+          const link = document.createElement('a');
+          link.download = 'mermaid-diagram.png';
+          link.href = URL.createObjectURL(blob);
+          link.click();
+          
+          // Clean up
+          URL.revokeObjectURL(url);
+          URL.revokeObjectURL(link.href);
+        }, 'image/png');
+      };
+      
+      img.src = url;
+    };
+    
+    // Export to PDF function
+    window.exportToPDF = function() {
+      const svgElement = document.querySelector('#mermaid-output svg');
+      
+      if (!svgElement) {
+        alert('Please create a diagram first!');
+        return;
+      }
+      
+      // First convert to PNG, then embed in PDF
+      const svgClone = svgElement.cloneNode(true);
+      const svgString = new XMLSerializer().serializeToString(svgClone);
+      
+      // Create a canvas element
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      
+      // Get dimensions
+      const bbox = svgElement.getBBox();
+      const width = bbox.width + 40;
+      const height = bbox.height + 40;
+      
+      // Set canvas dimensions
+      const scale = 2;
+      canvas.width = width * scale;
+      canvas.height = height * scale;
+      ctx.scale(scale, scale);
+      
+      // Create image from SVG
+      const img = new Image();
+      const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(svgBlob);
+      
+      img.onload = function() {
+        // Fill with white background
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, width, height);
+        
+        // Draw the image
+        ctx.drawImage(img, 20, 20, bbox.width, bbox.height);
+        
+        // Load jsPDF from CDN
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+        script.onload = function() {
+          const { jsPDF } = window.jspdf;
+          
+          // Create PDF with appropriate dimensions
+          const pdfWidth = width / 72 * 25.4; // Convert to mm
+          const pdfHeight = height / 72 * 25.4;
+          const pdf = new jsPDF({
+            orientation: pdfWidth > pdfHeight ? 'landscape' : 'portrait',
+            unit: 'mm',
+            format: [pdfWidth, pdfHeight]
+          });
+          
+          // Add the image to PDF
+          const imgData = canvas.toDataURL('image/png');
+          pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+          
+          // Download the PDF
+          pdf.save('mermaid-diagram.pdf');
+          
+          // Clean up
+          URL.revokeObjectURL(url);
+        };
+        document.head.appendChild(script);
+      };
+      
+      img.src = url;
     };
     
     // Copy share link to clipboard
