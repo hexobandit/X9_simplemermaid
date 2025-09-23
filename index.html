@@ -2084,23 +2084,6 @@ B -->|Router| E</pre></div>
       </div>
     </section>
 
-    <!-- Cyber Divider
-    <div class="cyber-divider"></div>
-     -->
-
-    <!-- Google Ads Section -->
-    <section class="ads-section">
-      <div class="ads-container">
-        <!-- Google Ads will be inserted here -->
-        <div id="google-ads-placeholder" class="ad-placeholder">
-          <div class="ad-label">Advertisement</div>
-          <div class="ad-content">
-            <!-- Google AdSense code will go here -->
-            <div class="ad-demo">Google Ads Placeholder</div>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <section class="docs-grid">
       <div class="docs-card">
@@ -2758,6 +2741,15 @@ B -->|Router| E</pre></div>
         // Draw the image centered
         ctx.drawImage(img, 20, 20, bbox.width, bbox.height);
         
+        // Add subtle branding in bottom-right corner
+        ctx.save();
+        ctx.font = '12px Inter, system-ui, sans-serif';
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'bottom';
+        ctx.fillText('SimpleMermaid.com', width - 10, height - 8);
+        ctx.restore();
+        
         // Convert to PNG and download
         canvas.toBlob(function(blob) {
           const link = document.createElement('a');
@@ -2814,6 +2806,15 @@ B -->|Router| E</pre></div>
         
         // Draw the image
         ctx.drawImage(img, 20, 20, bbox.width, bbox.height);
+        
+        // Add subtle branding in bottom-right corner
+        ctx.save();
+        ctx.font = '12px Inter, system-ui, sans-serif';
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'bottom';
+        ctx.fillText('SimpleMermaid.com', width - 10, height - 8);
+        ctx.restore();
         
         // Load jsPDF from CDN
         const script = document.createElement('script');
