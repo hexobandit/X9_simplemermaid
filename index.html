@@ -695,6 +695,7 @@
     .preview-container svg {
       max-width: 100%;
       height: auto;
+      display: block; /* Prevent inline SVG layout issues */
     }
 
     .preview-error {
@@ -767,6 +768,16 @@
     #mermaid-output svg .edgeLabel rect {
       fill: #ffffff !important;
       opacity: 1 !important;
+    }
+    
+    /* Firefox-specific edge path fixes */
+    #mermaid-output svg .edgePath path {
+      stroke-width: 1.5px !important;
+      fill: none !important;
+    }
+    
+    #mermaid-output svg marker path {
+      stroke-width: 1px !important;
     }
 
     /* Text color in dark mode - make text white for visibility on dark backgrounds */
@@ -1677,8 +1688,34 @@
 
     #mermaid-output svg foreignObject {
       overflow: visible !important;
-      width: auto !important;
-      height: auto !important;
+    }
+    
+    /* Firefox-specific SVG fixes */
+    @-moz-document url-prefix() {
+      #mermaid-output svg {
+        overflow: visible !important;
+      }
+      
+      #mermaid-output svg foreignObject {
+        transform: translateZ(0); /* Force GPU acceleration */
+        overflow: visible !important;
+      }
+      
+      #mermaid-output svg text {
+        dominant-baseline: central;
+        text-anchor: middle;
+      }
+      
+      #mermaid-output svg .edgeLabel foreignObject {
+        overflow: visible !important;
+        pointer-events: none;
+      }
+      
+      #mermaid-output svg .node rect,
+      #mermaid-output svg .node circle,
+      #mermaid-output svg .node polygon {
+        stroke-width: 1.5px;
+      }
     }
 
     #mermaid-output svg .nodeLabel {
@@ -2585,10 +2622,66 @@ B -->|Router| E</pre></div>
       if (!input || !output) return;
   
       try {
-        const { svg } = await mermaid.mermaidAPI.render("generatedDiagram", input.value);
-        output.innerHTML = svg;
+        // Generate a unique ID for each render to avoid conflicts
+        const diagramId = 'mermaid-' + Date.now();
+        
+        // Clear any previous diagram to prevent conflicts
+        output.innerHTML = '';
+        
+        const { svg } = await mermaid.mermaidAPI.render(diagramId, input.value);
+        
+        // Firefox-specific SVG fixes
+        let processedSvg = svg;
+        
+        // Fix for Firefox foreignObject rendering
+        if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+          // Add explicit namespace for better Firefox compatibility
+          processedSvg = processedSvg.replace(
+            '<svg',
+            '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"'
+          );
+          
+          // Fix foreignObject width/height issues in Firefox
+          processedSvg = processedSvg.replace(
+            /foreignObject\s+width="([^"]+)"\s+height="([^"]+)"/g,
+            (match, width, height) => {
+              // Ensure dimensions are properly set for Firefox
+              const numWidth = parseFloat(width) || 100;
+              const numHeight = parseFloat(height) || 50;
+              return `foreignObject width="${numWidth}" height="${numHeight}" overflow="visible"`;
+            }
+          );
+        }
+        
+        output.innerHTML = processedSvg;
+        
+        // Apply additional Firefox-specific fixes after rendering
+        if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+          const svgElement = output.querySelector('svg');
+          if (svgElement) {
+            // Ensure proper viewBox for Firefox
+            if (!svgElement.getAttribute('viewBox')) {
+              const bbox = svgElement.getBBox();
+              svgElement.setAttribute('viewBox', `0 0 ${bbox.width + 40} ${bbox.height + 40}`);
+            }
+            
+            // Fix text elements in Firefox
+            const textElements = svgElement.querySelectorAll('text');
+            textElements.forEach(text => {
+              // Force text rendering recalculation in Firefox
+              const transform = text.getAttribute('transform') || '';
+              text.setAttribute('transform', transform);
+            });
+          }
+        }
       } catch (err) {
         output.innerHTML = `<div class="preview-error">Error: ${err.message}</div>`;
+        
+        // Clean up any partial renders
+        const partialSvg = document.querySelector('#' + (err.id || 'generatedDiagram'));
+        if (partialSvg) {
+          partialSvg.remove();
+        }
       }
     }
   
@@ -2605,9 +2698,9 @@ B -->|Router| E</pre></div>
           nodeSpacing: 50,        // horizontal spacing between nodes
           rankSpacing: 50,        // vertical spacing between ranks
           padding: 30,            // padding inside nodes
-          htmlLabels: false,
-          curve: 'basis',          // or 'linear', 'step', etc.
-          wrappingWidth: 20,      // wrap labels longer than this
+          htmlLabels: true,       // Use HTML labels for better cross-browser compatibility
+          curve: 'basis',         // or 'linear', 'step', etc.
+          wrappingWidth: 200,     // Increased wrap width for better text display
           useMaxWidth: true,
         },
         themeVariables: {
