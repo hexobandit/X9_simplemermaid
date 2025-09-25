@@ -2809,17 +2809,33 @@ B -->|Router| E</pre></div>
       // Clone the SVG to avoid modifying the original
       const svgClone = svgElement.cloneNode(true);
       
+      // Get dimensions using multiple methods for cross-browser compatibility
+      let width, height;
+      
+      // Try viewBox first (most reliable)
+      const viewBox = svgElement.getAttribute('viewBox');
+      if (viewBox) {
+        const [, , vbWidth, vbHeight] = viewBox.split(' ').map(Number);
+        width = vbWidth + 40;
+        height = vbHeight + 40;
+      } else {
+        // Fall back to width/height attributes
+        width = parseFloat(svgElement.getAttribute('width') || svgElement.style.width || '800') + 40;
+        height = parseFloat(svgElement.getAttribute('height') || svgElement.style.height || '600') + 40;
+      }
+      
+      // Set explicit dimensions on the cloned SVG
+      svgClone.setAttribute('width', width - 40);
+      svgClone.setAttribute('height', height - 40);
+      svgClone.style.width = (width - 40) + 'px';
+      svgClone.style.height = (height - 40) + 'px';
+      
       // Get the SVG string
       const svgString = new XMLSerializer().serializeToString(svgClone);
       
       // Create a canvas element
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
-      
-      // Get dimensions from the SVG
-      const bbox = svgElement.getBBox();
-      const width = bbox.width + 40; // Add padding
-      const height = bbox.height + 40;
       
       // Set canvas dimensions with scale for better quality
       const scale = 2;
@@ -2829,8 +2845,9 @@ B -->|Router| E</pre></div>
       
       // Create an image from the SVG
       const img = new Image();
-      const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
-      const url = URL.createObjectURL(svgBlob);
+      
+      // Create a data URL with proper encoding for cross-browser support
+      const svgData = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgString)));
       
       img.onload = function() {
         // Fill with white background
@@ -2838,7 +2855,7 @@ B -->|Router| E</pre></div>
         ctx.fillRect(0, 0, width, height);
         
         // Draw the image centered
-        ctx.drawImage(img, 20, 20, bbox.width, bbox.height);
+        ctx.drawImage(img, 20, 20, width - 40, height - 40);
         
         // Add subtle branding in bottom-right corner
         ctx.save();
@@ -2857,12 +2874,15 @@ B -->|Router| E</pre></div>
           link.click();
           
           // Clean up
-          URL.revokeObjectURL(url);
-          URL.revokeObjectURL(link.href);
+          setTimeout(() => URL.revokeObjectURL(link.href), 100);
         }, 'image/png');
       };
       
-      img.src = url;
+      img.onerror = function() {
+        alert('Failed to export diagram. Please try again.');
+      };
+      
+      img.src = svgData;
     };
     
     // Export to PDF function
@@ -2874,18 +2894,36 @@ B -->|Router| E</pre></div>
         return;
       }
       
-      // First convert to PNG, then embed in PDF
+      // Clone the SVG to avoid modifying the original
       const svgClone = svgElement.cloneNode(true);
+      
+      // Get dimensions using multiple methods for cross-browser compatibility
+      let width, height;
+      
+      // Try viewBox first (most reliable)
+      const viewBox = svgElement.getAttribute('viewBox');
+      if (viewBox) {
+        const [, , vbWidth, vbHeight] = viewBox.split(' ').map(Number);
+        width = vbWidth + 40;
+        height = vbHeight + 40;
+      } else {
+        // Fall back to width/height attributes
+        width = parseFloat(svgElement.getAttribute('width') || svgElement.style.width || '800') + 40;
+        height = parseFloat(svgElement.getAttribute('height') || svgElement.style.height || '600') + 40;
+      }
+      
+      // Set explicit dimensions on the cloned SVG
+      svgClone.setAttribute('width', width - 40);
+      svgClone.setAttribute('height', height - 40);
+      svgClone.style.width = (width - 40) + 'px';
+      svgClone.style.height = (height - 40) + 'px';
+      
+      // Get the SVG string
       const svgString = new XMLSerializer().serializeToString(svgClone);
       
       // Create a canvas element
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
-      
-      // Get dimensions
-      const bbox = svgElement.getBBox();
-      const width = bbox.width + 40;
-      const height = bbox.height + 40;
       
       // Set canvas dimensions
       const scale = 2;
@@ -2893,10 +2931,9 @@ B -->|Router| E</pre></div>
       canvas.height = height * scale;
       ctx.scale(scale, scale);
       
-      // Create image from SVG
+      // Create image from SVG using data URL for cross-browser support
       const img = new Image();
-      const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
-      const url = URL.createObjectURL(svgBlob);
+      const svgData = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgString)));
       
       img.onload = function() {
         // Fill with white background
@@ -2904,7 +2941,7 @@ B -->|Router| E</pre></div>
         ctx.fillRect(0, 0, width, height);
         
         // Draw the image
-        ctx.drawImage(img, 20, 20, bbox.width, bbox.height);
+        ctx.drawImage(img, 20, 20, width - 40, height - 40);
         
         // Add subtle branding in bottom-right corner
         ctx.save();
@@ -2915,10 +2952,23 @@ B -->|Router| E</pre></div>
         ctx.fillText('SimpleMermaid.com', width - 10, height - 8);
         ctx.restore();
         
-        // Load jsPDF from CDN
-        const script = document.createElement('script');
-        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
-        script.onload = function() {
+        // Check if jsPDF is already loaded
+        if (!window.jspdf) {
+          // Load jsPDF from CDN
+          const script = document.createElement('script');
+          script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+          script.onload = function() {
+            generatePDF();
+          };
+          script.onerror = function() {
+            alert('Failed to load PDF library. Please check your internet connection and try again.');
+          };
+          document.head.appendChild(script);
+        } else {
+          generatePDF();
+        }
+        
+        function generatePDF() {
           const { jsPDF } = window.jspdf;
           
           // Create PDF with appropriate dimensions
@@ -2936,14 +2986,14 @@ B -->|Router| E</pre></div>
           
           // Download the PDF
           pdf.save('mermaid-diagram.pdf');
-          
-          // Clean up
-          URL.revokeObjectURL(url);
-        };
-        document.head.appendChild(script);
+        }
       };
       
-      img.src = url;
+      img.onerror = function() {
+        alert('Failed to export diagram. Please try again.');
+      };
+      
+      img.src = svgData;
     };
     
     // Copy share link to clipboard
