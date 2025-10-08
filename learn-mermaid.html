@@ -8,9 +8,55 @@
     <!-- SEO Meta Tags -->
     <meta name="description" content="Learn Mermaid.js diagramming syntax with comprehensive tutorials, examples, and best practices. Master flowcharts, sequence diagrams, and more.">
     <meta name="keywords" content="Mermaid.js tutorial, learn diagramming, flowchart syntax, sequence diagram tutorial, Gantt charts, diagram examples">
+    <meta name="author" content="SimpleMermaid.com">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Learn Mermaid.js - SimpleMermaid Tutorial">
+    <meta property="og:description" content="Master Mermaid.js diagramming with comprehensive tutorials, examples, and best practices. Learn flowcharts, sequence diagrams, Gantt charts and more.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://simplemermaid.com/learn-mermaid.html">
+    <meta property="og:image" content="https://simplemermaid.com/simplemermaid.png">
+    <meta property="og:site_name" content="SimpleMermaid">
+    
+    <!-- Twitter/X Cards (still uses twitter: prefix) -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Learn Mermaid.js - SimpleMermaid Tutorial">
+    <meta name="twitter:description" content="Master Mermaid.js diagramming with comprehensive tutorials, examples, and best practices.">
+    <meta name="twitter:image" content="https://simplemermaid.com/simplemermaid.png">
+    <meta name="twitter:creator" content="@simplemermaid">
+    <meta name="twitter:site" content="@simplemermaid">
+    
+    <!-- Additional SEO -->
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://simplemermaid.com/learn-mermaid.html">
+    <meta name="theme-color" content="#6366f1">
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon.png">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LearningResource",
+        "name": "Learn Mermaid.js - SimpleMermaid Tutorial",
+        "description": "Learn Mermaid.js diagramming syntax with comprehensive tutorials, examples, and best practices. Master flowcharts, sequence diagrams, and more.",
+        "url": "https://simplemermaid.com/learn-mermaid.html",
+        "learningResourceType": "Tutorial",
+        "educationalLevel": "Beginner to Advanced",
+        "about": [
+            "Mermaid.js",
+            "Flowcharts",
+            "Sequence Diagrams",
+            "Gantt Charts",
+            "Diagramming"
+        ],
+        "author": {
+            "@type": "Organization",
+            "name": "SimpleMermaid.com"
+        }
+    }
+    </script>
     
     <style>
         /* Modern CSS Variables */
@@ -481,18 +527,191 @@
             font-size: 0.9rem;
         }
         
-        /* Footer */
+        /* Cyberpunk Footer */
         .footer {
-            background: var(--bg-secondary);
-            border-top: 1px solid var(--border);
-            padding: 3rem 2rem 2rem;
-            text-align: center;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #16213e 100%);
+            border-top: 2px solid;
+            border-image: linear-gradient(90deg, #00d4ff, #6366f1, #8b5cf6, #00d4ff) 1;
+            padding: 4rem 2rem 2rem;
+            position: relative;
+            overflow: hidden;
             margin-top: 4rem;
         }
         
-        .footer p {
-            color: var(--text-muted);
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            animation: cyberpunk-scan 3s linear infinite;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            color: #00d4ff;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px #00d4ff50;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: #a1a1aa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .footer-links a:hover {
+            color: #00d4ff;
+            text-shadow: 0 0 5px #00d4ff50;
+            padding-left: 10px;
+        }
+        
+        .footer-links a::before {
+            content: '▶';
+            position: absolute;
+            left: -15px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            color: #6366f1;
+        }
+        
+        .footer-links a:hover::before {
+            opacity: 1;
+            left: -10px;
+        }
+        
+        .footer-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #6366f1, transparent);
+            margin: 2rem 0;
+            position: relative;
+        }
+        
+        .footer-divider::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            opacity: 0;
+            animation: cyberpunk-pulse 2s ease-in-out infinite alternate;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+        }
+        
+        .footer-copyright {
+            color: #71717a;
             font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-tech {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        
+        .tech-badge {
+            background: linear-gradient(135deg, #374151, #1f2937);
+            border: 1px solid #6366f1;
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            color: #00d4ff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 5px #00d4ff30;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .tech-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 25px rgba(0, 212, 255, 0.3);
+            border-color: #00d4ff;
+        }
+        
+        .footer-glow {
+            color: #6366f1;
+            text-shadow: 0 0 10px #6366f150;
+            font-weight: 700;
+        }
+        
+        /* Cyberpunk Animations */
+        @keyframes cyberpunk-scan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        @keyframes cyberpunk-pulse {
+            0% { opacity: 0; }
+            100% { opacity: 0.6; }
+        }
+        
+        @keyframes cyberpunk-glow {
+            0%, 100% { text-shadow: 0 0 5px #6366f150; }
+            50% { text-shadow: 0 0 20px #6366f1, 0 0 30px #6366f180; }
+        }
+        
+        /* Dark theme adjustments */
+        [data-theme="dark"] .footer {
+            background: linear-gradient(135deg, #000000 0%, #1a0b3d 50%, #2d1b69 100%);
+        }
+        
+        [data-theme="dark"] .tech-badge {
+            background: linear-gradient(135deg, #1e1b4b, #312e81);
+            border-color: #8b5cf6;
+        }
+        
+        [data-theme="dark"] .footer-section h3 {
+            color: #a78bfa;
+            text-shadow: 0 0 10px #8b5cf650;
+        }
+        
+        [data-theme="dark"] .footer-links a:hover {
+            color: #a78bfa;
+            text-shadow: 0 0 5px #8b5cf650;
+        }
+        
+        [data-theme="dark"] .tech-badge:hover {
+            border-color: #a78bfa;
+            box-shadow: 0 5px 25px rgba(139, 92, 246, 0.3);
         }
         
         /* Responsive Design */
@@ -538,6 +757,17 @@
         }
     </style>
 </head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6FZM0EGT74"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6FZM0EGT74');
+</script>
+
 <body data-theme="light">
     <!-- Navigation Header -->
     <header class="nav-header">
@@ -1015,9 +1245,59 @@ B --> C[End]</div>
         </div>
     </main>
     
-    <!-- Footer -->
+    <!-- Cyberpunk Footer -->
     <footer class="footer">
-        <p>&copy; 2025 SimpleMermaid.com. All rights reserved. | Learn, Create, Share</p>
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Learning Hub</h3>
+                    <ul class="footer-links">
+                        <li><a href="#getting-started">Getting Started</a></li>
+                        <li><a href="#diagram-types">Diagram Types</a></li>
+                        <li><a href="#quick-reference">Quick Reference</a></li>
+                        <li><a href="mermaid-tool.html">Try Live Editor</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Syntax Guide</h3>
+                    <ul class="footer-links">
+                        <li><a href="#flowchart">Flowcharts</a></li>
+                        <li><a href="#sequence">Sequence Diagrams</a></li>
+                        <li><a href="#class">Class Diagrams</a></li>
+                        <li><a href="#gantt">Gantt Charts</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://mermaid.js.org" target="_blank">Official Docs</a></li>
+                        <li><a href="index.html">Homepage</a></li>
+                        <li><a href="mermaid-tool.html">Editor Tool</a></li>
+                        <li><a href="#examples">Examples</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-divider"></div>
+            
+            <div class="footer-bottom">
+                <div class="footer-tech">
+                    <span class="tech-badge">Mermaid.js</span>
+                    <span class="tech-badge">Markdown</span>
+                    <span class="tech-badge">Text-Based</span>
+                    <span class="tech-badge">Version Control</span>
+                    <span class="tech-badge">Open Source</span>
+                </div>
+                
+                <p class="footer-copyright">
+                    &copy; 2025 <span class="footer-glow">SimpleMermaid.com</span> | 
+                    Master the art of diagramming | 
+                    <span class="footer-glow">Learn • Practice • Create</span>
+                </p>
+            </div>
+        </div>
     </footer>
     
     <script>
@@ -1044,7 +1324,41 @@ B --> C[End]</div>
             body.setAttribute('data-theme', newTheme);
             themeToggle.textContent = newTheme === 'light' ? '☀️' : '🌙';
             localStorage.setItem('simplemermaid-theme', newTheme);
+            
+            // Update try-button links with new theme
+            updateTryButtonLinks();
         });
+        
+        // Function to update try-button links with current theme
+        function updateTryButtonLinks() {
+            const currentTheme = body.getAttribute('data-theme');
+            const tryButtons = document.querySelectorAll('.try-button');
+            
+            console.log(`Updating ${tryButtons.length} try buttons with theme: ${currentTheme}`);
+            
+            tryButtons.forEach(button => {
+                const href = button.getAttribute('href');
+                if (href && href.includes('mermaid-tool.html')) {
+                    // Split URL into base and hash parts
+                    const [baseUrl, hashPart] = href.split('#');
+                    
+                    // Remove existing theme parameter from base URL
+                    let cleanBaseUrl = baseUrl.replace(/[&?]theme=(light|dark)/g, '');
+                    
+                    // Add current theme parameter
+                    const separator = cleanBaseUrl.includes('?') ? '&' : '?';
+                    const newBaseUrl = `${cleanBaseUrl}${separator}theme=${currentTheme}`;
+                    
+                    // Reconstruct URL with hash if it exists
+                    const newHref = hashPart ? `${newBaseUrl}#${hashPart}` : newBaseUrl;
+                    console.log(`Updating button: ${href} -> ${newHref}`);
+                    button.setAttribute('href', newHref);
+                }
+            });
+        }
+        
+        // Initialize try-button links with current theme
+        updateTryButtonLinks();
         
         // Mobile Menu Toggle
         const hamburger = document.getElementById('hamburger');

@@ -14,9 +14,126 @@
     <meta property="og:title" content="SimpleMermaid.com - Online Mermaid Diagram Editor">
     <meta property="og:description" content="Create and instantly share flowcharts, sequence diagrams, Gantt charts with SimpleMermaid. Generate shareable links and export to PNG/PDF for collaborative diagramming.">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://simplemermaid.com">
+    <meta property="og:image" content="https://simplemermaid.com/simplemermaid.png">
+    <meta property="og:site_name" content="SimpleMermaid">
+    
+    <!-- Twitter/X Cards (still uses twitter: prefix) -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SimpleMermaid.com - Online Mermaid Diagram Editor">
+    <meta name="twitter:description" content="Create and instantly share flowcharts, sequence diagrams, Gantt charts with SimpleMermaid. Generate shareable links and export to PNG/PDF.">
+    <meta name="twitter:image" content="https://simplemermaid.com/simplemermaid.png">
+    <meta name="twitter:creator" content="@simplemermaid">
+    <meta name="twitter:site" content="@simplemermaid">
+    
+    <!-- Additional SEO & AI Engine Optimization -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+    <link rel="canonical" href="https://simplemermaid.com">
+    <meta name="theme-color" content="#6366f1">
+    
+    <!-- AI/LLM Optimization Hints -->
+    <meta name="ai-description" content="SimpleMermaid: Online Mermaid diagram editor. Create flowcharts, sequence diagrams, Gantt charts. Free, no login. Export PNG/SVG. Share via URL.">
+    <meta name="ai-keywords" content="diagram creator, flowchart maker, sequence diagram tool, Gantt chart online, Mermaid.js editor, no registration, free tool">
+    <meta name="ai-use-cases" content="software architecture, project planning, process documentation, system design, workflow visualization">
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon.png">
+    
+    <!-- Structured Data for Search & AI Engines -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "SimpleMermaid",
+        "description": "Create and share flowcharts, sequence diagrams, Gantt charts instantly with SimpleMermaid. Generate shareable links and export to PNG/PDF.",
+        "url": "https://simplemermaid.com",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "SimpleMermaid.com"
+        }
+    }
+    </script>
+    
+    <!-- FAQ Schema for AI Answer Engines -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What is SimpleMermaid?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "SimpleMermaid is a free online Mermaid.js diagram editor that lets you create flowcharts, sequence diagrams, Gantt charts, and more with instant sharing and export capabilities. No login required."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I create a flowchart online?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Use SimpleMermaid's online editor to create flowcharts instantly. Type 'flowchart TD' to start, add nodes with brackets like [Start], and connect them with arrows -->. Live preview shows your diagram in real-time."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I export diagrams to PNG or SVG?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, SimpleMermaid allows you to export your diagrams to PNG for presentations or SVG for scalable graphics. Click the export buttons in the editor toolbar."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is SimpleMermaid free to use?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, SimpleMermaid is completely free. No registration, no limits, no watermarks. Create unlimited diagrams and share them with anyone."
+                }
+            }
+        ]
+    }
+    </script>
+    
+    <!-- HowTo Schema for Step-by-Step Instructions -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "How to Create a Mermaid Diagram",
+        "description": "Create professional diagrams using SimpleMermaid's online editor",
+        "step": [
+            {
+                "@type": "HowToStep",
+                "name": "Open the Editor",
+                "text": "Go to SimpleMermaid.com and click 'Start Creating' to open the diagram editor"
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Choose Diagram Type",
+                "text": "Start with 'flowchart TD' for top-down flowcharts, 'sequenceDiagram' for sequence diagrams, or 'gantt' for Gantt charts"
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Add Content",
+                "text": "Type your diagram code in the editor. Use brackets for nodes [Like This] and arrows --> for connections"
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Share or Export",
+                "text": "Click 'Share' for a shareable link or export to PNG/SVG formats"
+            }
+        ]
+    }
+    </script>
     
     <style>
         /* Modern CSS Variables */
@@ -287,16 +404,34 @@
         
         /* Hero Section */
         .hero {
-            background: var(--bg-hero);
+            background: var(--bg-hero), url('simplemermaid-back.png');
+            background-size: cover, cover;
+            background-position: center, center;
+            background-repeat: no-repeat;
+            background-blend-mode: overlay;
             color: white;
             text-align: center;
             padding: 8rem 2rem 6rem;
             margin-top: 4rem;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
         }
         
         .hero-content {
             max-width: 800px;
             margin: 0 auto;
+            position: relative;
+            z-index: 2;
         }
         
         .hero h1 {
@@ -455,6 +590,44 @@
             color: var(--text-primary);
         }
         
+        /* Why Visual Image */
+        .why-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .why-image {
+            width: 100%;
+            max-width: 500px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+        }
+        
+        .why-image:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+        }
+        
+        .why-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+        
+        /* Special styling for GIFs */
+        .why-gif {
+            border: 2px solid var(--primary);
+            border-radius: var(--radius);
+        }
+        
+        .why-gif:hover {
+            border-color: var(--primary-hover);
+        }
+        
         /* About Section */
         .about-section {
             padding: 6rem 2rem;
@@ -500,22 +673,190 @@
             box-shadow: var(--shadow-lg);
         }
         
-        /* Footer */
+        /* Cyberpunk Footer */
         .footer {
-            background: var(--bg-secondary);
-            border-top: 1px solid var(--border);
-            padding: 3rem 2rem 2rem;
-            text-align: center;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #16213e 100%);
+            border-top: 2px solid;
+            border-image: linear-gradient(90deg, #00d4ff, #6366f1, #8b5cf6, #00d4ff) 1;
+            padding: 4rem 2rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            animation: cyberpunk-scan 3s linear infinite;
         }
         
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
+            position: relative;
+            z-index: 2;
         }
         
-        .footer p {
-            color: var(--text-muted);
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            color: #00d4ff;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px #00d4ff50;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: #a1a1aa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .footer-links a:hover {
+            color: #00d4ff;
+            text-shadow: 0 0 5px #00d4ff50;
+            padding-left: 10px;
+        }
+        
+        .footer-links a::before {
+            content: '▶';
+            position: absolute;
+            left: -15px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            color: #6366f1;
+        }
+        
+        .footer-links a:hover::before {
+            opacity: 1;
+            left: -10px;
+        }
+        
+        .footer-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #6366f1, transparent);
+            margin: 2rem 0;
+            position: relative;
+        }
+        
+        .footer-divider::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            opacity: 0;
+            animation: cyberpunk-pulse 2s ease-in-out infinite alternate;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+        }
+        
+        .footer-copyright {
+            color: #71717a;
             font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-tech {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        
+        .tech-badge {
+            background: linear-gradient(135deg, #374151, #1f2937);
+            border: 1px solid #6366f1;
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            color: #00d4ff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 5px #00d4ff30;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .tech-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 25px rgba(0, 212, 255, 0.3);
+            border-color: #00d4ff;
+        }
+        
+        .footer-glow {
+            color: #6366f1;
+            text-shadow: 0 0 10px #6366f150;
+            font-weight: 700;
+        }
+        
+        /* Cyberpunk Animations */
+        @keyframes cyberpunk-scan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        @keyframes cyberpunk-pulse {
+            0% { opacity: 0; }
+            100% { opacity: 0.6; }
+        }
+        
+        @keyframes cyberpunk-glow {
+            0%, 100% { text-shadow: 0 0 5px #6366f150; }
+            50% { text-shadow: 0 0 20px #6366f1, 0 0 30px #6366f180; }
+        }
+        
+        /* Dark theme adjustments */
+        [data-theme="dark"] .footer {
+            background: linear-gradient(135deg, #000000 0%, #1a0b3d 50%, #2d1b69 100%);
+        }
+        
+        [data-theme="dark"] .tech-badge {
+            background: linear-gradient(135deg, #1e1b4b, #312e81);
+            border-color: #8b5cf6;
+        }
+        
+        [data-theme="dark"] .footer-section h3 {
+            color: #a78bfa;
+            text-shadow: 0 0 10px #8b5cf650;
+        }
+        
+        [data-theme="dark"] .footer-links a:hover {
+            color: #a78bfa;
+            text-shadow: 0 0 5px #8b5cf650;
+        }
+        
+        [data-theme="dark"] .tech-badge:hover {
+            border-color: #a78bfa;
+            box-shadow: 0 5px 25px rgba(139, 92, 246, 0.3);
         }
         
         /* Responsive Design */
@@ -544,6 +885,11 @@
             .why-content {
                 grid-template-columns: 1fr;
                 gap: 2rem;
+            }
+            
+            .why-image {
+                max-width: 100%;
+                margin-top: 2rem;
             }
             
             .feature-list {
@@ -591,6 +937,17 @@
         .feature-card:nth-child(4) { animation-delay: 0.3s; }
     </style>
 </head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6FZM0EGT74"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6FZM0EGT74');
+</script>
+
 <body data-theme="light">
     <!-- Navigation Header -->
     <header class="header">
@@ -694,6 +1051,12 @@
             </div>
             
             <div class="feature-card">
+                <div class="feature-icon">💾</div>
+                <h3>Save & Load Diagrams</h3>
+                <p>Save your work locally in your browser with auto-save. Manage multiple diagrams with import/export backup.</p>
+            </div>
+            
+            <div class="feature-card">
                 <div class="feature-icon">🔒</div>
                 <h3>Privacy Focused</h3>
                 <p>No server storage, all processing happens in your browser. Your diagrams stay private.</p>
@@ -711,24 +1074,20 @@
                 <ul class="feature-list">
                     <li><span class="feature-dot"></span><strong>No Setup Needed</strong></li>
                     <li><span class="feature-dot"></span><strong>Distraction-Free</strong></li>
-                    <li><span class="feature-dot"></span><strong>Keyboard Shortcuts</strong></li>
-                    <li><span class="feature-dot"></span><strong>Auto-Save URL</strong></li>
+                    <li><span class="feature-dot"></span><strong>Local Diagram Storage</strong></li>
+                    <li><span class="feature-dot"></span><strong>Auto-Save & URL Sharing</strong></li>
                     <li><span class="feature-dot"></span><strong>Responsive Design</strong></li>
                     <li><span class="feature-dot"></span><strong>No Login Required</strong></li>
                     <li><span class="feature-dot"></span><strong>Version Control Friendly</strong></li>
-                    <li><span class="feature-dot"></span><strong>Markdown Compatible</strong></li>
+                    <li><span class="feature-dot"></span><strong>Import/Export Backup</strong></li>
                 </ul>
             </div>
             
             <div class="why-visual">
-                <div class="css-logo" style="transform: scale(3); margin: 2rem;">
-                    <div class="logo-icon">
-                        <div class="diagram-node"></div>
-                        <div class="diagram-connection"></div>
-                        <div class="diagram-node"></div>
-                        <div class="diagram-connection"></div>
-                        <div class="diagram-node"></div>
-                    </div>
+                <div class="why-image">
+                    <img src="geek-girl.png" alt="SimpleMermaid in action" class="why-img" />
+                    <!-- For GIF, replace with: -->
+                    <!-- <img src="your-animation.gif" alt="SimpleMermaid demo" class="why-img why-gif" /> -->
                 </div>
             </div>
         </div>
@@ -747,10 +1106,58 @@
         </div>
     </section>
     
-    <!-- Footer -->
+    <!-- Cyberpunk Footer -->
     <footer class="footer">
         <div class="footer-content">
-            <p>&copy; 2025 SimpleMermaid.com. All rights reserved. | Create and share beautiful diagrams instantly.</p>
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Diagram Engine</h3>
+                    <ul class="footer-links">
+                        <li><a href="mermaid-tool.html">Editor</a></li>
+                        <li><a href="learn-mermaid.html">Learn Syntax</a></li>
+                        <li><a href="index.html#features">Features</a></li>
+                        <li><a href="#examples">Examples</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://mermaid.js.org" target="_blank">Mermaid.js Docs</a></li>
+                        <li><a href="learn-mermaid.html#quick-reference">Quick Reference</a></li>
+                        <li><a href="learn-mermaid.html#diagram-types">Diagram Types</a></li>
+                        <li><a href="mermaid-tool.html">Live Preview</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://github.com/mermaid-js/mermaid" target="_blank">GitHub</a></li>
+                        <li><a href="#" onclick="navigator.share ? navigator.share({title: 'SimpleMermaid', url: window.location.href}) : navigator.clipboard.writeText(window.location.href)">Share Tool</a></li>
+                        <li><a href="mailto:hello@simplemermaid.com">Feedback</a></li>
+                        <li><a href="#community">Community</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-divider"></div>
+            
+            <div class="footer-bottom">
+                <div class="footer-tech">
+                    <span class="tech-badge">Mermaid.js</span>
+                    <span class="tech-badge">Vanilla JS</span>
+                    <span class="tech-badge">CSS Grid</span>
+                    <span class="tech-badge">LocalStorage</span>
+                    <span class="tech-badge">PWA Ready</span>
+                </div>
+                
+                <p class="footer-copyright">
+                    &copy; 2025 <span class="footer-glow">SimpleMermaid.com</span> | 
+                    Powered by the future of diagramming | 
+                    <span class="footer-glow">Create • Share • Inspire</span>
+                </p>
+            </div>
         </div>
     </footer>
     
