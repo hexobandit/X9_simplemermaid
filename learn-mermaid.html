@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Mermaid.js - SimpleMermaid</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Learn Mermaid.js diagramming syntax with comprehensive tutorials, examples, and best practices. Master flowcharts, sequence diagrams, and more.">
+    <meta name="keywords" content="Mermaid.js tutorial, learn diagramming, flowchart syntax, sequence diagram tutorial, Gantt charts, diagram examples">
+    <meta name="author" content="SimpleMermaid.com">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Learn Mermaid.js - SimpleMermaid Tutorial">
+    <meta property="og:description" content="Master Mermaid.js diagramming with comprehensive tutorials, examples, and best practices. Learn flowcharts, sequence diagrams, Gantt charts and more.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://simplemermaid.com/learn-mermaid.html">
+    <meta property="og:image" content="https://simplemermaid.com/simplemermaid.png">
+    <meta property="og:site_name" content="SimpleMermaid">
+    
+    <!-- Twitter/X Cards (still uses twitter: prefix) -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Learn Mermaid.js - SimpleMermaid Tutorial">
+    <meta name="twitter:description" content="Master Mermaid.js diagramming with comprehensive tutorials, examples, and best practices.">
+    <meta name="twitter:image" content="https://simplemermaid.com/simplemermaid.png">
+    <meta name="twitter:creator" content="@simplemermaid">
+    <meta name="twitter:site" content="@simplemermaid">
+    
+    <!-- Additional SEO -->
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://simplemermaid.com/learn-mermaid.html">
+    <meta name="theme-color" content="#6366f1">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LearningResource",
+        "name": "Learn Mermaid.js - SimpleMermaid Tutorial",
+        "description": "Learn Mermaid.js diagramming syntax with comprehensive tutorials, examples, and best practices. Master flowcharts, sequence diagrams, and more.",
+        "url": "https://simplemermaid.com/learn-mermaid.html",
+        "learningResourceType": "Tutorial",
+        "educationalLevel": "Beginner to Advanced",
+        "about": [
+            "Mermaid.js",
+            "Flowcharts",
+            "Sequence Diagrams",
+            "Gantt Charts",
+            "Diagramming"
+        ],
+        "author": {
+            "@type": "Organization",
+            "name": "SimpleMermaid.com"
+        }
+    }
+    </script>
+    
+    <style>
+        /* Modern CSS Variables */
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #f8fafc;
+            --accent: #10b981;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-muted: #9ca3af;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-code: #1f2937;
+            --border: #e5e7eb;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.15);
+            --radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        [data-theme="dark"] {
+            --primary: #8b5cf6;
+            --primary-hover: #7c3aed;
+            --primary-light: #a78bfa;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --text-muted: #9ca3af;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-code: #111827;
+            --border: #374151;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            transition: var(--transition);
+        }
+        
+        /* Navigation Header */
+        .nav-header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+        
+        .logo-icon {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .diagram-node {
+            width: 16px;
+            height: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            border-radius: 3px;
+        }
+        
+        .diagram-connection {
+            width: 10px;
+            height: 2px;
+            background: var(--primary);
+        }
+        
+        /* Desktop Navigation */
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+            background: var(--bg-secondary);
+        }
+        
+        .nav-link.active {
+            color: var(--primary);
+            background: var(--bg-secondary);
+        }
+        
+        .nav-cta {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .nav-cta:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+        
+        /* Mobile Navigation */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: var(--transition);
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 1rem;
+            z-index: 999;
+        }
+        
+        .mobile-menu.show {
+            display: block;
+        }
+        
+        .mobile-nav-link {
+            display: block;
+            padding: 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        
+        .mobile-nav-link:hover {
+            background: var(--bg-secondary);
+            color: var(--primary);
+        }
+        
+        /* Theme Toggle */
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 0.5rem;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .theme-toggle:hover {
+            border-color: var(--primary);
+            background: var(--bg-secondary);
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            padding: 2rem;
+        }
+        
+        /* Hero Section */
+        .learn-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+            border-radius: var(--radius);
+            margin-bottom: 3rem;
+        }
+        
+        .learn-hero h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1rem;
+        }
+        
+        .learn-hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Content Container */
+        .content-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Tutorial Section */
+        .tutorial-section {
+            margin-bottom: 4rem;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+        
+        .section-header p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Tutorial Cards */
+        .tutorial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .tutorial-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: var(--transition);
+        }
+        
+        .tutorial-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+            border-color: var(--primary);
+        }
+        
+        .tutorial-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        
+        .tutorial-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Code Examples */
+        .code-block {
+            background: var(--bg-code);
+            color: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .code-inline {
+            background: var(--bg-secondary);
+            color: var(--primary);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        
+        /* Syntax Guide */
+        .syntax-guide {
+            background: var(--bg-secondary);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .syntax-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        .syntax-table th {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .syntax-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .syntax-table tr:hover {
+            background: var(--bg-primary);
+        }
+        
+        /* Quick Reference */
+        .quick-ref {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .ref-item {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            transition: var(--transition);
+        }
+        
+        .ref-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .ref-item h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .ref-item code {
+            display: block;
+            background: var(--bg-secondary);
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+        
+        /* Interactive Examples */
+        .example-container {
+            background: var(--bg-secondary);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .example-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .example-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .try-button {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .try-button:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+        
+        /* Best Practices */
+        .practice-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .practice-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--bg-primary);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            border: 1px solid var(--border);
+        }
+        
+        .practice-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .practice-content h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .practice-content p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* Cyberpunk Footer */
+        .footer {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #16213e 100%);
+            border-top: 2px solid;
+            border-image: linear-gradient(90deg, #00d4ff, #6366f1, #8b5cf6, #00d4ff) 1;
+            padding: 4rem 2rem 2rem;
+            position: relative;
+            overflow: hidden;
+            margin-top: 4rem;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            animation: cyberpunk-scan 3s linear infinite;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            color: #00d4ff;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px #00d4ff50;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: #a1a1aa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .footer-links a:hover {
+            color: #00d4ff;
+            text-shadow: 0 0 5px #00d4ff50;
+            padding-left: 10px;
+        }
+        
+        .footer-links a::before {
+            content: '▶';
+            position: absolute;
+            left: -15px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            color: #6366f1;
+        }
+        
+        .footer-links a:hover::before {
+            opacity: 1;
+            left: -10px;
+        }
+        
+        .footer-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #6366f1, transparent);
+            margin: 2rem 0;
+            position: relative;
+        }
+        
+        .footer-divider::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            opacity: 0;
+            animation: cyberpunk-pulse 2s ease-in-out infinite alternate;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+        }
+        
+        .footer-copyright {
+            color: #71717a;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-tech {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        
+        .tech-badge {
+            background: linear-gradient(135deg, #374151, #1f2937);
+            border: 1px solid #6366f1;
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            color: #00d4ff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 5px #00d4ff30;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .tech-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 25px rgba(0, 212, 255, 0.3);
+            border-color: #00d4ff;
+        }
+        
+        .footer-glow {
+            color: #6366f1;
+            text-shadow: 0 0 10px #6366f150;
+            font-weight: 700;
+        }
+        
+        /* Cyberpunk Animations */
+        @keyframes cyberpunk-scan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        @keyframes cyberpunk-pulse {
+            0% { opacity: 0; }
+            100% { opacity: 0.6; }
+        }
+        
+        @keyframes cyberpunk-glow {
+            0%, 100% { text-shadow: 0 0 5px #6366f150; }
+            50% { text-shadow: 0 0 20px #6366f1, 0 0 30px #6366f180; }
+        }
+        
+        /* Dark theme adjustments */
+        [data-theme="dark"] .footer {
+            background: linear-gradient(135deg, #000000 0%, #1a0b3d 50%, #2d1b69 100%);
+        }
+        
+        [data-theme="dark"] .tech-badge {
+            background: linear-gradient(135deg, #1e1b4b, #312e81);
+            border-color: #8b5cf6;
+        }
+        
+        [data-theme="dark"] .footer-section h3 {
+            color: #a78bfa;
+            text-shadow: 0 0 10px #8b5cf650;
+        }
+        
+        [data-theme="dark"] .footer-links a:hover {
+            color: #a78bfa;
+            text-shadow: 0 0 5px #8b5cf650;
+        }
+        
+        [data-theme="dark"] .tech-badge:hover {
+            border-color: #a78bfa;
+            box-shadow: 0 5px 25px rgba(139, 92, 246, 0.3);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 1rem;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .main-content {
+                margin-top: 60px;
+                padding: 1rem;
+            }
+            
+            .tutorial-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .learn-hero h1 {
+                font-size: 1.75rem;
+            }
+            
+            .learn-hero p {
+                font-size: 1rem;
+            }
+            
+            .tutorial-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6FZM0EGT74"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6FZM0EGT74');
+</script>
+
+<body data-theme="light">
+    <!-- Navigation Header -->
+    <header class="nav-header">
+        <nav class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon">
+                    <div class="diagram-node"></div>
+                    <div class="diagram-connection"></div>
+                    <div class="diagram-node"></div>
+                    <div class="diagram-connection"></div>
+                    <div class="diagram-node"></div>
+                </div>
+                <span>SimpleMermaid</span>
+            </a>
+            
+            <!-- Desktop Menu -->
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="learn-mermaid.html" class="nav-link active">Learn</a></li>
+                <li><a href="mermaid-tool.html" class="nav-link">Editor</a></li>
+                <li><button class="theme-toggle" id="themeToggle">☀️</button></li>
+                <li><a href="mermaid-tool.html" class="nav-cta">Start Creating</a></li>
+            </ul>
+            
+            <!-- Mobile Hamburger -->
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html" class="mobile-nav-link">Home</a>
+            <a href="learn-mermaid.html" class="mobile-nav-link">Learn</a>
+            <a href="mermaid-tool.html" class="mobile-nav-link">Editor</a>
+            <a href="mermaid-tool.html" class="mobile-nav-link nav-cta">Start Creating</a>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-container">
+            <!-- Hero Section -->
+            <div class="learn-hero">
+                <h1>🚀 Master Mermaid.js Diagrams</h1>
+                <p>Transform your ideas into beautiful diagrams with the simplest syntax you'll ever learn</p>
+            </div>
+            
+            <!-- What is Mermaid Section -->
+            <section class="tutorial-section">
+                <div class="section-header">
+                    <h2>What is Mermaid.js?</h2>
+                    <p>A powerful, text-based diagramming tool that creates professional diagrams using simple, Markdown-like syntax</p>
+                </div>
+                
+                <div class="tutorial-grid">
+                    <div class="tutorial-card">
+                        <h3>📝 Text-Based</h3>
+                        <p>Write diagrams as code using intuitive syntax. No dragging, no clicking - just type and see your diagram appear.</p>
+                    </div>
+                    
+                    <div class="tutorial-card">
+                        <h3>⚡ Instant Rendering</h3>
+                        <p>Watch your diagrams come to life in real-time as you type. Perfect for rapid prototyping and quick iterations.</p>
+                    </div>
+                    
+                    <div class="tutorial-card">
+                        <h3>🎨 Professional Output</h3>
+                        <p>Generate beautiful, publication-ready diagrams that look great in documentation, presentations, and reports.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Getting Started -->
+            <section class="tutorial-section">
+                <div class="section-header">
+                    <h2>Getting Started</h2>
+                    <p>Learn the basics in just 5 minutes</p>
+                </div>
+                
+                <div class="syntax-guide">
+                    <h3>🔰 Your First Diagram</h3>
+                    <p>Every Mermaid diagram starts with declaring its type. Here's the simplest flowchart:</p>
+                    
+                    <div class="code-block">flowchart TD
+A[Start] --> B[Process]
+B --> C[End]</div>
+                    
+                    <p>This creates a top-down flowchart with three nodes connected by arrows.</p>
+                    
+                    <div class="example-header">
+                        <span class="example-title">Key Concepts:</span>
+                        <a href="mermaid-tool.html#diagram=GYGw9g7gxgFghgJwC4AIAqARFAoAggbQGUlEkBdFAWkoD4UAhfABQTCgFMBnTi7eq2igDC+AKIA7ACZkgA" class="try-button">Try It Live →</a>
+                    </div>
+                    
+                    <ul class="practice-list">
+                        <li>
+                            <span class="practice-icon">📍</span>
+                            <div class="practice-content">
+                                <h4>Direction</h4>
+                                <p><code class="code-inline">TD</code> = Top Down, <code class="code-inline">LR</code> = Left Right, <code class="code-inline">BT</code> = Bottom Top, <code class="code-inline">RL</code> = Right Left</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="practice-icon">📦</span>
+                            <div class="practice-content">
+                                <h4>Node Syntax</h4>
+                                <p><code class="code-inline">A[Text]</code> creates a rectangle node with label "Text"</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="practice-icon">➡️</span>
+                            <div class="practice-content">
+                                <h4>Connections</h4>
+                                <p><code class="code-inline">--></code> creates an arrow between nodes</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Diagram Types -->
+            <section class="tutorial-section">
+                <div class="section-header">
+                    <h2>Diagram Types</h2>
+                    <p>Choose the right diagram for your needs</p>
+                </div>
+                
+                <div class="tutorial-grid">
+                    <div class="tutorial-card">
+                        <h3>📊 Flowchart</h3>
+                        <p>Perfect for processes, workflows, and decision trees</p>
+                        <div class="code-block">flowchart LR
+    Start --> Process
+    Process --> Decision{Yes/No?}
+    Decision -->|Yes| Success
+    Decision -->|No| Retry</div>
+                    </div>
+                    
+                    <div class="tutorial-card">
+                        <h3>🔄 Sequence Diagram</h3>
+                        <p>Ideal for showing interactions between systems or components</p>
+                        <div class="code-block">sequenceDiagram
+    User->>Server: Request
+    Server->>Database: Query
+    Database-->>Server: Data
+    Server-->>User: Response</div>
+                    </div>
+                    
+                    <div class="tutorial-card">
+                        <h3>📅 Gantt Chart</h3>
+                        <p>Great for project timelines and task scheduling</p>
+                        <div class="code-block">gantt
+    title Project Plan
+    section Phase 1
+    Task A :done, a1, 2024-01-01, 7d
+    Task B :active, a2, after a1, 5d
+    section Phase 2  
+    Task C :a3, after a2, 10d</div>
+                    </div>
+                    
+                    <div class="tutorial-card">
+                        <h3>🏗️ Class Diagram</h3>
+                        <p>Essential for object-oriented design and system architecture</p>
+                        <div class="code-block">classDiagram
+    class User {
+        +String name
+        +String email
+        +login()
+        +logout()
+    }
+    class Admin {
+        +manageUsers()
+    }
+    Admin --|> User</div>
+                    </div>
+                    
+                    <div class="tutorial-card">
+                        <h3>🔀 State Diagram</h3>
+                        <p>Show state transitions and system behavior</p>
+                        <div class="code-block">stateDiagram
+    [*] --> Idle
+    Idle --> Running : Start
+    Running --> Paused : Pause
+    Paused --> Running : Resume
+    Running --> [*] : Complete</div>
+                    </div>
+                    
+                    <div class="tutorial-card">
+                        <h3>🗄️ Entity Relationship</h3>
+                        <p>Design database schemas and relationships</p>
+                        <div class="code-block">erDiagram
+    CUSTOMER ||--o{ ORDER : places
+    ORDER ||--|{ LINE-ITEM : contains
+    PRODUCT ||--o{ LINE-ITEM : includes</div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Node Shapes -->
+            <section class="tutorial-section">
+                <div class="section-header">
+                    <h2>Node Shapes & Styles</h2>
+                    <p>Express meaning through visual elements</p>
+                </div>
+                
+                <div class="syntax-guide">
+                    <h3>🔷 Basic Shapes</h3>
+                    <p>Surround text with different brackets to create various shapes:</p>
+                    
+                    <table class="syntax-table">
+                        <thead>
+                            <tr>
+                                <th>Shape</th>
+                                <th>Syntax</th>
+                                <th>Example</th>
+                                <th>Use Case</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Rectangle</td>
+                                <td><code>A[Text]</code></td>
+                                <td>Standard box</td>
+                                <td>Processes, actions</td>
+                            </tr>
+                            <tr>
+                                <td>Rounded</td>
+                                <td><code>A(Text)</code></td>
+                                <td>Soft edges</td>
+                                <td>Start/End points</td>
+                            </tr>
+                            <tr>
+                                <td>Circle</td>
+                                <td><code>A((Text))</code></td>
+                                <td>Perfect circle</td>
+                                <td>Key points, connectors</td>
+                            </tr>
+                            <tr>
+                                <td>Diamond</td>
+                                <td><code>A{{Text}}</code></td>
+                                <td>Diamond shape</td>
+                                <td>Decisions, conditions</td>
+                            </tr>
+                            <tr>
+                                <td>Hexagon</td>
+                                <td><code>A{{Text}}</code></td>
+                                <td>Six-sided</td>
+                                <td>Preparation steps</td>
+                            </tr>
+                            <tr>
+                                <td>Database</td>
+                                <td><code>A[[Text]]</code></td>
+                                <td>Cylinder-like</td>
+                                <td>Data storage</td>
+                            </tr>
+                            <tr>
+                                <td>Parallelogram</td>
+                                <td><code>A[/Text/]</code></td>
+                                <td>Slanted box</td>
+                                <td>Input/Output</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            
+            <!-- Arrow Types -->
+            <section class="tutorial-section">
+                <div class="section-header">
+                    <h2>Connections & Arrows</h2>
+                    <p>Show relationships and flow direction</p>
+                </div>
+                
+                <div class="quick-ref">
+                    <div class="ref-item">
+                        <h4>Solid Arrow</h4>
+                        <code>A --> B</code>
+                        <p>Standard connection</p>
+                    </div>
+                    
+                    <div class="ref-item">
+                        <h4>Dotted Arrow</h4>
+                        <code>A -.-> B</code>
+                        <p>Optional or alternate flow</p>
+                    </div>
+                    
+                    <div class="ref-item">
+                        <h4>Thick Arrow</h4>
+                        <code>A ==> B</code>
+                        <p>Important connection</p>
+                    </div>
+                    
+                    <div class="ref-item">
+                        <h4>No Arrow</h4>
+                        <code>A --- B</code>
+                        <p>Simple connection</p>
+                    </div>
+                    
+                    <div class="ref-item">
+                        <h4>With Label</h4>
+                        <code>A -->|Label| B</code>
+                        <p>Labeled connection</p>
+                    </div>
+                    
+                    <div class="ref-item">
+                        <h4>Bidirectional</h4>
+                        <code>A <--> B</code>
+                        <p>Two-way flow</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Advanced Styling -->
+            <section class="tutorial-section">
+                <div class="section-header">
+                    <h2>Advanced Styling</h2>
+                    <p>Make your diagrams visually stunning</p>
+                </div>
+                
+                <div class="example-container">
+                    <div class="example-header">
+                        <span class="example-title">🎨 Custom Colors & Styles</span>
+                        <a href="file:///Users/cryptobandit/Documents/Scripts/X9_simplemermaid/mermaid-tool.html#diagram=GYGw9g7gxgFghgJwC4AIAqARAUC3KCCA2gHJgIC2cIKpAJgKYC6OeAQoQMoCuUU9Azv0YAuUfx59BLXAGFCAdUQA7AJZKA5iNERla9dJQZCAUQQIyW4fTNkDBqCDiCM9YCnG8B-FMBUgQwgDEAKxQAEYAHKEANPxI5gDW9EEAzPQR9AAsAIyx8WBJALQQKrRIMMIATAAOAB7RUGDgCEHAbfaOzq4oOgiqGj5+AYHAAAxwtJn0eYnJgfRQAJwA7NnAMwX0xaXlVXUNTWSt7XgoDk78Lm7W5giD-kG0i8Epmetxs0FLKaOVUBtFEplCo1eqNZrHYB2U74FCFQoAPhQrAMsPhSJkqLhiMMQA" class="try-button">Try in Editor →</a>
+                    </div>
+                    
+                    <p>Use <code class="code-inline">classDef</code> to define custom styles and <code class="code-inline">class</code> or <code class="code-inline">:::</code> to apply them:</p>
+                    
+                    <div class="code-block">flowchart TD
+    A[Normal Node]
+    B[Success]:::success
+    C[Warning]:::warning
+    D[Error]:::error
+    
+    classDef success fill:#5cb85c,stroke:#3e8e41,stroke-width:2px,color:#fff
+    classDef warning fill:#f0ad4e,stroke:#ec971f,stroke-width:2px,color:#fff
+    classDef error fill:#d9534f,stroke:#c9302c,stroke-width:2px,color:#fff
+    
+    A --> B
+    A --> C
+    A --> D</div>
+                </div>
+                
+                <div class="example-container">
+                    <div class="example-header">
+                        <span class="example-title">📦 Subgraphs for Organization</span>
+                    </div>
+                    
+                    <p>Group related nodes using subgraphs:</p>
+                    
+                    <div class="code-block">flowchart TB
+    subgraph Frontend[Frontend Layer]
+        UI[User Interface]
+        UX[User Experience]
+    end
+    
+    subgraph Backend[Backend Layer]
+        API[API Server]
+        DB[(Database)]
+    end
+    
+    UI --> API
+    API --> DB</div>
+                </div>
+            </section>
+            
+            <!-- Best Practices -->
+            <section class="tutorial-section">
+                <div class="section-header">
+                    <h2>Best Practices</h2>
+                    <p>Create professional, maintainable diagrams</p>
+                </div>
+                
+                <ul class="practice-list">
+                    <li>
+                        <span class="practice-icon">✅</span>
+                        <div class="practice-content">
+                            <h4>Use Descriptive Labels</h4>
+                            <p>Instead of A, B, C, use meaningful names like User, Server, Database</p>
+                        </div>
+                    </li>
+                    
+                    <li>
+                        <span class="practice-icon">✅</span>
+                        <div class="practice-content">
+                            <h4>Break Complex Diagrams</h4>
+                            <p>Split large diagrams into multiple smaller, focused ones</p>
+                        </div>
+                    </li>
+                    
+                    <li>
+                        <span class="practice-icon">✅</span>
+                        <div class="practice-content">
+                            <h4>Use Consistent Direction</h4>
+                            <p>Maintain flow direction (TD for processes, LR for sequences)</p>
+                        </div>
+                    </li>
+                    
+                    <li>
+                        <span class="practice-icon">✅</span>
+                        <div class="practice-content">
+                            <h4>Apply Color Coding</h4>
+                            <p>Use colors consistently (green for success, red for errors, etc.)</p>
+                        </div>
+                    </li>
+                    
+                    <li>
+                        <span class="practice-icon">✅</span>
+                        <div class="practice-content">
+                            <h4>Group Related Items</h4>
+                            <p>Use subgraphs to organize related nodes visually</p>
+                        </div>
+                    </li>
+                    
+                    <li>
+                        <span class="practice-icon">✅</span>
+                        <div class="practice-content">
+                            <h4>Label Important Connections</h4>
+                            <p>Add descriptions to arrows when the relationship isn't obvious</p>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+            
+            <!-- Quick Reference -->
+            <section class="tutorial-section">
+                <div class="section-header">
+                    <h2>Quick Reference</h2>
+                    <p>Common patterns and snippets</p>
+                </div>
+                
+                <div class="tutorial-grid">
+                    <div class="tutorial-card">
+                        <h3>Decision Flow</h3>
+                        <div class="code-block">flowchart TD
+    Start --> Check{Condition?}
+    Check -->|True| Success[✓ Done]
+    Check -->|False| Retry[↻ Try Again]
+    Retry --> Check</div>
+                    </div>
+                    
+                    <div class="tutorial-card">
+                        <h3>API Request Flow</h3>
+                        <div class="code-block">sequenceDiagram
+    Client->>+Server: POST /api/data
+    Server->>+Database: INSERT
+    Database-->>-Server: Success
+    Server-->>-Client: 200 OK</div>
+                    </div>
+                    
+                    <div class="tutorial-card">
+                        <h3>State Machine</h3>
+                        <div class="code-block">stateDiagram
+    [*] --> Draft
+    Draft --> Review : Submit
+    Review --> Published : Approve
+    Review --> Draft : Reject
+    Published --> [*]</div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Call to Action -->
+            <section class="tutorial-section">
+                <div class="example-container" style="text-align: center; padding: 3rem;">
+                    <h2>Ready to Create?</h2>
+                    <p style="font-size: 1.125rem; margin: 1rem 0;">Start creating beautiful diagrams with what you've learned</p>
+                    <a href="mermaid-tool.html" class="nav-cta" style="display: inline-block; margin: 1rem; padding: 1rem 2rem; font-size: 1.125rem;">
+                        🚀 Open SimpleMermaid Editor
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <!-- Cyberpunk Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Learning Hub</h3>
+                    <ul class="footer-links">
+                        <li><a href="#getting-started">Getting Started</a></li>
+                        <li><a href="#diagram-types">Diagram Types</a></li>
+                        <li><a href="#quick-reference">Quick Reference</a></li>
+                        <li><a href="mermaid-tool.html">Try Live Editor</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Syntax Guide</h3>
+                    <ul class="footer-links">
+                        <li><a href="#flowchart">Flowcharts</a></li>
+                        <li><a href="#sequence">Sequence Diagrams</a></li>
+                        <li><a href="#class">Class Diagrams</a></li>
+                        <li><a href="#gantt">Gantt Charts</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://mermaid.js.org" target="_blank">Official Docs</a></li>
+                        <li><a href="index.html">Homepage</a></li>
+                        <li><a href="mermaid-tool.html">Editor Tool</a></li>
+                        <li><a href="#examples">Examples</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-divider"></div>
+            
+            <div class="footer-bottom">
+                <div class="footer-tech">
+                    <span class="tech-badge">Mermaid.js</span>
+                    <span class="tech-badge">Markdown</span>
+                    <span class="tech-badge">Text-Based</span>
+                    <span class="tech-badge">Version Control</span>
+                    <span class="tech-badge">Open Source</span>
+                </div>
+                
+                <p class="footer-copyright">
+                    &copy; 2025 <span class="footer-glow">SimpleMermaid.com</span> | 
+                    Master the art of diagramming | 
+                    <span class="footer-glow">Learn • Practice • Create</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        // Migrate old theme setting if exists
+        const oldTheme = localStorage.getItem('theme');
+        if (oldTheme && !localStorage.getItem('simplemermaid-theme')) {
+            localStorage.setItem('simplemermaid-theme', oldTheme);
+            localStorage.removeItem('theme');
+        }
+        
+        // Load saved theme
+        const savedTheme = localStorage.getItem('simplemermaid-theme') || 'light';
+        body.setAttribute('data-theme', savedTheme);
+        themeToggle.textContent = savedTheme === 'light' ? '☀️' : '🌙';
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            body.setAttribute('data-theme', newTheme);
+            themeToggle.textContent = newTheme === 'light' ? '☀️' : '🌙';
+            localStorage.setItem('simplemermaid-theme', newTheme);
+            
+            // Update try-button links with new theme
+            updateTryButtonLinks();
+        });
+        
+        // Function to update try-button links with current theme
+        function updateTryButtonLinks() {
+            const currentTheme = body.getAttribute('data-theme');
+            const tryButtons = document.querySelectorAll('.try-button');
+            
+            console.log(`Updating ${tryButtons.length} try buttons with theme: ${currentTheme}`);
+            
+            tryButtons.forEach(button => {
+                const href = button.getAttribute('href');
+                if (href && href.includes('mermaid-tool.html')) {
+                    // Split URL into base and hash parts
+                    const [baseUrl, hashPart] = href.split('#');
+                    
+                    // Remove existing theme parameter from base URL
+                    let cleanBaseUrl = baseUrl.replace(/[&?]theme=(light|dark)/g, '');
+                    
+                    // Add current theme parameter
+                    const separator = cleanBaseUrl.includes('?') ? '&' : '?';
+                    const newBaseUrl = `${cleanBaseUrl}${separator}theme=${currentTheme}`;
+                    
+                    // Reconstruct URL with hash if it exists
+                    const newHref = hashPart ? `${newBaseUrl}#${hashPart}` : newBaseUrl;
+                    console.log(`Updating button: ${href} -> ${newHref}`);
+                    button.setAttribute('href', newHref);
+                }
+            });
+        }
+        
+        // Initialize try-button links with current theme
+        updateTryButtonLinks();
+        
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('show');
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('show');
+            });
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

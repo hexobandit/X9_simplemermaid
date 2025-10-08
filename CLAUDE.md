@@ -57,10 +57,11 @@ The application can run directly from `file://` protocol using embedded examples
 ├── index.html              # Complete application (HTML/CSS/JS)
 ├── examples/
 │   ├── config.json        # Category configuration for dropdown menus
-│   └── *.mmd              # Individual Mermaid diagram examples (48 files)
+│   └── *.mmd              # Individual Mermaid diagram examples (22 files)
 ├── .github/workflow/
 │   └── deploy.yml         # CI/CD pipeline configuration
-├── simplemermaid.png      # Logo/favicon
+├── favicon.png            # Site favicon
+├── simplemermaid.png      # Logo/social image
 ├── README.md              # User-facing documentation
 └── CLAUDE.md              # This file
 ```
@@ -79,7 +80,7 @@ The application can run directly from `file://` protocol using embedded examples
 - Dynamic dropdown creation from `config.json`
 - Supports both external files and inline content
 
-### Theme System (index.html:113-151)
+### Theme System (index.html:119-200)
 - Three themes: light (default), dark, colorful
 - Controlled via `data-theme` attribute on document root
 - Special SVG styling overrides for Mermaid diagrams in dark/colorful themes
@@ -106,7 +107,7 @@ The application can run directly from `file://` protocol using embedded examples
 - `security`: Security & Threat Models (RBAC, K8s threats, web app threats, DevSecOps)
 
 ### Modifying Themes
-- CSS variables defined in `:root` (lines 53-112)
+- CSS variables defined in `:root` (lines 59-118)
 - Theme variations in `[data-theme="dark"]` and `[data-theme="colorful"]`
 - SVG-specific overrides for Mermaid diagrams (lines 673-825)
 
@@ -123,9 +124,9 @@ The application can run directly from `file://` protocol using embedded examples
 
 ## Code Organization within index.html
 
-### CSS Structure (lines 53-1400)
-- CSS custom properties for theming (:root, lines 53-112)
-- Theme variations ([data-theme], lines 113-200)
+### CSS Structure (lines 58-1400)
+- CSS custom properties for theming (:root, lines 59-118)
+- Theme variations ([data-theme], lines 119-200)
 - Component styles (layout, buttons, editor, preview)
 - SVG overrides for dark/colorful themes (lines 673-825)
 - Responsive design breakpoints throughout
@@ -144,3 +145,5 @@ The application can run directly from `file://` protocol using embedded examples
 - **URL State Management**: Automatic compression/decompression with 2-second debounce
 - **Theme Switching**: Document-level data attribute controls CSS custom properties
 - **Layout Toggle**: CSS Grid switching between vertical/horizontal modes
+- **SEO Optimization**: Complete meta tags for social sharing and Google indexing (lines 9-48)
+- **Google AdSense Integration**: Placeholder div at line ~2022, awaiting ad account approval
