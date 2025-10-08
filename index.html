@@ -595,7 +595,7 @@
     <!-- Navigation Header -->
     <header class="header">
         <nav class="header-content">
-            <a href="landing.html" class="logo-link">
+            <a href="index.html" class="logo-link">
                 <div class="css-logo">
                     <div class="logo-icon">
                         <div class="diagram-node"></div>
@@ -613,11 +613,11 @@
             
             <!-- Desktop Menu -->
             <ul class="nav-menu">
-                <li><a href="landing.html" class="nav-link active">Home</a></li>
+                <li><a href="index.html" class="nav-link active">Home</a></li>
                 <li><a href="learn-mermaid.html" class="nav-link">Learn</a></li>
-                <li><a href="simplemermaid-clone-final.html" class="nav-link">Editor</a></li>
+                <li><a href="mermaid-tool.html" class="nav-link">Editor</a></li>
                 <li><button class="theme-toggle" id="themeToggle" title="Toggle theme">☀️</button></li>
-                <li><a href="simplemermaid-clone-final.html" class="nav-cta">Start Creating</a></li>
+                <li><a href="mermaid-tool.html" class="nav-cta">Start Creating</a></li>
             </ul>
             
             <!-- Mobile Hamburger -->
@@ -630,10 +630,10 @@
         
         <!-- Mobile Menu -->
         <div class="mobile-menu" id="mobileMenu">
-            <a href="landing.html" class="mobile-nav-link">Home</a>
+            <a href="index.html" class="mobile-nav-link">Home</a>
             <a href="learn-mermaid.html" class="mobile-nav-link">Learn</a>
-            <a href="simplemermaid-clone-final.html" class="mobile-nav-link">Editor</a>
-            <a href="simplemermaid-clone-final.html" class="mobile-nav-link nav-cta">Start Creating</a>
+            <a href="mermaid-tool.html" class="mobile-nav-link">Editor</a>
+            <a href="mermaid-tool.html" class="mobile-nav-link nav-cta">Start Creating</a>
         </div>
     </header>
     
@@ -645,7 +645,7 @@
                 Fast, distraction-free editor where you can <strong>write, visualize, share, and collaborate</strong> on Mermaid.js diagrams in real time.
             </p>
             <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                <a href="simplemermaid-clone-final.html" class="cta-button">
+                <a href="mermaid-tool.html" class="cta-button">
                     🚀 Start Creating
                 </a>
                 <a href="learn-mermaid.html" class="cta-button" style="background: transparent; color: white; border: 2px solid white;">
@@ -741,7 +741,7 @@
             <p>Mermaid.js is a powerful, text-based diagramming tool that creates flowcharts, sequence diagrams, Gantt charts, and more using simple, Markdown-like syntax.</p>
             <p>Perfect for developers, technical writers, project managers, and students who need quick, professional diagrams without complex software.</p>
             
-            <a href="simplemermaid-clone-final.html" class="cta-secondary">
+            <a href="mermaid-tool.html" class="cta-secondary">
                 ✨ Try It Now
             </a>
         </div>
@@ -759,8 +759,15 @@
         const themeToggle = document.getElementById('themeToggle');
         const body = document.body;
         
+        // Migrate old theme setting if exists
+        const oldTheme = localStorage.getItem('theme');
+        if (oldTheme && !localStorage.getItem('simplemermaid-theme')) {
+            localStorage.setItem('simplemermaid-theme', oldTheme);
+            localStorage.removeItem('theme');
+        }
+        
         // Load saved theme
-        const savedTheme = localStorage.getItem('theme') || 'light';
+        const savedTheme = localStorage.getItem('simplemermaid-theme') || 'light';
         body.setAttribute('data-theme', savedTheme);
         themeToggle.textContent = savedTheme === 'light' ? '☀️' : '🌙';
         
@@ -770,7 +777,7 @@
             
             body.setAttribute('data-theme', newTheme);
             themeToggle.textContent = newTheme === 'light' ? '☀️' : '🌙';
-            localStorage.setItem('theme', newTheme);
+            localStorage.setItem('simplemermaid-theme', newTheme);
         });
         
         // Mobile Menu Toggle
@@ -815,7 +822,7 @@
         // Add loading state to CTA buttons
         document.querySelectorAll('.cta-button, .cta-secondary').forEach(button => {
             button.addEventListener('click', function(e) {
-                if (this.href && this.href.includes('simplemermaid-clone-final.html')) {
+                if (this.href && this.href.includes('mermaid-tool.html')) {
                     this.style.opacity = '0.8';
                     this.innerHTML = this.innerHTML.replace('🚀', '⏳').replace('✨', '⏳');
                 }
