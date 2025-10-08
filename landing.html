@@ -16,7 +16,7 @@
     <meta property="og:type" content="website">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="simplemermaid.png">
+    <link rel="icon" type="image/png" href="favicon.png">
     
     <style>
         /* Modern CSS Variables */
@@ -154,6 +154,119 @@
         
         .logo-link:hover .logo-simple {
             color: var(--primary);
+        }
+        
+        /* Navigation Menu */
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+            background: var(--bg-secondary);
+        }
+        
+        .nav-link.active {
+            color: var(--primary);
+            background: var(--bg-secondary);
+        }
+        
+        .nav-cta {
+            background: var(--primary);
+            color: white !important;
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .nav-cta:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+        
+        /* Mobile Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: var(--transition);
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 1rem;
+            z-index: 999;
+        }
+        
+        .mobile-menu.show {
+            display: block;
+        }
+        
+        .mobile-nav-link {
+            display: block;
+            padding: 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        
+        .mobile-nav-link:hover {
+            background: var(--bg-secondary);
+            color: var(--primary);
+        }
+        
+        .mobile-nav-link.nav-cta {
+            background: var(--primary);
+            color: white !important;
+            text-align: center;
+            margin-top: 0.5rem;
         }
         
         /* Theme Toggle */
@@ -411,6 +524,14 @@
                 padding: 0 1rem;
             }
             
+            .nav-menu {
+                display: none;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
             .hero {
                 padding: 6rem 1rem 4rem;
                 margin-top: 3rem;
@@ -471,10 +592,10 @@
     </style>
 </head>
 <body data-theme="light">
-    <!-- Header -->
+    <!-- Navigation Header -->
     <header class="header">
-        <div class="header-content">
-            <a href="#" class="logo-link">
+        <nav class="header-content">
+            <a href="landing.html" class="logo-link">
                 <div class="css-logo">
                     <div class="logo-icon">
                         <div class="diagram-node"></div>
@@ -490,9 +611,29 @@
                 </div>
             </a>
             
-            <button class="theme-toggle" id="themeToggle" title="Toggle theme">
-                ☀️
+            <!-- Desktop Menu -->
+            <ul class="nav-menu">
+                <li><a href="landing.html" class="nav-link active">Home</a></li>
+                <li><a href="learn-mermaid.html" class="nav-link">Learn</a></li>
+                <li><a href="simplemermaid-clone-final.html" class="nav-link">Editor</a></li>
+                <li><button class="theme-toggle" id="themeToggle" title="Toggle theme">☀️</button></li>
+                <li><a href="simplemermaid-clone-final.html" class="nav-cta">Start Creating</a></li>
+            </ul>
+            
+            <!-- Mobile Hamburger -->
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
+        </nav>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="landing.html" class="mobile-nav-link">Home</a>
+            <a href="learn-mermaid.html" class="mobile-nav-link">Learn</a>
+            <a href="simplemermaid-clone-final.html" class="mobile-nav-link">Editor</a>
+            <a href="simplemermaid-clone-final.html" class="mobile-nav-link nav-cta">Start Creating</a>
         </div>
     </header>
     
@@ -503,9 +644,14 @@
             <p class="lead">
                 Fast, distraction-free editor where you can <strong>write, visualize, share, and collaborate</strong> on Mermaid.js diagrams in real time.
             </p>
-            <a href="simplemermaid-clone-final.html" class="cta-button">
-                🚀 Start Creating Diagrams
-            </a>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="simplemermaid-clone-final.html" class="cta-button">
+                    🚀 Start Creating
+                </a>
+                <a href="learn-mermaid.html" class="cta-button" style="background: transparent; color: white; border: 2px solid white;">
+                    📚 Learn Mermaid
+                </a>
+            </div>
         </div>
     </section>
     
@@ -625,6 +771,31 @@
             body.setAttribute('data-theme', newTheme);
             themeToggle.textContent = newTheme === 'light' ? '☀️' : '🌙';
             localStorage.setItem('theme', newTheme);
+        });
+        
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('show');
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('show');
+            });
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('show');
+            }
         });
         
         // Smooth scrolling for anchor links

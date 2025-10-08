@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SimpleMermaid - Real-time Mermaid Diagram Editor</title>
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    
     <!-- Mermaid Library -->
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     
@@ -75,39 +78,34 @@
             border-bottom: 1px solid var(--border-color);
             box-shadow: 0 1px 3px var(--shadow-color);
         }
-        
+        /* Header Left Section */
         .header-left {
-            flex-shrink: 0;
+            display: flex;
+            align-items: center;
         }
         
         .back-link {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            text-decoration: none;
-            transition: all 0.2s ease;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
         }
         
         .back-link:hover {
-            color: var(--primary-hover);
+            color: var(--primary-color);
+            background: var(--bg-secondary);
             transform: translateX(-2px);
         }
         
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .logo::before {
-            content: "📊";
-            font-size: 1.25rem;
+        .back-link:active {
+            transform: translateX(-1px);
+            background: var(--bg-tertiary);
         }
         
         .header-controls {
@@ -223,14 +221,27 @@
         /* Main Content Layout */
         .main-container {
             display: flex;
-            height: calc(100vh - 73px); /* Subtract header height */
+            height: calc(100vh - 80px); /* Subtract header height */
+        }
+        
+        .main-container.vertical {
+            flex-direction: column;
         }
         
         .panel {
-            flex: 1;
             display: flex;
             flex-direction: column;
             background-color: var(--bg-primary);
+            min-width: 200px;
+            min-height: 200px;
+        }
+        
+        .panel:first-child {
+            flex: 0 0 50%;
+        }
+        
+        .panel:last-child {
+            flex: 1;
         }
         
         .panel-header {
@@ -246,8 +257,23 @@
         }
         
         .separator {
-            width: 1px;
             background-color: var(--border-color);
+            cursor: col-resize;
+            user-select: none;
+            transition: background-color 0.2s ease;
+            flex: 0 0 4px;
+        }
+        
+        .separator:hover {
+            background-color: var(--primary-color);
+        }
+        
+        .separator.dragging {
+            background-color: var(--primary-color);
+        }
+        
+        .main-container.vertical .separator {
+            cursor: row-resize;
         }
         
         /* Editor Styles */
@@ -409,16 +435,11 @@
         
         /* Responsive Design */
         @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 1rem;
-            }
+            
             
             .header-controls {
-                width: 100%;
-                justify-content: space-between;
-                flex-wrap: wrap;
+                flex-direction: column;
+                align-items: stretch;
                 gap: 0.5rem;
             }
             
@@ -438,13 +459,13 @@
                 height: calc(100vh - 160px);
             }
             
-            .panel {
-                min-height: 50%;
+            .panel:first-child {
+                flex: 0 0 50%;
             }
             
             .separator {
-                width: auto;
-                height: 1px;
+                cursor: row-resize;
+                flex: 0 0 4px;
             }
             
             .btn {
@@ -642,6 +663,9 @@
                 <button id="exportSvgBtn" class="btn btn-warning" title="Export as SVG">
                     📄 SVG
                 </button>
+                <button id="layoutBtn" class="btn btn-icon" title="Toggle layout (horizontal/vertical)">
+                    ⚏
+                </button>
                 <button id="themeBtn" class="btn btn-icon theme-toggle" title="Toggle theme">
                     ☀️
                 </button>
@@ -676,8 +700,8 @@ Or choose an example from the dropdown above!"
             </div>
         </section>
         
-        <!-- Separator -->
-        <div class="separator"></div>
+        <!-- Resizable Separator -->
+        <div class="separator" id="separator" title="Drag to resize panels"></div>
         
         <!-- Preview Panel -->
         <section class="panel">
@@ -715,12 +739,16 @@ Or choose an example from the dropdown above!"
                 this.copyBtn = document.getElementById('copyBtn');
                 this.exportPngBtn = document.getElementById('exportPngBtn');
                 this.exportSvgBtn = document.getElementById('exportSvgBtn');
+                this.layoutBtn = document.getElementById('layoutBtn');
                 this.themeBtn = document.getElementById('themeBtn');
+                this.separator = document.getElementById('separator');
                 this.charCount = document.getElementById('charCount');
                 this.status = document.getElementById('status');
                 
                 // State
                 this.currentTheme = 'light';
+                this.isVertical = false;
+                this.isResizing = false;
                 this.renderTimeout = null;
                 this.diagramId = 0;
                 this.examplesData = {};
@@ -1009,7 +1037,11 @@ Or choose an example from the dropdown above!"
                 this.copyBtn.addEventListener('click', () => this.copyCode());
                 this.exportPngBtn.addEventListener('click', () => this.exportAs('png'));
                 this.exportSvgBtn.addEventListener('click', () => this.exportAs('svg'));
+                this.layoutBtn.addEventListener('click', () => this.toggleLayout());
                 this.themeBtn.addEventListener('click', () => this.toggleTheme());
+                
+                // Separator resize events
+                this.separator.addEventListener('mousedown', (e) => this.startResize(e));
                 
                 // Window events
                 window.addEventListener('beforeunload', () => this.saveToStorage());
@@ -1369,6 +1401,109 @@ Or choose an example from the dropdown above!"
             }
             
             /**
+             * Toggle layout (horizontal vs vertical)
+             */
+            toggleLayout() {
+                this.isVertical = !this.isVertical;
+                const mainContainer = document.querySelector('.main-container');
+                
+                if (this.isVertical) {
+                    mainContainer.classList.add('vertical');
+                } else {
+                    mainContainer.classList.remove('vertical');
+                }
+                
+                // Update button icon to reflect current state
+                this.layoutBtn.innerHTML = this.isVertical ? '⬌' : '⚏';
+                
+                // Save layout preference
+                localStorage.setItem('simplemermaid-layout', this.isVertical ? 'vertical' : 'horizontal');
+            }
+            
+            /**
+             * Start resizing panels
+             */
+            startResize(e) {
+                e.preventDefault();
+                this.isResizing = true;
+                this.separator.classList.add('dragging');
+                
+                const mainContainer = document.querySelector('.main-container');
+                const panels = mainContainer.querySelectorAll('.panel');
+                const firstPanel = panels[0];
+                
+                // Store initial dimensions
+                if (this.isVertical) {
+                    this.startY = e.clientY;
+                    this.startHeight = firstPanel.offsetHeight;
+                    this.containerHeight = mainContainer.offsetHeight;
+                } else {
+                    this.startX = e.clientX;
+                    this.startWidth = firstPanel.offsetWidth;
+                    this.containerWidth = mainContainer.offsetWidth;
+                }
+                
+                // Add global event listeners
+                document.addEventListener('mousemove', this.handleResize.bind(this));
+                document.addEventListener('mouseup', this.stopResize.bind(this));
+                document.body.style.cursor = this.isVertical ? 'row-resize' : 'col-resize';
+                document.body.style.userSelect = 'none';
+            }
+            
+            /**
+             * Handle resizing during mouse move
+             */
+            handleResize(e) {
+                if (!this.isResizing) return;
+                
+                const mainContainer = document.querySelector('.main-container');
+                const firstPanel = mainContainer.querySelector('.panel:first-child');
+                
+                if (this.isVertical) {
+                    const deltaY = e.clientY - this.startY;
+                    const newHeight = this.startHeight + deltaY;
+                    const minHeight = 150;
+                    const maxHeight = this.containerHeight - 150 - 4; // 4px for separator
+                    
+                    const clampedHeight = Math.max(minHeight, Math.min(maxHeight, newHeight));
+                    const percentage = (clampedHeight / this.containerHeight) * 100;
+                    
+                    firstPanel.style.flex = `0 0 ${percentage}%`;
+                } else {
+                    const deltaX = e.clientX - this.startX;
+                    const newWidth = this.startWidth + deltaX;
+                    const minWidth = 200;
+                    const maxWidth = this.containerWidth - 200 - 4; // 4px for separator
+                    
+                    const clampedWidth = Math.max(minWidth, Math.min(maxWidth, newWidth));
+                    const percentage = (clampedWidth / this.containerWidth) * 100;
+                    
+                    firstPanel.style.flex = `0 0 ${percentage}%`;
+                }
+            }
+            
+            /**
+             * Stop resizing
+             */
+            stopResize() {
+                if (!this.isResizing) return;
+                
+                this.isResizing = false;
+                this.separator.classList.remove('dragging');
+                
+                // Remove global event listeners
+                document.removeEventListener('mousemove', this.handleResize.bind(this));
+                document.removeEventListener('mouseup', this.stopResize.bind(this));
+                document.body.style.cursor = '';
+                document.body.style.userSelect = '';
+                
+                // Save the current panel size
+                const firstPanel = document.querySelector('.panel:first-child');
+                const flexValue = firstPanel.style.flex;
+                localStorage.setItem('simplemermaid-panel-size', flexValue);
+            }
+            
+            /**
              * Handle keyboard shortcuts
              */
             handleKeyboardShortcuts(event) {
@@ -1428,6 +1563,21 @@ Or choose an example from the dropdown above!"
                     const savedTheme = localStorage.getItem(this.THEME_KEY);
                     if (savedTheme && savedTheme !== this.currentTheme) {
                         this.toggleTheme();
+                    }
+                    
+                    // Load layout
+                    const savedLayout = localStorage.getItem('simplemermaid-layout');
+                    if (savedLayout === 'vertical' && !this.isVertical) {
+                        this.toggleLayout();
+                    }
+                    
+                    // Load panel size
+                    const savedPanelSize = localStorage.getItem('simplemermaid-panel-size');
+                    if (savedPanelSize) {
+                        const firstPanel = document.querySelector('.panel:first-child');
+                        if (firstPanel) {
+                            firstPanel.style.flex = savedPanelSize;
+                        }
                     }
                 } catch (error) {
                     console.warn('Failed to load from localStorage:', error);
@@ -1613,6 +1763,7 @@ Or choose an example from the dropdown above!"
         // Initialize the application when DOM is ready
         document.addEventListener('DOMContentLoaded', () => {
             new SimpleMermaid();
+            
         });
         
         // Prevent right-click context menu on buttons (optional UX enhancement)
