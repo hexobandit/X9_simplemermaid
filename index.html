@@ -927,9 +927,12 @@
         .footer-tech {
             display: flex;
             justify-content: center;
+            align-items: center;
             gap: 2rem;
             flex-wrap: wrap;
             margin-bottom: 1rem;
+            text-align: center;
+            width: 100%;
         }
         
         .tech-badge {
@@ -1356,6 +1359,124 @@
         .feature-card:nth-child(2) { animation-delay: 0.1s; }
         .feature-card:nth-child(3) { animation-delay: 0.2s; }
         .feature-card:nth-child(4) { animation-delay: 0.3s; }
+        
+        /* Use Cases Section */
+        .use-cases {
+            padding: 6rem 2rem;
+            background: var(--bg-secondary);
+        }
+        
+        .use-cases-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .use-cases-header {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+        
+        .use-cases-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .use-cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .use-case-card {
+            background: rgb(11, 10, 25);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border-left: 4px solid var(--primary);
+            text-align: left;
+        }
+        
+        [data-theme="light"] .use-case-card {
+            background: white;
+        }
+        
+        .use-case-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        
+        .use-case-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .use-case-quote {
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        
+        /* Pro Tip Section */
+        .pro-tip {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 1rem;
+            color: white;
+            text-align: left;
+            max-width: 800px;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pro-tip::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+        
+        .pro-tip h4 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .pro-tip p {
+            margin-bottom: 1rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .pro-tip-example {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+            font-size: 0.9rem;
+            border-left: 4px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .pro-tip-example strong {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 600;
+        }
     </style>
 </head>
 
@@ -1421,6 +1542,7 @@
             <h1>Simple Mermaid Diagram Editor</h1>
             <p class="lead">
                 Fast, distraction-free editor where you can <strong>write, visualize, share, and collaborate</strong> on Mermaid.js diagrams in real time.
+                <strong>No accounts, no downloads</strong> just pure diagramming joy.
             </p>
             <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                 <a href="mermaid-tool.html" class="cta-button">
@@ -1469,11 +1591,23 @@
     <section class="features">
         
         <div class="features-header">
-            <h2>Everything You Need</h2>
+            <h2>Why Teams Choose SimpleMermaid</h2>
             <p>Professional diagramming made simple with powerful features and seamless collaboration.</p>
         </div>
         
         <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">👤</div>
+                <h3>No Account Required</h3>
+                <p>Start creating instantly. No signups, no passwords, no barriers. Share with anyone - they don't need accounts either.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Privacy Focused</h3>
+                <p>No server storage, all processing happens in your browser. Your diagrams stay private.</p>
+            </div>
+
             <div class="feature-card">
                 <div class="feature-icon">⚡</div>
                 <h3>Instant Preview</h3>
@@ -1483,19 +1617,13 @@
             <div class="feature-card">
                 <div class="feature-icon">🔗</div>
                 <h3>Share Instantly</h3>
-                <p>Generate compressed shareable links for collaboration. Share diagrams with anyone, anywhere.</p>
+                <p>Create shareable links in seconds. No file uploads, no account requirements. Your diagrams are embedded in the URL and work on any device and never expire.</p>
             </div>
             
             <div class="feature-card">
                 <div class="feature-icon">📥</div>
                 <h3>Export to PNG/SVG</h3>
                 <p>Download your diagrams in multiple formats. Perfect for presentations and documentation.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🎨</div>
-                <h3>Multiple Themes</h3>
-                <p>Choose between light, dark, and colorful modes. Perfect for any environment or preference.</p>
             </div>
             
             <div class="feature-card">
@@ -1509,13 +1637,72 @@
                 <h3>Save & Load Diagrams</h3>
                 <p>Save your work locally in your browser with auto-save. Manage multiple diagrams with import/export backup.</p>
             </div>
-            
+
             <div class="feature-card">
-                <div class="feature-icon">🔒</div>
-                <h3>Privacy Focused</h3>
-                <p>No server storage, all processing happens in your browser. Your diagrams stay private.</p>
+                <div class="feature-icon">🎨</div>
+                <h3>Multiple Themes</h3>
+                <p>Choose between light, dark, and colorful modes. Perfect for any environment or preference.</p>
+            </div>
+
+        </div>
+    </section>
+    
+    <!-- Use Cases Section -->
+    <section class="use-cases">
+        <div class="use-cases-container">
+            <h2 class="use-cases-header">Perfect for Every Team</h2>
+            <p class="use-cases-subtitle">From quick brainstorms to formal documentation, see how teams use SimpleMermaid.</p>
+            
+            <div class="use-cases-grid">
+                <div class="use-case-card">
+                    <div class="use-case-title">👥 Team Collaboration</div>
+                    <div class="use-case-description">Share system architecture diagrams with your development team</div>
+                    <div class="use-case-quote">"Just send a link in Slack - everyone can see and edit instantly"</div>
+                </div>
+                
+                <div class="use-case-card">
+                    <div class="use-case-title">📋 Client Presentations</div>
+                    <div class="use-case-description">Present project timelines without requiring clients to install software</div>
+                    <div class="use-case-quote">"Clients love being able to view diagrams on their phones during meetings"</div>
+                </div>
+                
+                <div class="use-case-card">
+                    <div class="use-case-title">📖 Documentation</div>
+                    <div class="use-case-description">Embed live diagrams in wikis, docs, or GitHub repos</div>
+                    <div class="use-case-quote">"Links stay fresh - no more outdated screenshots in our docs"</div>
+                </div>
+                
+                <div class="use-case-card">
+                    <div class="use-case-title">🚀 Rapid Prototyping</div>
+                    <div class="use-case-description">Sketch user flows and system designs in minutes, not hours</div>
+                    <div class="use-case-quote">"Perfect for quick wireframes during standups"</div>
+                </div>
+                
+                <div class="use-case-card">
+                    <div class="use-case-title">🔒 Security Reviews</div>
+                    <div class="use-case-description">Create threat models and share privately with security teams</div>
+                    <div class="use-case-quote">"Everything stays in our browser - no data goes to external servers"</div>
+                </div>
+                
+                <div class="use-case-card">
+                    <div class="use-case-title">🎓 Teaching & Learning</div>
+                    <div class="use-case-description">Share examples with students without requiring account signups</div>
+                    <div class="use-case-quote">"Students can access diagrams on any device immediately"</div>
+                </div>
             </div>
         </div>
+    </section>
+
+    <section class="features">
+        <!-- Pro Tip Section -->
+        <div class="pro-tip">
+            <h4>💡 Pro Tip: Links Work Forever</h4>
+            <p>Unlike other tools, your shared links never expire. Bookmark them, embed in documentation, or share with future team members.</p>
+            <div class="pro-tip-example">
+                <strong>Example:</strong> simplemermaid.com/#diagram=eNp7...
+            </div>
+        </div>
+
     </section>
     
     <!-- Why SimpleMermaid Section -->
@@ -1587,10 +1774,10 @@
                 <div class="footer-section">
                     <h3>Connect</h3>
                     <ul class="footer-links">
-                        <li><a href="https://github.com/mermaid-js/mermaid" target="_blank">GitHub</a></li>
-                        <li><a href="#" onclick="navigator.share ? navigator.share({title: 'SimpleMermaid', url: window.location.href}) : navigator.clipboard.writeText(window.location.href)">Share Tool</a></li>
-                        <li><a href="mailto:hello@simplemermaid.com">Feedback</a></li>
-                        <li><a href="#community">Community</a></li>
+                        <li><a href="https://trackmytime.net" target="_blank">TrackMyTime</a></li>
+                        <li><a href="https://threatbandit.com" target="_blank">ThreatBandit</a></li>
+                        <li><a href="https://freekanban.com" target="_blank">FreeKanban</a></li>
+                        <li><a href="https://emphonic.com" target="_blank">Emphonic</a></li>
                     </ul>
                 </div>
             </div>

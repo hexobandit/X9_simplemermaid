@@ -1,0 +1,24 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://simplemermaid.com/sitemap.xml
+
+# Block development and configuration files
+Disallow: /old/
+Disallow: /.github/
+Disallow: /examples/*.json
+Disallow: /.vscode/
+Disallow: /.claude/
+Disallow: /.git*
+Disallow: /CLAUDE.md
+Disallow: /README.md
+
+# Allow important pages
+Allow: /index.html
+Allow: /mermaid-tool.html
+Allow: /learn-mermaid.html
+Allow: /examples/*.mmd
+
+# Crawl delay (optional)
+Crawl-delay: 1
