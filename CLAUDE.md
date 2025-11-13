@@ -45,7 +45,7 @@ The application can run directly from `file://` protocol using embedded examples
 - Test responsive design: Check mobile/tablet layouts with browser dev tools
 
 ### Deployment
-- **CI/CD Pipeline**: GitHub Actions workflow (`.github/workflow/deploy.yml`)
+- **CI/CD Pipeline**: GitHub Actions workflow (`.github/workflows/deploy.yml`)
 - **Security**: Gitleaks scan runs on all pushes and PRs
 - **Deployment**: Automatic FTPS deployment to production on main branch pushes
 - **Excluded Files**: Git files, README.md, CLAUDE.md are excluded from deployment
@@ -58,7 +58,7 @@ The application can run directly from `file://` protocol using embedded examples
 ├── examples/
 │   ├── config.json        # Category configuration for dropdown menus
 │   └── *.mmd              # Individual Mermaid diagram examples (22 files)
-├── .github/workflow/
+├── .github/workflows/
 │   └── deploy.yml         # CI/CD pipeline configuration
 ├── favicon.png            # Site favicon
 ├── simplemermaid.png      # Logo/social image
@@ -146,4 +146,4 @@ The application can run directly from `file://` protocol using embedded examples
 - **Theme Switching**: Document-level data attribute controls CSS custom properties
 - **Layout Toggle**: CSS Grid switching between vertical/horizontal modes
 - **SEO Optimization**: Complete meta tags for social sharing and Google indexing (lines 9-48)
-- **Google AdSense Integration**: Placeholder div at line ~2022, awaiting ad account approval
+- **Google AdSense Integration**: Placeholder div at line ~2022, awaiting ad account approval (see README.md for implementation guide)
