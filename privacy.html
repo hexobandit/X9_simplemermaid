@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - SimpleMermaid</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Privacy Policy for SimpleMermaid.com - Learn how we protect your data and respect your privacy while using our developer productivity tool.">
+    <meta name="keywords" content="SimpleMermaid privacy policy, data protection, privacy rights, developer tool privacy">
+    <meta name="author" content="SimpleMermaid.com">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Privacy Policy - SimpleMermaid">
+    <meta property="og:description" content="Privacy Policy for SimpleMermaid.com - Learn how we protect your data and respect your privacy while using our developer productivity tool.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://simplemermaid.com/privacy.html">
+    <meta property="og:image" content="https://simplemermaid.com/simplemermaid.png">
+    <meta property="og:site_name" content="SimpleMermaid">
+    
+    <!-- Twitter/X Cards (still uses twitter: prefix) -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Privacy Policy - SimpleMermaid">
+    <meta name="twitter:description" content="Privacy Policy for SimpleMermaid.com - Learn how we protect your data and respect your privacy while using our developer productivity tool.">
+    <meta name="twitter:image" content="https://simplemermaid.com/simplemermaid.png">
+    <meta name="twitter:creator" content="@simplemermaid">
+    <meta name="twitter:site" content="@simplemermaid">
+    
+    <!-- Additional SEO -->
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://simplemermaid.com/privacy.html">
+    <meta name="theme-color" content="#6366f1">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "PrivacyPolicy",
+        "name": "SimpleMermaid Privacy Policy",
+        "description": "Privacy Policy for SimpleMermaid.com - Learn how we protect your data and respect your privacy while using our developer productivity tool.",
+        "url": "https://simplemermaid.com/privacy.html",
+        "dateCreated": "2025-01-01",
+        "dateModified": "2025-01-01",
+        "provider": {
+            "@type": "Organization",
+            "name": "SimpleMermaid.com"
+        }
+    }
+    </script>
+    
+    <style>
+        /* Modern CSS Variables */
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #f8fafc;
+            --accent: #10b981;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-muted: #9ca3af;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-code: #1f2937;
+            --border: #e5e7eb;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.15);
+            --radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        [data-theme="dark"] {
+            --primary: #8b5cf6;
+            --primary-hover: #7c3aed;
+            --primary-light: #a78bfa;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --text-muted: #9ca3af;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-code: #111827;
+            --border: #374151;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            transition: var(--transition);
+        }
+        
+        /* Navigation Header */
+        .nav-header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+        
+        .logo-icon {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .diagram-node {
+            width: 16px;
+            height: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            border-radius: 3px;
+        }
+        
+        .diagram-connection {
+            width: 10px;
+            height: 2px;
+            background: var(--primary);
+        }
+        
+        /* Desktop Navigation */
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+            background: var(--bg-secondary);
+        }
+        
+        .nav-link.active {
+            color: var(--primary);
+            background: var(--bg-secondary);
+        }
+        
+        .nav-cta {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .nav-cta:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+        
+        /* Mobile Navigation */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: var(--transition);
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 1rem;
+            z-index: 999;
+        }
+        
+        .mobile-menu.show {
+            display: block;
+        }
+        
+        .mobile-nav-link {
+            display: block;
+            padding: 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        
+        .mobile-nav-link:hover {
+            background: var(--bg-secondary);
+            color: var(--primary);
+        }
+        
+        /* Theme Toggle */
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 0.5rem;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .theme-toggle:hover {
+            border-color: var(--primary);
+            background: var(--bg-secondary);
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            padding: 2rem;
+        }
+        
+        /* Hero Section */
+        .privacy-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+            border-radius: var(--radius);
+            margin-bottom: 3rem;
+        }
+        
+        .privacy-hero h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1rem;
+        }
+        
+        .privacy-hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Content Container */
+        .content-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Section */
+        .privacy-section {
+            margin-bottom: 4rem;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+        
+        .section-header p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Content Sections */
+        .content-section {
+            background: var(--bg-secondary);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .content-section h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .content-section h3 {
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            margin-top: 1.5rem;
+        }
+        
+        .content-section p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+        
+        .content-section ul {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+        
+        .content-section li {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .effective-date {
+            text-align: center;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-bottom: 2rem;
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: var(--radius);
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, var(--bg-secondary), #f0f9ff);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: var(--radius);
+        }
+        
+        .highlight-box p {
+            margin: 0;
+            color: var(--text-primary);
+        }
+        
+        /* Cyberpunk Footer */
+        .footer {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #16213e 100%);
+            border-top: 2px solid;
+            border-image: linear-gradient(90deg, #00d4ff, #6366f1, #8b5cf6, #00d4ff) 1;
+            padding: 4rem 2rem 2rem;
+            position: relative;
+            overflow: hidden;
+            margin-top: 4rem;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            animation: cyberpunk-scan 3s linear infinite;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            color: #00d4ff;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px #00d4ff50;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: #a1a1aa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .footer-links a:hover {
+            color: #00d4ff;
+            text-shadow: 0 0 5px #00d4ff50;
+            padding-left: 10px;
+        }
+        
+        .footer-links a::before {
+            content: '▶';
+            position: absolute;
+            left: -15px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            color: #6366f1;
+        }
+        
+        .footer-links a:hover::before {
+            opacity: 1;
+            left: -10px;
+        }
+        
+        .footer-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #6366f1, transparent);
+            margin: 2rem 0;
+            position: relative;
+        }
+        
+        .footer-divider::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            opacity: 0;
+            animation: cyberpunk-pulse 2s ease-in-out infinite alternate;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+        }
+        
+        .footer-copyright {
+            color: #71717a;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-tech {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        
+        .tech-badge {
+            background: linear-gradient(135deg, #374151, #1f2937);
+            border: 1px solid #6366f1;
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            color: #00d4ff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 5px #00d4ff30;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .tech-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 25px rgba(0, 212, 255, 0.3);
+            border-color: #00d4ff;
+        }
+        
+        .footer-glow {
+            color: #6366f1;
+            text-shadow: 0 0 10px #6366f150;
+            font-weight: 700;
+        }
+        
+        /* Cyberpunk Animations */
+        @keyframes cyberpunk-scan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        @keyframes cyberpunk-pulse {
+            0% { opacity: 0; }
+            100% { opacity: 0.6; }
+        }
+        
+        @keyframes cyberpunk-glow {
+            0%, 100% { text-shadow: 0 0 5px #6366f150; }
+            50% { text-shadow: 0 0 20px #6366f1, 0 0 30px #6366f180; }
+        }
+        
+        /* Dark theme adjustments */
+        [data-theme="dark"] .footer {
+            background: linear-gradient(135deg, #000000 0%, #1a0b3d 50%, #2d1b69 100%);
+        }
+        
+        [data-theme="dark"] .tech-badge {
+            background: linear-gradient(135deg, #1e1b4b, #312e81);
+            border-color: #8b5cf6;
+        }
+        
+        [data-theme="dark"] .footer-section h3 {
+            color: #a78bfa;
+            text-shadow: 0 0 10px #8b5cf650;
+        }
+        
+        [data-theme="dark"] .footer-links a:hover {
+            color: #a78bfa;
+            text-shadow: 0 0 5px #8b5cf650;
+        }
+        
+        [data-theme="dark"] .tech-badge:hover {
+            border-color: #a78bfa;
+            box-shadow: 0 5px 25px rgba(139, 92, 246, 0.3);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 1rem;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            .main-content {
+                margin-top: 60px;
+                padding: 1rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .privacy-hero h1 {
+                font-size: 1.75rem;
+            }
+            
+            .privacy-hero p {
+                font-size: 1rem;
+            }
+            
+            .content-section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6FZM0EGT74"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6FZM0EGT74');
+</script>
+
+<body data-theme="light">
+    <!-- Navigation Header -->
+    <header class="nav-header">
+        <nav class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon">
+                    <div class="diagram-node"></div>
+                    <div class="diagram-connection"></div>
+                    <div class="diagram-node"></div>
+                    <div class="diagram-connection"></div>
+                    <div class="diagram-node"></div>
+                </div>
+                <span>SimpleMermaid</span>
+            </a>
+            
+            <!-- Desktop Menu -->
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="learn-mermaid.html" class="nav-link">Learn</a></li>
+                <li><a href="mermaid-tool.html" class="nav-link">Editor</a></li>
+                <li><button class="theme-toggle" id="themeToggle">☀️</button></li>
+                <li><a href="mermaid-tool.html" class="nav-cta">Start Creating</a></li>
+            </ul>
+            
+            <!-- Mobile Hamburger -->
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html" class="mobile-nav-link">Home</a>
+            <a href="learn-mermaid.html" class="mobile-nav-link">Learn</a>
+            <a href="mermaid-tool.html" class="mobile-nav-link">Editor</a>
+            <a href="mermaid-tool.html" class="mobile-nav-link nav-cta">Start Creating</a>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-container">
+            <!-- Hero Section -->
+            <div class="privacy-hero">
+                <h1>🛡️ Privacy Policy</h1>
+                <p>Your privacy and data protection are our top priorities</p>
+            </div>
+            
+            <div class="effective-date">
+                <strong>Effective Date: January 1, 2025</strong>
+            </div>
+            
+            <div class="highlight-box">
+                <p><strong>Privacy First:</strong> SimpleMermaid is designed with privacy in mind. Your diagrams are processed entirely in your browser. We don't store, transmit, or have access to your diagram content.</p>
+            </div>
+            
+            <!-- Information We Collect -->
+            <section class="privacy-section">
+                <div class="content-section">
+                    <h2>1. Information We Collect</h2>
+                    <p>SimpleMermaid operates as a client-side application, which means most functionality happens directly in your browser. We collect minimal information:</p>
+                    
+                    <h3>1.1 Automatically Collected Information</h3>
+                    <ul>
+                        <li><span class="highlight">Analytics Data:</span> We use Google Analytics to understand usage patterns. This includes:
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Page views and navigation paths</li>
+                                <li>Browser type and version</li>
+                                <li>Operating system</li>
+                                <li>Referring website</li>
+                                <li>General geographic location (country/city level)</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                    <h3>1.2 Information We Do NOT Collect</h3>
+                    <ul>
+                        <li>Diagram content (processed entirely in your browser)</li>
+                        <li>Personal identification information</li>
+                        <li>Email addresses or contact information</li>
+                        <li>Account information (no accounts required)</li>
+                        <li>Payment information (service is free)</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- How Diagrams Are Handled -->
+            <section class="privacy-section">
+                <div class="content-section">
+                    <h2>2. How Your Diagrams Are Handled</h2>
+                    <p><span class="highlight">Complete Browser-Based Processing:</span> All diagram creation, editing, and rendering happens locally in your web browser using JavaScript. Your diagram content:</p>
+                    <ul>
+                        <li>Never leaves your browser unless you explicitly share a URL</li>
+                        <li>Is not transmitted to our servers</li>
+                        <li>Is not stored in any database</li>
+                        <li>Is compressed and embedded in the URL when you use the share feature</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <p><strong>URL Sharing:</strong> When you share a diagram via URL, the entire diagram is compressed and stored in the URL hash (after the # symbol). This means the diagram data stays in the URL and is never sent to our servers.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Use of Cookies -->
+            <section class="privacy-section">
+                <div class="content-section">
+                    <h2>3. Use of Cookies</h2>
+                    <p>SimpleMermaid uses minimal cookies:</p>
+                    <ul>
+                        <li><span class="highlight">Google Analytics Cookies:</span> Used to analyze site usage and improve user experience</li>
+                        <li><span class="highlight">Theme Preference:</span> Stores your theme choice (light/dark) locally</li>
+                    </ul>
+                    <p>You can disable cookies in your browser settings, though this may affect some functionality.</p>
+                </div>
+            </section>
+            
+            <!-- Third-Party Services -->
+            <section class="privacy-section">
+                <div class="content-section">
+                    <h2>4. Third-Party Services</h2>
+                    <p>We use the following third-party services:</p>
+                    <ul>
+                        <li><span class="highlight">Google Analytics:</span> For usage analytics (see Google's privacy policy)</li>
+                        <li><span class="highlight">CDN Services:</span> For loading Mermaid.js and other libraries (jsDelivr)</li>
+                        <li><span class="highlight">Google Fonts:</span> For typography</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Data Security -->
+            <section class="privacy-section">
+                <div class="content-section">
+                    <h2>5. Data Security</h2>
+                    <p>Since SimpleMermaid doesn't collect or store your diagram data, the primary security consideration is the integrity of the application itself:</p>
+                    <ul>
+                        <li>We use HTTPS to ensure secure delivery of the application</li>
+                        <li>All third-party libraries are loaded from reputable CDNs</li>
+                        <li>No user data is transmitted to or stored on our servers</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Data Retention -->
+            <section class="privacy-section">
+                <div class="content-section">
+                    <h2>6. Data Retention</h2>
+                    <p>We retain:</p>
+                    <ul>
+                        <li><span class="highlight">Analytics data:</span> Aggregated and anonymized, retained according to Google Analytics policies</li>
+                        <li><span class="highlight">Diagram data:</span> Never collected or retained</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Your Rights -->
+            <section class="privacy-section">
+                <div class="content-section">
+                    <h2>7. Your Rights</h2>
+                    <p>Since we don't collect personal data, traditional data rights (access, correction, deletion) don't apply. However, you can:</p>
+                    <ul>
+                        <li>Use ad blockers to prevent analytics tracking</li>
+                        <li>Clear your browser's local storage to reset preferences</li>
+                        <li>Use the tool without any tracking by disabling JavaScript from third-party domains</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Children's Privacy -->
+            <section class="privacy-section">
+                <div class="content-section">
+                    <h2>8. Children's Privacy</h2>
+                    <p>SimpleMermaid is a developer productivity tool intended for professional use. We do not knowingly collect information from children under 13.</p>
+                </div>
+            </section>
+            
+            <!-- International Use -->
+            <section class="privacy-section">
+                <div class="content-section">
+                    <h2>9. International Use</h2>
+                    <p>SimpleMermaid is accessible globally. By using the service, you consent to the processing of any collected data in accordance with this policy, regardless of your location.</p>
+                </div>
+            </section>
+            
+            <!-- Changes to This Policy -->
+            <section class="privacy-section">
+                <div class="content-section">
+                    <h2>10. Changes to This Policy</h2>
+                    <p>We may update this privacy policy from time to time. Changes will be posted on this page with an updated effective date.</p>
+                </div>
+            </section>
+            
+            <!-- Contact Information -->
+            <section class="privacy-section">
+                <div class="content-section">
+                    <h2>11. Contact Information</h2>
+                    <p>For privacy-related questions or concerns about SimpleMermaid, please contact us through our GitHub repository or via our website contact form.</p>
+                </div>
+            </section>
+            
+            <div class="highlight-box">
+                <p><strong>Summary:</strong> SimpleMermaid is designed to respect your privacy. We don't collect, store, or have access to your diagrams. The tool runs entirely in your browser, and we only use minimal analytics to improve the service.</p>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Cyberpunk Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Product</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="mermaid-tool.html">Editor</a></li>
+                        <li><a href="learn-mermaid.html">Learn Mermaid</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Features</h3>
+                    <ul class="footer-links">
+                        <li><a href="mermaid-tool.html">Real-time Editor</a></li>
+                        <li><a href="mermaid-tool.html">URL Sharing</a></li>
+                        <li><a href="mermaid-tool.html">Export Tools</a></li>
+                        <li><a href="learn-mermaid.html">Examples</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="https://github.com/mermaid-js/mermaid" target="_blank">Mermaid.js</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-divider"></div>
+            
+            <div class="footer-bottom">
+                <div class="footer-tech">
+                    <span class="tech-badge">Privacy First</span>
+                    <span class="tech-badge">No Data Collection</span>
+                    <span class="tech-badge">Browser-Based</span>
+                    <span class="tech-badge">GDPR Compliant</span>
+                    <span class="tech-badge">Secure</span>
+                </div>
+                
+                <p class="footer-copyright">
+                    &copy; 2025 <span class="footer-glow">SimpleMermaid.com</span> | 
+                    Privacy-Focused Developer Tool | 
+                    <span class="footer-glow">Secure • Private • Transparent</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        // Migrate old theme setting if exists
+        const oldTheme = localStorage.getItem('theme');
+        if (oldTheme && !localStorage.getItem('simplemermaid-theme')) {
+            localStorage.setItem('simplemermaid-theme', oldTheme);
+            localStorage.removeItem('theme');
+        }
+        
+        // Load saved theme
+        const savedTheme = localStorage.getItem('simplemermaid-theme') || 'light';
+        body.setAttribute('data-theme', savedTheme);
+        themeToggle.textContent = savedTheme === 'light' ? '☀️' : '🌙';
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            body.setAttribute('data-theme', newTheme);
+            themeToggle.textContent = newTheme === 'light' ? '☀️' : '🌙';
+            localStorage.setItem('simplemermaid-theme', newTheme);
+        });
+        
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('show');
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('show');
+            });
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

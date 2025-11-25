@@ -25,9 +25,21 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://simplemermaid.com/index1.html</loc>
-    <lastmod>2025-01-13</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://simplemermaid.com/about.html</loc>
+    <lastmod>2025-01-25</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://simplemermaid.com/privacy.html</loc>
+    <lastmod>2025-01-25</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://simplemermaid.com/terms.html</loc>
+    <lastmod>2025-01-25</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
   </url>
 </urlset>
