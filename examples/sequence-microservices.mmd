@@ -1,0 +1,28 @@
+sequenceDiagram
+    participant Client
+    participant Gateway as API Gateway
+    participant Orders
+    participant Inventory
+    participant Payment
+    participant Notify as Notification
+
+    Client->>Gateway: POST /orders
+    Gateway->>Orders: Create order
+
+    Orders->>Inventory: Check stock
+    Inventory-->>Orders: Stock available
+
+    Orders->>Payment: Process payment
+    Payment-->>Orders: Payment successful
+
+    Orders->>Inventory: Decrement stock
+    Inventory-->>Orders: Stock updated
+
+    Orders-->>Gateway: Order created
+    Gateway-->>Client: 201 Created {orderId}
+
+    Note over Orders,Notify: Async event
+
+    Orders-)Notify: OrderCreated event
+    Notify-)Client: Push notification
+    Notify-)Client: Email confirmation

@@ -1,0 +1,29 @@
+sequenceDiagram
+    participant User
+    participant Shop
+    participant Payment as Payment Gateway
+    participant Bank
+    participant Inventory
+
+    User->>Shop: Checkout (cart items)
+    Shop->>Inventory: Reserve items
+    Inventory-->>Shop: Items reserved
+
+    Shop->>Payment: Create payment intent
+    Payment-->>Shop: Client secret
+
+    Shop-->>User: Show payment form
+
+    User->>Payment: Submit card details
+    Payment->>Bank: Authorize payment
+    Bank-->>Payment: Authorization code
+
+    Payment->>Bank: Capture funds
+    Bank-->>Payment: Payment confirmed
+
+    Payment-->>Shop: Webhook: payment.success
+    Shop->>Inventory: Confirm order
+    Inventory-->>Shop: Order confirmed
+
+    Shop-->>User: Order confirmation email
+    Note over User,Shop: Order ID: #12345

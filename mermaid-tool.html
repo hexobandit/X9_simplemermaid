@@ -549,7 +549,60 @@
             fill: var(--text-secondary) !important;
             stroke: var(--text-secondary) !important;
         }
-        
+
+        /* Sequence Diagram Dark Theme */
+        [data-theme="dark"] .preview svg .actor-line {
+            stroke: var(--border-color) !important;
+        }
+
+        [data-theme="dark"] .preview svg .actor {
+            fill: var(--bg-secondary) !important;
+            stroke: var(--border-color) !important;
+        }
+
+        [data-theme="dark"] .preview svg .actor-man circle,
+        [data-theme="dark"] .preview svg .actor-man line {
+            fill: var(--bg-secondary) !important;
+            stroke: var(--text-primary) !important;
+        }
+
+        [data-theme="dark"] .preview svg text.actor,
+        [data-theme="dark"] .preview svg .actor text,
+        [data-theme="dark"] .preview svg .messageText,
+        [data-theme="dark"] .preview svg .labelText,
+        [data-theme="dark"] .preview svg .loopText,
+        [data-theme="dark"] .preview svg .noteText,
+        [data-theme="dark"] .preview svg .sequenceNumber,
+        [data-theme="dark"] .preview svg tspan {
+            fill: var(--text-primary) !important;
+        }
+
+        [data-theme="dark"] .preview svg .messageLine0,
+        [data-theme="dark"] .preview svg .messageLine1 {
+            stroke: var(--text-secondary) !important;
+        }
+
+        [data-theme="dark"] .preview svg .note {
+            fill: var(--bg-secondary) !important;
+            stroke: var(--border-color) !important;
+        }
+
+        [data-theme="dark"] .preview svg .activation0,
+        [data-theme="dark"] .preview svg .activation1,
+        [data-theme="dark"] .preview svg .activation2 {
+            fill: var(--bg-primary) !important;
+            stroke: var(--border-color) !important;
+        }
+
+        [data-theme="dark"] .preview svg .loopLine {
+            stroke: var(--border-color) !important;
+        }
+
+        [data-theme="dark"] .preview svg .labelBox {
+            fill: var(--bg-secondary) !important;
+            stroke: var(--border-color) !important;
+        }
+
         /* Hide elements with display: none */
         .hidden {
             display: none !important;
@@ -574,11 +627,23 @@
         
         /* Example loading indicator */
         .select.loading {
-            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 11-6.219-8.56"/></svg>');
-            background-repeat: no-repeat;
-            background-position: right 0.75rem center;
-            background-size: 16px;
-            animation: spin 1s linear infinite;
+            pointer-events: none;
+            opacity: 0.7;
+            position: relative;
+        }
+
+        .select.loading::after {
+            content: "";
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 14px;
+            height: 14px;
+            border: 2px solid var(--text-secondary);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
         }
         
         /* Share Modal Styles */
@@ -903,6 +968,13 @@ Or choose an example from the dropdown above!"
                 // Embedded fallback examples (for file:// protocol)
                 this.embeddedExamples = {
                     "categories": {
+                        "community": {
+                            "name": "Community Showcase",
+                            "examples": [
+                                {"id": "broadcast-setup", "title": "Broadcast Studio - Lemmur Production", "content": "%% Broadcast Studio Setup by Lemmur Productions\n%% https://lemmur.cz\n\nflowchart LR\nKINO <---> |Internet| 4K_Encoder\nATEM_TVstudio --> |SDI_PrgOUT| 4K_Encoder\n4K_Encoder ---> |SDI monitorOUT| SMART_View\nATEM_TVstudio --> |SDI_1 Multiview| SMART_View\n4K_Encoder --> |SDI LoopOUT| BM_VideoAssist7\nCAM1_L_URSAbroadcast --> |optical_5| ATEM_TVstudio\nCAM2_R_URSAbroadcast --> |optical_6| ATEM_TVstudio\nCAM3_C_URSAG2 --> |optical_7| ATEM_TVstudio\nCAM4_O_URSAG1 --> |SDI_8| ATEM_TVstudio\nBM_VideoAssist7 --> |SDI LoopOUT| SUMO_Monitor\nsubgraph ZAZNAM\n  BM_VideoAssist7\nend\nBM_VideoAssist5_ZNELKA --> |HDMI_1| ATEM_TVstudio\nGrep's_MACbook <--> |Ethernet| ATEM_TVstudio\nATEM_micro_panel <-.-> |USB_C| Grep's_MACbook\nZVUK_MIX -.-> |2 x XLR| CAM1_L_URSAbroadcast"},
+                                {"id": "aws-malware-scan", "title": "AWS Malware Scanning - Vaishnav", "content": "flowchart TD\nclassDef client fill:#f9f,stroke:#333,stroke-width:2px;\nclassDef aws fill:#FF9900,stroke:#232F3E,stroke-width:2px,color:white;\nclassDef security fill:#DD0000,stroke:#333,stroke-width:2px,color:white;\nclassDef storage fill:#3F8624,stroke:#333,stroke-width:2px,color:white;\nUserA[(\"App A (HR)\")]:::client\nUserB[(\"App B (Finance)\")]:::client\nsubgraph \"Request Phase (Metadata)\"\nAPI[API Gateway]:::aws\nAuthLambda[λ Auth & URL Gen]:::aws\nend\nsubgraph \"Quarantine Zone (Dirty)\"\nS3Q[(\"S3 Quarantine Bucket\")]:::storage\nGD[GuardDuty Malware Protection]:::security\nend\nsubgraph \"Processing Phase\"\nEB[EventBridge]:::aws\nMoverLambda[λ Mover Function]:::aws\nSNS[SNS Alert Topic]:::aws\nend\nsubgraph \"Trusted Zone (Clean)\"\nS3C[(\"S3 Clean Bucket\")]:::storage\nend\nUserA -- \"1. Request Upload\" --> API\nUserB -- \"1. Request Upload\" --> API\nAPI --> AuthLambda\nAuthLambda -- \"2. Return Presigned URLs\" --> UserA\nUserA -- \"3. Upload Files\" --> S3Q\nUserB -- \"3. Upload Files\" --> S3Q\nS3Q -.->|\"4. Auto-Trigger Scan\"| GD\nGD -- \"5. Scan Result\" --> EB\nEB -- \"Rule: CLEAN\" --> MoverLambda\nEB -- \"Rule: THREAT\" --> SNS\nMoverLambda -- \"6a. Copy File\" --> S3C\nMoverLambda -- \"6b. Delete\" --> S3Q"}
+                            ]
+                        },
                         "basic": {
                             "name": "Basic Diagrams",
                             "examples": [
@@ -915,17 +987,25 @@ Or choose an example from the dropdown above!"
                             ]
                         },
                         "sequence": {
-                            "name": "Sequence Diagrams", 
+                            "name": "Sequence Diagrams",
                             "examples": [
                                 {"id": "sequence-basic", "title": "Basic Sequence", "content": "sequenceDiagram\nparticipant User\nparticipant Browser\nparticipant Server\nparticipant Database\nUser->>Browser: Request Website\nBrowser->>Server: HTTP Request\nServer->>Database: Query Data\nDatabase-->>Server: Return Data\nServer-->>Browser: HTML Response\nBrowser-->>User: Render Page"},
-                                {"id": "sequence-oauth", "title": "OAuth Flow", "content": "sequenceDiagram\nparticipant User\nparticipant App\nparticipant AuthServer\nparticipant ResourceServer\nUser->>App: Login request\nApp->>AuthServer: Redirect with credentials\nAuthServer-->>User: Auth Code\nUser->>App: Return Auth Code\nApp->>AuthServer: Exchange for Token\nAuthServer-->>App: Access Token\nApp->>ResourceServer: Access resource with Token"}
+                                {"id": "sequence-oauth", "title": "OAuth Flow", "content": "sequenceDiagram\nparticipant User\nparticipant App\nparticipant AuthServer\nparticipant ResourceServer\nUser->>App: Login request\nApp->>AuthServer: Redirect with credentials\nAuthServer-->>User: Auth Code\nUser->>App: Return Auth Code\nApp->>AuthServer: Exchange for Token\nAuthServer-->>App: Access Token\nApp->>ResourceServer: Access resource with Token"},
+                                {"id": "sequence-jwt", "title": "JWT Authentication", "content": "sequenceDiagram\nparticipant Client\nparticipant API\nparticipant Auth\nparticipant DB\nClient->>API: POST /login (email, password)\nAPI->>Auth: Validate credentials\nAuth->>DB: Query user\nDB-->>Auth: User data\nAuth-->>API: Generate JWT + Refresh Token\nAPI-->>Client: 200 OK {accessToken, refreshToken}\nNote over Client,API: Later... Access Token Expired\nClient->>API: POST /refresh (refreshToken)\nAPI->>Auth: Validate refresh token\nAuth-->>API: New JWT\nAPI-->>Client: 200 OK {accessToken}"},
+                                {"id": "sequence-payment", "title": "Payment Processing", "content": "sequenceDiagram\nparticipant User\nparticipant Shop\nparticipant Payment as Payment Gateway\nparticipant Bank\nUser->>Shop: Checkout (cart items)\nShop->>Payment: Create payment intent\nPayment-->>Shop: Client secret\nShop-->>User: Show payment form\nUser->>Payment: Submit card details\nPayment->>Bank: Authorize payment\nBank-->>Payment: Authorization code\nPayment->>Bank: Capture funds\nBank-->>Payment: Payment confirmed\nPayment-->>Shop: Webhook: payment.success\nShop-->>User: Order confirmation email"},
+                                {"id": "sequence-websocket", "title": "WebSocket Chat", "content": "sequenceDiagram\nparticipant Alice\nparticipant Server\nparticipant Bob\nAlice->>Server: WS Connect\nServer-->>Alice: Connection established\nBob->>Server: WS Connect\nServer-->>Bob: Connection established\nNote over Alice,Bob: Both users online\nAlice->>Server: Send: Hello Bob!\nServer->>Bob: Broadcast: Alice: Hello Bob!\nBob->>Server: Send: Hi Alice!\nServer->>Alice: Broadcast: Bob: Hi Alice!\nAlice->>Server: WS Close\nServer->>Bob: User left: Alice"},
+                                {"id": "sequence-microservices", "title": "Microservices Call", "content": "sequenceDiagram\nparticipant Client\nparticipant Gateway as API Gateway\nparticipant Orders\nparticipant Inventory\nparticipant Payment\nClient->>Gateway: POST /orders\nGateway->>Orders: Create order\nOrders->>Inventory: Check stock\nInventory-->>Orders: Stock available\nOrders->>Payment: Process payment\nPayment-->>Orders: Payment successful\nOrders->>Inventory: Decrement stock\nOrders-->>Gateway: Order created\nGateway-->>Client: 201 Created {orderId}"}
                             ]
                         },
                         "project": {
                             "name": "Project Management",
                             "examples": [
                                 {"id": "gantt-project", "title": "Gantt Chart", "content": "gantt\ntitle Project Plan\nsection Phase 1\nTask A :done, a1, 2024-03-01, 10d\nTask B :a2, after a1, 7d\nsection Phase 2\nTask C :a3, after a2, 5d\nTask D :a4, after a3, 8d"},
-                                {"id": "journey", "title": "User Journey", "content": "journey\ntitle User Journey\nsection Experience\nBrowse: 5: Alice\nAdd to Cart: 3: Bob\nCheckout: 2: Alice, Bob"}
+                                {"id": "journey", "title": "User Journey", "content": "journey\ntitle User Journey\nsection Experience\nBrowse: 5: Alice\nAdd to Cart: 3: Bob\nCheckout: 2: Alice, Bob"},
+                                {"id": "gantt-sprint", "title": "Sprint Planning", "content": "gantt\ntitle Sprint 24 - User Dashboard\ndateFormat YYYY-MM-DD\nsection Planning\nSprint Planning :done, plan, 2024-03-04, 1d\nsection Development\nUser Profile API :done, api1, 2024-03-05, 3d\nDashboard UI :active, ui1, 2024-03-06, 4d\nAnalytics Widget :ui2, after ui1, 3d\nsection Testing\nUnit Tests :test1, 2024-03-08, 3d\nsection Review\nSprint Demo :crit, demo, 2024-03-15, 1d"},
+                                {"id": "gantt-release", "title": "Release Schedule", "content": "gantt\ntitle Release Schedule 2024\ndateFormat YYYY-MM-DD\nsection Q1 Releases\nv2.0 Alpha :done, r1, 2024-01-15, 14d\nv2.0 Beta :done, r2, 2024-02-01, 21d\nv2.0 GA :milestone, done, 2024-03-08, 0d\nsection Q2 Releases\nv2.1 Development :active, r4, 2024-03-11, 30d\nv2.1 Testing :r5, after r4, 14d\nv2.1 Release :milestone, 2024-05-01, 0d\nsection Maintenance\nSecurity Patches :crit, sec, 2024-01-01, 180d"},
+                                {"id": "product-roadmap", "title": "Product Roadmap", "content": "gantt\ntitle Product Roadmap 2024\ndateFormat YYYY-MM-DD\nsection Foundation\nCore Platform :done, p1, 2024-01-01, 60d\nAPI Gateway :done, p2, 2024-02-01, 45d\nsection Growth Features\nTeam Collaboration :active, g1, 2024-03-15, 45d\nMobile App MVP :g3, 2024-04-01, 60d\nsection Enterprise\nSSO Integration :e1, 2024-05-01, 30d\nAdmin Dashboard :e3, 2024-05-15, 45d\nsection Milestones\nPublic Beta :milestone, 2024-04-15, 0d\nEnterprise Launch :milestone, 2024-06-15, 0d"},
+                                {"id": "journey-onboarding", "title": "User Onboarding", "content": "journey\ntitle New User Onboarding\nsection Discovery\nSee ad on social media: 3: Marketing\nVisit landing page: 4: Marketing\nsection Sign Up\nClick Start Free Trial: 5: User\nFill registration form: 3: User\nVerify email: 4: User\nsection First Steps\nComplete profile: 4: User\nTake interactive tour: 5: Product\nsection Activation\nInvite team member: 3: User\nComplete first task: 5: User\nBecome paying customer: 5: Sales"}
                             ]
                         },
                         "architecture": {
@@ -980,16 +1060,20 @@ Or choose an example from the dropdown above!"
                     // Load examples (with fallback system)
                     console.log('🔧 Step 3: Loading examples...');
                     await this.loadExamples();
-                    
+
+                    // Load theme and layout settings (always do this)
+                    console.log('🔧 Step 4: Loading theme and layout...');
+                    this.loadThemeAndLayout();
+
                     // Load diagram from URL or storage
-                    console.log('🔧 Step 4: Loading from URL or storage...');
+                    console.log('🔧 Step 5: Loading content from URL or storage...');
                     const loadedFromUrl = this.loadFromUrl();
                     if (!loadedFromUrl) {
-                        this.loadFromStorage();
+                        this.loadContentFromStorage();
                     }
-                    
+
                     // Initial render
-                    console.log('🔧 Step 5: Initial render...');
+                    console.log('🔧 Step 6: Initial render...');
                     this.debouncedRender();
                     
                     console.log('✅ SimpleMermaid initialized successfully');
@@ -1769,24 +1853,17 @@ Or choose an example from the dropdown above!"
             }
             
             /**
-             * Load content from localStorage
+             * Load theme and layout settings from localStorage (always called)
              */
-            loadFromStorage() {
+            loadThemeAndLayout() {
                 try {
-                    // Load content
-                    const savedContent = localStorage.getItem(this.STORAGE_KEY);
-                    if (savedContent) {
-                        this.editor.value = savedContent;
-                        this.updateCharCount();
-                    }
-                    
                     // Load theme - check URL parameter first, then localStorage
                     const urlParams = new URLSearchParams(window.location.search);
                     const urlTheme = urlParams.get('theme');
-                    
+
                     console.log('URL theme parameter:', urlTheme);
                     console.log('Current theme:', this.currentTheme);
-                    
+
                     let targetTheme;
                     if (urlTheme && (urlTheme === 'light' || urlTheme === 'dark')) {
                         targetTheme = urlTheme;
@@ -1797,22 +1874,21 @@ Or choose an example from the dropdown above!"
                         targetTheme = localStorage.getItem(this.THEME_KEY);
                         console.log('Using localStorage theme:', targetTheme);
                     }
-                    
+
                     // Apply theme directly instead of toggling
                     if (targetTheme && targetTheme !== this.currentTheme) {
                         console.log('Applying theme change from', this.currentTheme, 'to', targetTheme);
                         this.currentTheme = targetTheme;
                         document.body.setAttribute('data-theme', this.currentTheme);
                         this.themeBtn.innerHTML = this.currentTheme === 'light' ? '☀️' : '🌙';
-                        this.debouncedRender();
                     }
-                    
+
                     // Load layout
                     const savedLayout = localStorage.getItem('simplemermaid-layout');
                     if (savedLayout === 'vertical' && !this.isVertical) {
                         this.toggleLayout();
                     }
-                    
+
                     // Load panel size
                     const savedPanelSize = localStorage.getItem('simplemermaid-panel-size');
                     if (savedPanelSize) {
@@ -1822,8 +1898,31 @@ Or choose an example from the dropdown above!"
                         }
                     }
                 } catch (error) {
-                    console.warn('Failed to load from localStorage:', error);
+                    console.warn('Failed to load theme/layout from localStorage:', error);
                 }
+            }
+
+            /**
+             * Load editor content from localStorage
+             */
+            loadContentFromStorage() {
+                try {
+                    const savedContent = localStorage.getItem(this.STORAGE_KEY);
+                    if (savedContent) {
+                        this.editor.value = savedContent;
+                        this.updateCharCount();
+                    }
+                } catch (error) {
+                    console.warn('Failed to load content from localStorage:', error);
+                }
+            }
+
+            /**
+             * Load content from localStorage (legacy - calls both functions)
+             */
+            loadFromStorage() {
+                this.loadThemeAndLayout();
+                this.loadContentFromStorage();
             }
             
             /**
@@ -2235,17 +2334,28 @@ Or choose an example from the dropdown above!"
             }
             
             /**
-             * Load diagram from URL hash on page load
+             * Load diagram from URL hash or example parameter on page load
              */
             loadFromUrl() {
+                // Check for ?example= parameter first
+                const urlParams = new URLSearchParams(window.location.search);
+                const exampleId = urlParams.get('example');
+
+                if (exampleId) {
+                    console.log('📥 Loading example from URL:', exampleId);
+                    const loaded = this.loadExampleById(exampleId);
+                    if (loaded) return true;
+                }
+
+                // Check for #diagram= hash
                 const hash = window.location.hash;
                 if (hash && hash.startsWith('#diagram=')) {
                     try {
                         const compressed = hash.substring(9); // Remove '#diagram='
-                        
+
                         if (typeof LZString !== 'undefined') {
                             const decompressed = LZString.decompressFromEncodedURIComponent(compressed);
-                            
+
                             if (decompressed) {
                                 console.log('📥 Loading diagram from URL...');
                                 this.editor.value = decompressed;
@@ -2259,6 +2369,31 @@ Or choose an example from the dropdown above!"
                         console.error('Failed to load diagram from URL:', error);
                     }
                 }
+                return false;
+            }
+
+            /**
+             * Load a specific example by its ID
+             */
+            loadExampleById(exampleId) {
+                const config = this.examplesConfig || this.embeddedExamples;
+                if (!config || !config.categories) return false;
+
+                // Search through all categories for the example
+                for (const categoryKey of Object.keys(config.categories)) {
+                    const category = config.categories[categoryKey];
+                    const examples = category.examples || [];
+
+                    for (const example of examples) {
+                        if (example.id === exampleId) {
+                            console.log('✅ Found example:', example.title);
+                            this.loadExample(example);
+                            return true;
+                        }
+                    }
+                }
+
+                console.warn('⚠️ Example not found:', exampleId);
                 return false;
             }
             

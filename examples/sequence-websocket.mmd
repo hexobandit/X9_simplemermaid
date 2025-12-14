@@ -1,0 +1,31 @@
+sequenceDiagram
+    participant Alice
+    participant Server
+    participant Bob
+
+    Alice->>Server: WS Connect
+    Server-->>Alice: Connection established
+
+    Bob->>Server: WS Connect
+    Server-->>Bob: Connection established
+
+    Note over Alice,Bob: Both users online
+
+    Alice->>Server: Send: "Hello Bob!"
+    Server->>Bob: Broadcast: "Alice: Hello Bob!"
+    Bob-->>Server: ACK
+
+    Bob->>Server: Send: "Hi Alice!"
+    Server->>Alice: Broadcast: "Bob: Hi Alice!"
+    Alice-->>Server: ACK
+
+    Alice->>Server: Typing indicator
+    Server->>Bob: Alice is typing...
+
+    Alice->>Server: Send: "How are you?"
+    Server->>Bob: Broadcast: "Alice: How are you?"
+
+    Note over Alice,Server: Alice disconnects
+
+    Alice->>Server: WS Close
+    Server->>Bob: User left: Alice
