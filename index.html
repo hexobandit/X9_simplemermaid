@@ -1370,7 +1370,7 @@
             padding: 6rem 2rem;
             background: var(--bg-secondary);
         }
-        
+
         .use-cases-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -1481,6 +1481,112 @@
         .pro-tip-example strong {
             color: rgba(255, 255, 255, 0.8);
             font-weight: 600;
+        }
+
+        /* Diagram Templates Section */
+        .templates-section {
+            padding: 6rem 2rem;
+            background: var(--bg-primary);
+        }
+
+        .templates-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .templates-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .templates-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .templates-header p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .template-category {
+            background: var(--bg-secondary);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .template-category:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .template-category h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .template-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .template-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .template-list a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0;
+            transition: color 0.2s;
+        }
+
+        .template-list a:hover {
+            color: var(--primary-color);
+        }
+
+        .template-list a::before {
+            content: '→';
+            opacity: 0;
+            transition: opacity 0.2s, transform 0.2s;
+            transform: translateX(-5px);
+        }
+
+        .template-list a:hover::before {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        @media (max-width: 768px) {
+            .templates-header h2 {
+                font-size: 2rem;
+            }
+
+            .templates-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -1738,7 +1844,95 @@
             </div>
         </div>
     </section>
-    
+
+    <!-- Diagram Templates Section -->
+    <section class="templates-section" id="templates">
+        <div class="templates-container">
+            <div class="templates-header">
+                <h2>Ready-to-Use Diagram Templates</h2>
+                <p>Jump-start your project with our collection of pre-built diagram templates. Click any template to open it in the editor.</p>
+            </div>
+
+            <div class="templates-grid">
+                <!-- Community Showcase -->
+                <div class="template-category">
+                    <h3>Community Showcase</h3>
+                    <ul class="template-list">
+                        <li><a href="mermaid-tool.html?example=broadcast-setup">Broadcast Studio - Lemmur Production</a></li>
+                        <li><a href="mermaid-tool.html?example=aws-malware-scan">AWS Malware Scanning - Vaishnav</a></li>
+                    </ul>
+                </div>
+
+                <!-- Basic Diagrams -->
+                <div class="template-category">
+                    <h3>Basic Diagrams</h3>
+                    <ul class="template-list">
+                        <li><a href="mermaid-tool.html?example=simple">Simple Flowchart</a></li>
+                        <li><a href="mermaid-tool.html?example=flowchart-basic">Decision Flowchart</a></li>
+                        <li><a href="mermaid-tool.html?example=shapes">Node Shapes Reference</a></li>
+                        <li><a href="mermaid-tool.html?example=subgraphs">Subgraphs Example</a></li>
+                    </ul>
+                </div>
+
+                <!-- Sequence Diagrams -->
+                <div class="template-category">
+                    <h3>Sequence Diagrams</h3>
+                    <ul class="template-list">
+                        <li><a href="mermaid-tool.html?example=sequence-basic">Basic Request/Response</a></li>
+                        <li><a href="mermaid-tool.html?example=sequence-oauth">OAuth 2.0 Flow</a></li>
+                        <li><a href="mermaid-tool.html?example=sequence-jwt">JWT Authentication</a></li>
+                        <li><a href="mermaid-tool.html?example=sequence-payment">Payment Processing</a></li>
+                        <li><a href="mermaid-tool.html?example=sequence-websocket">WebSocket Chat</a></li>
+                        <li><a href="mermaid-tool.html?example=sequence-microservices">Microservices Call</a></li>
+                    </ul>
+                </div>
+
+                <!-- Project Management -->
+                <div class="template-category">
+                    <h3>Project Management</h3>
+                    <ul class="template-list">
+                        <li><a href="mermaid-tool.html?example=gantt-project">Gantt Chart</a></li>
+                        <li><a href="mermaid-tool.html?example=gantt-sprint">Sprint Planning</a></li>
+                        <li><a href="mermaid-tool.html?example=gantt-release">Release Schedule</a></li>
+                        <li><a href="mermaid-tool.html?example=product-roadmap">Product Roadmap</a></li>
+                        <li><a href="mermaid-tool.html?example=journey">User Journey Map</a></li>
+                        <li><a href="mermaid-tool.html?example=journey-onboarding">User Onboarding Flow</a></li>
+                    </ul>
+                </div>
+
+                <!-- System Architecture -->
+                <div class="template-category">
+                    <h3>System Architecture</h3>
+                    <ul class="template-list">
+                        <li><a href="mermaid-tool.html?example=class-diagram">Class Diagram (UML)</a></li>
+                        <li><a href="mermaid-tool.html?example=state-diagram">State Diagram</a></li>
+                        <li><a href="mermaid-tool.html?example=erd">Entity Relationship (ERD)</a></li>
+                        <li><a href="mermaid-tool.html?example=network-diagram">Network Diagram</a></li>
+                        <li><a href="mermaid-tool.html?example=microservices">Microservices Architecture</a></li>
+                        <li><a href="mermaid-tool.html?example=event-driven">Event-Driven Architecture</a></li>
+                        <li><a href="mermaid-tool.html?example=three-tier">Three-Tier Architecture</a></li>
+                        <li><a href="mermaid-tool.html?example=serverless">Serverless Architecture</a></li>
+                    </ul>
+                </div>
+
+                <!-- Security & Threat Models -->
+                <div class="template-category">
+                    <h3>Security & Threat Models</h3>
+                    <ul class="template-list">
+                        <li><a href="mermaid-tool.html?example=rbac">RBAC Model</a></li>
+                        <li><a href="mermaid-tool.html?example=zero-trust">Zero Trust Architecture</a></li>
+                        <li><a href="mermaid-tool.html?example=api-threats">API Security Threats</a></li>
+                        <li><a href="mermaid-tool.html?example=data-breach">Data Breach Flow</a></li>
+                        <li><a href="mermaid-tool.html?example=supply-chain">Supply Chain Attack</a></li>
+                        <li><a href="mermaid-tool.html?example=incident-response">Incident Response</a></li>
+                        <li><a href="mermaid-tool.html?example=k8s-threat-model">Kubernetes Threats</a></li>
+                        <li><a href="mermaid-tool.html?example=cicd-devsecops">CI/CD DevSecOps</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- About Mermaid Section -->
     <section class="about-section">
         <div class="about-content">
@@ -1762,7 +1956,7 @@
                         <li><a href="mermaid-tool.html">Editor</a></li>
                         <li><a href="learn-mermaid.html">Learn Syntax</a></li>
                         <li><a href="index.html#features">Features</a></li>
-                        <li><a href="#examples">Examples</a></li>
+                        <li><a href="#templates">Templates</a></li>
                     </ul>
                 </div>
                 

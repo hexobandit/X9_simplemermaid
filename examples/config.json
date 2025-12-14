@@ -13,7 +13,8 @@
         {"id": "empty", "title": "Empty", "file": "empty.mmd"},
         {"id": "simple", "title": "Simple", "file": "simple.mmd"},
         {"id": "flowchart-basic", "title": "Flowchart", "file": "flowchart-basic.mmd"},
-        {"id": "shapes", "title": "Shapes", "file": "shapes.mmd"}
+        {"id": "shapes", "title": "Shapes", "file": "shapes.mmd"},
+        {"id": "subgraphs", "title": "Subgraphs", "file": "subgraphs.mmd"}
       ]
     },
     "sequence": {

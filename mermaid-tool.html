@@ -1060,16 +1060,20 @@ Or choose an example from the dropdown above!"
                     // Load examples (with fallback system)
                     console.log('🔧 Step 3: Loading examples...');
                     await this.loadExamples();
-                    
+
+                    // Load theme and layout settings (always do this)
+                    console.log('🔧 Step 4: Loading theme and layout...');
+                    this.loadThemeAndLayout();
+
                     // Load diagram from URL or storage
-                    console.log('🔧 Step 4: Loading from URL or storage...');
+                    console.log('🔧 Step 5: Loading content from URL or storage...');
                     const loadedFromUrl = this.loadFromUrl();
                     if (!loadedFromUrl) {
-                        this.loadFromStorage();
+                        this.loadContentFromStorage();
                     }
-                    
+
                     // Initial render
-                    console.log('🔧 Step 5: Initial render...');
+                    console.log('🔧 Step 6: Initial render...');
                     this.debouncedRender();
                     
                     console.log('✅ SimpleMermaid initialized successfully');
@@ -1849,24 +1853,17 @@ Or choose an example from the dropdown above!"
             }
             
             /**
-             * Load content from localStorage
+             * Load theme and layout settings from localStorage (always called)
              */
-            loadFromStorage() {
+            loadThemeAndLayout() {
                 try {
-                    // Load content
-                    const savedContent = localStorage.getItem(this.STORAGE_KEY);
-                    if (savedContent) {
-                        this.editor.value = savedContent;
-                        this.updateCharCount();
-                    }
-                    
                     // Load theme - check URL parameter first, then localStorage
                     const urlParams = new URLSearchParams(window.location.search);
                     const urlTheme = urlParams.get('theme');
-                    
+
                     console.log('URL theme parameter:', urlTheme);
                     console.log('Current theme:', this.currentTheme);
-                    
+
                     let targetTheme;
                     if (urlTheme && (urlTheme === 'light' || urlTheme === 'dark')) {
                         targetTheme = urlTheme;
@@ -1877,22 +1874,21 @@ Or choose an example from the dropdown above!"
                         targetTheme = localStorage.getItem(this.THEME_KEY);
                         console.log('Using localStorage theme:', targetTheme);
                     }
-                    
+
                     // Apply theme directly instead of toggling
                     if (targetTheme && targetTheme !== this.currentTheme) {
                         console.log('Applying theme change from', this.currentTheme, 'to', targetTheme);
                         this.currentTheme = targetTheme;
                         document.body.setAttribute('data-theme', this.currentTheme);
                         this.themeBtn.innerHTML = this.currentTheme === 'light' ? '☀️' : '🌙';
-                        this.debouncedRender();
                     }
-                    
+
                     // Load layout
                     const savedLayout = localStorage.getItem('simplemermaid-layout');
                     if (savedLayout === 'vertical' && !this.isVertical) {
                         this.toggleLayout();
                     }
-                    
+
                     // Load panel size
                     const savedPanelSize = localStorage.getItem('simplemermaid-panel-size');
                     if (savedPanelSize) {
@@ -1902,8 +1898,31 @@ Or choose an example from the dropdown above!"
                         }
                     }
                 } catch (error) {
-                    console.warn('Failed to load from localStorage:', error);
+                    console.warn('Failed to load theme/layout from localStorage:', error);
                 }
+            }
+
+            /**
+             * Load editor content from localStorage
+             */
+            loadContentFromStorage() {
+                try {
+                    const savedContent = localStorage.getItem(this.STORAGE_KEY);
+                    if (savedContent) {
+                        this.editor.value = savedContent;
+                        this.updateCharCount();
+                    }
+                } catch (error) {
+                    console.warn('Failed to load content from localStorage:', error);
+                }
+            }
+
+            /**
+             * Load content from localStorage (legacy - calls both functions)
+             */
+            loadFromStorage() {
+                this.loadThemeAndLayout();
+                this.loadContentFromStorage();
             }
             
             /**
@@ -2315,17 +2334,28 @@ Or choose an example from the dropdown above!"
             }
             
             /**
-             * Load diagram from URL hash on page load
+             * Load diagram from URL hash or example parameter on page load
              */
             loadFromUrl() {
+                // Check for ?example= parameter first
+                const urlParams = new URLSearchParams(window.location.search);
+                const exampleId = urlParams.get('example');
+
+                if (exampleId) {
+                    console.log('📥 Loading example from URL:', exampleId);
+                    const loaded = this.loadExampleById(exampleId);
+                    if (loaded) return true;
+                }
+
+                // Check for #diagram= hash
                 const hash = window.location.hash;
                 if (hash && hash.startsWith('#diagram=')) {
                     try {
                         const compressed = hash.substring(9); // Remove '#diagram='
-                        
+
                         if (typeof LZString !== 'undefined') {
                             const decompressed = LZString.decompressFromEncodedURIComponent(compressed);
-                            
+
                             if (decompressed) {
                                 console.log('📥 Loading diagram from URL...');
                                 this.editor.value = decompressed;
@@ -2339,6 +2369,31 @@ Or choose an example from the dropdown above!"
                         console.error('Failed to load diagram from URL:', error);
                     }
                 }
+                return false;
+            }
+
+            /**
+             * Load a specific example by its ID
+             */
+            loadExampleById(exampleId) {
+                const config = this.examplesConfig || this.embeddedExamples;
+                if (!config || !config.categories) return false;
+
+                // Search through all categories for the example
+                for (const categoryKey of Object.keys(config.categories)) {
+                    const category = config.categories[categoryKey];
+                    const examples = category.examples || [];
+
+                    for (const example of examples) {
+                        if (example.id === exampleId) {
+                            console.log('✅ Found example:', example.title);
+                            this.loadExample(example);
+                            return true;
+                        }
+                    }
+                }
+
+                console.warn('⚠️ Example not found:', exampleId);
                 return false;
             }
             
