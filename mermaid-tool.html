@@ -521,7 +521,7 @@
         [data-theme="dark"] .preview svg text {
             fill: var(--text-primary) !important;
         }
-        
+
         [data-theme="dark"] .preview svg rect,
         [data-theme="dark"] .preview svg polygon,
         [data-theme="dark"] .preview svg circle,
@@ -529,8 +529,24 @@
             fill: var(--bg-secondary) !important;
             stroke: var(--border-color) !important;
         }
-        
-        [data-theme="dark"] .preview svg path {
+
+        /* Style path elements used as node shapes (Round Edges, Diamond, Angled Rectangle, etc.) */
+        [data-theme="dark"] .preview svg .node path,
+        [data-theme="dark"] .preview svg .node-shape path {
+            fill: var(--bg-secondary) !important;
+            stroke: var(--border-color) !important;
+        }
+
+        /* Arrow/connector paths - only stroke, no fill */
+        [data-theme="dark"] .preview svg .edge path,
+        [data-theme="dark"] .preview svg .flowchart-link {
+            stroke: var(--text-secondary) !important;
+            fill: none !important;
+        }
+
+        /* Arrowhead markers */
+        [data-theme="dark"] .preview svg marker path {
+            fill: var(--text-secondary) !important;
             stroke: var(--text-secondary) !important;
         }
         
