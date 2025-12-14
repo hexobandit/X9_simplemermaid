@@ -1,0 +1,11 @@
+flowchart TB
+Client[📱 Client] --> Gateway[🚪 API Gateway]
+Gateway --> Auth[🔐 Auth Service]
+Gateway --> Users[👥 User Service]
+Gateway --> Orders[📦 Order Service]
+Gateway --> Products[🏷️ Product Service]
+Users --> UsersDB[(Users DB)]
+Orders --> OrdersDB[(Orders DB)]
+Products --> ProductsDB[(Products DB)]
+Orders --> Queue[📨 Message Queue]
+Queue --> Notify[📧 Notification Service]

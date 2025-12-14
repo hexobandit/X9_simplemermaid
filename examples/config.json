@@ -30,7 +30,11 @@
         {"id": "state-diagram", "title": "State Diagram", "file": "state-diagram.mmd"},
         {"id": "erd", "title": "Entity Relationship", "file": "erd.mmd"},
         {"id": "network-diagram", "title": "Network Diagram", "file": "network-diagram.mmd"},
-        {"id": "org-chart", "title": "Organization Chart", "file": "org-chart.mmd"}
+        {"id": "org-chart", "title": "Organization Chart", "file": "org-chart.mmd"},
+        {"id": "microservices", "title": "Microservices", "file": "microservices.mmd"},
+        {"id": "event-driven", "title": "Event-Driven", "file": "event-driven.mmd"},
+        {"id": "three-tier", "title": "Three-Tier", "file": "three-tier.mmd"},
+        {"id": "serverless", "title": "Serverless", "file": "serverless.mmd"}
       ]
     },
     "security": {
@@ -41,9 +45,11 @@
         {"id": "webapp-oauth-threat", "title": "Web App OAuth Threats", "file": "webapp-oauth-threat.mmd"},
         {"id": "cubesat-threat", "title": "CubeSat Threats", "file": "cubesat-threat.mmd"},
         {"id": "cicd-devsecops", "title": "CI/CD DevSecOps", "file": "cicd-devsecops.mmd"},
-        {"id": "access-lifecycle", "title": "Access Lifecycle", "file": "access-lifecycle.mmd"},
-        {"id": "security-breach", "title": "Security Breach", "file": "security-breach.mmd"},
-        {"id": "system-secure", "title": "System Secure", "file": "system-secure.mmd"}
+        {"id": "zero-trust", "title": "Zero Trust", "file": "zero-trust.mmd"},
+        {"id": "api-threats", "title": "API Threats", "file": "api-threats.mmd"},
+        {"id": "data-breach", "title": "Data Breach Flow", "file": "data-breach.mmd"},
+        {"id": "supply-chain", "title": "Supply Chain Attack", "file": "supply-chain.mmd"},
+        {"id": "incident-response", "title": "Incident Response", "file": "incident-response.mmd"}
       ]
     }
   }
