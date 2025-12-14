@@ -4,23 +4,29 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-SimpleMermaid.com is a single-page web application for creating and editing Mermaid.js diagrams with instant shareable links. It provides a distraction-free online editor with live preview, theme switching, and collaborative sharing features.
+SimpleMermaid.com is a multi-page web application for creating and editing Mermaid.js diagrams with instant shareable links. The site includes a landing page, diagram editor tool, learning resources, and legal pages.
 
 ## Architecture
 
-### Single-File Application
-The entire application is contained in `index.html` with:
-- Embedded CSS with modern custom properties for theming
-- Vanilla JavaScript using ES6 modules
+### Multi-Page Structure
+- `index.html` - Landing page with marketing content, features, and feedback form
+- `mermaid-tool.html` - **Main editor application** with live preview, sharing, and export
+- `learn-mermaid.html` - Tutorial/documentation for Mermaid syntax
+- `about.html`, `privacy.html`, `terms.html` - Supporting pages
+
+### Editor Application (`mermaid-tool.html`)
+The editor is a single-file application (2331 lines) containing:
+- CSS custom properties for theming (`:root` at line 43, `[data-theme="dark"]` at line 65)
+- `SimpleMermaid` class (line 854) - Main application controller
 - Mermaid.js v10 loaded via CDN
-- LZ-String compression library for URL sharing
+- LZ-String compression for URL sharing
 
 ### Key Technical Features
-- **URL-based diagram sharing**: Diagrams are compressed with LZ-String and stored in URL hash
-- **Dual-mode example loading**: External JSON/files with embedded fallback for file:// protocol
-- **Real-time rendering**: Live preview updates on every keystroke
-- **Theme system**: CSS custom properties with `data-theme` attribute switching
-- **Layout modes**: Vertical (stacked) and horizontal (side-by-side) editor layouts
+- **URL-based diagram sharing**: LZ-String compression stores diagrams in URL hash (`#diagram=`)
+- **Dual-mode example loading**: Fetch API for external files, embedded fallback for file:// protocol
+- **Real-time rendering**: Live preview with debounced updates
+- **Theme system**: Light/dark themes via `data-theme` attribute
+- **Layout modes**: Vertical/horizontal editor layouts with resizable separator
 
 ## Development Commands
 
@@ -36,114 +42,83 @@ npx serve .
 ```
 
 ### Direct File Access
-The application can run directly from `file://` protocol using embedded examples as fallback.
+Open `index.html` or `mermaid-tool.html` directly in browser - uses embedded examples as fallback.
 
 ### Testing Changes
-- Test example loading: Modify files in `examples/` directory and verify they load correctly
-- Test compression: Use browser dev tools to verify URL sharing works with `#diagram=` parameter
-- Test themes: Verify all three themes (light/dark/colorful) render diagrams correctly
-- Test responsive design: Check mobile/tablet layouts with browser dev tools
+- Editor: Navigate to `mermaid-tool.html`, test example loading from `examples/` directory
+- Sharing: Verify `#diagram=` parameter compression/decompression works
+- Themes: Test light/dark theme switching on diagrams
+- Responsive: Check mobile layouts in browser dev tools
+- Export: Test PNG/SVG export functionality
 
 ### Deployment
-- **CI/CD Pipeline**: GitHub Actions workflow (`.github/workflows/deploy.yml`)
+- **CI/CD Pipeline**: GitHub Actions workflow (`.github/workflow/deploy.yml`)
 - **Security**: Gitleaks scan runs on all pushes and PRs
 - **Deployment**: Automatic FTPS deployment to production on main branch pushes
-- **Excluded Files**: Git files, README.md, CLAUDE.md are excluded from deployment
 - **Branch Strategy**: Deploy only from `main` branch; `zoom` is current working branch
+- **Excluded Files**: .git*, .github/, node_modules/, CLAUDE.md, README.md, .claude/, .vscode/
 
 ## File Structure
 ```
 /
-├── index.html              # Complete application (HTML/CSS/JS)
+├── index.html              # Landing page
+├── mermaid-tool.html       # Main editor application
+├── learn-mermaid.html      # Mermaid syntax tutorials
+├── about.html              # About page
+├── privacy.html            # Privacy policy
+├── terms.html              # Terms of service
 ├── examples/
-│   ├── config.json        # Category configuration for dropdown menus
-│   └── *.mmd              # Individual Mermaid diagram examples (22 files)
-├── .github/workflows/
-│   └── deploy.yml         # CI/CD pipeline configuration
-├── favicon.png            # Site favicon
-├── simplemermaid.png      # Logo/social image
-├── README.md              # User-facing documentation
-└── CLAUDE.md              # This file
+│   ├── config.json         # Category configuration for dropdowns
+│   └── *.mmd               # Mermaid diagram examples (21 files)
+├── .github/workflow/
+│   └── deploy.yml          # CI/CD pipeline configuration
+├── favicon.png             # Site favicon
+├── simplemermaid.png       # Logo/social image
+├── robots.txt              # Search engine directives
+└── Ads.txt                 # Ad network verification
 ```
 
-## Key Implementation Details
+## Key Implementation Details (mermaid-tool.html)
 
-### Sharing System (index.html:2201-2331)
-- Uses LZ-String compression to create compact URLs
-- Stores entire diagram in URL hash parameter `#diagram=`
-- Automatically updates URL as user types (2-second debounce)
-- Decompresses and loads diagrams from URL on page load
+### SimpleMermaid Class (line 854)
+Core application class managing:
+- Editor state and diagram rendering
+- Example loading from config.json with embedded fallback
+- URL sharing with LZ-String compression
+- Export to PNG/SVG
+- Theme and layout toggling
 
-### Example Loading System (index.html:1954-2065)
-- Primary: Loads from `examples/` directory via fetch API
-- Fallback: Uses embedded examples object for file:// protocol
-- Dynamic dropdown creation from `config.json`
-- Supports both external files and inline content
+### Sharing System (lines 1806+)
+- `generateShareLink()` - Creates compressed URL with diagram content
+- `updateUrlWithDiagram()` - Auto-updates URL with 2-second debounce
+- `loadFromUrl()` - Decompresses and loads diagram from URL hash
 
-### Theme System (index.html:119-200)
-- Three themes: light (default), dark, colorful
-- Controlled via `data-theme` attribute on document root
-- Special SVG styling overrides for Mermaid diagrams in dark/colorful themes
-- Theme toggle cycles through all three states
+### Example Loading
+- Config loaded from `examples/config.json`
+- Files fetched from `examples/*.mmd`
+- Embedded fallback examples in class for offline/file:// use
 
-### Mermaid Integration (index.html:2124-2136)
-- Renders using `mermaid.mermaidAPI.render()`
-- Error handling displays user-friendly messages
-- SVG output injected directly into preview container
+### Theme System
+- CSS variables in `:root` (line 43)
+- Dark theme overrides at `[data-theme="dark"]` (line 65)
+- SVG-specific styling for Mermaid diagrams (line 521+)
 
-## Important Patterns
+## Adding New Examples
 
-### Adding New Examples
 1. Create `.mmd` file in `examples/` directory
-2. Update `examples/config.json` with category and metadata
-3. Embedded fallback examples must be updated in `index.html` (lines 2314-2380)
-4. Test both HTTP server mode (external files) and file:// mode (embedded fallback)
+2. Add entry to `examples/config.json` under appropriate category
+3. Update embedded fallback examples in `mermaid-tool.html` (search for `embeddedExamples`)
+4. Test both HTTP server mode and file:// mode
 
-**Available Categories** (defined in `config.json`):
-- `basic`: Basic Diagrams (empty, simple, flowchart, shapes)
-- `sequence`: Sequence Diagrams (basic, OAuth flow)
-- `project`: Project Management (Gantt charts, user journey)
-- `architecture`: System Architecture (class, state, ERD, network, org charts)
-- `security`: Security & Threat Models (RBAC, K8s threats, web app threats, DevSecOps)
-
-### Modifying Themes
-- CSS variables defined in `:root` (lines 59-118)
-- Theme variations in `[data-theme="dark"]` and `[data-theme="colorful"]`
-- SVG-specific overrides for Mermaid diagrams (lines 673-825)
-
-### URL Sharing Modifications
-- Compression logic: `generateShareLink()` function (line 2203)
-- Decompression logic: DOMContentLoaded listener (line 2276)
-- Auto-update URL: Input event listener with debounce (line 2308)
+**Available Categories** (in `config.json`):
+- `basic`: Empty, Simple, Flowchart, Shapes
+- `sequence`: Basic Sequence, OAuth Flow
+- `project`: Gantt Chart, User Journey
+- `architecture`: Class, State, ERD, Network, Org Chart diagrams
+- `security`: RBAC, Kubernetes threats, Web app threats, DevSecOps, etc.
 
 ## External Dependencies
-- Mermaid.js v10: `https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs`
-- LZ-String v1.5.0: `https://cdn.jsdelivr.net/npm/lz-string@1.5.0/libs/lz-string.min.js`
-- Google Fonts: Inter and Poppins families
-- Google Analytics: gtag.js with ID G-6FZM0EGT74
-
-## Code Organization within index.html
-
-### CSS Structure (lines 58-1400)
-- CSS custom properties for theming (:root, lines 59-118)
-- Theme variations ([data-theme], lines 119-200)
-- Component styles (layout, buttons, editor, preview)
-- SVG overrides for dark/colorful themes (lines 673-825)
-- Responsive design breakpoints throughout
-
-### JavaScript Architecture (lines 2307+)
-- ES6 module imports for Mermaid.js
-- Global state management (theme, layout, examples)
-- Core functions:
-  - `loadExamplesConfig()`: Loads example configuration with fallback
-  - `generateShareLink()`: LZ-String compression for URL sharing
-  - `updateMermaidPreview()`: Real-time diagram rendering
-  - Event listeners for UI interactions and URL updates
-
-### Key Implementation Notes
-- **Dual Example System**: External files + embedded fallback for file:// protocol
-- **URL State Management**: Automatic compression/decompression with 2-second debounce
-- **Theme Switching**: Document-level data attribute controls CSS custom properties
-- **Layout Toggle**: CSS Grid switching between vertical/horizontal modes
-- **SEO Optimization**: Complete meta tags for social sharing and Google indexing (lines 9-48)
-- **Google AdSense Integration**: Placeholder div at line ~2022, awaiting ad account approval (see README.md for implementation guide)
+- Mermaid.js v10: `cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs`
+- LZ-String v1.5.0: `cdn.jsdelivr.net/npm/lz-string@1.5.0/libs/lz-string.min.js`
+- Google Fonts: Inter and Poppins
+- Google Analytics: gtag.js (G-6FZM0EGT74)
