@@ -1,0 +1,22 @@
+flowchart LR
+classDef threat fill:#fca5a5,stroke:#f66,stroke-width:2px,color:#000
+subgraph Upstream
+OSS[📦 Open Source]
+Vendor[🏢 Vendor SDK]
+Registry[📋 Package Registry]
+end
+subgraph Build
+CI[⚙️ CI/CD Pipeline]
+Artifact[📀 Build Artifact]
+end
+subgraph Deploy
+Prod[🚀 Production]
+end
+OSS --> CI
+Vendor --> CI
+Registry --> CI
+CI --> Artifact
+Artifact --> Prod
+Malicious([🦠 Malicious Package]):::threat -.-> Registry
+Compromised([💀 Compromised Dependency]):::threat -.-> OSS
+Tampering([🔧 Build Tampering]):::threat -.-> CI

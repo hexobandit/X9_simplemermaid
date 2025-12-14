@@ -1,0 +1,24 @@
+flowchart TB
+subgraph Presentation [Presentation Tier]
+Web[🌐 Web Browser]
+Mobile[📱 Mobile App]
+end
+subgraph Application [Application Tier]
+LB[⚖️ Load Balancer]
+API1[🖥️ API Server 1]
+API2[🖥️ API Server 2]
+Cache[(🗄️ Redis Cache)]
+end
+subgraph Data [Data Tier]
+Primary[(📀 Primary DB)]
+Replica[(📀 Replica DB)]
+end
+Web --> LB
+Mobile --> LB
+LB --> API1
+LB --> API2
+API1 --> Cache
+API2 --> Cache
+API1 --> Primary
+API2 --> Primary
+Primary --> Replica

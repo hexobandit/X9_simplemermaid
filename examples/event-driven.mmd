@@ -1,0 +1,24 @@
+flowchart LR
+subgraph Producers
+P1[Order Service]
+P2[Payment Service]
+P3[Inventory Service]
+end
+subgraph EventBus [Event Bus / Kafka]
+Topic1[[order.created]]
+Topic2[[payment.processed]]
+Topic3[[inventory.updated]]
+end
+subgraph Consumers
+C1[Email Service]
+C2[Analytics Service]
+C3[Audit Service]
+end
+P1 --> Topic1
+P2 --> Topic2
+P3 --> Topic3
+Topic1 --> C1
+Topic1 --> C2
+Topic2 --> C2
+Topic2 --> C3
+Topic3 --> C2
