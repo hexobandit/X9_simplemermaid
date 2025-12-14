@@ -1,0 +1,25 @@
+sequenceDiagram
+    participant Client
+    participant API
+    participant Auth
+    participant DB
+
+    Client->>API: POST /login (email, password)
+    API->>Auth: Validate credentials
+    Auth->>DB: Query user
+    DB-->>Auth: User data
+    Auth-->>API: Generate JWT + Refresh Token
+    API-->>Client: 200 OK {accessToken, refreshToken}
+
+    Note over Client,API: Later... Access Token Expired
+
+    Client->>API: GET /profile (expired token)
+    API-->>Client: 401 Unauthorized
+
+    Client->>API: POST /refresh (refreshToken)
+    API->>Auth: Validate refresh token
+    Auth-->>API: New JWT
+    API-->>Client: 200 OK {accessToken}
+
+    Client->>API: GET /profile (new token)
+    API-->>Client: 200 OK {profile data}

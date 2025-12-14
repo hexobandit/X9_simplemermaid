@@ -1,0 +1,22 @@
+gantt
+    title Sprint 24 - User Dashboard
+    dateFormat  YYYY-MM-DD
+
+    section Planning
+    Sprint Planning     :done, plan, 2024-03-04, 1d
+    Backlog Grooming    :done, groom, 2024-03-04, 1d
+
+    section Development
+    User Profile API    :done, api1, 2024-03-05, 3d
+    Dashboard UI        :active, ui1, 2024-03-06, 4d
+    Analytics Widget    :ui2, after ui1, 3d
+    Settings Page       :ui3, after api1, 2d
+
+    section Testing
+    Unit Tests          :test1, 2024-03-08, 3d
+    Integration Tests   :test2, after ui2, 2d
+
+    section Review
+    Code Review         :review, after test1, 2d
+    Sprint Demo         :crit, demo, 2024-03-15, 1d
+    Retrospective       :retro, after demo, 1d

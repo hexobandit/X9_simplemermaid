@@ -1,0 +1,23 @@
+%% Broadcast Studio Setup by Lemmur Productions
+%% https://lemmur.cz
+
+flowchart LR
+KINO <---> |Internet| 4K_Encoder
+ATEM_TVstudio --> |SDI_PrgOUT| 4K_Encoder
+4K_Encoder ---> |SDI monitorOUT| SMART_View
+ATEM_TVstudio --> |SDI_1 Multiview| SMART_View
+4K_Encoder --> |SDI LoopOUT| BM_VideoAssist7
+CAM1_L_URSAbroadcast --> |optical_5| ATEM_TVstudio
+CAM2_R_URSAbroadcast --> |optical_6| ATEM_TVstudio
+CAM3_C_URSAG2 --> |optical_7| ATEM_TVstudio
+CAM4_O_URSAG1 --> |SDI_8| ATEM_TVstudio
+BM_VideoAssist7 --> |SDI LoopOUT| SUMO_Monitor
+
+subgraph ZAZNAM
+  BM_VideoAssist7
+end
+
+BM_VideoAssist5_ZNELKA --> |HDMI_1| ATEM_TVstudio
+Grep's_MACbook <--> |Ethernet| ATEM_TVstudio
+ATEM_micro_panel <-.-> |USB_C| Grep's_MACbook
+ZVUK_MIX -.-> |2 x XLR| CAM1_L_URSAbroadcast

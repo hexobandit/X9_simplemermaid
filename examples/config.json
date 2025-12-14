@@ -1,5 +1,12 @@
 {
   "categories": {
+    "community": {
+      "name": "Community Showcase",
+      "examples": [
+        {"id": "broadcast-setup", "title": "Broadcast Studio - Lemmur Production", "file": "broadcast-setup.mmd"},
+        {"id": "aws-malware-scan", "title": "AWS Malware Scanning - Vaishnav", "file": "aws-malware-scan.mmd"}
+      ]
+    },
     "basic": {
       "name": "Basic Diagrams",
       "examples": [
@@ -13,14 +20,22 @@
       "name": "Sequence Diagrams",
       "examples": [
         {"id": "sequence-basic", "title": "Basic Sequence", "file": "sequence-basic.mmd"},
-        {"id": "sequence-oauth", "title": "OAuth Flow", "file": "sequence-oauth.mmd"}
+        {"id": "sequence-oauth", "title": "OAuth Flow", "file": "sequence-oauth.mmd"},
+        {"id": "sequence-jwt", "title": "JWT Authentication", "file": "sequence-jwt.mmd"},
+        {"id": "sequence-payment", "title": "Payment Processing", "file": "sequence-payment.mmd"},
+        {"id": "sequence-websocket", "title": "WebSocket Chat", "file": "sequence-websocket.mmd"},
+        {"id": "sequence-microservices", "title": "Microservices Call", "file": "sequence-microservices.mmd"}
       ]
     },
     "project": {
       "name": "Project Management",
       "examples": [
         {"id": "gantt-project", "title": "Gantt Chart", "file": "gantt-project.mmd"},
-        {"id": "journey", "title": "User Journey", "file": "journey.mmd"}
+        {"id": "journey", "title": "User Journey", "file": "journey.mmd"},
+        {"id": "gantt-sprint", "title": "Sprint Planning", "file": "gantt-sprint.mmd"},
+        {"id": "gantt-release", "title": "Release Schedule", "file": "gantt-release.mmd"},
+        {"id": "product-roadmap", "title": "Product Roadmap", "file": "product-roadmap.mmd"},
+        {"id": "journey-onboarding", "title": "User Onboarding", "file": "journey-onboarding.mmd"}
       ]
     },
     "architecture": {

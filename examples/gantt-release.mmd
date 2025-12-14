@@ -1,0 +1,20 @@
+gantt
+    title Release Schedule 2024
+    dateFormat  YYYY-MM-DD
+
+    section Q1 Releases
+    v2.0 Alpha          :done, r1, 2024-01-15, 14d
+    v2.0 Beta           :done, r2, 2024-02-01, 21d
+    v2.0 RC             :done, r3, 2024-02-22, 14d
+    v2.0 GA             :milestone, done, 2024-03-08, 0d
+
+    section Q2 Releases
+    v2.1 Development    :active, r4, 2024-03-11, 30d
+    v2.1 Testing        :r5, after r4, 14d
+    v2.1 Release        :milestone, 2024-05-01, 0d
+    v2.2 Planning       :r6, 2024-04-15, 14d
+
+    section Maintenance
+    Security Patches    :crit, sec, 2024-01-01, 180d
+    Bug Fixes           :bugs, 2024-01-01, 180d
+    Documentation       :docs, 2024-03-01, 60d
