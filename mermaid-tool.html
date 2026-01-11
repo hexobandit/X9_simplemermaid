@@ -110,6 +110,36 @@
         .header-top {
             display: flex;
             align-items: center;
+            justify-content: space-between;
+        }
+
+        .version-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+        }
+
+        .version-link:hover {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            background: var(--bg-secondary);
+        }
+
+        .version-badge {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.7rem;
         }
         
         .back-link {
@@ -814,6 +844,23 @@
             opacity: 1;
         }
     </style>
+    <!-- Early theme detection to prevent flash -->
+    <script>
+        (function() {
+            var theme = localStorage.getItem('simplemermaid-theme');
+            if (!theme) {
+                var oldTheme = localStorage.getItem('theme');
+                if (oldTheme) {
+                    theme = oldTheme;
+                    localStorage.setItem('simplemermaid-theme', theme);
+                    localStorage.removeItem('theme');
+                } else {
+                    theme = 'light';
+                }
+            }
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
 </head>
 
 <!-- Google tag (gtag.js) -->
@@ -826,13 +873,17 @@
   gtag('config', 'G-6FZM0EGT74');
 </script>
 
-<body data-theme="light">
+<body>
     <!-- Header -->
     <header class="header">
-        <!-- Row 1: Back Link -->
+        <!-- Row 1: Back Link & Version -->
         <div class="header-top">
             <a href="index.html" class="back-link" title="Back to Home">
                 ← SimpleMermaid
+            </a>
+            <a href="changelog.html" class="version-link" title="View changelog">
+                <span class="version-badge">v1.2.4</span>
+                <span>What's new</span>
             </a>
         </div>
         
@@ -972,7 +1023,10 @@ Or choose an example from the dropdown above!"
                             "name": "Community Showcase",
                             "examples": [
                                 {"id": "broadcast-setup", "title": "Broadcast Studio - Lemmur Production", "content": "%% Broadcast Studio Setup by Lemmur Productions\n%% https://lemmur.cz\n\nflowchart LR\nKINO <---> |Internet| 4K_Encoder\nATEM_TVstudio --> |SDI_PrgOUT| 4K_Encoder\n4K_Encoder ---> |SDI monitorOUT| SMART_View\nATEM_TVstudio --> |SDI_1 Multiview| SMART_View\n4K_Encoder --> |SDI LoopOUT| BM_VideoAssist7\nCAM1_L_URSAbroadcast --> |optical_5| ATEM_TVstudio\nCAM2_R_URSAbroadcast --> |optical_6| ATEM_TVstudio\nCAM3_C_URSAG2 --> |optical_7| ATEM_TVstudio\nCAM4_O_URSAG1 --> |SDI_8| ATEM_TVstudio\nBM_VideoAssist7 --> |SDI LoopOUT| SUMO_Monitor\nsubgraph ZAZNAM\n  BM_VideoAssist7\nend\nBM_VideoAssist5_ZNELKA --> |HDMI_1| ATEM_TVstudio\nGrep's_MACbook <--> |Ethernet| ATEM_TVstudio\nATEM_micro_panel <-.-> |USB_C| Grep's_MACbook\nZVUK_MIX -.-> |2 x XLR| CAM1_L_URSAbroadcast"},
-                                {"id": "aws-malware-scan", "title": "AWS Malware Scanning - Vaishnav", "content": "flowchart TD\nclassDef client fill:#f9f,stroke:#333,stroke-width:2px;\nclassDef aws fill:#FF9900,stroke:#232F3E,stroke-width:2px,color:white;\nclassDef security fill:#DD0000,stroke:#333,stroke-width:2px,color:white;\nclassDef storage fill:#3F8624,stroke:#333,stroke-width:2px,color:white;\nUserA[(\"App A (HR)\")]:::client\nUserB[(\"App B (Finance)\")]:::client\nsubgraph \"Request Phase (Metadata)\"\nAPI[API Gateway]:::aws\nAuthLambda[λ Auth & URL Gen]:::aws\nend\nsubgraph \"Quarantine Zone (Dirty)\"\nS3Q[(\"S3 Quarantine Bucket\")]:::storage\nGD[GuardDuty Malware Protection]:::security\nend\nsubgraph \"Processing Phase\"\nEB[EventBridge]:::aws\nMoverLambda[λ Mover Function]:::aws\nSNS[SNS Alert Topic]:::aws\nend\nsubgraph \"Trusted Zone (Clean)\"\nS3C[(\"S3 Clean Bucket\")]:::storage\nend\nUserA -- \"1. Request Upload\" --> API\nUserB -- \"1. Request Upload\" --> API\nAPI --> AuthLambda\nAuthLambda -- \"2. Return Presigned URLs\" --> UserA\nUserA -- \"3. Upload Files\" --> S3Q\nUserB -- \"3. Upload Files\" --> S3Q\nS3Q -.->|\"4. Auto-Trigger Scan\"| GD\nGD -- \"5. Scan Result\" --> EB\nEB -- \"Rule: CLEAN\" --> MoverLambda\nEB -- \"Rule: THREAT\" --> SNS\nMoverLambda -- \"6a. Copy File\" --> S3C\nMoverLambda -- \"6b. Delete\" --> S3Q"}
+                                {"id": "aws-malware-scan", "title": "AWS Malware Scanning - Vaishnav", "content": "flowchart TD\nclassDef client fill:#f9f,stroke:#333,stroke-width:2px;\nclassDef aws fill:#FF9900,stroke:#232F3E,stroke-width:2px,color:white;\nclassDef security fill:#DD0000,stroke:#333,stroke-width:2px,color:white;\nclassDef storage fill:#3F8624,stroke:#333,stroke-width:2px,color:white;\nUserA[(\"App A (HR)\")]:::client\nUserB[(\"App B (Finance)\")]:::client\nsubgraph \"Request Phase (Metadata)\"\nAPI[API Gateway]:::aws\nAuthLambda[λ Auth & URL Gen]:::aws\nend\nsubgraph \"Quarantine Zone (Dirty)\"\nS3Q[(\"S3 Quarantine Bucket\")]:::storage\nGD[GuardDuty Malware Protection]:::security\nend\nsubgraph \"Processing Phase\"\nEB[EventBridge]:::aws\nMoverLambda[λ Mover Function]:::aws\nSNS[SNS Alert Topic]:::aws\nend\nsubgraph \"Trusted Zone (Clean)\"\nS3C[(\"S3 Clean Bucket\")]:::storage\nend\nUserA -- \"1. Request Upload\" --> API\nUserB -- \"1. Request Upload\" --> API\nAPI --> AuthLambda\nAuthLambda -- \"2. Return Presigned URLs\" --> UserA\nUserA -- \"3. Upload Files\" --> S3Q\nUserB -- \"3. Upload Files\" --> S3Q\nS3Q -.->|\"4. Auto-Trigger Scan\"| GD\nGD -- \"5. Scan Result\" --> EB\nEB -- \"Rule: CLEAN\" --> MoverLambda\nEB -- \"Rule: THREAT\" --> SNS\nMoverLambda -- \"6a. Copy File\" --> S3C\nMoverLambda -- \"6b. Delete\" --> S3Q"},
+                                {"id": "standup-meeting", "title": "Stand-up Meeting Reality - emphonic.com", "content": "%% Stand-up Meeting Reality by emphonic.com\n%% The daily scrum experience of every developer\n\njourney\n    title Daily Stand-up Meeting Reality\n    section Before Stand-up\n      Check Slack for fires: 2: Dev\n      Pretend to remember yesterday: 1: Dev\n      Make coffee: 5: Dev\n    section The Stand-up\n      Say worked on same ticket: 3: Dev\n      Mention blockers no one fixes: 2: Dev\n      Hear PM add urgent feature: 1: Dev, PM\n      Watch 15-min meeting hit 45-min: 1: Everyone\n    section After Stand-up\n      Actually start working: 4: Dev\n      Get pulled into another meeting: 1: Dev\n      Debug why prod is down: 1: Dev, Ops"},
+                                {"id": "bug-lifecycle", "title": "The Bug Life Cycle - emphonic.com", "content": "%% The Bug Life Cycle by emphonic.com\n%% A quick fix journey through time\n\nflowchart TD\n    classDef pain fill:#fca5a5,stroke:#f66,stroke-width:2px\n    classDef hope fill:#86efac,stroke:#22c55e,stroke-width:2px\n    classDef reality fill:#fde047,stroke:#eab308,stroke-width:2px\n\n    A[Bug Reported] --> B{Is it reproducible?}\n    B -->|Works on my machine| C[Close ticket]:::hope\n    B -->|Yes, somehow| D[Estimate: 2 hours]:::hope\n\n    D --> E[Find the bug: 4 hours]:::reality\n    E --> F[Fix the bug: 10 minutes]:::hope\n    F --> G[Break 3 other things]:::pain\n\n    G --> H[Blame the framework]\n    H --> I[Realize it was your code]:::pain\n    I --> J[Fix those 3 things]\n\n    J --> K{Tests pass?}\n    K -->|Locally yes| L[Push to prod]\n    K -->|CI fails| M[Unrelated test broke]:::pain\n\n    L --> N[Bug returns in prod]:::pain\n    M --> O[Restart CI 5 times]\n    O --> K\n\n    N --> P[Its 6 PM on Friday]:::pain\n    P --> A\n\n    C --> Q[Bug reopened 3 months later]:::pain\n    Q --> A"},
+                                {"id": "deploy-friday", "title": "Deploy Friday - emphonic.com", "content": "%% Deploy Friday by emphonic.com\n%% Why we never deploy on Fridays... but always do\n\nsequenceDiagram\n    participant Dev as Developer\n    participant Git as Git\n    participant CI as CI/CD Pipeline\n    participant Prod as Production\n    participant PagerDuty as PagerDuty\n    participant Weekend as Weekend Plans\n\n    Note over Dev,Weekend: Friday 4:30 PM\n\n    Dev->>Git: git push --force (its just a small fix)\n    Git->>CI: Trigger build\n    CI-->>Dev: All tests pass!\n    Dev->>Prod: Deploy to production\n\n    Note over Prod: 4:45 PM - Everything looks fine\n\n    Dev->>Weekend: Time to relax!\n    Weekend-->>Dev: Pizza ordered\n\n    Note over Prod: 5:01 PM - Database connection pool exhausted\n\n    Prod->>PagerDuty: CRITICAL ALERT\n    PagerDuty->>Dev: Wake up! Prod is down!\n    Dev->>Weekend: Cancel everything\n    Weekend--xDev: Pizza gets cold\n\n    Dev->>Prod: SSH into server\n    Prod-->>Dev: Permission denied\n    Dev->>Dev: Wheres the VPN?\n\n    Note over Dev,Prod: 11:47 PM - Finally fixed\n\n    Dev->>Git: Revert all changes\n    Dev->>Dev: Never again deploy on Friday\n\n    Note over Dev: Next Friday 4:30 PM\n\n    Dev->>Git: git push (its REALLY just a tiny fix this time)"}
                             ]
                         },
                         "basic": {
@@ -1677,14 +1731,15 @@ Or choose an example from the dropdown above!"
              */
             toggleTheme() {
                 this.currentTheme = this.currentTheme === 'light' ? 'dark' : 'light';
+                document.documentElement.setAttribute('data-theme', this.currentTheme);
                 document.body.setAttribute('data-theme', this.currentTheme);
-                
+
                 // Update theme button icon
                 this.themeBtn.innerHTML = this.currentTheme === 'light' ? '☀️' : '🌙';
-                
+
                 // Save theme preference
                 localStorage.setItem(this.THEME_KEY, this.currentTheme);
-                
+
                 // Re-render diagram with new theme
                 this.debouncedRender();
             }
@@ -1879,6 +1934,7 @@ Or choose an example from the dropdown above!"
                     if (targetTheme && targetTheme !== this.currentTheme) {
                         console.log('Applying theme change from', this.currentTheme, 'to', targetTheme);
                         this.currentTheme = targetTheme;
+                        document.documentElement.setAttribute('data-theme', this.currentTheme);
                         document.body.setAttribute('data-theme', this.currentTheme);
                         this.themeBtn.innerHTML = this.currentTheme === 'light' ? '☀️' : '🌙';
                     }

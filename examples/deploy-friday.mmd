@@ -1,0 +1,42 @@
+%% Deploy Friday by emphonic.com
+%% Why we never deploy on Fridays... but always do
+
+sequenceDiagram
+    participant Dev as Developer 😎
+    participant Git as Git
+    participant CI as CI/CD Pipeline
+    participant Prod as Production 🔥
+    participant PagerDuty as PagerDuty
+    participant Weekend as Weekend Plans 🏖️
+
+    Note over Dev,Weekend: Friday 4:30 PM
+
+    Dev->>Git: git push --force (it's just a small fix)
+    Git->>CI: Trigger build
+    CI-->>Dev: ✅ All tests pass!
+    Dev->>Prod: Deploy to production
+
+    Note over Prod: 4:45 PM - Everything looks fine
+
+    Dev->>Weekend: Time to relax!
+    Weekend-->>Dev: 🍕 Pizza ordered
+
+    Note over Prod: 5:01 PM - Database connection pool exhausted
+
+    Prod->>PagerDuty: 🚨 CRITICAL ALERT
+    PagerDuty->>Dev: Wake up! Prod is down!
+    Dev->>Weekend: Cancel everything
+    Weekend--xDev: 💔 Pizza gets cold
+
+    Dev->>Prod: SSH into server
+    Prod-->>Dev: Permission denied
+    Dev->>Dev: Where's the VPN?
+
+    Note over Dev,Prod: 11:47 PM - Finally fixed
+
+    Dev->>Git: Revert all changes
+    Dev->>Dev: Never again deploy on Friday
+
+    Note over Dev: Next Friday 4:30 PM
+
+    Dev->>Git: git push (it's REALLY just a tiny fix this time)

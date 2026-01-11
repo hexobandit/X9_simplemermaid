@@ -1,0 +1,33 @@
+%% The Bug Life Cycle by emphonic.com
+%% A "quick fix" journey through time
+
+flowchart TD
+    classDef pain fill:#fca5a5,stroke:#f66,stroke-width:2px
+    classDef hope fill:#86efac,stroke:#22c55e,stroke-width:2px
+    classDef reality fill:#fde047,stroke:#eab308,stroke-width:2px
+
+    A[🐛 Bug Reported] --> B{Is it reproducible?}
+    B -->|Works on my machine| C[Close ticket]:::hope
+    B -->|Yes, somehow| D[Estimate: 2 hours]:::hope
+
+    D --> E[Find the bug: 4 hours]:::reality
+    E --> F[Fix the bug: 10 minutes]:::hope
+    F --> G[Break 3 other things]:::pain
+
+    G --> H[Blame the framework]
+    H --> I[Realize it was your code]:::pain
+    I --> J[Fix those 3 things]
+
+    J --> K{Tests pass?}
+    K -->|Locally yes| L[Push to prod]
+    K -->|CI fails| M[Unrelated test broke]:::pain
+
+    L --> N[Bug returns in prod]:::pain
+    M --> O[Restart CI 5 times]
+    O --> K
+
+    N --> P[It's 6 PM on Friday]:::pain
+    P --> A
+
+    C --> Q[Bug reopened 3 months later]:::pain
+    Q --> A
