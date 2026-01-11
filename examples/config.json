@@ -4,7 +4,10 @@
       "name": "Community Showcase",
       "examples": [
         {"id": "broadcast-setup", "title": "Broadcast Studio - Lemmur Production", "file": "broadcast-setup.mmd"},
-        {"id": "aws-malware-scan", "title": "AWS Malware Scanning - Vaishnav", "file": "aws-malware-scan.mmd"}
+        {"id": "aws-malware-scan", "title": "AWS Malware Scanning - Vaishnav", "file": "aws-malware-scan.mmd"},
+        {"id": "standup-meeting", "title": "Stand-up Meeting Reality - emphonic.com", "file": "standup-meeting.mmd"},
+        {"id": "bug-lifecycle", "title": "The Bug Life Cycle - emphonic.com", "file": "bug-lifecycle.mmd"},
+        {"id": "deploy-friday", "title": "Deploy Friday - emphonic.com", "file": "deploy-friday.mmd"}
       ]
     },
     "basic": {

@@ -3,53 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About SimpleMermaid - Developer Productivity Tool</title>
-    
+    <title>Changelog - SimpleMermaid Updates & Release Notes</title>
+
     <!-- SEO Meta Tags -->
-    <meta name="description" content="SimpleMermaid is a developer productivity tool for creating technical diagrams and software documentation. Built for developers, engineers, and technical teams.">
-    <meta name="keywords" content="SimpleMermaid about, developer productivity tool, technical diagrams, software documentation, Mermaid.js editor">
+    <meta name="description" content="SimpleMermaid changelog and release notes. See the latest updates, new features, bug fixes, and improvements to your favorite Mermaid diagram editor.">
+    <meta name="keywords" content="SimpleMermaid changelog, release notes, updates, new features, Mermaid.js editor updates, version history">
     <meta name="author" content="SimpleMermaid.com">
-    
+
     <!-- Open Graph -->
-    <meta property="og:title" content="About SimpleMermaid - Developer Productivity Tool">
-    <meta property="og:description" content="SimpleMermaid is a developer productivity tool for creating technical diagrams and software documentation. Built for developers, engineers, and technical teams.">
+    <meta property="og:title" content="Changelog - SimpleMermaid Updates & Release Notes">
+    <meta property="og:description" content="See the latest updates, new features, and improvements to SimpleMermaid - your favorite Mermaid diagram editor.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://simplemermaid.com/about.html">
+    <meta property="og:url" content="https://simplemermaid.com/changelog.html">
     <meta property="og:image" content="https://simplemermaid.com/simplemermaid.png">
     <meta property="og:site_name" content="SimpleMermaid">
-    
-    <!-- Twitter/X Cards (still uses twitter: prefix) -->
+
+    <!-- Twitter/X Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="About SimpleMermaid - Developer Productivity Tool">
-    <meta name="twitter:description" content="SimpleMermaid is a developer productivity tool for creating technical diagrams and software documentation. Built for developers, engineers, and technical teams.">
+    <meta name="twitter:title" content="Changelog - SimpleMermaid Updates & Release Notes">
+    <meta name="twitter:description" content="See the latest updates, new features, and improvements to SimpleMermaid.">
     <meta name="twitter:image" content="https://simplemermaid.com/simplemermaid.png">
-    <meta name="twitter:creator" content="@simplemermaid">
-    <meta name="twitter:site" content="@simplemermaid">
-    
+
     <!-- Additional SEO -->
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://simplemermaid.com/about.html">
+    <link rel="canonical" href="https://simplemermaid.com/changelog.html">
     <meta name="theme-color" content="#6366f1">
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon.png">
-    
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "SimpleMermaid",
-        "description": "SimpleMermaid is a developer productivity tool for creating technical diagrams and software documentation. Built for developers, engineers, and technical teams.",
-        "url": "https://simplemermaid.com",
-        "logo": "https://simplemermaid.com/simplemermaid.png",
-        "foundingDate": "2025",
-        "industry": "Software Development",
-        "applicationCategory": "DeveloperApplication",
-        "operatingSystem": "Any"
-    }
-    </script>
-    
+
     <style>
         /* Modern CSS Variables */
         :root {
@@ -73,7 +55,7 @@
             --radius: 12px;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
+
         [data-theme="dark"] {
             --primary: #8b5cf6;
             --primary-hover: #7c3aed;
@@ -87,13 +69,13 @@
             --border: #374151;
             --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Inter', sans-serif;
             line-height: 1.6;
@@ -101,7 +83,7 @@
             background: var(--bg-primary);
             transition: var(--transition);
         }
-        
+
         /* Navigation Header */
         .nav-header {
             background: var(--bg-primary);
@@ -113,7 +95,7 @@
             z-index: 1000;
             backdrop-filter: blur(10px);
         }
-        
+
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -122,7 +104,7 @@
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .nav-logo {
             display: flex;
             align-items: center;
@@ -132,26 +114,26 @@
             font-weight: 700;
             font-size: 1.25rem;
         }
-        
+
         .logo-icon {
             display: flex;
             align-items: center;
             gap: 6px;
         }
-        
+
         .diagram-node {
             width: 16px;
             height: 16px;
             background: linear-gradient(135deg, var(--primary), var(--primary-hover));
             border-radius: 3px;
         }
-        
+
         .diagram-connection {
             width: 10px;
             height: 2px;
             background: var(--primary);
         }
-        
+
         /* Desktop Navigation */
         .nav-menu {
             display: flex;
@@ -159,7 +141,7 @@
             list-style: none;
             align-items: center;
         }
-        
+
         .nav-link {
             color: var(--text-secondary);
             text-decoration: none;
@@ -168,17 +150,17 @@
             padding: 0.5rem 1rem;
             border-radius: 8px;
         }
-        
+
         .nav-link:hover {
             color: var(--primary);
             background: var(--bg-secondary);
         }
-        
+
         .nav-link.active {
             color: var(--primary);
             background: var(--bg-secondary);
         }
-        
+
         .nav-cta {
             background: var(--primary);
             color: white;
@@ -188,12 +170,12 @@
             font-weight: 600;
             transition: var(--transition);
         }
-        
+
         .nav-cta:hover {
             background: var(--primary-hover);
             transform: translateY(-1px);
         }
-        
+
         /* Mobile Navigation */
         .hamburger {
             display: none;
@@ -204,26 +186,26 @@
             cursor: pointer;
             padding: 0.5rem;
         }
-        
+
         .hamburger span {
             width: 24px;
             height: 2px;
             background: var(--text-primary);
             transition: var(--transition);
         }
-        
+
         .hamburger.active span:nth-child(1) {
             transform: rotate(45deg) translate(5px, 5px);
         }
-        
+
         .hamburger.active span:nth-child(2) {
             opacity: 0;
         }
-        
+
         .hamburger.active span:nth-child(3) {
             transform: rotate(-45deg) translate(5px, -5px);
         }
-        
+
         /* Mobile Menu */
         .mobile-menu {
             display: none;
@@ -237,11 +219,11 @@
             padding: 1rem;
             z-index: 999;
         }
-        
+
         .mobile-menu.show {
             display: block;
         }
-        
+
         .mobile-nav-link {
             display: block;
             padding: 1rem;
@@ -250,12 +232,12 @@
             border-radius: 8px;
             transition: var(--transition);
         }
-        
+
         .mobile-nav-link:hover {
             background: var(--bg-secondary);
             color: var(--primary);
         }
-        
+
         /* Theme Toggle */
         .theme-toggle {
             background: none;
@@ -266,12 +248,12 @@
             cursor: pointer;
             transition: var(--transition);
         }
-        
+
         .theme-toggle:hover {
             border-color: var(--primary);
             background: var(--bg-secondary);
         }
-        
+
         /* Main Content */
         .main-content {
             margin-top: 80px;
@@ -279,7 +261,7 @@
         }
 
         /* Hero Section */
-        .about-hero {
+        .changelog-hero {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             text-align: center;
@@ -288,119 +270,194 @@
             margin-bottom: 3rem;
         }
 
-        .about-hero h1 {
+        .changelog-hero h1 {
             font-size: clamp(2rem, 4vw, 2.5rem);
             margin-bottom: 1rem;
         }
 
-        .about-hero p {
+        .changelog-hero p {
             font-size: 1.1rem;
             opacity: 0.9;
             max-width: 600px;
             margin: 0 auto;
         }
-        
+
+        .current-version {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            margin-top: 1.5rem;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
         /* Content Container */
         .content-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        /* Section */
-        .about-section {
-            margin-bottom: 4rem;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .section-header h2 {
-            font-size: 2.5rem;
-            color: var(--text-primary);
-            margin-bottom: 1rem;
-        }
-
-        .section-header p {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            max-width: 600px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
-        /* Feature Cards */
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .feature-card {
+        /* Version Entry */
+        .version-entry {
             background: var(--bg-primary);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 2rem;
+            margin-bottom: 2rem;
+            overflow: hidden;
             transition: var(--transition);
         }
 
-        .feature-card:hover {
-            transform: translateY(-4px);
+        .version-entry:hover {
             box-shadow: var(--shadow);
             border-color: var(--primary);
         }
 
-        .feature-card h3 {
+        .version-header {
+            background: var(--bg-secondary);
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .version-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .version-number {
             font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .version-date {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .version-tag {
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .tag-latest {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+        }
+
+        .tag-major {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            color: white;
+        }
+
+        .tag-minor {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+        }
+
+        .version-content {
+            padding: 2rem;
+        }
+
+        .change-category {
+            margin-bottom: 1.5rem;
+        }
+
+        .change-category:last-child {
+            margin-bottom: 0;
+        }
+
+        .change-category h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .change-category ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .change-category li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .change-category li:last-child {
+            border-bottom: none;
+        }
+
+        .change-category li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.9rem;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--primary);
+        }
+
+        .highlight-feature {
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        /* Subscribe Section */
+        .subscribe-section {
+            background: var(--bg-secondary);
+            border-radius: var(--radius);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .subscribe-section h2 {
+            font-size: 1.5rem;
             margin-bottom: 1rem;
             color: var(--text-primary);
         }
 
-        .feature-card p {
+        .subscribe-section p {
             color: var(--text-secondary);
             margin-bottom: 1.5rem;
         }
-        
-        /* Content Sections */
-        .content-section {
-            background: var(--bg-secondary);
-            border-radius: var(--radius);
-            padding: 2rem;
-            margin: 2rem 0;
-        }
 
-        .content-section h2 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .content-section h3 {
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .content-section p {
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-        }
-
-        .content-section ul {
-            margin: 1rem 0;
-            padding-left: 2rem;
-        }
-
-        .content-section li {
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-        }
-        
-        .highlight {
-            color: var(--primary);
+        .subscribe-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
             font-weight: 600;
+            transition: var(--transition);
         }
-        
+
+        .subscribe-cta:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
         /* Cyberpunk Footer */
         .footer {
             background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #16213e 100%);
@@ -411,7 +468,7 @@
             overflow: hidden;
             margin-top: 4rem;
         }
-        
+
         .footer::before {
             content: '';
             position: absolute;
@@ -422,14 +479,14 @@
             background: linear-gradient(90deg, transparent, #00d4ff, transparent);
             animation: cyberpunk-scan 3s linear infinite;
         }
-        
+
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
             position: relative;
             z-index: 2;
         }
-        
+
         .footer-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -446,50 +503,50 @@
             letter-spacing: 1px;
             text-shadow: 0 0 10px #00d4ff50;
         }
-        
+
         .footer-links {
             list-style: none;
             padding: 0;
         }
-        
+
         .footer-links li {
             margin-bottom: 0.5rem;
         }
-        
+
         .footer-links a {
             color: #a1a1aa;
             text-decoration: none;
             transition: all 0.3s ease;
             position: relative;
         }
-        
+
         .footer-links a:hover {
             color: #00d4ff;
             text-shadow: 0 0 5px #00d4ff50;
             padding-left: 10px;
         }
-        
+
         .footer-links a::before {
-            content: '▶';
+            content: '>';
             position: absolute;
             left: -15px;
             opacity: 0;
             transition: all 0.3s ease;
             color: #6366f1;
         }
-        
+
         .footer-links a:hover::before {
             opacity: 1;
             left: -10px;
         }
-        
+
         .footer-divider {
             height: 1px;
             background: linear-gradient(90deg, transparent, #6366f1, transparent);
             margin: 1.5rem 0;
             position: relative;
         }
-        
+
         .footer-divider::after {
             content: '';
             position: absolute;
@@ -501,17 +558,17 @@
             opacity: 0;
             animation: cyberpunk-pulse 2s ease-in-out infinite alternate;
         }
-        
+
         .footer-bottom {
             text-align: center;
         }
-        
+
         .footer-copyright {
             color: #71717a;
             font-size: 0.875rem;
             margin-bottom: 1rem;
         }
-        
+
         .footer-tech {
             display: flex;
             justify-content: center;
@@ -519,7 +576,7 @@
             flex-wrap: wrap;
             margin-bottom: 1rem;
         }
-        
+
         .tech-badge {
             background: linear-gradient(135deg, #374151, #1f2937);
             border: 1px solid #6366f1;
@@ -534,99 +591,94 @@
             box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
             transition: all 0.3s ease;
         }
-        
+
         .tech-badge:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 25px rgba(0, 212, 255, 0.3);
             border-color: #00d4ff;
         }
-        
+
         .footer-glow {
             color: #6366f1;
             text-shadow: 0 0 10px #6366f150;
             font-weight: 700;
         }
-        
+
         /* Cyberpunk Animations */
         @keyframes cyberpunk-scan {
             0% { left: -100%; }
             100% { left: 100%; }
         }
-        
+
         @keyframes cyberpunk-pulse {
             0% { opacity: 0; }
             100% { opacity: 0.6; }
         }
-        
-        @keyframes cyberpunk-glow {
-            0%, 100% { text-shadow: 0 0 5px #6366f150; }
-            50% { text-shadow: 0 0 20px #6366f1, 0 0 30px #6366f180; }
-        }
-        
+
         /* Dark theme adjustments */
         [data-theme="dark"] .footer {
             background: linear-gradient(135deg, #000000 0%, #1a0b3d 50%, #2d1b69 100%);
         }
-        
+
         [data-theme="dark"] .tech-badge {
             background: linear-gradient(135deg, #1e1b4b, #312e81);
             border-color: #8b5cf6;
         }
-        
+
         [data-theme="dark"] .footer-section h3 {
             color: #a78bfa;
             text-shadow: 0 0 10px #8b5cf650;
         }
-        
+
         [data-theme="dark"] .footer-links a:hover {
             color: #a78bfa;
             text-shadow: 0 0 5px #8b5cf650;
         }
-        
+
         [data-theme="dark"] .tech-badge:hover {
             border-color: #a78bfa;
             box-shadow: 0 5px 25px rgba(139, 92, 246, 0.3);
         }
-        
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .nav-container {
                 padding: 1rem;
             }
-            
+
             .nav-menu {
                 display: none;
             }
-            
+
             .hamburger {
                 display: flex;
             }
-            
+
             .main-content {
                 margin-top: 60px;
                 padding: 1rem;
             }
-            
-            .feature-grid {
-                grid-template-columns: 1fr;
+
+            .version-header {
+                padding: 1rem 1.5rem;
             }
-            
-            .section-header h2 {
-                font-size: 2rem;
+
+            .version-content {
+                padding: 1.5rem;
+            }
+
+            .version-number {
+                font-size: 1.25rem;
             }
         }
-        
+
         @media (max-width: 480px) {
-            .about-hero h1 {
+            .changelog-hero h1 {
                 font-size: 1.75rem;
             }
-            
-            .about-hero p {
+
+            .changelog-hero p {
                 font-size: 1rem;
-            }
-            
-            .feature-card {
-                padding: 1.5rem;
             }
         }
     </style>
@@ -673,7 +725,7 @@
                 </div>
                 <span>SimpleMermaid</span>
             </a>
-            
+
             <!-- Desktop Menu -->
             <ul class="nav-menu">
                 <li><a href="index.html" class="nav-link">Home</a></li>
@@ -682,7 +734,7 @@
                 <li><button class="theme-toggle" id="themeToggle">☀️</button></li>
                 <li><a href="mermaid-tool.html" class="nav-cta">Start Creating</a></li>
             </ul>
-            
+
             <!-- Mobile Hamburger -->
             <button class="hamburger" id="hamburger">
                 <span></span>
@@ -690,7 +742,7 @@
                 <span></span>
             </button>
         </nav>
-        
+
         <!-- Mobile Menu -->
         <div class="mobile-menu" id="mobileMenu">
             <a href="index.html" class="mobile-nav-link">Home</a>
@@ -699,131 +751,225 @@
             <a href="mermaid-tool.html" class="mobile-nav-link nav-cta">Start Creating</a>
         </div>
     </header>
-    
+
     <!-- Main Content -->
     <main class="main-content">
         <div class="content-container">
             <!-- Hero Section -->
-            <div class="about-hero">
-                <h1>About SimpleMermaid</h1>
-                <p>Developer Productivity Tool for Technical Diagramming</p>
+            <div class="changelog-hero">
+                <h1>Changelog</h1>
+                <p>Track all the updates, new features, and improvements to SimpleMermaid</p>
+                <div class="current-version">Current Version: 1.2.4</div>
             </div>
-            
-            <!-- Built for Developers Section -->
-            <section class="about-section">
-                <div class="section-header">
-                    <h2>Built for Developers and Engineers</h2>
-                    <p>A developer productivity tool designed specifically for technical professionals</p>
-                </div>
-                
-                <div class="content-section">
-                    <p>SimpleMermaid is a <span class="highlight">developer productivity tool</span> designed specifically for software engineers, system architects, DevOps teams, and technical professionals who need to create and share technical diagrams quickly.</p>
-                    
-                    <p>Our platform provides a distraction-free environment for creating <span class="highlight">software architecture diagrams</span>, <span class="highlight">technical documentation</span>, and <span class="highlight">system design visualizations</span> using the powerful Mermaid.js syntax that developers already know and love.</p>
-                </div>
-            </section>
-            
-            <!-- Why SimpleMermaid Section -->
-            <section class="about-section">
-                <div class="section-header">
-                    <h2>Why SimpleMermaid?</h2>
-                    <p>Built by developers, for developers</p>
-                </div>
-                
-                <div class="feature-grid">
-                    <div class="feature-card">
-                        <h3>🛠️ Developer-First Design</h3>
-                        <p>Built by developers, for developers. Write diagrams as code using familiar syntax.</p>
+
+            <!-- Version 1.2.4 - Latest -->
+            <article class="version-entry">
+                <div class="version-header">
+                    <div class="version-info">
+                        <span class="version-number">v1.2.4</span>
+                        <span class="version-date">January 11, 2025</span>
                     </div>
-                    <div class="feature-card">
-                        <h3>🚀 Instant Collaboration</h3>
-                        <p>Share technical diagrams instantly via URL. No accounts, no friction.</p>
+                    <span class="version-tag tag-latest">Latest</span>
+                </div>
+                <div class="version-content">
+                    <div class="change-category">
+                        <h3>New Features</h3>
+                        <ul>
+                            <li><span class="highlight-feature">Community Showcase diagrams</span> - Added 3 new funny developer life diagrams (Stand-up Meeting Reality, Bug Life Cycle, Deploy Friday) contributed by emphonic.com</li>
+                            <li>New changelog page to track all updates and improvements</li>
+                            <li>"Recent Updates" section on landing page</li>
+                        </ul>
                     </div>
-                    <div class="feature-card">
-                        <h3>⚡ Productivity Focused</h3>
-                        <p>Zero setup time. Start documenting your architecture immediately.</p>
-                    </div>
-                    <div class="feature-card">
-                        <h3>🏢 Enterprise Ready</h3>
-                        <p>Trusted by engineering teams for technical documentation and system design.</p>
+                    <div class="change-category">
+                        <h3>Improvements</h3>
+                        <ul>
+                            <li>Better organization of Community Showcase examples</li>
+                            <li>Enhanced footer navigation across all pages</li>
+                        </ul>
                     </div>
                 </div>
-            </section>
-            
-            <!-- Perfect for Technical Teams -->
-            <section class="about-section">
-                <div class="section-header">
-                    <h2>Perfect for Technical Teams</h2>
-                    <p>Use cases across the entire development lifecycle</p>
+            </article>
+
+            <!-- Version 1.2.3 -->
+            <article class="version-entry">
+                <div class="version-header">
+                    <div class="version-info">
+                        <span class="version-number">v1.2.3</span>
+                        <span class="version-date">January 8, 2025</span>
+                    </div>
+                    <span class="version-tag tag-minor">Feature</span>
                 </div>
-                
-                <div class="content-section">
-                    <ul>
-                        <li><span class="highlight">Software Architecture:</span> Design and document system architectures, microservices, and APIs</li>
-                        <li><span class="highlight">DevOps & CI/CD:</span> Visualize deployment pipelines, infrastructure diagrams, and workflows</li>
-                        <li><span class="highlight">Security Engineering:</span> Create threat models, security architecture diagrams, and access control flows</li>
-                        <li><span class="highlight">Technical Documentation:</span> Generate diagrams for wikis, README files, and technical specifications</li>
-                        <li><span class="highlight">Database Design:</span> Build ERD diagrams and data flow visualizations</li>
-                        <li><span class="highlight">Project Management:</span> Create Gantt charts, user journey maps, and process flows</li>
-                    </ul>
+                <div class="version-content">
+                    <div class="change-category">
+                        <h3>New Features</h3>
+                        <ul>
+                            <li><span class="highlight-feature">Zoom controls</span> - Added zoom in/out/reset buttons for better diagram viewing</li>
+                            <li>Mouse wheel zoom support with Ctrl/Cmd modifier</li>
+                            <li>Pinch-to-zoom on touch devices</li>
+                        </ul>
+                    </div>
+                    <div class="change-category">
+                        <h3>Improvements</h3>
+                        <ul>
+                            <li>Better handling of large diagrams</li>
+                            <li>Improved responsive layout for mobile devices</li>
+                        </ul>
+                    </div>
                 </div>
-            </section>
-            
-            <!-- Technical Features -->
-            <section class="about-section">
-                <div class="section-header">
-                    <h2>Technical Features</h2>
-                    <p>Everything you need for professional diagramming</p>
+            </article>
+
+            <!-- Version 1.2.2 -->
+            <article class="version-entry">
+                <div class="version-header">
+                    <div class="version-info">
+                        <span class="version-number">v1.2.2</span>
+                        <span class="version-date">January 3, 2025</span>
+                    </div>
                 </div>
-                
-                <div class="content-section">
-                    <ul>
-                        <li>Full Mermaid.js v10 support with all diagram types</li>
-                        <li>Real-time rendering with syntax validation</li>
-                        <li>URL-based sharing with LZ compression</li>
-                        <li>Export to PNG, SVG, and PDF formats</li>
-                        <li>Dark mode for extended coding sessions</li>
-                        <li>Responsive design for mobile and tablet</li>
-                        <li>No backend dependencies - runs entirely in browser</li>
-                        <li>Privacy-focused: diagrams never leave your browser</li>
-                    </ul>
+                <div class="version-content">
+                    <div class="change-category">
+                        <h3>New Features</h3>
+                        <ul>
+                            <li><span class="highlight-feature">Community Showcase</span> - New category for user-submitted diagrams</li>
+                            <li>Added Broadcast Studio diagram by Lemmur Production</li>
+                            <li>Added AWS Malware Scanning diagram by Vaishnav</li>
+                        </ul>
+                    </div>
+                    <div class="change-category">
+                        <h3>Improvements</h3>
+                        <ul>
+                            <li>Templates section on landing page now links directly to examples</li>
+                            <li>Better example categorization in dropdown menus</li>
+                        </ul>
+                    </div>
                 </div>
-            </section>
-            
-            <!-- Trusted by Professional Teams -->
-            <section class="about-section">
-                <div class="section-header">
-                    <h2>Trusted by Professional Teams</h2>
-                    <p>Enterprise-ready and security compliant</p>
+            </article>
+
+            <!-- Version 1.2.1 -->
+            <article class="version-entry">
+                <div class="version-header">
+                    <div class="version-info">
+                        <span class="version-number">v1.2.1</span>
+                        <span class="version-date">December 20, 2024</span>
+                    </div>
                 </div>
-                
-                <div class="content-section">
-                    <p>SimpleMermaid is categorized as a <span class="highlight">business productivity application</span> and <span class="highlight">developer tool</span> by major web security vendors. It's safe for use in enterprise environments and complies with corporate web filtering policies.</p>
-                    
-                    <h3>Our tool is classified under:</h3>
-                    <ul>
-                        <li>Software/Technology category</li>
-                        <li>Business and Productivity tools</li>
-                        <li>Developer and IT Professional applications</li>
-                        <li>Technical Documentation platforms</li>
-                    </ul>
+                <div class="version-content">
+                    <div class="change-category">
+                        <h3>Bug Fixes</h3>
+                        <ul>
+                            <li>Fixed dark theme rendering issues with certain Mermaid diagram types</li>
+                            <li>Fixed URL sharing when diagram contains special characters</li>
+                            <li>Improved error handling for invalid Mermaid syntax</li>
+                        </ul>
+                    </div>
+                    <div class="change-category">
+                        <h3>Improvements</h3>
+                        <ul>
+                            <li>Better syntax error messages with line numbers</li>
+                            <li>Faster diagram rendering performance</li>
+                        </ul>
+                    </div>
                 </div>
-            </section>
-            
-            <!-- Open Source Spirit -->
-            <section class="about-section">
-                <div class="section-header">
-                    <h2>Open Source Spirit</h2>
-                    <p>Building for the developer community</p>
+            </article>
+
+            <!-- Version 1.2.0 -->
+            <article class="version-entry">
+                <div class="version-header">
+                    <div class="version-info">
+                        <span class="version-number">v1.2.0</span>
+                        <span class="version-date">December 10, 2024</span>
+                    </div>
+                    <span class="version-tag tag-major">Major</span>
                 </div>
-                
-                <div class="content-section">
-                    <p>SimpleMermaid believes in the open source community. While our platform provides a convenient hosted solution, we encourage developers to contribute ideas and feedback to make technical diagramming better for everyone.</p>
+                <div class="version-content">
+                    <div class="change-category">
+                        <h3>New Features</h3>
+                        <ul>
+                            <li><span class="highlight-feature">Security & Threat Models category</span> - 10 new security-focused diagram templates</li>
+                            <li>RBAC Model, Zero Trust Architecture, API Threats diagrams</li>
+                            <li>Kubernetes Threats, CI/CD DevSecOps, Supply Chain Attack templates</li>
+                            <li>Data Breach Flow and Incident Response diagrams</li>
+                        </ul>
+                    </div>
+                    <div class="change-category">
+                        <h3>Improvements</h3>
+                        <ul>
+                            <li>Expanded System Architecture category with new templates</li>
+                            <li>Better example organization with subcategories</li>
+                            <li>Improved landing page with use cases section</li>
+                        </ul>
+                    </div>
                 </div>
-            </section>
+            </article>
+
+            <!-- Version 1.1.0 -->
+            <article class="version-entry">
+                <div class="version-header">
+                    <div class="version-info">
+                        <span class="version-number">v1.1.0</span>
+                        <span class="version-date">November 15, 2024</span>
+                    </div>
+                    <span class="version-tag tag-major">Major</span>
+                </div>
+                <div class="version-content">
+                    <div class="change-category">
+                        <h3>New Features</h3>
+                        <ul>
+                            <li><span class="highlight-feature">Save & Load diagrams</span> - Local storage support with auto-save</li>
+                            <li><span class="highlight-feature">Import/Export backup</span> - Download and restore your diagrams</li>
+                            <li>Multiple saved diagrams management</li>
+                            <li>Diagram naming and organization</li>
+                        </ul>
+                    </div>
+                    <div class="change-category">
+                        <h3>Improvements</h3>
+                        <ul>
+                            <li>Auto-save every 30 seconds</li>
+                            <li>Better offline support</li>
+                            <li>Improved mobile layout</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Version 1.0.0 -->
+            <article class="version-entry">
+                <div class="version-header">
+                    <div class="version-info">
+                        <span class="version-number">v1.0.0</span>
+                        <span class="version-date">October 1, 2024</span>
+                    </div>
+                    <span class="version-tag tag-major">Initial Release</span>
+                </div>
+                <div class="version-content">
+                    <div class="change-category">
+                        <h3>Features</h3>
+                        <ul>
+                            <li><span class="highlight-feature">Live Mermaid editor</span> with real-time preview</li>
+                            <li><span class="highlight-feature">Instant URL sharing</span> with LZ-string compression</li>
+                            <li><span class="highlight-feature">Export to PNG/SVG</span> for presentations and docs</li>
+                            <li>Light and dark theme support</li>
+                            <li>Horizontal and vertical layout modes</li>
+                            <li>20+ built-in example templates</li>
+                            <li>Resizable editor panels</li>
+                            <li>Mobile-responsive design</li>
+                            <li>No account required - privacy focused</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Subscribe Section -->
+            <div class="subscribe-section">
+                <h2>Stay Updated</h2>
+                <p>Want to know when we release new features? Follow us or check back regularly!</p>
+                <a href="mermaid-tool.html" class="subscribe-cta">
+                    Try SimpleMermaid Now
+                </a>
+            </div>
         </div>
     </main>
-    
+
     <!-- Cyberpunk Footer -->
     <footer class="footer">
         <div class="footer-content">
@@ -834,10 +980,10 @@
                         <li><a href="index.html">Home</a></li>
                         <li><a href="mermaid-tool.html">Editor</a></li>
                         <li><a href="learn-mermaid.html">Learn Mermaid</a></li>
-                        <li><a href="about.html">About</a></li>
+                        <li><a href="changelog.html">Changelog</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-section">
                     <h3>Features</h3>
                     <ul class="footer-links">
@@ -847,7 +993,7 @@
                         <li><a href="learn-mermaid.html">Examples</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-section">
                     <h3>Company</h3>
                     <ul class="footer-links">
@@ -859,9 +1005,9 @@
                     </ul>
                 </div>
             </div>
-            
+
             <div class="footer-divider"></div>
-            
+
             <div class="footer-bottom">
                 <div class="footer-tech">
                     <span class="tech-badge">Developer Tool</span>
@@ -870,16 +1016,16 @@
                     <span class="tech-badge">Enterprise Ready</span>
                     <span class="tech-badge">Privacy First</span>
                 </div>
-                
+
                 <p class="footer-copyright">
-                    &copy; 2025 <span class="footer-glow">SimpleMermaid.com</span> | 
-                    Developer Productivity Tool | 
-                    <span class="footer-glow">Code • Document • Collaborate</span>
+                    &copy; 2025 <span class="footer-glow">SimpleMermaid.com</span> |
+                    Developer Productivity Tool |
+                    <span class="footer-glow">Code | Document | Collaborate</span>
                 </p>
             </div>
         </div>
     </footer>
-    
+
     <script>
         // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
@@ -908,16 +1054,16 @@
             themeToggle.textContent = newTheme === 'light' ? '☀️' : '🌙';
             localStorage.setItem('simplemermaid-theme', newTheme);
         });
-        
+
         // Mobile Menu Toggle
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobileMenu');
-        
+
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             mobileMenu.classList.toggle('show');
         });
-        
+
         // Close mobile menu when clicking a link
         document.querySelectorAll('.mobile-nav-link').forEach(link => {
             link.addEventListener('click', () => {
@@ -925,7 +1071,7 @@
                 mobileMenu.classList.remove('show');
             });
         });
-        
+
         // Close mobile menu when clicking outside
         document.addEventListener('click', (e) => {
             if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {

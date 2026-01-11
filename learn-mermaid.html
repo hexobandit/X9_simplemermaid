@@ -285,7 +285,7 @@
             margin-top: 80px;
             padding: 2rem;
         }
-        
+
         /* Hero Section */
         .learn-hero {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -295,14 +295,14 @@
             border-radius: var(--radius);
             margin-bottom: 3rem;
         }
-        
+
         .learn-hero h1 {
-            font-size: clamp(2rem, 4vw, 3rem);
+            font-size: clamp(2rem, 4vw, 2.5rem);
             margin-bottom: 1rem;
         }
-        
+
         .learn-hero p {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             opacity: 0.9;
             max-width: 600px;
             margin: 0 auto;
@@ -318,33 +318,33 @@
         .tutorial-section {
             margin-bottom: 4rem;
         }
-        
+
         .section-header {
             text-align: center;
             margin-bottom: 3rem;
         }
-        
+
         .section-header h2 {
             font-size: 2.5rem;
             color: var(--text-primary);
             margin-bottom: 1rem;
         }
-        
+
         .section-header p {
-            font-size: 1.125rem;
+            font-size: 1rem;
             color: var(--text-secondary);
             max-width: 600px;
             margin: 0 auto;
         }
-        
+
         /* Tutorial Cards */
         .tutorial-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
             margin-bottom: 3rem;
         }
-        
+
         .tutorial-card {
             background: var(--bg-primary);
             border: 1px solid var(--border);
@@ -352,19 +352,19 @@
             padding: 2rem;
             transition: var(--transition);
         }
-        
+
         .tutorial-card:hover {
             transform: translateY(-4px);
             box-shadow: var(--shadow);
             border-color: var(--primary);
         }
-        
+
         .tutorial-card h3 {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             margin-bottom: 1rem;
             color: var(--text-primary);
         }
-        
+
         .tutorial-card p {
             color: var(--text-secondary);
             margin-bottom: 1.5rem;
@@ -380,7 +380,7 @@
             white-space: pre-wrap;
             margin: 1rem 0;
             font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             line-height: 1.5;
         }
         
@@ -398,7 +398,7 @@
             background: var(--bg-secondary);
             border-radius: var(--radius);
             padding: 2rem;
-            margin: 2rem 0;
+            margin: 2.5rem 0;
         }
         
         .syntax-table {
@@ -537,7 +537,7 @@
             overflow: hidden;
             margin-top: 4rem;
         }
-        
+
         .footer::before {
             content: '';
             position: absolute;
@@ -548,24 +548,24 @@
             background: linear-gradient(90deg, transparent, #00d4ff, transparent);
             animation: cyberpunk-scan 3s linear infinite;
         }
-        
+
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
             position: relative;
             z-index: 2;
         }
-        
+
         .footer-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 3rem;
             margin-bottom: 2rem;
         }
-        
+
         .footer-section h3 {
             color: #00d4ff;
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             font-weight: 700;
             margin-bottom: 1rem;
             text-transform: uppercase;
@@ -612,7 +612,7 @@
         .footer-divider {
             height: 1px;
             background: linear-gradient(90deg, transparent, #6366f1, transparent);
-            margin: 2rem 0;
+            margin: 1.5rem 0;
             position: relative;
         }
         
@@ -756,6 +756,23 @@
             }
         }
     </style>
+    <!-- Early theme detection to prevent flash -->
+    <script>
+        (function() {
+            var theme = localStorage.getItem('simplemermaid-theme');
+            if (!theme) {
+                var oldTheme = localStorage.getItem('theme');
+                if (oldTheme) {
+                    theme = oldTheme;
+                    localStorage.setItem('simplemermaid-theme', theme);
+                    localStorage.removeItem('theme');
+                } else {
+                    theme = 'light';
+                }
+            }
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
 </head>
 
 <!-- Google tag (gtag.js) -->
@@ -768,7 +785,7 @@
   gtag('config', 'G-6FZM0EGT74');
 </script>
 
-<body data-theme="light">
+<body>
     <!-- Navigation Header -->
     <header class="nav-header">
         <nav class="nav-container">
@@ -1275,7 +1292,7 @@ B --> C[End]</div>
                         <li><a href="https://mermaid.js.org" target="_blank">Official Docs</a></li>
                         <li><a href="index.html">Homepage</a></li>
                         <li><a href="mermaid-tool.html">Editor Tool</a></li>
-                        <li><a href="#examples">Examples</a></li>
+                        <li><a href="changelog.html">Changelog</a></li>
                     </ul>
                 </div>
             </div>
@@ -1303,35 +1320,38 @@ B --> C[End]</div>
     <script>
         // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
         const body = document.body;
-        
+
         // Migrate old theme setting if exists
         const oldTheme = localStorage.getItem('theme');
         if (oldTheme && !localStorage.getItem('simplemermaid-theme')) {
             localStorage.setItem('simplemermaid-theme', oldTheme);
             localStorage.removeItem('theme');
         }
-        
-        // Load saved theme
+
+        // Load saved theme and sync both html and body
         const savedTheme = localStorage.getItem('simplemermaid-theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
         body.setAttribute('data-theme', savedTheme);
         themeToggle.textContent = savedTheme === 'light' ? '☀️' : '🌙';
-        
+
         themeToggle.addEventListener('click', () => {
-            const currentTheme = body.getAttribute('data-theme');
+            const currentTheme = html.getAttribute('data-theme');
             const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            
+
+            html.setAttribute('data-theme', newTheme);
             body.setAttribute('data-theme', newTheme);
             themeToggle.textContent = newTheme === 'light' ? '☀️' : '🌙';
             localStorage.setItem('simplemermaid-theme', newTheme);
-            
+
             // Update try-button links with new theme
             updateTryButtonLinks();
         });
-        
+
         // Function to update try-button links with current theme
         function updateTryButtonLinks() {
-            const currentTheme = body.getAttribute('data-theme');
+            const currentTheme = html.getAttribute('data-theme');
             const tryButtons = document.querySelectorAll('.try-button');
             
             console.log(`Updating ${tryButtons.length} try buttons with theme: ${currentTheme}`);
