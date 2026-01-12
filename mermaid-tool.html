@@ -37,7 +37,10 @@
     
     <!-- LZ-String Compression Library -->
     <script src="https://cdn.jsdelivr.net/npm/lz-string@1.5.0/libs/lz-string.min.js"></script>
-    
+
+    <!-- jsPDF Library for PDF Export -->
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
     <style>
         /* CSS Variables for Theme System */
         :root {
@@ -261,7 +264,17 @@
             background-color: #d97706;
             transform: translateY(-1px);
         }
-        
+
+        .btn-danger {
+            background-color: var(--error-color);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #dc2626;
+            transform: translateY(-1px);
+        }
+
         .btn-icon {
             padding: 0.5rem;
             background-color: transparent;
@@ -311,7 +324,32 @@
             justify-content: space-between;
             align-items: center;
         }
-        
+
+        .editor-stats {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .diagram-stats {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .diagram-stats .stat-item {
+            background: var(--bg-color);
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.25rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .diagram-stats .diagram-type {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
         .separator {
             background-color: var(--border-color);
             cursor: col-resize;
@@ -633,6 +671,21 @@
             stroke: var(--border-color) !important;
         }
 
+        /* Journey Diagram Dark Theme - Text visibility fix */
+        [data-theme="dark"] .preview svg .journey-section .section-title-text {
+            fill: #f9fafb !important;
+        }
+
+        [data-theme="dark"] .preview svg .task-label tspan,
+        [data-theme="dark"] .preview svg .task-label text {
+            fill: #1f2937 !important;
+        }
+
+        [data-theme="dark"] .preview svg .section-title text,
+        [data-theme="dark"] .preview svg .section-title tspan {
+            fill: #f9fafb !important;
+        }
+
         /* Hide elements with display: none */
         .hidden {
             display: none !important;
@@ -882,7 +935,7 @@
                 ← SimpleMermaid
             </a>
             <a href="changelog.html" class="version-link" title="View changelog">
-                <span class="version-badge">v1.2.4</span>
+                <span class="version-badge">v1.2.5</span>
                 <span>What's new</span>
             </a>
         </div>
@@ -910,6 +963,9 @@
             <button id="exportSvgBtn" class="btn btn-warning" title="Export as SVG">
                 📄 SVG
             </button>
+            <button id="exportPdfBtn" class="btn btn-danger" title="Export as PDF">
+                📑 PDF
+            </button>
             <button id="layoutBtn" class="btn btn-icon" title="Toggle layout (horizontal/vertical)">
                 ⚏
             </button>
@@ -935,7 +991,10 @@
         <section class="panel">
             <header class="panel-header">
                 <span>📝 Mermaid Code Editor</span>
-                <span id="charCount" class="char-count">0 characters</span>
+                <div class="editor-stats">
+                    <span id="diagramStats" class="diagram-stats"></span>
+                    <span id="charCount" class="char-count">0 characters</span>
+                </div>
             </header>
             <div class="editor-container">
                 <textarea 
@@ -997,12 +1056,14 @@ Or choose an example from the dropdown above!"
                 this.copyBtn = document.getElementById('copyBtn');
                 this.exportPngBtn = document.getElementById('exportPngBtn');
                 this.exportSvgBtn = document.getElementById('exportSvgBtn');
+                this.exportPdfBtn = document.getElementById('exportPdfBtn');
                 this.layoutBtn = document.getElementById('layoutBtn');
                 this.themeBtn = document.getElementById('themeBtn');
                 this.separator = document.getElementById('separator');
                 this.charCount = document.getElementById('charCount');
                 this.status = document.getElementById('status');
-                
+                this.diagramStats = document.getElementById('diagramStats');
+
                 // State
                 this.currentTheme = 'light';
                 this.isVertical = false;
@@ -1329,6 +1390,7 @@ Or choose an example from the dropdown above!"
                 this.copyBtn.addEventListener('click', () => this.copyCode());
                 this.exportPngBtn.addEventListener('click', () => this.exportAs('png'));
                 this.exportSvgBtn.addEventListener('click', () => this.exportAs('svg'));
+                this.exportPdfBtn.addEventListener('click', () => this.exportAs('pdf'));
                 this.layoutBtn.addEventListener('click', () => this.toggleLayout());
                 this.themeBtn.addEventListener('click', () => this.toggleTheme());
                 
@@ -1395,8 +1457,117 @@ Or choose an example from the dropdown above!"
             updateCharCount() {
                 const count = this.editor.value.length;
                 this.charCount.textContent = `${count} characters`;
+                this.updateDiagramStats();
             }
-            
+
+            /**
+             * Update diagram statistics display
+             */
+            updateDiagramStats() {
+                const code = this.editor.value.trim();
+
+                if (!code) {
+                    this.diagramStats.innerHTML = '';
+                    return;
+                }
+
+                // Detect diagram type
+                const typePatterns = [
+                    { pattern: /^\s*(flowchart|graph)\s+/im, type: 'Flowchart' },
+                    { pattern: /^\s*sequenceDiagram/im, type: 'Sequence' },
+                    { pattern: /^\s*classDiagram/im, type: 'Class' },
+                    { pattern: /^\s*stateDiagram/im, type: 'State' },
+                    { pattern: /^\s*erDiagram/im, type: 'ER' },
+                    { pattern: /^\s*gantt/im, type: 'Gantt' },
+                    { pattern: /^\s*pie/im, type: 'Pie' },
+                    { pattern: /^\s*journey/im, type: 'Journey' },
+                    { pattern: /^\s*gitGraph/im, type: 'Git' },
+                    { pattern: /^\s*mindmap/im, type: 'Mindmap' },
+                    { pattern: /^\s*timeline/im, type: 'Timeline' },
+                    { pattern: /^\s*sankey/im, type: 'Sankey' },
+                    { pattern: /^\s*quadrantChart/im, type: 'Quadrant' },
+                    { pattern: /^\s*xychart/im, type: 'XY Chart' },
+                    { pattern: /^\s*block-beta/im, type: 'Block' }
+                ];
+
+                let diagramType = 'Unknown';
+                for (const { pattern, type } of typePatterns) {
+                    if (pattern.test(code)) {
+                        diagramType = type;
+                        break;
+                    }
+                }
+
+                // Count nodes and edges based on diagram type
+                let nodeCount = 0;
+                let edgeCount = 0;
+
+                if (diagramType === 'Flowchart') {
+                    // Count unique nodes: match node definitions like A[text], A(text), A{text}, A((text)), etc.
+                    const nodePattern = /\b([A-Za-z_][A-Za-z0-9_]*)\s*[\[\(\{<>]/g;
+                    const nodes = new Set();
+                    let match;
+                    while ((match = nodePattern.exec(code)) !== null) {
+                        nodes.add(match[1]);
+                    }
+                    nodeCount = nodes.size;
+
+                    // Count edges: -->, ---, -.->, ===>, etc.
+                    const edgePattern = /--+>|--+|\.+>|-\.-+>|===+>|===+|~~+>|~~+/g;
+                    const edges = code.match(edgePattern) || [];
+                    edgeCount = edges.length;
+                } else if (diagramType === 'Sequence') {
+                    // Count participants
+                    const participantPattern = /participant\s+\w+|actor\s+\w+/gi;
+                    const participants = code.match(participantPattern) || [];
+                    // Also count implicit participants from messages
+                    const messagePattern = /(\w+)\s*->>?\+?-?\s*(\w+)/g;
+                    const implicitParticipants = new Set();
+                    let match;
+                    while ((match = messagePattern.exec(code)) !== null) {
+                        implicitParticipants.add(match[1]);
+                        implicitParticipants.add(match[2]);
+                    }
+                    nodeCount = Math.max(participants.length, implicitParticipants.size);
+
+                    // Count messages
+                    const messages = code.match(/->>?\+?-?/g) || [];
+                    edgeCount = messages.length;
+                } else if (diagramType === 'Class') {
+                    // Count classes
+                    const classPattern = /class\s+\w+/gi;
+                    const classes = code.match(classPattern) || [];
+                    nodeCount = classes.length;
+
+                    // Count relationships
+                    const relationPattern = /<\|--|--\|>|<--|\*--|o--|-->|\*--|<\.\.|\.\.\>/g;
+                    const relations = code.match(relationPattern) || [];
+                    edgeCount = relations.length;
+                } else if (diagramType === 'ER') {
+                    // Count entities
+                    const entityPattern = /\b\w+\s+\{/g;
+                    const entities = code.match(entityPattern) || [];
+                    nodeCount = entities.length;
+
+                    // Count relationships
+                    const relationPattern = /\|\|--|--\|\||o\|--|--\|o|\}o--|\}o--|--o\{|--o\|/g;
+                    const relations = code.match(relationPattern) || [];
+                    edgeCount = relations.length;
+                }
+
+                // Build stats HTML
+                let statsHtml = `<span class="stat-item diagram-type">${diagramType}</span>`;
+
+                if (nodeCount > 0) {
+                    statsHtml += `<span class="stat-item">${nodeCount} nodes</span>`;
+                }
+                if (edgeCount > 0) {
+                    statsHtml += `<span class="stat-item">${edgeCount} edges</span>`;
+                }
+
+                this.diagramStats.innerHTML = statsHtml;
+            }
+
             /**
              * Debounced render function
              */
@@ -1420,6 +1591,7 @@ Or choose an example from the dropdown above!"
                         </div>
                     `;
                     this.setStatus('Ready');
+                    this.diagramStats.innerHTML = '';
                     return;
                 }
                 
@@ -1458,7 +1630,10 @@ Or choose an example from the dropdown above!"
                     }
                     
                     this.setStatus('Rendered successfully', 'success');
-                    
+
+                    // Update diagram stats after successful render
+                    this.updateDiagramStats();
+
                 } catch (error) {
                     console.error('❌ Render error:', error);
                     this.showError(this.formatErrorMessage(error.message || 'Invalid diagram syntax'));
@@ -1588,34 +1763,46 @@ Or choose an example from the dropdown above!"
             }
             
             /**
-             * Export diagram as PNG or SVG
+             * Export diagram as PNG, SVG, or PDF
              */
             async exportAs(format) {
                 const svg = this.preview.querySelector('svg');
-                
+
                 if (!svg) {
                     this.showMessage('No diagram to export', 'warning');
                     return;
                 }
-                
+
+                // Get the appropriate button
+                const getButton = (fmt) => {
+                    switch(fmt) {
+                        case 'png': return this.exportPngBtn;
+                        case 'svg': return this.exportSvgBtn;
+                        case 'pdf': return this.exportPdfBtn;
+                        default: return null;
+                    }
+                };
+
                 try {
-                    const button = format === 'png' ? this.exportPngBtn : this.exportSvgBtn;
-                    button.classList.add('loading');
-                    
+                    const button = getButton(format);
+                    if (button) button.classList.add('loading');
+
                     if (format === 'svg') {
                         await this.exportSvg(svg);
+                    } else if (format === 'pdf') {
+                        await this.exportPdf(svg);
                     } else {
                         await this.exportPng(svg);
                     }
-                    
+
                     this.showMessage(`Diagram exported as ${format.toUpperCase()}`);
-                    
+
                 } catch (error) {
                     console.error(`Export ${format} failed:`, error);
                     this.showMessage(`Failed to export as ${format.toUpperCase()}`, 'warning');
                 } finally {
-                    const button = format === 'png' ? this.exportPngBtn : this.exportSvgBtn;
-                    button.classList.remove('loading');
+                    const button = getButton(format);
+                    if (button) button.classList.remove('loading');
                 }
             }
             
@@ -1711,7 +1898,81 @@ Or choose an example from the dropdown above!"
                     img.src = url;
                 });
             }
-            
+
+            /**
+             * Export PDF using jsPDF
+             */
+            async exportPdf(svg) {
+                return new Promise((resolve, reject) => {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    const img = new Image();
+
+                    // Set canvas size based on SVG
+                    const rect = svg.getBoundingClientRect();
+                    const scale = 2; // Higher resolution
+                    canvas.width = rect.width * scale;
+                    canvas.height = rect.height * scale;
+
+                    // Scale context for higher resolution
+                    ctx.scale(scale, scale);
+
+                    img.onload = () => {
+                        try {
+                            // Fill background
+                            ctx.fillStyle = this.currentTheme === 'dark' ? '#111827' : '#ffffff';
+                            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                            // Draw the image
+                            ctx.drawImage(img, 0, 0, rect.width, rect.height);
+
+                            // Add watermark
+                            const watermark = this.createWatermark();
+                            ctx.font = `${watermark.fontSize} ${watermark.fontFamily}`;
+                            ctx.fillStyle = watermark.color;
+                            ctx.globalAlpha = parseFloat(watermark.opacity);
+                            ctx.textAlign = 'right';
+                            ctx.textBaseline = 'bottom';
+                            ctx.fillText(watermark.text, rect.width - 10, rect.height - 10);
+                            ctx.globalAlpha = 1;
+
+                            // Create PDF using jsPDF
+                            const { jsPDF } = window.jspdf;
+
+                            // Determine orientation based on diagram dimensions
+                            const orientation = rect.width > rect.height ? 'landscape' : 'portrait';
+
+                            // Create PDF with appropriate size
+                            const pdf = new jsPDF({
+                                orientation: orientation,
+                                unit: 'px',
+                                format: [rect.width + 40, rect.height + 40] // Add padding
+                            });
+
+                            // Get image data from canvas
+                            const imgData = canvas.toDataURL('image/png', 1.0);
+
+                            // Add image to PDF with padding
+                            pdf.addImage(imgData, 'PNG', 20, 20, rect.width, rect.height);
+
+                            // Save PDF
+                            pdf.save('mermaid-diagram.pdf');
+                            resolve();
+                        } catch (error) {
+                            reject(error);
+                        }
+                    };
+
+                    img.onerror = () => reject(new Error('Failed to load SVG image for PDF'));
+
+                    // Convert SVG to data URL
+                    const svgData = new XMLSerializer().serializeToString(svg);
+                    const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+                    const url = URL.createObjectURL(svgBlob);
+                    img.src = url;
+                });
+            }
+
             /**
              * Download blob as file
              */
