@@ -7,7 +7,8 @@
         {"id": "aws-malware-scan", "title": "AWS Malware Scanning - Vaishnav", "file": "aws-malware-scan.mmd"},
         {"id": "standup-meeting", "title": "Stand-up Meeting Reality - emphonic.com", "file": "standup-meeting.mmd"},
         {"id": "bug-lifecycle", "title": "The Bug Life Cycle - emphonic.com", "file": "bug-lifecycle.mmd"},
-        {"id": "deploy-friday", "title": "Deploy Friday - emphonic.com", "file": "deploy-friday.mmd"}
+        {"id": "deploy-friday", "title": "Deploy Friday - emphonic.com", "file": "deploy-friday.mmd"},
+        {"id": "meeting-reality", "title": "Meeting Reality - trackmytime.net", "file": "meeting-reality.mmd"}
       ]
     },
     "basic": {
