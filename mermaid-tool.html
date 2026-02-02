@@ -415,7 +415,59 @@
             max-height: 100%;
             height: auto;
         }
-        
+
+        /* Zoom Controls */
+        .zoom-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            margin-right: 0.75rem;
+        }
+
+        .zoom-btn {
+            width: 24px;
+            height: 24px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background: var(--bg-color);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.15s ease;
+        }
+
+        .zoom-btn:hover {
+            background: var(--bg-secondary);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .zoom-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .zoom-level {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            min-width: 40px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .zoom-level:hover {
+            color: var(--primary-color);
+        }
+
+        .preview.zoomed {
+            transform-origin: center center;
+            transition: transform 0.15s ease;
+        }
+
         /* Error Message Styles */
         .error-message {
             background-color: rgba(239, 68, 68, 0.1);
@@ -935,7 +987,7 @@
                 ← SimpleMermaid
             </a>
             <a href="changelog.html" class="version-link" title="View changelog">
-                <span class="version-badge">v1.2.5</span>
+                <span class="version-badge">v1.2.6</span>
                 <span>What's new</span>
             </a>
         </div>
@@ -1022,7 +1074,14 @@ Or choose an example from the dropdown above!"
         <section class="panel">
             <header class="panel-header">
                 <span>👁️ Live Preview</span>
-                <span id="status" class="status">Ready</span>
+                <div style="display: flex; align-items: center;">
+                    <div class="zoom-controls">
+                        <button id="zoomOut" class="zoom-btn" title="Zoom out">−</button>
+                        <span id="zoomLevel" class="zoom-level" title="Reset zoom">100%</span>
+                        <button id="zoomIn" class="zoom-btn" title="Zoom in">+</button>
+                    </div>
+                    <span id="status" class="status">Ready</span>
+                </div>
             </header>
             <div class="preview-container">
                 <div id="preview" class="preview">
@@ -1063,9 +1122,13 @@ Or choose an example from the dropdown above!"
                 this.charCount = document.getElementById('charCount');
                 this.status = document.getElementById('status');
                 this.diagramStats = document.getElementById('diagramStats');
+                this.zoomInBtn = document.getElementById('zoomIn');
+                this.zoomOutBtn = document.getElementById('zoomOut');
+                this.zoomLevelDisplay = document.getElementById('zoomLevel');
 
                 // State
                 this.currentTheme = 'light';
+                this.zoomLevel = 100;
                 this.isVertical = false;
                 this.isResizing = false;
                 this.renderTimeout = null;
@@ -1087,7 +1150,8 @@ Or choose an example from the dropdown above!"
                                 {"id": "aws-malware-scan", "title": "AWS Malware Scanning - Vaishnav", "content": "flowchart TD\nclassDef client fill:#f9f,stroke:#333,stroke-width:2px;\nclassDef aws fill:#FF9900,stroke:#232F3E,stroke-width:2px,color:white;\nclassDef security fill:#DD0000,stroke:#333,stroke-width:2px,color:white;\nclassDef storage fill:#3F8624,stroke:#333,stroke-width:2px,color:white;\nUserA[(\"App A (HR)\")]:::client\nUserB[(\"App B (Finance)\")]:::client\nsubgraph \"Request Phase (Metadata)\"\nAPI[API Gateway]:::aws\nAuthLambda[λ Auth & URL Gen]:::aws\nend\nsubgraph \"Quarantine Zone (Dirty)\"\nS3Q[(\"S3 Quarantine Bucket\")]:::storage\nGD[GuardDuty Malware Protection]:::security\nend\nsubgraph \"Processing Phase\"\nEB[EventBridge]:::aws\nMoverLambda[λ Mover Function]:::aws\nSNS[SNS Alert Topic]:::aws\nend\nsubgraph \"Trusted Zone (Clean)\"\nS3C[(\"S3 Clean Bucket\")]:::storage\nend\nUserA -- \"1. Request Upload\" --> API\nUserB -- \"1. Request Upload\" --> API\nAPI --> AuthLambda\nAuthLambda -- \"2. Return Presigned URLs\" --> UserA\nUserA -- \"3. Upload Files\" --> S3Q\nUserB -- \"3. Upload Files\" --> S3Q\nS3Q -.->|\"4. Auto-Trigger Scan\"| GD\nGD -- \"5. Scan Result\" --> EB\nEB -- \"Rule: CLEAN\" --> MoverLambda\nEB -- \"Rule: THREAT\" --> SNS\nMoverLambda -- \"6a. Copy File\" --> S3C\nMoverLambda -- \"6b. Delete\" --> S3Q"},
                                 {"id": "standup-meeting", "title": "Stand-up Meeting Reality - emphonic.com", "content": "%% Stand-up Meeting Reality by emphonic.com\n%% The daily scrum experience of every developer\n\njourney\n    title Daily Stand-up Meeting Reality\n    section Before Stand-up\n      Check Slack for fires: 2: Dev\n      Pretend to remember yesterday: 1: Dev\n      Make coffee: 5: Dev\n    section The Stand-up\n      Say worked on same ticket: 3: Dev\n      Mention blockers no one fixes: 2: Dev\n      Hear PM add urgent feature: 1: Dev, PM\n      Watch 15-min meeting hit 45-min: 1: Everyone\n    section After Stand-up\n      Actually start working: 4: Dev\n      Get pulled into another meeting: 1: Dev\n      Debug why prod is down: 1: Dev, Ops"},
                                 {"id": "bug-lifecycle", "title": "The Bug Life Cycle - emphonic.com", "content": "%% The Bug Life Cycle by emphonic.com\n%% A quick fix journey through time\n\nflowchart TD\n    classDef pain fill:#fca5a5,stroke:#f66,stroke-width:2px\n    classDef hope fill:#86efac,stroke:#22c55e,stroke-width:2px\n    classDef reality fill:#fde047,stroke:#eab308,stroke-width:2px\n\n    A[Bug Reported] --> B{Is it reproducible?}\n    B -->|Works on my machine| C[Close ticket]:::hope\n    B -->|Yes, somehow| D[Estimate: 2 hours]:::hope\n\n    D --> E[Find the bug: 4 hours]:::reality\n    E --> F[Fix the bug: 10 minutes]:::hope\n    F --> G[Break 3 other things]:::pain\n\n    G --> H[Blame the framework]\n    H --> I[Realize it was your code]:::pain\n    I --> J[Fix those 3 things]\n\n    J --> K{Tests pass?}\n    K -->|Locally yes| L[Push to prod]\n    K -->|CI fails| M[Unrelated test broke]:::pain\n\n    L --> N[Bug returns in prod]:::pain\n    M --> O[Restart CI 5 times]\n    O --> K\n\n    N --> P[Its 6 PM on Friday]:::pain\n    P --> A\n\n    C --> Q[Bug reopened 3 months later]:::pain\n    Q --> A"},
-                                {"id": "deploy-friday", "title": "Deploy Friday - emphonic.com", "content": "%% Deploy Friday by emphonic.com\n%% Why we never deploy on Fridays... but always do\n\nsequenceDiagram\n    participant Dev as Developer\n    participant Git as Git\n    participant CI as CI/CD Pipeline\n    participant Prod as Production\n    participant PagerDuty as PagerDuty\n    participant Weekend as Weekend Plans\n\n    Note over Dev,Weekend: Friday 4:30 PM\n\n    Dev->>Git: git push --force (its just a small fix)\n    Git->>CI: Trigger build\n    CI-->>Dev: All tests pass!\n    Dev->>Prod: Deploy to production\n\n    Note over Prod: 4:45 PM - Everything looks fine\n\n    Dev->>Weekend: Time to relax!\n    Weekend-->>Dev: Pizza ordered\n\n    Note over Prod: 5:01 PM - Database connection pool exhausted\n\n    Prod->>PagerDuty: CRITICAL ALERT\n    PagerDuty->>Dev: Wake up! Prod is down!\n    Dev->>Weekend: Cancel everything\n    Weekend--xDev: Pizza gets cold\n\n    Dev->>Prod: SSH into server\n    Prod-->>Dev: Permission denied\n    Dev->>Dev: Wheres the VPN?\n\n    Note over Dev,Prod: 11:47 PM - Finally fixed\n\n    Dev->>Git: Revert all changes\n    Dev->>Dev: Never again deploy on Friday\n\n    Note over Dev: Next Friday 4:30 PM\n\n    Dev->>Git: git push (its REALLY just a tiny fix this time)"}
+                                {"id": "deploy-friday", "title": "Deploy Friday - emphonic.com", "content": "%% Deploy Friday by emphonic.com\n%% Why we never deploy on Fridays... but always do\n\nsequenceDiagram\n    participant Dev as Developer\n    participant Git as Git\n    participant CI as CI/CD Pipeline\n    participant Prod as Production\n    participant PagerDuty as PagerDuty\n    participant Weekend as Weekend Plans\n\n    Note over Dev,Weekend: Friday 4:30 PM\n\n    Dev->>Git: git push --force (its just a small fix)\n    Git->>CI: Trigger build\n    CI-->>Dev: All tests pass!\n    Dev->>Prod: Deploy to production\n\n    Note over Prod: 4:45 PM - Everything looks fine\n\n    Dev->>Weekend: Time to relax!\n    Weekend-->>Dev: Pizza ordered\n\n    Note over Prod: 5:01 PM - Database connection pool exhausted\n\n    Prod->>PagerDuty: CRITICAL ALERT\n    PagerDuty->>Dev: Wake up! Prod is down!\n    Dev->>Weekend: Cancel everything\n    Weekend--xDev: Pizza gets cold\n\n    Dev->>Prod: SSH into server\n    Prod-->>Dev: Permission denied\n    Dev->>Dev: Wheres the VPN?\n\n    Note over Dev,Prod: 11:47 PM - Finally fixed\n\n    Dev->>Git: Revert all changes\n    Dev->>Dev: Never again deploy on Friday\n\n    Note over Dev: Next Friday 4:30 PM\n\n    Dev->>Git: git push (its REALLY just a tiny fix this time)"},
+                                {"id": "meeting-reality", "title": "Meeting Reality - trackmytime.net", "content": "%% Meeting Reality by trackmytime.net\n%% The universal experience of every remote meeting\n\ngraph TD\n    A[\"📅 Meeting Scheduled\"] -->|dread| B[\"😰 Meeting Time\"]\n    B -->|late| C[\"🏃 Join Late\"]\n    C -->|confused| D{Muted?}\n    D -->|yes| E[\"🤔 Can't Hear Anything\"]\n    E -->|panic| F[\"🔊 Unmute Abruptly\"]\n    F -->|horror| G[\"🐱 Everyone Hears Your Cat\"]\n    G -->|embarrass| H[\"😳 Mute Immediately\"]\n    D -->|no| I[\"📢 Speak at Wrong Time\"]\n    I -->|awkward| J[\"😬 Everyone Stares\"]\n    J --> K[\"🤐 Stay Silent Rest of Meeting\"]\n    H --> K\n    K -->|5 mins in| L[\"😴 Zone Out\"]\n    L -->|30 mins| M[\"😑 Still Going?\"]\n    M -->|45 mins| N[\"🥴 Dead Inside\"]\n    N -->|1 hour| O[\"🧠 Brain.exe has stopped\"]\n    O -->|suddenly| P[\"❓ Your Name Called\"]\n    P -->|panic| Q{Did You Listen?}\n    Q -->|no| R[\"😤 Nodding Intensifies\"]\n    Q -->|yes| S[\"✅ Intelligent Response\"]\n    R -->|disaster| T[\"😅 That's What I Was Thinking\"]\n    S --> U[\"✔️ Meeting Ends\"]\n    T --> U\n    U -->|relief| V[\"🎉 Freedom!\"]\n    V -->|3 days later| W[\"📋 ACTION ITEMS DUE\"]\n    W -->|panic| X[\"😭 Do Actual Work\"]\n    X -->|rushed| Y[\"🙋 Send Last Minute\"]"}
                             ]
                         },
                         "basic": {
@@ -1393,7 +1457,12 @@ Or choose an example from the dropdown above!"
                 this.exportPdfBtn.addEventListener('click', () => this.exportAs('pdf'));
                 this.layoutBtn.addEventListener('click', () => this.toggleLayout());
                 this.themeBtn.addEventListener('click', () => this.toggleTheme());
-                
+
+                // Zoom controls
+                this.zoomInBtn.addEventListener('click', () => this.zoom(25));
+                this.zoomOutBtn.addEventListener('click', () => this.zoom(-25));
+                this.zoomLevelDisplay.addEventListener('click', () => this.resetZoom());
+
                 // Separator resize events
                 this.separator.addEventListener('mousedown', (e) => this.startResize(e));
                 
@@ -2004,7 +2073,40 @@ Or choose an example from the dropdown above!"
                 // Re-render diagram with new theme
                 this.debouncedRender();
             }
-            
+
+            /**
+             * Zoom the preview by a delta amount
+             */
+            zoom(delta) {
+                const newZoom = this.zoomLevel + delta;
+                if (newZoom >= 25 && newZoom <= 200) {
+                    this.zoomLevel = newZoom;
+                    this.applyZoom();
+                }
+            }
+
+            /**
+             * Reset zoom to 100%
+             */
+            resetZoom() {
+                this.zoomLevel = 100;
+                this.applyZoom();
+            }
+
+            /**
+             * Apply current zoom level to preview
+             */
+            applyZoom() {
+                const scale = this.zoomLevel / 100;
+                this.preview.style.transform = `scale(${scale})`;
+                this.preview.classList.toggle('zoomed', this.zoomLevel !== 100);
+                this.zoomLevelDisplay.textContent = `${this.zoomLevel}%`;
+
+                // Update button states
+                this.zoomOutBtn.disabled = this.zoomLevel <= 25;
+                this.zoomInBtn.disabled = this.zoomLevel >= 200;
+            }
+
             /**
              * Toggle layout (horizontal vs vertical)
              */
