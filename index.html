@@ -321,6 +321,22 @@
             background: var(--primary-hover);
             transform: translateY(-1px);
         }
+
+        .nav-bmc {
+            display: flex;
+            align-items: center;
+            padding: 0.35rem 0.75rem;
+            background: #ffdd00;
+            border-radius: 8px;
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(255, 221, 0, 0.3);
+        }
+
+        .nav-bmc:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(255, 221, 0, 0.5);
+            background: #ffdd00;
+        }
         
         /* Mobile Hamburger */
         .hamburger {
@@ -1270,6 +1286,25 @@
             background: #444;
         }
         
+        /* Navigation breakpoint */
+        @media (max-width: 1030px) {
+            .header-content {
+                padding: 0 1rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .logo-text {
+                display: none;
+            }
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .collaboration-banner {
@@ -1293,19 +1328,7 @@
                 font-size: 0.8rem;
                 padding: 6px 12px;
             }
-            
-            .header-content {
-                padding: 0 1rem;
-            }
-            
-            .nav-menu {
-                display: none;
-            }
-            
-            .hamburger {
-                display: flex;
-            }
-            
+
             .hero {
                 padding: 1.5rem;
                 min-height: 100vh;
@@ -1315,27 +1338,23 @@
             .hero-content {
                 padding-top: 3.5rem;
             }
-            
+
             .features {
                 padding: 4rem 1rem;
             }
-            
+
             .why-content {
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
-            
+
             .why-image {
                 max-width: 100%;
                 margin-top: 2rem;
             }
-            
+
             .feature-list {
                 grid-template-columns: 1fr;
-            }
-            
-            .logo-text {
-                display: none;
             }
         }
         
@@ -1652,6 +1671,7 @@
                 <li><a href="index.html" class="nav-link active">Home</a></li>
                 <li><a href="learn-mermaid.html" class="nav-link">Learn</a></li>
                 <li><a href="mermaid-tool.html" class="nav-link">Editor</a></li>
+                <li><a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="nav-bmc" title="Buy me a coffee"><img src="bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 28px; vertical-align: middle; border-radius: 4px;"></a></li>
                 <li><button class="theme-toggle" id="themeToggle" title="Toggle theme">☀️</button></li>
                 <li><a href="mermaid-tool.html" class="nav-cta">Start Creating</a></li>
             </ul>
@@ -1669,6 +1689,7 @@
             <a href="index.html" class="mobile-nav-link">Home</a>
             <a href="learn-mermaid.html" class="mobile-nav-link">Learn</a>
             <a href="mermaid-tool.html" class="mobile-nav-link">Editor</a>
+            <a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="mobile-nav-link" style="display: flex; align-items: center; gap: 0.5rem;"><img src="bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 24px; border-radius: 4px;"> Buy Me A Coffee</a>
             <a href="mermaid-tool.html" class="mobile-nav-link nav-cta">Start Creating</a>
         </div>
     </header>
@@ -1731,6 +1752,15 @@
             <p>Latest updates and improvements to SimpleMermaid</p>
         </div>
         <div style="max-width: 800px; margin: 0 auto;">
+            <div style="background: var(--bg-primary); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem 2rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <span style="background: linear-gradient(135deg, #ffdd00, #f5c800); color: #1a1a1a; padding: 0.25rem 0.75rem; border-radius: 50px; font-size: 0.75rem; font-weight: 600; margin-right: 0.75rem;">v1.2.7</span>
+                    <span style="color: var(--text-muted); font-size: 0.9rem;">February 22, 2026</span>
+                </div>
+                <div style="color: var(--text-secondary);">
+                    Buy Me A Coffee support — help keep SimpleMermaid ad-free and running
+                </div>
+            </div>
             <div style="background: var(--bg-primary); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem 2rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
                 <div>
                     <span style="background: linear-gradient(135deg, #22c55e, #16a34a); color: white; padding: 0.25rem 0.75rem; border-radius: 50px; font-size: 0.75rem; font-weight: 600; margin-right: 0.75rem;">v1.2.6</span>

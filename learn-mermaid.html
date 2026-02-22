@@ -201,7 +201,23 @@
             background: var(--primary-hover);
             transform: translateY(-1px);
         }
-        
+
+        .nav-bmc {
+            display: flex;
+            align-items: center;
+            padding: 0.35rem 0.75rem;
+            background: #ffdd00;
+            border-radius: 8px;
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(255, 221, 0, 0.3);
+        }
+
+        .nav-bmc:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(255, 221, 0, 0.5);
+            background: #ffdd00;
+        }
+
         /* Mobile Navigation */
         .hamburger {
             display: none;
@@ -714,29 +730,32 @@
             box-shadow: 0 5px 25px rgba(139, 92, 246, 0.3);
         }
         
-        /* Responsive Design */
-        @media (max-width: 768px) {
+        /* Navigation breakpoint */
+        @media (max-width: 1030px) {
             .nav-container {
                 padding: 1rem;
             }
-            
+
             .nav-menu {
                 display: none;
             }
-            
+
             .hamburger {
                 display: flex;
             }
-            
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
             .main-content {
                 margin-top: 60px;
                 padding: 1rem;
             }
-            
+
             .tutorial-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .section-header h2 {
                 font-size: 2rem;
             }

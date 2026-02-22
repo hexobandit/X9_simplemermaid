@@ -176,6 +176,22 @@
             transform: translateY(-1px);
         }
 
+        .nav-bmc {
+            display: flex;
+            align-items: center;
+            padding: 0.35rem 0.75rem;
+            background: #ffdd00;
+            border-radius: 8px;
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(255, 221, 0, 0.3);
+        }
+
+        .nav-bmc:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(255, 221, 0, 0.5);
+            background: #ffdd00;
+        }
+
         /* Mobile Navigation */
         .hamburger {
             display: none;
@@ -640,8 +656,8 @@
             box-shadow: 0 5px 25px rgba(139, 92, 246, 0.3);
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
+        /* Navigation breakpoint */
+        @media (max-width: 1030px) {
             .nav-container {
                 padding: 1rem;
             }
@@ -653,7 +669,10 @@
             .hamburger {
                 display: flex;
             }
+        }
 
+        /* Responsive Design */
+        @media (max-width: 768px) {
             .main-content {
                 margin-top: 60px;
                 padding: 1rem;
@@ -731,6 +750,7 @@
                 <li><a href="index.html" class="nav-link">Home</a></li>
                 <li><a href="learn-mermaid.html" class="nav-link">Learn</a></li>
                 <li><a href="mermaid-tool.html" class="nav-link">Editor</a></li>
+                <li><a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="nav-bmc" title="Buy me a coffee"><img src="bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 28px; vertical-align: middle; border-radius: 4px;"></a></li>
                 <li><button class="theme-toggle" id="themeToggle">☀️</button></li>
                 <li><a href="mermaid-tool.html" class="nav-cta">Start Creating</a></li>
             </ul>
@@ -748,6 +768,7 @@
             <a href="index.html" class="mobile-nav-link">Home</a>
             <a href="learn-mermaid.html" class="mobile-nav-link">Learn</a>
             <a href="mermaid-tool.html" class="mobile-nav-link">Editor</a>
+            <a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="mobile-nav-link" style="display: flex; align-items: center; gap: 0.5rem;"><img src="bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 24px; border-radius: 4px;"> Buy Me A Coffee</a>
             <a href="mermaid-tool.html" class="mobile-nav-link nav-cta">Start Creating</a>
         </div>
     </header>
@@ -759,17 +780,42 @@
             <div class="changelog-hero">
                 <h1>Changelog</h1>
                 <p>Track all the updates, new features, and improvements to SimpleMermaid</p>
-                <div class="current-version">Current Version: 1.2.6</div>
+                <div class="current-version">Current Version: 1.2.7</div>
             </div>
 
-            <!-- Version 1.2.6 - Latest -->
+            <!-- Version 1.2.7 - Latest -->
+            <article class="version-entry">
+                <div class="version-header">
+                    <div class="version-info">
+                        <span class="version-number">v1.2.7</span>
+                        <span class="version-date">February 22, 2026</span>
+                    </div>
+                    <span class="version-tag tag-latest">Latest</span>
+                </div>
+                <div class="version-content">
+                    <div class="change-category">
+                        <h3>New Features</h3>
+                        <ul>
+                            <li><span class="highlight-feature">Buy Me A Coffee support</span> - Help keep SimpleMermaid running ad-free by supporting server costs directly</li>
+                        </ul>
+                    </div>
+                    <div class="change-category">
+                        <h3>Improvements</h3>
+                        <ul>
+                            <li>Navigation hamburger menu now triggers at 1030px for better usability with extra nav items</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Version 1.2.6 -->
             <article class="version-entry">
                 <div class="version-header">
                     <div class="version-info">
                         <span class="version-number">v1.2.6</span>
                         <span class="version-date">February 2, 2026</span>
                     </div>
-                    <span class="version-tag tag-latest">Latest</span>
+                    <span class="version-tag tag-minor">Feature</span>
                 </div>
                 <div class="version-content">
                     <div class="change-category">
