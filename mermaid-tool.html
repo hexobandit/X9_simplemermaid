@@ -375,7 +375,112 @@
             flex: 1;
             position: relative;
         }
-        
+
+        /* Tab Bar Styles */
+        .tab-bar {
+            display: flex;
+            align-items: stretch;
+            background-color: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-color);
+            overflow-x: auto;
+            overflow-y: hidden;
+            scrollbar-width: thin;
+            min-height: 34px;
+        }
+
+        .tab-bar::-webkit-scrollbar {
+            height: 3px;
+        }
+
+        .tab-bar::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb);
+            border-radius: 3px;
+        }
+
+        .tab-item {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.35rem 0.6rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            background: transparent;
+            border: none;
+            border-right: 1px solid var(--border-color);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background-color 0.15s ease, color 0.15s ease;
+            max-width: 160px;
+            position: relative;
+        }
+
+        .tab-item:hover {
+            background-color: var(--bg-secondary);
+            color: var(--text-secondary);
+        }
+
+        .tab-item.active {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-weight: 500;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .tab-item .tab-name {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 110px;
+        }
+
+        .tab-item .tab-close {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+            font-size: 0.65rem;
+            opacity: 0;
+            transition: opacity 0.15s ease, background-color 0.15s ease;
+            flex-shrink: 0;
+        }
+
+        .tab-item:hover .tab-close,
+        .tab-item.active .tab-close {
+            opacity: 0.6;
+        }
+
+        .tab-item .tab-close:hover {
+            opacity: 1;
+            background-color: var(--error-color);
+            color: #fff;
+        }
+
+        .tab-item.modified .tab-name::after {
+            content: ' ●';
+            color: var(--text-muted);
+            font-size: 0.6rem;
+        }
+
+        .tab-add-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.35rem 0.6rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: color 0.15s ease, background-color 0.15s ease;
+            flex-shrink: 0;
+        }
+
+        .tab-add-btn:hover {
+            color: var(--primary-color);
+            background-color: var(--bg-secondary);
+        }
+
         .editor {
             width: 100%;
             height: 100%;
@@ -991,7 +1096,7 @@
                     <img src="bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 24px; border-radius: 4px;">
                 </a>
                 <a href="changelog.html" class="version-link" title="View changelog">
-                    <span class="version-badge">v1.2.6</span>
+                    <span class="version-badge">v1.3.0</span>
                     <span>What's new</span>
                 </a>
             </div>
@@ -1053,10 +1158,14 @@
                     <span id="charCount" class="char-count">0 characters</span>
                 </div>
             </header>
+            <div id="tabBar" class="tab-bar">
+                <!-- Tabs rendered dynamically -->
+                <button id="addTabBtn" class="tab-add-btn" title="New tab (Ctrl+T)">+</button>
+            </div>
             <div class="editor-container">
-                <textarea 
-                    id="editor" 
-                    class="editor" 
+                <textarea
+                    id="editor"
+                    class="editor"
                     placeholder="Enter your Mermaid diagram code here...
 
 Example:
@@ -1131,6 +1240,10 @@ Or choose an example from the dropdown above!"
                 this.zoomOutBtn = document.getElementById('zoomOut');
                 this.zoomLevelDisplay = document.getElementById('zoomLevel');
 
+                // Tab bar DOM
+                this.tabBar = document.getElementById('tabBar');
+                this.addTabBtn = document.getElementById('addTabBtn');
+
                 // State
                 this.currentTheme = 'light';
                 this.zoomLevel = 100;
@@ -1139,10 +1252,16 @@ Or choose an example from the dropdown above!"
                 this.renderTimeout = null;
                 this.diagramId = 0;
                 this.examplesData = {};
-                
+
+                // Tab state
+                this.tabs = [];
+                this.activeTabId = null;
+                this.tabCounter = 0;
+
                 // Configuration
                 this.DEBOUNCE_DELAY = 300; // ms
                 this.STORAGE_KEY = 'simplemermaid-content';
+                this.TABS_KEY = 'simplemermaid-tabs';
                 this.THEME_KEY = 'simplemermaid-theme';
                 
                 // Embedded fallback examples (for file:// protocol)
@@ -1249,11 +1368,18 @@ Or choose an example from the dropdown above!"
                     console.log('🔧 Step 4: Loading theme and layout...');
                     this.loadThemeAndLayout();
 
-                    // Load diagram from URL or storage
-                    console.log('🔧 Step 5: Loading content from URL or storage...');
+                    // Load tabs, then check URL, then fallback to storage
+                    console.log('🔧 Step 5: Loading tabs and content...');
                     const loadedFromUrl = this.loadFromUrl();
-                    if (!loadedFromUrl) {
-                        this.loadContentFromStorage();
+                    if (loadedFromUrl) {
+                        // URL load created a tab already -- good
+                    } else {
+                        const tabsLoaded = this.loadTabsFromStorage();
+                        if (!tabsLoaded) {
+                            // Fresh start -- create first empty tab, try legacy storage
+                            this.createTab('Tab 1');
+                            this.loadContentFromStorage();
+                        }
                     }
 
                     // Initial render
@@ -1406,10 +1532,16 @@ Or choose an example from the dropdown above!"
                     
                     if (content) {
                         console.log('✏️ Setting editor content:', content);
+                        // Update active tab name to match example
+                        const tab = this.getActiveTab();
+                        if (tab && exampleData.title) {
+                            tab.name = exampleData.title;
+                        }
                         this.editor.value = content;
                         this.updateCharCount();
                         this.saveToStorage();
                         this.renderDiagram();
+                        this.renderTabBar();
                         this.showMessage('Example loaded successfully');
                     } else {
                         console.warn('⚠️ No content found for example');
@@ -1463,6 +1595,9 @@ Or choose an example from the dropdown above!"
                 this.layoutBtn.addEventListener('click', () => this.toggleLayout());
                 this.themeBtn.addEventListener('click', () => this.toggleTheme());
 
+                // Tab controls
+                this.addTabBtn.addEventListener('click', () => this.createTab());
+
                 // Zoom controls
                 this.zoomInBtn.addEventListener('click', () => this.zoom(25));
                 this.zoomOutBtn.addEventListener('click', () => this.zoom(-25));
@@ -1472,7 +1607,11 @@ Or choose an example from the dropdown above!"
                 this.separator.addEventListener('mousedown', (e) => this.startResize(e));
                 
                 // Window events
-                window.addEventListener('beforeunload', () => this.saveToStorage());
+                window.addEventListener('beforeunload', () => {
+                    this.saveActiveTabState();
+                    this.saveTabsToStorage();
+                    this.saveToStorage();
+                });
                 window.addEventListener('resize', () => this.debouncedRender());
                 
                 // Keyboard shortcuts
@@ -1483,10 +1622,14 @@ Or choose an example from the dropdown above!"
              * Handle editor input with debouncing
              */
             handleEditorInput() {
+                // Sync to active tab
+                const tab = this.getActiveTab();
+                if (tab) tab.content = this.editor.value;
+
                 this.updateCharCount();
                 this.saveToStorage();
                 this.debouncedRender();
-                
+
                 // Update URL with current diagram (debounced)
                 clearTimeout(this.urlUpdateTimeout);
                 this.urlUpdateTimeout = setTimeout(() => {
@@ -1777,8 +1920,10 @@ Or choose an example from the dropdown above!"
                 if (this.editor.value && !confirm('Are you sure you want to clear the editor?')) {
                     return;
                 }
-                
+
                 this.editor.value = '';
+                const tab = this.getActiveTab();
+                if (tab) tab.content = '';
                 this.updateCharCount();
                 this.saveToStorage();
                 this.debouncedRender();
@@ -2086,6 +2231,8 @@ Or choose an example from the dropdown above!"
                 const newZoom = this.zoomLevel + delta;
                 if (newZoom >= 25 && newZoom <= 200) {
                     this.zoomLevel = newZoom;
+                    const tab = this.getActiveTab();
+                    if (tab) tab.zoomLevel = this.zoomLevel;
                     this.applyZoom();
                 }
             }
@@ -2095,6 +2242,8 @@ Or choose an example from the dropdown above!"
              */
             resetZoom() {
                 this.zoomLevel = 100;
+                const tab = this.getActiveTab();
+                if (tab) tab.zoomLevel = 100;
                 this.applyZoom();
             }
 
@@ -2219,27 +2368,54 @@ Or choose an example from the dropdown above!"
              * Handle keyboard shortcuts
              */
             handleKeyboardShortcuts(event) {
+                // Ctrl/Cmd + T: New tab (no Shift)
+                if ((event.ctrlKey || event.metaKey) && !event.shiftKey && event.key === 't') {
+                    event.preventDefault();
+                    this.createTab();
+                    return;
+                }
+
+                // Ctrl/Cmd + W: Close active tab
+                if ((event.ctrlKey || event.metaKey) && event.key === 'w') {
+                    if (this.tabs.length > 1) {
+                        event.preventDefault();
+                        this.closeTab(this.activeTabId);
+                    }
+                    return;
+                }
+
+                // Ctrl/Cmd + Tab / Ctrl/Cmd + Shift + Tab: Cycle tabs
+                if ((event.ctrlKey || event.metaKey) && event.key === 'Tab') {
+                    event.preventDefault();
+                    const idx = this.tabs.findIndex(t => t.id === this.activeTabId);
+                    const next = event.shiftKey
+                        ? (idx - 1 + this.tabs.length) % this.tabs.length
+                        : (idx + 1) % this.tabs.length;
+                    this.switchTab(this.tabs[next].id);
+                    return;
+                }
+
                 // Ctrl/Cmd + Enter: Render diagram
                 if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
                     event.preventDefault();
                     this.renderDiagram();
                     return;
                 }
-                
+
                 // Ctrl/Cmd + K: Clear editor
                 if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
                     event.preventDefault();
                     this.clearEditor();
                     return;
                 }
-                
+
                 // Ctrl/Cmd + C: Copy (when not in editor)
                 if ((event.ctrlKey || event.metaKey) && event.key === 'c' && event.target !== this.editor) {
                     event.preventDefault();
                     this.copyCode();
                     return;
                 }
-                
+
                 // Ctrl/Cmd + Shift + T: Toggle theme
                 if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key === 'T') {
                     event.preventDefault();
@@ -2255,12 +2431,15 @@ Or choose an example from the dropdown above!"
                 try {
                     const content = this.editor.value;
                     localStorage.setItem(this.STORAGE_KEY, content);
-                    
+
+                    // Persist all tabs
+                    this.saveTabsToStorage();
+
                     // Add to history if content is not empty
                     if (content.trim()) {
                         this.addToHistory(content);
                     }
-                    
+
                     // Show auto-save indicator
                     const indicator = document.getElementById('autoSaveIndicator');
                     if (indicator) {
@@ -2476,20 +2655,22 @@ Or choose an example from the dropdown above!"
                     this.showMessage('Please create a diagram first!', 'warning');
                     return;
                 }
-                
+
                 const modal = document.getElementById('saveModal');
                 const overlay = document.getElementById('saveModalOverlay');
                 const nameInput = document.getElementById('saveName');
                 const confirmBtn = document.getElementById('confirmSaveBtn');
                 const closeBtn = document.getElementById('closeSaveBtn');
-                
+
                 // Show modal
                 modal.classList.add('show');
                 overlay.classList.add('show');
-                
-                // Focus on input
-                nameInput.value = '';
+
+                // Pre-fill with active tab name
+                const tab = this.getActiveTab();
+                nameInput.value = (tab && tab.name) ? tab.name : '';
                 nameInput.focus();
+                nameInput.select();
                 
                 // Event handlers
                 const saveHandler = () => {
@@ -2664,9 +2845,9 @@ Or choose an example from the dropdown above!"
             loadDiagram(id) {
                 const diagrams = this.getSavedDiagrams();
                 const diagram = diagrams[id];
-                
+
                 if (diagram) {
-                    this.editor.value = diagram.code;
+                    this.createTab(diagram.name, diagram.code);
                     this.updateCharCount();
                     this.renderDiagram();
                     this.closeSavedDiagramsModal();
@@ -2757,6 +2938,261 @@ Or choose an example from the dropdown above!"
                 return div.innerHTML;
             }
             
+            // ─── Tab Management ──────────────────────────────────────
+
+            /**
+             * Create a new tab and switch to it
+             */
+            createTab(name, content = '') {
+                const id = `tab-${++this.tabCounter}`;
+                const tab = {
+                    id,
+                    name: name || `Tab ${this.tabCounter}`,
+                    content,
+                    cachedSvg: '',
+                    zoomLevel: 100,
+                    cursorPos: 0,
+                    scrollTop: 0
+                };
+                this.tabs.push(tab);
+                this.switchTab(id);
+                this.renderTabBar();
+                return tab;
+            }
+
+            /**
+             * Switch to a tab by ID, saving current tab state first
+             */
+            switchTab(id) {
+                // Save current tab state
+                this.saveActiveTabState();
+
+                // Clear pending debounce timers
+                clearTimeout(this.renderTimeout);
+                clearTimeout(this.urlUpdateTimeout);
+
+                this.activeTabId = id;
+                const tab = this.getActiveTab();
+                if (!tab) return;
+
+                // Restore tab into editor
+                this.editor.value = tab.content;
+                this.editor.selectionStart = this.editor.selectionEnd = tab.cursorPos;
+
+                // Restore zoom
+                this.zoomLevel = tab.zoomLevel;
+                this.applyZoom();
+
+                // Restore cached preview or re-render
+                if (tab.cachedSvg) {
+                    this.preview.innerHTML = tab.cachedSvg;
+                    this.setStatus('Ready');
+                } else {
+                    this.renderDiagram();
+                }
+
+                this.updateCharCount();
+                this.renderTabBar();
+                this.saveTabsToStorage();
+
+                // Restore scroll position after DOM update
+                requestAnimationFrame(() => {
+                    this.editor.scrollTop = tab.scrollTop;
+                });
+            }
+
+            /**
+             * Close a tab by ID
+             */
+            closeTab(id) {
+                if (this.tabs.length <= 1) return; // Keep at least one tab
+
+                const idx = this.tabs.findIndex(t => t.id === id);
+                if (idx === -1) return;
+
+                this.tabs.splice(idx, 1);
+
+                // If closing the active tab, switch to a neighbor
+                if (this.activeTabId === id) {
+                    const newIdx = Math.min(idx, this.tabs.length - 1);
+                    this.switchTab(this.tabs[newIdx].id);
+                } else {
+                    this.renderTabBar();
+                }
+                this.saveTabsToStorage();
+            }
+
+            /**
+             * Save current active tab's state from the editor DOM
+             */
+            saveActiveTabState() {
+                const tab = this.getActiveTab();
+                if (!tab) return;
+
+                tab.content = this.editor.value;
+                tab.cursorPos = this.editor.selectionStart || 0;
+                tab.scrollTop = this.editor.scrollTop || 0;
+                tab.zoomLevel = this.zoomLevel;
+
+                // Cache current preview SVG
+                const svg = this.preview.querySelector('svg');
+                if (svg) {
+                    tab.cachedSvg = this.preview.innerHTML;
+                }
+            }
+
+            /**
+             * Get the active tab object
+             */
+            getActiveTab() {
+                return this.tabs.find(t => t.id === this.activeTabId) || null;
+            }
+
+            /**
+             * Render the tab bar UI
+             */
+            renderTabBar() {
+                // Remove existing tab items (keep the + button)
+                this.tabBar.querySelectorAll('.tab-item').forEach(el => el.remove());
+
+                this.tabs.forEach(tab => {
+                    const el = document.createElement('div');
+                    el.className = `tab-item${tab.id === this.activeTabId ? ' active' : ''}`;
+                    el.dataset.tabId = tab.id;
+
+                    const nameSpan = document.createElement('span');
+                    nameSpan.className = 'tab-name';
+                    nameSpan.textContent = tab.name;
+                    nameSpan.title = tab.name;
+
+                    // Double-click to rename
+                    nameSpan.addEventListener('dblclick', (e) => {
+                        e.stopPropagation();
+                        this.startRenameTab(tab.id, nameSpan);
+                    });
+
+                    const closeSpan = document.createElement('span');
+                    closeSpan.className = 'tab-close';
+                    closeSpan.textContent = '✕';
+                    closeSpan.title = 'Close tab';
+                    closeSpan.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        this.closeTab(tab.id);
+                    });
+
+                    el.appendChild(nameSpan);
+                    if (this.tabs.length > 1) {
+                        el.appendChild(closeSpan);
+                    }
+
+                    el.addEventListener('click', () => {
+                        if (tab.id !== this.activeTabId) {
+                            this.switchTab(tab.id);
+                        }
+                    });
+
+                    this.tabBar.insertBefore(el, this.addTabBtn);
+                });
+            }
+
+            /**
+             * Inline-rename a tab
+             */
+            startRenameTab(tabId, nameSpan) {
+                const tab = this.tabs.find(t => t.id === tabId);
+                if (!tab) return;
+
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.value = tab.name;
+                input.style.cssText = 'width:90px;font-size:0.75rem;padding:0 0.2rem;border:1px solid var(--primary-color);border-radius:2px;background:var(--bg-primary);color:var(--text-primary);outline:none;';
+
+                const finish = () => {
+                    const newName = input.value.trim() || tab.name;
+                    tab.name = newName;
+                    this.renderTabBar();
+                    this.saveTabsToStorage();
+                };
+
+                input.addEventListener('blur', finish);
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') input.blur();
+                    if (e.key === 'Escape') { input.value = tab.name; input.blur(); }
+                });
+
+                nameSpan.textContent = '';
+                nameSpan.appendChild(input);
+                input.focus();
+                input.select();
+            }
+
+            /**
+             * Save all tabs to localStorage
+             */
+            saveTabsToStorage() {
+                try {
+                    this.saveActiveTabState();
+                    const data = {
+                        activeTabId: this.activeTabId,
+                        tabCounter: this.tabCounter,
+                        tabs: this.tabs.map(t => ({
+                            id: t.id,
+                            name: t.name,
+                            content: t.content,
+                            zoomLevel: t.zoomLevel
+                        }))
+                    };
+                    localStorage.setItem(this.TABS_KEY, JSON.stringify(data));
+                } catch (error) {
+                    console.warn('Failed to save tabs:', error);
+                }
+            }
+
+            /**
+             * Load tabs from localStorage (returns true if tabs were restored)
+             */
+            loadTabsFromStorage() {
+                try {
+                    const json = localStorage.getItem(this.TABS_KEY);
+                    if (json) {
+                        const data = JSON.parse(json);
+                        if (data.tabs && data.tabs.length > 0) {
+                            this.tabCounter = data.tabCounter || data.tabs.length;
+                            this.tabs = data.tabs.map(t => ({
+                                id: t.id,
+                                name: t.name,
+                                content: t.content,
+                                cachedSvg: '',
+                                zoomLevel: t.zoomLevel || 100,
+                                cursorPos: 0,
+                                scrollTop: 0
+                            }));
+                            this.activeTabId = data.activeTabId || this.tabs[0].id;
+                            const tab = this.getActiveTab();
+                            if (tab) {
+                                this.editor.value = tab.content;
+                                this.zoomLevel = tab.zoomLevel;
+                                this.applyZoom();
+                            }
+                            this.renderTabBar();
+                            return true;
+                        }
+                    }
+
+                    // Migration: import old single-content key into first tab
+                    const legacy = localStorage.getItem(this.STORAGE_KEY);
+                    if (legacy) {
+                        this.createTab('Tab 1', legacy);
+                        return true;
+                    }
+                } catch (error) {
+                    console.warn('Failed to load tabs:', error);
+                }
+                return false;
+            }
+
+            // ─── End Tab Management ─────────────────────────────────
+
             /**
              * Load diagram from URL hash or example parameter on page load
              */
@@ -2767,6 +3203,8 @@ Or choose an example from the dropdown above!"
 
                 if (exampleId) {
                     console.log('📥 Loading example from URL:', exampleId);
+                    // Create a tab first, then load example into it
+                    this.createTab(exampleId);
                     const loaded = this.loadExampleById(exampleId);
                     if (loaded) return true;
                 }
@@ -2782,7 +3220,7 @@ Or choose an example from the dropdown above!"
 
                             if (decompressed) {
                                 console.log('📥 Loading diagram from URL...');
-                                this.editor.value = decompressed;
+                                this.createTab('Shared Diagram', decompressed);
                                 this.updateCharCount();
                                 this.renderDiagram();
                                 this.showMessage('Diagram loaded from URL');
