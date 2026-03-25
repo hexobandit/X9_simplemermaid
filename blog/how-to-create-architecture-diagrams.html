@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Create Effective Architecture Diagrams - SimpleMermaid Blog</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Learn how to create clear, effective architecture diagrams using Mermaid.js. Covers system architecture, deployment diagrams, data flow, best practices, and common mistakes to avoid.">
+    <meta name="keywords" content="architecture diagrams, system architecture, deployment diagrams, data flow diagrams, Mermaid.js, software architecture, technical documentation, diagram best practices">
+    <meta name="author" content="SimpleMermaid.com">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="How to Create Effective Architecture Diagrams">
+    <meta property="og:description" content="Learn how to create clear, effective architecture diagrams using Mermaid.js. Best practices, common mistakes, and practical code examples.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://simplemermaid.com/blog/how-to-create-architecture-diagrams.html">
+    <meta property="og:image" content="https://simplemermaid.com/simplemermaid.png">
+    <meta property="og:site_name" content="SimpleMermaid">
+    <meta property="article:published_time" content="2026-03-25">
+    <meta property="article:author" content="SimpleMermaid">
+
+    <!-- Twitter/X Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How to Create Effective Architecture Diagrams">
+    <meta name="twitter:description" content="Learn how to create clear, effective architecture diagrams using Mermaid.js. Best practices and practical code examples.">
+    <meta name="twitter:image" content="https://simplemermaid.com/simplemermaid.png">
+    <meta name="twitter:creator" content="@simplemermaid">
+    <meta name="twitter:site" content="@simplemermaid">
+
+    <!-- Additional SEO -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+    <link rel="canonical" href="https://simplemermaid.com/blog/how-to-create-architecture-diagrams.html">
+    <meta name="theme-color" content="#6366f1">
+
+    <!-- Google AdSense Account -->
+    <meta name="google-adsense-account" content="ca-pub-8641410034592329">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../favicon.png">
+
+    <!-- Structured Data - Article -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "How to Create Effective Architecture Diagrams",
+        "description": "Learn how to create clear, effective architecture diagrams using Mermaid.js. Covers system architecture, deployment diagrams, data flow, best practices, and common mistakes to avoid.",
+        "image": "https://simplemermaid.com/simplemermaid.png",
+        "author": {
+            "@type": "Organization",
+            "name": "SimpleMermaid.com",
+            "url": "https://simplemermaid.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "SimpleMermaid.com",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://simplemermaid.com/favicon.png"
+            }
+        },
+        "datePublished": "2026-03-25",
+        "dateModified": "2026-03-25",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://simplemermaid.com/blog/how-to-create-architecture-diagrams.html"
+        }
+    }
+    </script>
+
+    <style>
+        /* Modern CSS Variables */
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #f8fafc;
+            --accent: #10b981;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-muted: #9ca3af;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-code: #1f2937;
+            --bg-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --border: #e5e7eb;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.15);
+            --radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --primary: #8b5cf6;
+            --primary-hover: #7c3aed;
+            --primary-light: #a78bfa;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --text-muted: #9ca3af;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-code: #111827;
+            --bg-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --border: #374151;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            transition: var(--transition);
+        }
+
+        /* Navigation Header */
+        .header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-link {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .css-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-icon {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .diagram-node {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .diagram-connection {
+            width: 12px;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-simple {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1;
+        }
+
+        .logo-tagline {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .logo-link:hover .diagram-node {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
+
+        .logo-link:hover .diagram-connection {
+            background: linear-gradient(90deg, #7c3aed, #06b6d4);
+        }
+
+        .logo-link:hover .logo-simple {
+            color: var(--primary);
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            background: var(--bg-secondary);
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+            background: var(--bg-secondary);
+        }
+
+        .nav-cta {
+            background: var(--primary);
+            color: white !important;
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-cta:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .nav-bmc {
+            display: flex;
+            align-items: center;
+            padding: 0.35rem 0.75rem;
+            background: #ffdd00;
+            border-radius: 8px;
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(255, 221, 0, 0.3);
+        }
+
+        .nav-bmc:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(255, 221, 0, 0.5);
+            background: #ffdd00;
+        }
+
+        /* Mobile Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 1rem;
+            z-index: 999;
+        }
+
+        .mobile-menu.show {
+            display: block;
+        }
+
+        .mobile-nav-link {
+            display: block;
+            padding: 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .mobile-nav-link:hover {
+            background: var(--bg-secondary);
+            color: var(--primary);
+        }
+
+        .mobile-nav-link.nav-cta {
+            background: var(--primary);
+            color: white !important;
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            padding: 0.5rem;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary);
+            background: var(--bg-secondary);
+        }
+
+        /* Hero Section */
+        .blog-hero {
+            background: var(--bg-hero);
+            color: white;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            margin-bottom: 0;
+        }
+
+        .blog-hero h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .blog-hero .meta {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .blog-hero .meta time {
+            font-weight: 600;
+        }
+
+        .blog-hero .reading-time {
+            margin-left: 1.5rem;
+            padding-left: 1.5rem;
+            border-left: 1px solid rgba(255,255,255,0.4);
+        }
+
+        /* Article Content */
+        .article-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem 4rem;
+        }
+
+        .article-content h2 {
+            font-size: 1.75rem;
+            color: var(--text-primary);
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .article-content h3 {
+            font-size: 1.35rem;
+            color: var(--text-primary);
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .article-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1.25rem;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .article-content ul, .article-content ol {
+            color: var(--text-secondary);
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .article-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .article-content strong {
+            color: var(--text-primary);
+        }
+
+        .article-content a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .article-content a:hover {
+            text-decoration: underline;
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: var(--bg-code);
+            color: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            white-space: pre;
+            margin: 1.5rem 0;
+            font-family: 'Courier New', Consolas, monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            border: 1px solid var(--border);
+        }
+
+        .code-label {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px 4px 0 0;
+            margin-bottom: -1px;
+            position: relative;
+            top: 1px;
+        }
+
+        .code-inline {
+            background: var(--bg-secondary);
+            color: var(--primary);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', Consolas, monospace;
+            font-size: 0.9rem;
+        }
+
+        /* CTA Box */
+        .cta-box {
+            background: var(--bg-secondary);
+            border: 2px solid var(--primary);
+            border-radius: var(--radius);
+            padding: 2rem;
+            text-align: center;
+            margin: 2.5rem 0;
+        }
+
+        .cta-box h3 {
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .cta-box p {
+            color: var(--text-secondary);
+            margin-bottom: 1.25rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .cta-button:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        /* Related Articles */
+        .related-articles {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .related-articles h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .related-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            text-decoration: none;
+            transition: var(--transition);
+            display: block;
+        }
+
+        .related-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+            border-color: var(--primary);
+        }
+
+        .related-card h3 {
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .related-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #16213e 100%);
+            border-top: 2px solid;
+            border-image: linear-gradient(90deg, #00d4ff, #6366f1, #8b5cf6, #00d4ff) 1;
+            padding: 4rem 2rem 2rem;
+            position: relative;
+            overflow: hidden;
+            margin-top: 0;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            animation: cyberpunk-scan 3s linear infinite;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #00d4ff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px #00d4ff50;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #a1a1aa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer-links a:hover {
+            color: #00d4ff;
+            text-shadow: 0 0 5px #00d4ff50;
+            padding-left: 10px;
+        }
+
+        .footer-links a::before {
+            content: '\25B6';
+            position: absolute;
+            left: -15px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            color: #6366f1;
+        }
+
+        .footer-links a:hover::before {
+            opacity: 1;
+            left: -10px;
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #6366f1, transparent);
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .footer-divider::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            opacity: 0;
+            animation: cyberpunk-pulse 2s ease-in-out infinite alternate;
+        }
+
+        .footer-bottom {
+            text-align: center;
+        }
+
+        .footer-copyright {
+            color: #71717a;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-tech {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        .tech-badge {
+            background: linear-gradient(135deg, #374151, #1f2937);
+            border: 1px solid #6366f1;
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            color: #00d4ff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 5px #00d4ff30;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tech-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 25px rgba(0, 212, 255, 0.3);
+            border-color: #00d4ff;
+        }
+
+        .footer-glow {
+            color: #6366f1;
+            text-shadow: 0 0 10px #6366f150;
+            font-weight: 700;
+        }
+
+        @keyframes cyberpunk-scan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes cyberpunk-pulse {
+            0% { opacity: 0; }
+            100% { opacity: 0.6; }
+        }
+
+        @keyframes cyberpunk-glow {
+            0%, 100% { text-shadow: 0 0 5px #6366f150; }
+            50% { text-shadow: 0 0 20px #6366f1, 0 0 30px #6366f180; }
+        }
+
+        [data-theme="dark"] .footer {
+            background: linear-gradient(135deg, #000000 0%, #1a0b3d 50%, #2d1b69 100%);
+        }
+
+        [data-theme="dark"] .tech-badge {
+            background: linear-gradient(135deg, #1e1b4b, #312e81);
+            border-color: #8b5cf6;
+        }
+
+        [data-theme="dark"] .footer-section h3 {
+            color: #a78bfa;
+            text-shadow: 0 0 10px #8b5cf650;
+        }
+
+        [data-theme="dark"] .footer-links a:hover {
+            color: #a78bfa;
+            text-shadow: 0 0 5px #8b5cf650;
+        }
+
+        [data-theme="dark"] .tech-badge:hover {
+            border-color: #a78bfa;
+            box-shadow: 0 5px 25px rgba(139, 92, 246, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 1030px) {
+            .header-content {
+                padding: 0 1rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .logo-text {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .blog-hero {
+                padding: 6rem 1rem 3rem;
+            }
+
+            .blog-hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .article-content {
+            
+                padding: 2rem 1rem 3rem;
+            }
+
+            .blog-hero .reading-time {
+                display: block;
+                margin-left: 0;
+                padding-left: 0;
+                border-left: none;
+                margin-top: 0.5rem;
+            }
+
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <!-- Early theme detection to prevent flash -->
+    <script>
+        (function() {
+            var theme = localStorage.getItem('simplemermaid-theme');
+            if (!theme) {
+                var oldTheme = localStorage.getItem('theme');
+                if (oldTheme) {
+                    theme = oldTheme;
+                    localStorage.setItem('simplemermaid-theme', theme);
+                    localStorage.removeItem('theme');
+                } else {
+                    theme = 'light';
+                }
+            }
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6FZM0EGT74"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6FZM0EGT74');
+</script>
+
+<body>
+    <!-- Navigation Header -->
+    <header class="header">
+        <nav class="header-content">
+            <a href="../index.html" class="logo-link">
+                <div class="css-logo">
+                    <div class="logo-icon">
+                        <div class="diagram-node"></div>
+                        <div class="diagram-connection"></div>
+                        <div class="diagram-node"></div>
+                        <div class="diagram-connection"></div>
+                        <div class="diagram-node"></div>
+                    </div>
+                </div>
+                <div class="logo-text">
+                    <div class="logo-simple">SimpleMermaid</div>
+                    <div class="logo-tagline">Diagram Editor</div>
+                </div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="../learn-mermaid.html" class="nav-link">Learn</a></li>
+                <li><a href="index.html" class="nav-link active">Blog</a></li>
+                <li><a href="../mermaid-tool.html" class="nav-link">Editor</a></li>
+                <li><a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="nav-bmc" title="Buy me a coffee"><img src="../bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 28px; vertical-align: middle; border-radius: 4px;"></a></li>
+                <li><button class="theme-toggle" id="themeToggle" title="Toggle theme">&#9788;&#65039;</button></li>
+                <li><a href="../mermaid-tool.html" class="nav-cta">Start Creating</a></li>
+            </ul>
+
+            <!-- Mobile Hamburger -->
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="../index.html" class="mobile-nav-link">Home</a>
+            <a href="../learn-mermaid.html" class="mobile-nav-link">Learn</a>
+            <a href="index.html" class="mobile-nav-link">Blog</a>
+            <a href="../mermaid-tool.html" class="mobile-nav-link">Editor</a>
+            <a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="mobile-nav-link" style="display: flex; align-items: center; gap: 0.5rem;"><img src="../bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 24px; border-radius: 4px;"> Buy Me A Coffee</a>
+            <a href="../mermaid-tool.html" class="mobile-nav-link nav-cta">Start Creating</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="blog-hero">
+        <h1>How to Create Effective Architecture Diagrams</h1>
+        <div class="meta">
+            <time datetime="2026-03-25">March 25, 2026</time>
+            <span class="reading-time">8 min read</span>
+        </div>
+    </section>
+
+    <!-- Article Content -->
+    <article class="article-content">
+        <p>Architecture diagrams are the backbone of technical communication. Whether you are onboarding a new engineer, presenting a system design to stakeholders, or documenting a migration plan, a well-crafted architecture diagram can replace thousands of words of explanation. Yet many teams skip them because the tooling feels slow, the diagrams go stale, and maintaining a separate drawing application adds friction to every change.</p>
+
+        <p>Mermaid.js changes that equation. Because diagrams live as text inside your code repository, they evolve alongside the systems they describe. In this article we will explore the major types of architecture diagrams, walk through best practices for creating them, highlight common mistakes to avoid, and show how Mermaid syntax makes the entire process faster and more maintainable.</p>
+
+        <h2>Why Architecture Diagrams Matter</h2>
+
+        <p>A diagram is the fastest path to shared understanding. When a team gathers around a whiteboard or reviews a pull request that modifies a diagram file, everyone builds the same mental model at the same time. That shared model prevents misaligned assumptions during implementation, reduces the surface area for integration bugs, and accelerates code reviews.</p>
+
+        <p>Architecture diagrams are also critical for compliance and auditing. Regulated industries such as healthcare, finance, and government require documented data flows, deployment boundaries, and access controls. Keeping those diagrams in version control means you can prove exactly what the system looked like at any point in time.</p>
+
+        <h2>Types of Architecture Diagrams</h2>
+
+        <h3>System Architecture Diagrams</h3>
+
+        <p>System architecture diagrams provide a high-level view of all the components in your platform and how they communicate. They answer the question: "What are the big pieces, and how do they talk to each other?" These diagrams are ideal for onboarding, executive briefings, and cross-team planning.</p>
+
+        <p>A system architecture diagram should include services, databases, external integrations, and the protocols connecting them. Keep it at a level of abstraction where each box represents a deployable unit or a clearly bounded subsystem.</p>
+
+        <span class="code-label">Mermaid</span>
+<div class="code-block">graph TB
+    Client[Web / Mobile Client]
+    CDN[CDN - CloudFront]
+    LB[Load Balancer]
+    API[API Gateway]
+    Auth[Auth Service]
+    Users[User Service]
+    Orders[Order Service]
+    DB_Users[(Users DB)]
+    DB_Orders[(Orders DB)]
+    Cache[(Redis Cache)]
+    Queue[Message Queue]
+    Notify[Notification Service]
+
+    Client --> CDN --> LB --> API
+    API --> Auth
+    API --> Users --> DB_Users
+    API --> Orders --> DB_Orders
+    Orders --> Cache
+    Orders --> Queue --> Notify</div>
+
+        <h3>Deployment Diagrams</h3>
+
+        <p>Deployment diagrams show where your software runs. They map services to infrastructure: which containers sit in which Kubernetes clusters, which databases live in which availability zones, and where traffic enters the system. These diagrams are indispensable for DevOps engineers, SREs, and anyone troubleshooting production incidents.</p>
+
+        <p>The key principle for deployment diagrams is to show boundaries clearly. Use subgraphs in Mermaid to represent VPCs, clusters, availability zones, or cloud regions.</p>
+
+        <span class="code-label">Mermaid</span>
+<div class="code-block">graph TB
+    subgraph AWS Cloud
+        subgraph VPC
+            subgraph Public Subnet
+                ALB[Application Load Balancer]
+                NAT[NAT Gateway]
+            end
+            subgraph Private Subnet - AZ1
+                ECS1[ECS Task - API]
+                ECS2[ECS Task - Worker]
+            end
+            subgraph Private Subnet - AZ2
+                ECS3[ECS Task - API]
+                ECS4[ECS Task - Worker]
+            end
+            subgraph Data Tier
+                RDS[(RDS PostgreSQL\nMulti-AZ)]
+                Redis[(ElastiCache\nRedis)]
+            end
+        end
+        S3[S3 Bucket]
+        CloudWatch[CloudWatch]
+    end
+
+    Users[Users] --> ALB
+    ALB --> ECS1 & ECS3
+    ECS1 & ECS3 --> RDS & Redis
+    ECS2 & ECS4 --> S3
+    ECS1 & ECS2 & ECS3 & ECS4 --> CloudWatch</div>
+
+        <h3>Data Flow Diagrams</h3>
+
+        <p>Data flow diagrams trace how information moves through your system. They are particularly useful for security reviews, GDPR compliance documentation, and debugging data pipeline issues. Unlike system diagrams that emphasize components, data flow diagrams emphasize the transformations and storage points along the path of a specific piece of data.</p>
+
+        <span class="code-label">Mermaid</span>
+<div class="code-block">graph LR
+    Upload[User Uploads File]
+    Validate[Validate Format]
+    Scan[Virus Scan]
+    Transform[Transform / Resize]
+    Store[Store in S3]
+    Index[Index in Database]
+    CDNServe[Serve via CDN]
+
+    Upload --> Validate
+    Validate -- Valid --> Scan
+    Validate -- Invalid --> Reject[Return Error]
+    Scan -- Clean --> Transform
+    Scan -- Infected --> Quarantine[Quarantine File]
+    Transform --> Store --> Index --> CDNServe</div>
+
+        <h2>Best Practices for Clarity</h2>
+
+        <p>A diagram that confuses its audience is worse than no diagram at all. Follow these principles to keep your architecture diagrams effective.</p>
+
+        <ul>
+            <li><strong>One diagram, one purpose.</strong> Do not try to show deployment, data flow, and service ownership in a single chart. Create separate diagrams for separate audiences and questions.</li>
+            <li><strong>Label every arrow.</strong> An unlabeled connection is an ambiguous connection. Even a short label like "HTTPS" or "gRPC" tells the reader something critical about the interaction.</li>
+            <li><strong>Use consistent shapes.</strong> Mermaid gives you rectangles, rounded rectangles, cylinders, and more. Pick a convention, such as cylinders for databases and rectangles for services, and apply it consistently.</li>
+            <li><strong>Limit the number of elements.</strong> If your diagram has more than 15 to 20 nodes, consider splitting it into multiple views at different levels of abstraction.</li>
+            <li><strong>Show direction of flow.</strong> Readers expect data or requests to flow in a clear direction. Top-to-bottom or left-to-right layouts reduce cognitive load.</li>
+            <li><strong>Include a legend if needed.</strong> When shape meanings or line styles are not obvious, add a brief note or legend to the diagram.</li>
+        </ul>
+
+        <h2>Common Mistakes to Avoid</h2>
+
+        <p>Even experienced architects fall into these traps when creating diagrams.</p>
+
+        <ul>
+            <li><strong>The kitchen-sink diagram.</strong> Trying to show everything in one view makes the diagram unreadable. Break complex systems into layers.</li>
+            <li><strong>Stale diagrams.</strong> A diagram from six months ago that does not reflect reality is actively harmful. Keeping diagrams as code in your repository and updating them alongside code changes solves this problem.</li>
+            <li><strong>Inconsistent abstraction levels.</strong> Mixing low-level details (individual API endpoints) with high-level components (entire microservices) in the same diagram confuses readers.</li>
+            <li><strong>No audience consideration.</strong> An infrastructure diagram for a C-suite executive should look very different from one used by an on-call engineer. Tailor the level of detail to the audience.</li>
+            <li><strong>Missing security boundaries.</strong> Failing to show where encryption terminates, where authentication occurs, or where network boundaries exist can lead to dangerous assumptions.</li>
+        </ul>
+
+        <h2>How Mermaid.js Simplifies Creation</h2>
+
+        <p>Traditional diagramming tools require you to open a separate application, manually position boxes and arrows, export an image, and link it into your documentation. When the system changes, you repeat the entire process. Mermaid eliminates this overhead.</p>
+
+        <p>With Mermaid, your diagram is a text file. You edit it in the same code editor you use for everything else. It renders automatically in GitHub, GitLab, Notion, and dozens of other platforms. Pull requests that change system architecture include a visible diff of the diagram alongside the code changes. Reviewers can comment on specific lines of the diagram just as they comment on code.</p>
+
+        <p>The <a href="../mermaid-tool.html">SimpleMermaid editor</a> makes the feedback loop even tighter. Type your Mermaid syntax on the left, see the rendered diagram on the right in real time. When you are satisfied, share the diagram via a URL or export it to PNG, SVG, or PDF for presentations.</p>
+
+        <div class="cta-box">
+            <h3>Try It Yourself</h3>
+            <p>Open the SimpleMermaid editor and paste any of the examples above to see them render instantly.</p>
+            <a href="../mermaid-tool.html" class="cta-button">Open the Editor</a>
+        </div>
+
+        <!-- Related Articles -->
+        <div class="related-articles">
+            <h2>Related Articles</h2>
+            <div class="related-grid">
+                <a href="flowchart-best-practices.html" class="related-card">
+                    <h3>Flowchart Best Practices for Developers</h3>
+                    <p>Layout tips, naming conventions, color coding, and Mermaid syntax advice for building clear flowcharts.</p>
+                </a>
+                <a href="sequence-diagram-tutorial-microservices.html" class="related-card">
+                    <h3>Sequence Diagram Tutorial for Microservices</h3>
+                    <p>Learn how to document microservice interactions with participants, async messages, and real-world API gateway examples.</p>
+                </a>
+                <a href="mermaid-vs-drawio.html" class="related-card">
+                    <h3>Mermaid.js vs Draw.io: When to Use Each</h3>
+                    <p>A detailed comparison of text-based and visual diagramming tools to help you choose the right one for your workflow.</p>
+                </a>
+            </div>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Diagram Engine</h3>
+                    <ul class="footer-links">
+                        <li><a href="../mermaid-tool.html">Editor</a></li>
+                        <li><a href="../learn-mermaid.html">Learn Syntax</a></li>
+                        <li><a href="../index.html#features">Features</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://mermaid.js.org" target="_blank">Mermaid.js Docs</a></li>
+                        <li><a href="../learn-mermaid.html#quick-reference">Quick Reference</a></li>
+                        <li><a href="../learn-mermaid.html#diagram-types">Diagram Types</a></li>
+                        <li><a href="../mermaid-tool.html">Live Preview</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="../about.html">About</a></li>
+                        <li><a href="../changelog.html">Changelog</a></li>
+                        <li><a href="../privacy.html">Privacy Policy</a></li>
+                        <li><a href="../terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom">
+                <div class="footer-tech">
+                    <span class="tech-badge">Mermaid.js</span>
+                    <span class="tech-badge">Vanilla JS</span>
+                    <span class="tech-badge">CSS Grid</span>
+                    <span class="tech-badge">LocalStorage</span>
+                    <span class="tech-badge">PWA Ready</span>
+                </div>
+
+                <p class="footer-copyright">
+                    &copy; 2025 <span class="footer-glow">SimpleMermaid.com</span> |
+                    Powered by the future of diagramming |
+                    <span class="footer-glow">Create &bull; Share &bull; Inspire</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const body = document.body;
+
+        // Migrate old theme setting if exists
+        const oldTheme = localStorage.getItem('theme');
+        if (oldTheme && !localStorage.getItem('simplemermaid-theme')) {
+            localStorage.setItem('simplemermaid-theme', oldTheme);
+            localStorage.removeItem('theme');
+        }
+
+        // Load saved theme and sync both html and body
+        const savedTheme = localStorage.getItem('simplemermaid-theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        body.setAttribute('data-theme', savedTheme);
+        themeToggle.textContent = savedTheme === 'light' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+            html.setAttribute('data-theme', newTheme);
+            body.setAttribute('data-theme', newTheme);
+            themeToggle.textContent = newTheme === 'light' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+            localStorage.setItem('simplemermaid-theme', newTheme);
+        });
+
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('show');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('show');
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

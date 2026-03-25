@@ -18,6 +18,9 @@ Disallow: /README.md
 Allow: /index.html
 Allow: /mermaid-tool.html
 Allow: /learn-mermaid.html
+Allow: /faq.html
+Allow: /blog/
+Allow: /guides/
 Allow: /examples/*.mmd
 
 # Crawl delay (optional)

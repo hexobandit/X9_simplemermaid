@@ -31,9 +31,12 @@
     <link rel="canonical" href="https://simplemermaid.com/privacy.html">
     <meta name="theme-color" content="#6366f1">
     
+    <!-- Google AdSense Account -->
+    <meta name="google-adsense-account" content="ca-pub-8641410034592329">
+
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon.png">
-    
+
     <!-- Structured Data -->
     <script type="application/ld+json">
     {
@@ -179,7 +182,23 @@
             color: var(--primary);
             background: var(--bg-secondary);
         }
-        
+
+        .nav-bmc {
+            display: flex;
+            align-items: center;
+            padding: 0.35rem 0.75rem;
+            background: #ffdd00;
+            border-radius: 8px;
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(255, 221, 0, 0.3);
+        }
+
+        .nav-bmc:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(255, 221, 0, 0.5);
+            background: #ffdd00;
+        }
+
         .nav-cta {
             background: var(--primary);
             color: white;
@@ -666,7 +685,9 @@
             <ul class="nav-menu">
                 <li><a href="index.html" class="nav-link">Home</a></li>
                 <li><a href="learn-mermaid.html" class="nav-link">Learn</a></li>
+                <li><a href="blog/index.html" class="nav-link">Blog</a></li>
                 <li><a href="mermaid-tool.html" class="nav-link">Editor</a></li>
+                <li><a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="nav-bmc" title="Buy me a coffee"><img src="bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 28px; vertical-align: middle; border-radius: 4px;"></a></li>
                 <li><button class="theme-toggle" id="themeToggle">☀️</button></li>
                 <li><a href="mermaid-tool.html" class="nav-cta">Start Creating</a></li>
             </ul>
@@ -683,7 +704,9 @@
         <div class="mobile-menu" id="mobileMenu">
             <a href="index.html" class="mobile-nav-link">Home</a>
             <a href="learn-mermaid.html" class="mobile-nav-link">Learn</a>
+            <a href="blog/index.html" class="mobile-nav-link">Blog</a>
             <a href="mermaid-tool.html" class="mobile-nav-link">Editor</a>
+            <a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="mobile-nav-link" style="display: flex; align-items: center; gap: 0.5rem;"><img src="bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 24px; border-radius: 4px;"> Buy Me A Coffee</a>
             <a href="mermaid-tool.html" class="mobile-nav-link nav-cta">Start Creating</a>
         </div>
     </header>
@@ -870,23 +893,23 @@
                 </div>
                 
                 <div class="footer-section">
-                    <h3>Features</h3>
+                    <h3>Resources</h3>
                     <ul class="footer-links">
-                        <li><a href="mermaid-tool.html">Real-time Editor</a></li>
-                        <li><a href="mermaid-tool.html">URL Sharing</a></li>
-                        <li><a href="mermaid-tool.html">Export Tools</a></li>
+                        <li><a href="blog/index.html">Blog</a></li>
+                        <li><a href="guides/diagram-gallery.html">Diagram Gallery</a></li>
+                        <li><a href="guides/best-practices.html">Best Practices</a></li>
                         <li><a href="learn-mermaid.html">Examples</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-section">
                     <h3>Company</h3>
                     <ul class="footer-links">
                         <li><a href="about.html">About</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
                         <li><a href="changelog.html">Changelog</a></li>
                         <li><a href="privacy.html">Privacy Policy</a></li>
                         <li><a href="terms.html">Terms of Service</a></li>
-                        <li><a href="https://github.com/mermaid-js/mermaid" target="_blank">Mermaid.js</a></li>
                     </ul>
                 </div>
             </div>

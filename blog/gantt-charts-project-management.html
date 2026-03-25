@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gantt Charts for Project Management | SimpleMermaid Blog</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Master Gantt charts for project management. Learn the history, anatomy, Mermaid.js syntax for tasks, milestones, dependencies, and real project planning examples.">
+    <meta name="keywords" content="Gantt chart, project management, Mermaid.js, sprint planning, project timeline, task dependencies, milestones, project scheduling, agile planning">
+    <meta name="author" content="SimpleMermaid.com">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://simplemermaid.com/blog/gantt-charts-project-management.html">
+    <meta name="theme-color" content="#6366f1">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Gantt Charts for Project Management">
+    <meta property="og:description" content="Master Gantt chart syntax in Mermaid.js. Plan sprints, track dependencies, and visualize project timelines with code.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://simplemermaid.com/blog/gantt-charts-project-management.html">
+    <meta property="og:image" content="https://simplemermaid.com/simplemermaid.png">
+    <meta property="og:site_name" content="SimpleMermaid">
+
+    <!-- Twitter/X Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Gantt Charts for Project Management">
+    <meta name="twitter:description" content="Master Gantt chart syntax in Mermaid.js. Plan sprints, track dependencies, and visualize timelines.">
+    <meta name="twitter:image" content="https://simplemermaid.com/simplemermaid.png">
+
+    <!-- Google AdSense Account -->
+    <meta name="google-adsense-account" content="ca-pub-8641410034592329">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../favicon.png">
+
+    <!-- Article Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Gantt Charts for Project Management",
+        "description": "Master Gantt charts for project management with Mermaid.js syntax. Covers history, anatomy, dependencies, milestones, and real project planning examples.",
+        "author": {
+            "@type": "Organization",
+            "name": "SimpleMermaid.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "SimpleMermaid.com",
+            "url": "https://simplemermaid.com"
+        },
+        "datePublished": "2026-03-25",
+        "dateModified": "2026-03-25",
+        "mainEntityOfPage": "https://simplemermaid.com/blog/gantt-charts-project-management.html",
+        "url": "https://simplemermaid.com/blog/gantt-charts-project-management.html"
+    }
+    </script>
+
+    <style>
+        /* Modern CSS Variables */
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --secondary: #f8fafc;
+            --accent: #10b981;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-muted: #9ca3af;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --border: #e5e7eb;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.15);
+            --radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --primary: #8b5cf6;
+            --primary-hover: #7c3aed;
+            --secondary: #1f2937;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --text-muted: #9ca3af;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --border: #374151;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            transition: var(--transition);
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-link {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .css-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-icon {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .diagram-node {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .diagram-connection {
+            width: 12px;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-simple {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1;
+        }
+
+        .logo-tagline {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .logo-link:hover .diagram-node {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
+
+        .logo-link:hover .diagram-connection {
+            background: linear-gradient(90deg, #7c3aed, #06b6d4);
+        }
+
+        .logo-link:hover .logo-simple {
+            color: var(--primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            background: var(--bg-secondary);
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+            background: var(--bg-secondary);
+        }
+
+        .nav-cta {
+            background: var(--primary);
+            color: white !important;
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-cta:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .nav-bmc {
+            display: flex;
+            align-items: center;
+            padding: 0.35rem 0.75rem;
+            background: #ffdd00;
+            border-radius: 8px;
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(255, 221, 0, 0.3);
+        }
+
+        .nav-bmc:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(255, 221, 0, 0.5);
+            background: #ffdd00;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 1rem;
+            z-index: 999;
+        }
+
+        .mobile-menu.show {
+            display: block;
+        }
+
+        .mobile-nav-link {
+            display: block;
+            padding: 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .mobile-nav-link:hover {
+            background: var(--bg-secondary);
+            color: var(--primary);
+        }
+
+        .mobile-nav-link.nav-cta {
+            background: var(--primary);
+            color: white !important;
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            padding: 0.5rem;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary);
+            background: var(--bg-secondary);
+        }
+
+        /* Blog Hero */
+        .blog-hero {
+            background: var(--bg-hero);
+            color: white;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+        }
+
+        .blog-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .blog-hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .blog-hero h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .blog-meta {
+            font-size: 0.95rem;
+            opacity: 0.85;
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .blog-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* Article Content */
+        .article-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem 4rem;
+        }
+
+        .article-container h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .article-container h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 2rem 0 0.75rem;
+        }
+
+        .article-container p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1.25rem;
+        }
+
+        .article-container ul, .article-container ol {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+        }
+
+        .article-container li {
+            margin-bottom: 0.5rem;
+        }
+
+        .article-container strong {
+            color: var(--text-primary);
+        }
+
+        .article-container a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .article-container a:hover {
+            text-decoration: underline;
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: #1e1e2e;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin: 1.25rem 0 1.75rem;
+            overflow-x: auto;
+            border: 1px solid #313244;
+        }
+
+        .code-block code {
+            color: #cdd6f4;
+            font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            white-space: pre;
+        }
+
+        .code-label {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Pro Tip Box */
+        .pro-tip {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(139, 92, 246, 0.08));
+            border-left: 4px solid var(--primary);
+            border-radius: 0 var(--radius) var(--radius) 0;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .pro-tip strong {
+            color: var(--primary);
+        }
+
+        .pro-tip p {
+            margin-bottom: 0;
+        }
+
+        /* CTA Box */
+        .cta-box {
+            background: var(--bg-hero);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            text-align: center;
+            margin: 3rem 0 2rem;
+            color: white;
+        }
+
+        .cta-box h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .cta-box p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-box .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: white;
+            color: var(--primary);
+            padding: 0.875rem 1.75rem;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .cta-box .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            text-decoration: none;
+        }
+
+        /* Related Articles */
+        .related-articles {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .related-articles h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+
+        .related-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.25rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .related-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+            text-decoration: none;
+        }
+
+        .related-card h4 {
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .related-card p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 0;
+            line-height: 1.4;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #16213e 100%);
+            border-top: 2px solid;
+            border-image: linear-gradient(90deg, #00d4ff, #6366f1, #8b5cf6, #00d4ff) 1;
+            padding: 4rem 2rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            animation: cyberpunk-scan 3s linear infinite;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #00d4ff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px #00d4ff50;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #a1a1aa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer-links a:hover {
+            color: #00d4ff;
+            text-shadow: 0 0 5px #00d4ff50;
+            padding-left: 10px;
+        }
+
+        .footer-links a::before {
+            content: '\25B6';
+            position: absolute;
+            left: -15px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            color: #6366f1;
+        }
+
+        .footer-links a:hover::before {
+            opacity: 1;
+            left: -10px;
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #6366f1, transparent);
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .footer-divider::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            opacity: 0;
+            animation: cyberpunk-pulse 2s ease-in-out infinite alternate;
+        }
+
+        .footer-bottom {
+            text-align: center;
+        }
+
+        .footer-copyright {
+            color: #71717a;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-tech {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        .tech-badge {
+            background: linear-gradient(135deg, #374151, #1f2937);
+            border: 1px solid #6366f1;
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            color: #00d4ff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 5px #00d4ff30;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tech-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 25px rgba(0, 212, 255, 0.3);
+            border-color: #00d4ff;
+        }
+
+        .footer-glow {
+            color: #6366f1;
+            text-shadow: 0 0 10px #6366f150;
+            font-weight: 700;
+        }
+
+        @keyframes cyberpunk-scan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes cyberpunk-pulse {
+            0% { opacity: 0; }
+            100% { opacity: 0.6; }
+        }
+
+        [data-theme="dark"] .footer {
+            background: linear-gradient(135deg, #000000 0%, #1a0b3d 50%, #2d1b69 100%);
+        }
+
+        [data-theme="dark"] .tech-badge {
+            background: linear-gradient(135deg, #1e1b4b, #312e81);
+            border-color: #8b5cf6;
+        }
+
+        [data-theme="dark"] .footer-section h3 {
+            color: #a78bfa;
+            text-shadow: 0 0 10px #8b5cf650;
+        }
+
+        [data-theme="dark"] .footer-links a:hover {
+            color: #a78bfa;
+            text-shadow: 0 0 5px #8b5cf650;
+        }
+
+        [data-theme="dark"] .tech-badge:hover {
+            border-color: #a78bfa;
+            box-shadow: 0 5px 25px rgba(139, 92, 246, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 1030px) {
+            .header-content {
+                padding: 0 1rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .logo-text {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .blog-hero {
+                padding: 7rem 1.5rem 3rem;
+            }
+
+            .blog-hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .article-container {
+                padding: 2rem 1.25rem 3rem;
+            }
+
+            .article-container h2 {
+                font-size: 1.4rem;
+            }
+
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .blog-hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .cta-box {
+                padding: 1.75rem 1.25rem;
+            }
+        }
+    </style>
+    <!-- Early theme detection to prevent flash -->
+    <script>
+        (function() {
+            var theme = localStorage.getItem('simplemermaid-theme');
+            if (!theme) {
+                var oldTheme = localStorage.getItem('theme');
+                if (oldTheme) {
+                    theme = oldTheme;
+                    localStorage.setItem('simplemermaid-theme', theme);
+                    localStorage.removeItem('theme');
+                } else {
+                    theme = 'light';
+                }
+            }
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6FZM0EGT74"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6FZM0EGT74');
+</script>
+
+<body>
+    <!-- Navigation Header -->
+    <header class="header">
+        <nav class="header-content">
+            <a href="../index.html" class="logo-link">
+                <div class="css-logo">
+                    <div class="logo-icon">
+                        <div class="diagram-node"></div>
+                        <div class="diagram-connection"></div>
+                        <div class="diagram-node"></div>
+                        <div class="diagram-connection"></div>
+                        <div class="diagram-node"></div>
+                    </div>
+                </div>
+                <div class="logo-text">
+                    <div class="logo-simple">SimpleMermaid</div>
+                    <div class="logo-tagline">Diagram Editor</div>
+                </div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="../learn-mermaid.html" class="nav-link">Learn</a></li>
+                <li><a href="index.html" class="nav-link active">Blog</a></li>
+                <li><a href="../mermaid-tool.html" class="nav-link">Editor</a></li>
+                <li><a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="nav-bmc" title="Buy me a coffee"><img src="../bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 28px; vertical-align: middle; border-radius: 4px;"></a></li>
+                <li><button class="theme-toggle" id="themeToggle" title="Toggle theme">&#9728;&#65039;</button></li>
+                <li><a href="../mermaid-tool.html" class="nav-cta">Start Creating</a></li>
+            </ul>
+
+            <!-- Mobile Hamburger -->
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="../index.html" class="mobile-nav-link">Home</a>
+            <a href="../learn-mermaid.html" class="mobile-nav-link">Learn</a>
+            <a href="index.html" class="mobile-nav-link">Blog</a>
+            <a href="../mermaid-tool.html" class="mobile-nav-link">Editor</a>
+            <a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="mobile-nav-link" style="display: flex; align-items: center; gap: 0.5rem;"><img src="../bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 24px; border-radius: 4px;"> Buy Me A Coffee</a>
+            <a href="../mermaid-tool.html" class="mobile-nav-link nav-cta">Start Creating</a>
+        </div>
+    </header>
+
+    <!-- Blog Hero -->
+    <section class="blog-hero">
+        <div class="blog-hero-content">
+            <h1>Gantt Charts for Project Management</h1>
+            <div class="blog-meta">
+                <span>March 25, 2026</span>
+                <span>8 min read</span>
+                <span>Project Management</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Article Content -->
+    <article class="article-container">
+        <p>Every software project lives and dies by its timeline. Whether you are coordinating a two-week sprint or a six-month product launch, you need a way to visualize what is happening, when, and what depends on what. That is exactly what Gantt charts do -- and with Mermaid.js, you can create them as fast as you can type.</p>
+
+        <h2>A Brief History of Gantt Charts</h2>
+
+        <p>The Gantt chart is named after Henry Gantt, an American mechanical engineer who popularized the format around 1910-1915. Gantt developed his bar charts to visualize production schedules in factories, giving managers a clear picture of which tasks were on track and which were falling behind. The format was so effective that it was used to plan the construction of the Hoover Dam and coordinate Allied logistics during World War I.</p>
+
+        <p>Over a century later, the core concept remains unchanged: horizontal bars on a timeline, with each bar representing a task's start date and duration. What has changed is the medium. Instead of hand-drawn charts on paper, we can now define Gantt charts as code that renders automatically, lives in version control, and updates with a text edit.</p>
+
+        <h2>Anatomy of a Gantt Chart</h2>
+
+        <p>Every Gantt chart is built from a few fundamental components:</p>
+
+        <ul>
+            <li><strong>Tasks:</strong> The individual work items, represented as horizontal bars. Each task has a start date (or a dependency that determines when it starts) and a duration or end date.</li>
+            <li><strong>Sections:</strong> Logical groupings of related tasks. In software projects, sections often correspond to workstreams, teams, or project phases.</li>
+            <li><strong>Dependencies:</strong> Relationships between tasks that control sequencing. Task B cannot start until Task A is complete. Dependencies are what make Gantt charts more than just a list of dates.</li>
+            <li><strong>Milestones:</strong> Zero-duration markers that represent key decision points or deliverables. "Feature freeze," "Beta release," and "Go live" are classic milestones.</li>
+            <li><strong>Timeline:</strong> The horizontal axis showing dates. The chart automatically scales to fit the project's timeframe.</li>
+        </ul>
+
+        <h2>Mermaid Gantt Syntax Deep Dive</h2>
+
+        <p>Let us start with a simple chart and then layer on features.</p>
+
+        <h3>Basic Structure</h3>
+        <div class="code-block"><code>gantt
+    title My Project Timeline
+    dateFormat YYYY-MM-DD
+
+    section Planning
+    Requirements gathering    :a1, 2026-04-01, 5d
+    Technical design          :a2, after a1, 3d
+    Design review             :milestone, m1, after a2, 0d
+
+    section Development
+    Backend API               :b1, after a2, 10d
+    Frontend UI               :b2, after a2, 12d
+    Integration               :b3, after b1, 5d
+
+    section Testing
+    QA testing                :c1, after b3, 7d
+    Bug fixes                 :c2, after c1, 5d
+    Release                   :milestone, m2, after c2, 0d</code></div>
+
+        <p>Let us break down the syntax line by line:</p>
+
+        <ul>
+            <li><code>gantt</code> -- Declares the diagram type.</li>
+            <li><code>title</code> -- Sets the chart title displayed at the top.</li>
+            <li><code>dateFormat YYYY-MM-DD</code> -- Tells Mermaid how to parse your dates. Other options include <code>DD-MM-YYYY</code>, <code>MM-DD-YYYY</code>, and more.</li>
+            <li><code>section Planning</code> -- Creates a labeled section that groups the tasks below it.</li>
+            <li><code>:a1, 2026-04-01, 5d</code> -- Assigns ID <code>a1</code>, starts on April 1, and lasts 5 days.</li>
+            <li><code>:a2, after a1, 3d</code> -- Starts immediately after task <code>a1</code> completes, lasts 3 days.</li>
+            <li><code>:milestone, m1, after a2, 0d</code> -- A milestone (zero duration) placed after task <code>a2</code>.</li>
+        </ul>
+
+        <h3>Task States</h3>
+        <p>Mermaid supports task states that visually distinguish tasks by their progress:</p>
+
+        <div class="code-block"><code>gantt
+    title Task States Demo
+    dateFormat YYYY-MM-DD
+
+    section Sprint 1
+    Completed task     :done, t1, 2026-04-01, 5d
+    Active task        :active, t2, after t1, 3d
+    Future task        :t3, after t2, 4d
+    Critical task      :crit, t4, after t3, 2d
+    Critical + active  :crit, active, t5, after t4, 3d</code></div>
+
+        <ul>
+            <li><code>done</code> -- Renders with a muted/completed style.</li>
+            <li><code>active</code> -- Highlights the task as currently in progress.</li>
+            <li><code>crit</code> -- Marks the task as critical path, rendered in red.</li>
+            <li>You can combine states: <code>crit, active</code> marks a task as both critical and active.</li>
+        </ul>
+
+        <h3>Excludes</h3>
+        <p>Real projects do not work on weekends or holidays. Mermaid's <code>excludes</code> keyword lets you skip specific days:</p>
+
+        <div class="code-block"><code>gantt
+    title Sprint with Weekends Off
+    dateFormat YYYY-MM-DD
+    excludes weekends
+
+    section Sprint
+    Story 1    :s1, 2026-04-06, 3d
+    Story 2    :s2, after s1, 2d
+    Story 3    :s3, after s2, 4d</code></div>
+
+        <p>You can also exclude specific dates for holidays: <code>excludes weekends, 2026-04-10</code>. When weekends are excluded, a "5d" task scheduled on a Monday will end on Friday, not Wednesday -- the chart skips Saturday and Sunday automatically.</p>
+
+        <h2>Real Project Planning Example</h2>
+
+        <p>Here is a realistic Gantt chart for an API migration project, the kind of chart you might attach to a project proposal or share in a planning meeting:</p>
+
+        <div class="code-block"><code>gantt
+    title API v2 Migration
+    dateFormat YYYY-MM-DD
+    excludes weekends
+
+    section Discovery
+    Audit existing endpoints      :done, d1, 2026-04-01, 5d
+    Document breaking changes     :done, d2, after d1, 3d
+    Stakeholder review            :done, milestone, m1, after d2, 0d
+
+    section Build
+    Auth module rewrite           :active, b1, 2026-04-14, 8d
+    New serialization layer       :b2, 2026-04-14, 6d
+    Rate limiting middleware      :b3, after b2, 4d
+    Versioned routing             :b4, after b1, 3d
+    Build complete                :milestone, m2, after b4, 0d
+
+    section Migrate
+    Internal consumers            :mi1, after m2, 5d
+    Partner integrations          :mi2, after mi1, 10d
+    Legacy deprecation notice     :mi3, after mi1, 2d
+
+    section Launch
+    Canary deployment             :crit, l1, after mi2, 3d
+    Full rollout                  :crit, l2, after l1, 2d
+    v1 sunset                     :milestone, m3, after l2, 0d</code></div>
+
+        <p>This single chart communicates the entire project plan: phases, parallelism, dependencies, critical path, and key milestones. A project manager can see that the Auth module rewrite and the serialization layer run in parallel. A stakeholder can see that the earliest possible launch date depends on partner integration testing. An engineer can see exactly which tasks they are blocked by.</p>
+
+        <h2>Tips for Keeping Gantt Charts Useful</h2>
+
+        <h3>1. Keep Them High-Level</h3>
+        <p>A Gantt chart with 200 tasks is not useful -- it is a wall of bars. Aim for 15 to 30 tasks that represent meaningful work packages. If you need more detail, break the project into sub-charts per workstream.</p>
+
+        <h3>2. Update Them Regularly</h3>
+        <p>A Gantt chart is a living document. When task durations change or dependencies shift, update the chart. Because Mermaid charts are text, updates take seconds -- change a number, and the entire chart reflows.</p>
+
+        <h3>3. Use Milestones as Communication Tools</h3>
+        <p>Milestones are not just markers -- they are promises. Use them to mark points where you will communicate progress to stakeholders: "By this milestone, we will have a working demo." "By this milestone, the API contract is frozen."</p>
+
+        <h3>4. Mark the Critical Path</h3>
+        <p>The critical path is the longest sequence of dependent tasks. Any delay on the critical path delays the entire project. Mark these tasks with <code>crit</code> so the team knows where to focus.</p>
+
+        <h3>5. Store Them With Your Code</h3>
+        <p>Keep your Gantt chart in your project's repository, perhaps in a <code>docs/</code> folder or the project README. When the chart lives with the code, it gets updated in the same pull requests that change the project scope. For more on this approach, see our guide on <a href="using-diagrams-for-documentation.html">using diagrams for documentation</a>.</p>
+
+        <div class="pro-tip">
+            <p><strong>Pro Tip:</strong> Mermaid Gantt charts render beautifully in GitHub Markdown. Add a <code>```mermaid</code> code block to your project's README or wiki, and GitHub will render the chart inline. Every time you push an update to the chart, the rendered version updates automatically.</p>
+        </div>
+
+        <h2>Beyond Software: Other Use Cases</h2>
+
+        <p>While this article focuses on software project management, Gantt charts are equally valuable for:</p>
+
+        <ul>
+            <li><strong>Event planning:</strong> Coordinate venue booking, speaker confirmations, marketing campaigns, and logistics.</li>
+            <li><strong>Product launches:</strong> Align engineering, marketing, sales enablement, and support training timelines.</li>
+            <li><strong>Onboarding plans:</strong> Map out a new hire's first 30, 60, and 90 days with clear milestones.</li>
+            <li><strong>Content calendars:</strong> Plan blog posts, social media campaigns, and release announcements on a shared timeline.</li>
+        </ul>
+
+        <p>The format is universal. If your work involves coordinating tasks across time, a Gantt chart will help you see the big picture. And with Mermaid in <a href="../mermaid-tool.html">SimpleMermaid</a>, creating one takes minutes, not hours.</p>
+
+        <!-- CTA Box -->
+        <div class="cta-box">
+            <h3>Plan Your Next Project</h3>
+            <p>Paste any Gantt example above into SimpleMermaid and customize it for your timeline. Free and instant.</p>
+            <a href="../mermaid-tool.html" class="cta-button">Open the Editor</a>
+        </div>
+
+        <!-- Related Articles -->
+        <div class="related-articles">
+            <h3>Continue Reading</h3>
+            <div class="related-grid">
+                <a href="5-diagram-types-every-developer-should-know.html" class="related-card">
+                    <h4>5 Diagram Types Every Developer Should Know</h4>
+                    <p>Flowcharts, sequence diagrams, class diagrams, ERDs, and state diagrams with examples.</p>
+                </a>
+                <a href="using-diagrams-for-documentation.html" class="related-card">
+                    <h4>Using Diagrams for Better Documentation</h4>
+                    <p>Learn where to place diagrams and how to keep them in sync with your code.</p>
+                </a>
+                <a href="entity-relationship-diagrams-explained.html" class="related-card">
+                    <h4>Entity Relationship Diagrams Explained</h4>
+                    <p>Deep dive into ERD notation, cardinality, and database design with Mermaid.</p>
+                </a>
+            </div>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Diagram Engine</h3>
+                    <ul class="footer-links">
+                        <li><a href="../mermaid-tool.html">Editor</a></li>
+                        <li><a href="../learn-mermaid.html">Learn Syntax</a></li>
+                        <li><a href="../index.html#features">Features</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://mermaid.js.org" target="_blank">Mermaid.js Docs</a></li>
+                        <li><a href="../learn-mermaid.html#quick-reference">Quick Reference</a></li>
+                        <li><a href="../learn-mermaid.html#diagram-types">Diagram Types</a></li>
+                        <li><a href="../mermaid-tool.html">Live Preview</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="../about.html">About</a></li>
+                        <li><a href="../changelog.html">Changelog</a></li>
+                        <li><a href="../privacy.html">Privacy Policy</a></li>
+                        <li><a href="../terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://trackmytime.net" target="_blank">TrackMyTime</a></li>
+                        <li><a href="https://threatbandit.com" target="_blank">ThreatBandit</a></li>
+                        <li><a href="https://freekanban.com" target="_blank">FreeKanban</a></li>
+                        <li><a href="https://emphonic.com" target="_blank">Emphonic</a></li>
+                        <li style="margin-top: 0.75rem;"><a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer"><img src="../bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 30px; vertical-align: middle; border-radius: 4px;"> Support Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom">
+                <div class="footer-tech">
+                    <span class="tech-badge">Mermaid.js</span>
+                    <span class="tech-badge">Vanilla JS</span>
+                    <span class="tech-badge">CSS Grid</span>
+                    <span class="tech-badge">LocalStorage</span>
+                    <span class="tech-badge">PWA Ready</span>
+                </div>
+
+                <p class="footer-copyright">
+                    &copy; 2025 <span class="footer-glow">SimpleMermaid.com</span> |
+                    Powered by the future of diagramming |
+                    <span class="footer-glow">Create &bull; Share &bull; Inspire</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const body = document.body;
+
+        const oldTheme = localStorage.getItem('theme');
+        if (oldTheme && !localStorage.getItem('simplemermaid-theme')) {
+            localStorage.setItem('simplemermaid-theme', oldTheme);
+            localStorage.removeItem('theme');
+        }
+
+        const savedTheme = localStorage.getItem('simplemermaid-theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        body.setAttribute('data-theme', savedTheme);
+        themeToggle.textContent = savedTheme === 'light' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+            body.setAttribute('data-theme', newTheme);
+            themeToggle.textContent = newTheme === 'light' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+            localStorage.setItem('simplemermaid-theme', newTheme);
+        });
+
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('show');
+        });
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('show');
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

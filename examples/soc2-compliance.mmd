@@ -1,0 +1,105 @@
+flowchart TD
+    Start([SOC2 Type II Audit Initiated]) --> ScopeStart
+
+    subgraph Preparation["Preparation Phase"]
+        ScopeStart[Define Audit Scope &<br/>System Boundaries]
+        ScopeStart --> IdentifySystems[Identify In-Scope Systems<br/>& Infrastructure]
+        IdentifySystems --> TSC[Map Trust Service Criteria]
+
+        TSC --> Security[Security<br/>CC1-CC9 Common Criteria]
+        TSC --> Availability[Availability<br/>A1.1-A1.3]
+        TSC --> Processing[Processing Integrity<br/>PI1.1-PI1.5]
+        TSC --> Confidentiality[Confidentiality<br/>C1.1-C1.2]
+        TSC --> Privacy[Privacy<br/>P1-P8]
+
+        Security --> ControlMapping[Control Mapping &<br/>Risk Assessment]
+        Availability --> ControlMapping
+        Processing --> ControlMapping
+        Confidentiality --> ControlMapping
+        Privacy --> ControlMapping
+
+        ControlMapping --> ControlDesign[Document Control Design<br/>& Implementation]
+        ControlDesign --> Policies[Create / Update Policies<br/>- Information Security Policy<br/>- Access Control Policy<br/>- Incident Response Plan<br/>- Change Management Policy<br/>- Business Continuity Plan]
+    end
+
+    subgraph Assessment["Assessment Phase"]
+        Policies --> EvidenceCollection[Evidence Collection<br/>Observation Period: 6-12 Months]
+
+        EvidenceCollection --> AccessReviews[Access Control Evidence<br/>- User access reviews<br/>- Privilege escalation logs<br/>- MFA enforcement records<br/>- Termination checklists]
+
+        EvidenceCollection --> ChangeEvidence[Change Management Evidence<br/>- Change request tickets<br/>- Code review approvals<br/>- Deployment logs<br/>- Rollback procedures]
+
+        EvidenceCollection --> MonitorEvidence[Monitoring Evidence<br/>- SIEM alert logs<br/>- Uptime reports & SLA metrics<br/>- Vulnerability scan results<br/>- Penetration test reports]
+
+        EvidenceCollection --> OperationsEvidence[Operations Evidence<br/>- Backup & restore tests<br/>- Disaster recovery drills<br/>- Vendor risk assessments<br/>- Employee training records]
+
+        AccessReviews --> GapAnalysis{Gap Analysis &<br/>Risk Evaluation}
+        ChangeEvidence --> GapAnalysis
+        MonitorEvidence --> GapAnalysis
+        OperationsEvidence --> GapAnalysis
+
+        GapAnalysis -->|Gaps Found| GapClassify[Classify Gaps by Severity]
+        GapClassify --> Critical[Critical Gaps<br/>Missing key controls]
+        GapClassify --> Major[Major Gaps<br/>Incomplete implementation]
+        GapClassify --> Minor[Minor Gaps<br/>Documentation issues]
+
+        Critical --> RemediationPlan[Remediation Plan &<br/>Timeline]
+        Major --> RemediationPlan
+        Minor --> RemediationPlan
+
+        RemediationPlan --> ImplementFixes[Implement Remediation<br/>- Deploy missing controls<br/>- Update configurations<br/>- Enhance monitoring<br/>- Retrain staff]
+
+        ImplementFixes --> Revalidate[Revalidate Controls<br/>& Collect New Evidence]
+        Revalidate --> ReadinessCheck{Readiness<br/>Assessment}
+
+        ReadinessCheck -->|Not Ready| RemediationPlan
+        ReadinessCheck -->|Ready| AuditorEngage
+
+        GapAnalysis -->|No Gaps| AuditorEngage[Engage External<br/>CPA Auditor Firm]
+    end
+
+    subgraph Reporting["Reporting Phase"]
+        AuditorEngage --> AuditorPlanning[Auditor Planning<br/>- Define test procedures<br/>- Select sample sizes<br/>- Schedule interviews]
+
+        AuditorPlanning --> ControlTesting[Auditor Control Testing<br/>- Inspect evidence artifacts<br/>- Interview control owners<br/>- Observe processes<br/>- Reperform procedures]
+
+        ControlTesting --> AuditorFindings{Auditor<br/>Findings?}
+
+        AuditorFindings -->|Exceptions Found| ExceptionHandling[Document Exceptions<br/>& Management Response]
+        ExceptionHandling --> ManagementResponse[Management Response<br/>- Acknowledge finding<br/>- Corrective action plan<br/>- Target completion date]
+        ManagementResponse --> ReportDraft
+
+        AuditorFindings -->|No Exceptions| ReportDraft[Draft SOC2 Report]
+
+        ReportDraft --> Section1[Section I<br/>Auditor Opinion<br/>Unqualified / Qualified]
+        ReportDraft --> Section2[Section II<br/>Management Assertion]
+        ReportDraft --> Section3[Section III<br/>System Description]
+        ReportDraft --> Section4[Section IV<br/>Trust Service Criteria,<br/>Controls & Tests]
+        ReportDraft --> Section5[Section V<br/>Other Information<br/>Management Response]
+
+        Section1 --> FinalReview[Final Report Review<br/>& Quality Assurance]
+        Section2 --> FinalReview
+        Section3 --> FinalReview
+        Section4 --> FinalReview
+        Section5 --> FinalReview
+
+        FinalReview --> ReportIssued[SOC2 Type II Report Issued<br/>Valid for 12 months]
+    end
+
+    ReportIssued --> Distribution[Distribute Report<br/>to Stakeholders & Customers<br/>via NDA or Trust Portal]
+    Distribution --> ContinuousMonitoring[Continuous Monitoring<br/>& Control Maintenance]
+    ContinuousMonitoring --> NextCycle([Begin Next Annual<br/>Audit Cycle])
+    NextCycle -.->|Annual Renewal| ScopeStart
+
+    style Start fill:#4A90D9,stroke:#2C5F8A,color:#fff
+    style NextCycle fill:#4A90D9,stroke:#2C5F8A,color:#fff
+    style Preparation fill:#E8F4FD,stroke:#4A90D9
+    style Assessment fill:#FFF3E0,stroke:#F5A623
+    style Reporting fill:#E8F5E9,stroke:#4CAF50
+    style GapAnalysis fill:#FFF9C4,stroke:#F5A623
+    style ReadinessCheck fill:#FFF9C4,stroke:#F5A623
+    style AuditorFindings fill:#FFF9C4,stroke:#F5A623
+    style Critical fill:#FFCDD2,stroke:#E53935
+    style Major fill:#FFE0B2,stroke:#FB8C00
+    style Minor fill:#FFF9C4,stroke:#FBC02D
+    style ReportIssued fill:#C8E6C9,stroke:#43A047

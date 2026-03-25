@@ -1,0 +1,91 @@
+flowchart LR
+    subgraph Sources["Data Sources"]
+        API["REST API\n(JSON)"]
+        DB["PostgreSQL\n(Production DB)"]
+        FILES["SFTP Server\n(CSV/Excel Files)"]
+        STREAM["Webhook\nEvents"]
+    end
+
+    subgraph Extract["Extract Stage"]
+        E1["API Connector\n(Rate Limited)"]
+        E2["CDC Connector\n(Debezium)"]
+        E3["File Ingestion\n(Scheduled)"]
+        E4["Event Listener\n(Real-time)"]
+        VAL["Schema\nValidation"]
+    end
+
+    subgraph Staging["Staging Area"]
+        RAW["Raw Data Lake\n(S3 / Parquet)"]
+        META["Metadata\nCatalog"]
+        DEDUP["Deduplication\nEngine"]
+    end
+
+    subgraph Transform["Transform Stage"]
+        CLEAN["Data Cleansing\n& Normalization"]
+        ENRICH["Data Enrichment\n(Lookups & Joins)"]
+        AGG["Aggregation\n& Metrics"]
+        CONFORM["Conform\nDimensions"]
+        QUALITY["Data Quality\nChecks"]
+    end
+
+    subgraph Load["Load Stage"]
+        DW["Data Warehouse\n(Snowflake)"]
+        MART["Data Marts\n(Star Schemas)"]
+        CACHE["Redis Cache\n(Hot Data)"]
+        IDX["Index &\nPartition"]
+    end
+
+    subgraph ErrorHandling["Error Handling"]
+        DLQ["Dead Letter\nQueue"]
+        ALERT["Alert Manager\n(PagerDuty)"]
+        RETRY["Retry Queue\n(Exp. Backoff)"]
+        LOG["Error Logs\n(CloudWatch)"]
+    end
+
+    subgraph Monitoring["Observability"]
+        DASH["Pipeline\nDashboard"]
+        SLA["SLA\nMonitor"]
+    end
+
+    API --> E1
+    DB --> E2
+    FILES --> E3
+    STREAM --> E4
+
+    E1 --> VAL
+    E2 --> VAL
+    E3 --> VAL
+    E4 --> VAL
+
+    VAL -->|Valid| RAW
+    VAL -->|Invalid| DLQ
+    RAW --> META
+    RAW --> DEDUP
+
+    DEDUP --> CLEAN
+    CLEAN --> ENRICH
+    ENRICH --> AGG
+    AGG --> CONFORM
+    CONFORM --> QUALITY
+
+    QUALITY -->|Pass| DW
+    QUALITY -->|Fail| DLQ
+    DW --> MART
+    DW --> IDX
+    MART --> CACHE
+
+    DLQ --> ALERT
+    DLQ --> LOG
+    DLQ --> RETRY
+    RETRY -->|Reprocess| VAL
+
+    IDX --> DASH
+    SLA --> ALERT
+
+    style Sources fill:#e1f5fe,stroke:#0288d1,color:#000
+    style Extract fill:#f3e5f5,stroke:#7b1fa2,color:#000
+    style Staging fill:#fff3e0,stroke:#ef6c00,color:#000
+    style Transform fill:#fff9c4,stroke:#f9a825,color:#000
+    style Load fill:#e8f5e9,stroke:#2e7d32,color:#000
+    style ErrorHandling fill:#ffebee,stroke:#c62828,color:#000
+    style Monitoring fill:#e0f2f1,stroke:#00695c,color:#000

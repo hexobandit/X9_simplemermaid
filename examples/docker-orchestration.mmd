@@ -1,0 +1,62 @@
+flowchart TB
+    Dev["Developer Workstation"] -->|git push| Repo["Git Repository"]
+
+    subgraph BuildPipeline["Build Pipeline"]
+        Repo -->|webhook trigger| CI["CI Server\n(GitHub Actions)"]
+        CI -->|checkout code| Checkout["Source Checkout"]
+        Checkout -->|run| Lint["Lint & Static Analysis"]
+        Lint -->|run| UnitTest["Unit Tests"]
+        UnitTest -->|run| IntTest["Integration Tests"]
+        IntTest -->|build| DockerBuild["Docker Build\n(Multi-stage)"]
+        DockerBuild -->|scan| Trivy["Trivy Vulnerability Scan"]
+        Trivy -->|sign| Cosign["Image Signing\n(Cosign)"]
+    end
+
+    subgraph Registry["Container Registry"]
+        Cosign -->|docker push| ECR["AWS ECR / Docker Hub"]
+        ECR -->|store| TagLatest["Tag: latest"]
+        ECR -->|store| TagSemver["Tag: v1.4.2"]
+        ECR -->|store| TagSHA["Tag: sha-a1b2c3d"]
+    end
+
+    subgraph K8sCluster["Kubernetes Cluster"]
+        subgraph NSIngress["Namespace: ingress-nginx"]
+            Ingress["Ingress Controller\n(nginx)"] -->|TLS termination| CertManager["cert-manager\n(Let's Encrypt)"]
+        end
+
+        subgraph NSProd["Namespace: production"]
+            Ingress -->|route /api| SvcAPI["Service: api-svc\n(ClusterIP)"]
+            Ingress -->|route /| SvcWeb["Service: web-svc\n(ClusterIP)"]
+
+            SvcAPI --> PodAPI1["Pod: api-deploy-abc1\nv1.4.2"]
+            SvcAPI --> PodAPI2["Pod: api-deploy-abc2\nv1.4.2"]
+            SvcAPI --> PodAPI3["Pod: api-deploy-abc3\nv1.4.2"]
+
+            SvcWeb --> PodWeb1["Pod: web-deploy-xyz1\nv1.4.2"]
+            SvcWeb --> PodWeb2["Pod: web-deploy-xyz2\nv1.4.2"]
+
+            PodAPI1 --> ConfigMap["ConfigMap:\nenv-config"]
+            PodAPI1 --> Secret["Secret:\ndb-credentials"]
+            PodAPI1 --> PVC["PersistentVolumeClaim:\ndata-vol (10Gi)"]
+        end
+
+        subgraph NSMonitor["Namespace: monitoring"]
+            HPA["HorizontalPodAutoscaler\nmin:2 max:10\ntarget CPU: 70%"] -.->|scale| SvcAPI
+            Prometheus["Prometheus"] -.->|scrape metrics| PodAPI1
+            Prometheus -.->|scrape metrics| PodWeb1
+        end
+    end
+
+    ECR -->|image pull| PodAPI1
+    ECR -->|image pull| PodWeb1
+
+    LB["Cloud Load Balancer\n(AWS ALB)"] -->|forward traffic| Ingress
+
+    Users["External Users"] -->|HTTPS| LB
+
+    style BuildPipeline fill:#1a1a2e,stroke:#16213e,color:#e0e0e0
+    style Registry fill:#0f3460,stroke:#16213e,color:#e0e0e0
+    style K8sCluster fill:#162447,stroke:#1f4068,color:#e0e0e0
+    style NSProd fill:#1b1b2f,stroke:#1f4068,color:#e0e0e0
+    style NSIngress fill:#1b1b2f,stroke:#1f4068,color:#e0e0e0
+    style NSMonitor fill:#1b1b2f,stroke:#1f4068,color:#e0e0e0

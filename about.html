@@ -31,9 +31,12 @@
     <link rel="canonical" href="https://simplemermaid.com/about.html">
     <meta name="theme-color" content="#6366f1">
     
+    <!-- Google AdSense Account -->
+    <meta name="google-adsense-account" content="ca-pub-8641410034592329">
+
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon.png">
-    
+
     <!-- Structured Data -->
     <script type="application/ld+json">
     {
@@ -178,7 +181,23 @@
             color: var(--primary);
             background: var(--bg-secondary);
         }
-        
+
+        .nav-bmc {
+            display: flex;
+            align-items: center;
+            padding: 0.35rem 0.75rem;
+            background: #ffdd00;
+            border-radius: 8px;
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(255, 221, 0, 0.3);
+        }
+
+        .nav-bmc:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(255, 221, 0, 0.5);
+            background: #ffdd00;
+        }
+
         .nav-cta {
             background: var(--primary);
             color: white;
@@ -678,7 +697,9 @@
             <ul class="nav-menu">
                 <li><a href="index.html" class="nav-link">Home</a></li>
                 <li><a href="learn-mermaid.html" class="nav-link">Learn</a></li>
+                <li><a href="blog/index.html" class="nav-link">Blog</a></li>
                 <li><a href="mermaid-tool.html" class="nav-link">Editor</a></li>
+                <li><a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="nav-bmc" title="Buy me a coffee"><img src="bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 28px; vertical-align: middle; border-radius: 4px;"></a></li>
                 <li><button class="theme-toggle" id="themeToggle">☀️</button></li>
                 <li><a href="mermaid-tool.html" class="nav-cta">Start Creating</a></li>
             </ul>
@@ -695,7 +716,9 @@
         <div class="mobile-menu" id="mobileMenu">
             <a href="index.html" class="mobile-nav-link">Home</a>
             <a href="learn-mermaid.html" class="mobile-nav-link">Learn</a>
+            <a href="blog/index.html" class="mobile-nav-link">Blog</a>
             <a href="mermaid-tool.html" class="mobile-nav-link">Editor</a>
+            <a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="mobile-nav-link" style="display: flex; align-items: center; gap: 0.5rem;"><img src="bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 24px; border-radius: 4px;"> Buy Me A Coffee</a>
             <a href="mermaid-tool.html" class="mobile-nav-link nav-cta">Start Creating</a>
         </div>
     </header>
@@ -709,16 +732,48 @@
                 <p>Developer Productivity Tool for Technical Diagramming</p>
             </div>
             
+            <!-- Our Story Section -->
+            <section class="about-section">
+                <div class="section-header">
+                    <h2>Our Story</h2>
+                    <p>How frustration with existing tools led to something better</p>
+                </div>
+
+                <div class="content-section">
+                    <p>SimpleMermaid was born out of a simple frustration: creating and sharing technical diagrams shouldn't require a login, a subscription, or a heavyweight desktop application. As developers ourselves, we found that every time we needed to sketch out an architecture diagram for a pull request or illustrate a sequence flow for a design review, we were fighting the tools instead of communicating our ideas.</p>
+
+                    <p>Existing online diagram editors forced us to create accounts, save files to their cloud, and navigate cluttered interfaces filled with features we didn't need. Desktop tools like Visio were expensive and platform-locked. Even lightweight alternatives required dragging and dropping shapes one by one, a painfully slow process when you already know exactly what your diagram should look like.</p>
+
+                    <p>We knew there had to be a better way. Mermaid.js had already solved the hard problem of rendering diagrams from text, but there was no simple, polished editor that let you write Mermaid code, preview it instantly, and share it with a single link. So we built one. SimpleMermaid launched in late 2024 as a zero-friction diagram editor: open the page, write your diagram, share the link. No accounts, no cloud storage, no complexity. Just diagrams.</p>
+                </div>
+            </section>
+
+            <!-- Our Mission Section -->
+            <section class="about-section">
+                <div class="section-header">
+                    <h2>Our Mission</h2>
+                    <p>Democratizing technical diagramming for everyone</p>
+                </div>
+
+                <div class="content-section">
+                    <p>We believe that <span class="highlight">clear technical communication</span> is one of the most undervalued skills in software development. A well-crafted diagram can replace pages of documentation, resolve architectural disagreements in minutes, and onboard new team members faster than any README.</p>
+
+                    <p>Our mission is to make technical diagramming accessible to every developer, regardless of their organization's tool budget or their personal preference for visual vs. text-based workflows. By keeping SimpleMermaid free, browser-based, and account-free, we ensure that a junior developer writing their first architecture diagram has the same tools available as a principal engineer at a Fortune 500 company.</p>
+
+                    <p>We are committed to keeping the core editor <span class="highlight">free and open</span> for the developer community. Great tools shouldn't have paywalls standing between developers and clear communication.</p>
+                </div>
+            </section>
+
             <!-- Built for Developers Section -->
             <section class="about-section">
                 <div class="section-header">
                     <h2>Built for Developers and Engineers</h2>
                     <p>A developer productivity tool designed specifically for technical professionals</p>
                 </div>
-                
+
                 <div class="content-section">
                     <p>SimpleMermaid is a <span class="highlight">developer productivity tool</span> designed specifically for software engineers, system architects, DevOps teams, and technical professionals who need to create and share technical diagrams quickly.</p>
-                    
+
                     <p>Our platform provides a distraction-free environment for creating <span class="highlight">software architecture diagrams</span>, <span class="highlight">technical documentation</span>, and <span class="highlight">system design visualizations</span> using the powerful Mermaid.js syntax that developers already know and love.</p>
                 </div>
             </section>
@@ -810,15 +865,82 @@
                 </div>
             </section>
             
+            <!-- How SimpleMermaid Compares -->
+            <section class="about-section">
+                <div class="section-header">
+                    <h2>How SimpleMermaid Compares</h2>
+                    <p>An honest look at where we fit in the diagramming landscape</p>
+                </div>
+
+                <div class="content-section">
+                    <p>We don't believe in pretending competitors don't exist. Here's how SimpleMermaid compares to other popular diagramming tools, and when you might choose one over another:</p>
+
+                    <h3>vs. Draw.io (diagrams.net)</h3>
+                    <p>Draw.io is an excellent general-purpose visual diagramming tool. It shines when you need pixel-perfect layouts, complex custom shapes, or non-technical diagrams. Choose Draw.io when your diagram needs freeform visual positioning. Choose SimpleMermaid when you want speed: if you can describe your diagram in text, you can create it in seconds rather than minutes of drag-and-drop.</p>
+
+                    <h3>vs. Lucidchart</h3>
+                    <p>Lucidchart is a polished enterprise tool with collaboration features, templates, and integrations. It excels at team-wide standardization and real-time collaborative editing. However, it requires an account, stores your data on their servers, and the free tier has limitations. SimpleMermaid trades collaboration features for simplicity and privacy: your diagrams never leave your browser.</p>
+
+                    <h3>vs. PlantUML</h3>
+                    <p>PlantUML is the closest alternative in philosophy, also using text-based syntax. PlantUML supports more diagram types and has deeper UML compliance, but requires a server-side renderer (Java-based). SimpleMermaid runs entirely in the browser with zero server dependencies, and Mermaid's syntax is generally considered more readable for newcomers.</p>
+
+                    <p>The bottom line: SimpleMermaid is purpose-built for developers who want to create and share diagrams with <span class="highlight">zero friction</span>. If you need advanced collaboration, choose Lucidchart. If you need pixel-perfect layouts, choose Draw.io. If you want the fastest path from idea to shared diagram, SimpleMermaid is your tool.</p>
+                </div>
+            </section>
+
+            <!-- Our Values -->
+            <section class="about-section">
+                <div class="section-header">
+                    <h2>Our Values</h2>
+                    <p>The principles that guide every decision we make</p>
+                </div>
+
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>🔒 Privacy First</h3>
+                        <p>Your diagrams are processed entirely in your browser. We don't store, transmit, or analyze your diagram content. When you share a link, the diagram data is encoded in the URL itself, not on our servers. We believe your intellectual property should stay yours.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🎯 Developer Experience</h3>
+                        <p>Every feature we add is evaluated through one lens: does it make developers more productive? We resist feature bloat and focus on doing fewer things exceptionally well. A fast, focused tool beats a slow, feature-packed one every time.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🌐 Open Web</h3>
+                        <p>SimpleMermaid is built on open web standards with no proprietary lock-in. Your diagrams are plain text Mermaid syntax that works anywhere Mermaid is supported: GitHub, GitLab, Notion, Confluence, and dozens of other platforms. We will never hold your data hostage.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Technical Philosophy -->
+            <section class="about-section">
+                <div class="section-header">
+                    <h2>Technical Philosophy</h2>
+                    <p>Why we built SimpleMermaid the way we did</p>
+                </div>
+
+                <div class="content-section">
+                    <h3>No Backend, By Design</h3>
+                    <p>SimpleMermaid runs entirely in your browser. There is no server processing your diagrams, no database storing your data, and no API calls when you type. This isn't a limitation; it's a deliberate architectural choice. A backend-free design means the tool works offline, loads instantly, and guarantees your diagram content never touches our infrastructure.</p>
+
+                    <h3>URL-Based Sharing</h3>
+                    <p>When you share a diagram, the entire diagram content is compressed using LZ-String and encoded into the URL hash. The recipient's browser decompresses it locally. This means shared links are self-contained, work indefinitely (no expiring links), and don't depend on our servers being online. It's a link that contains everything needed to render the diagram.</p>
+
+                    <h3>No Build Step, No Framework</h3>
+                    <p>SimpleMermaid is built with vanilla HTML, CSS, and JavaScript. No React, no Vue, no webpack. This keeps the tool fast, auditable, and simple to understand. When you view the source, you see exactly what's running. For a tool that developers trust with their architecture diagrams, transparency matters.</p>
+                </div>
+            </section>
+
             <!-- Open Source Spirit -->
             <section class="about-section">
                 <div class="section-header">
                     <h2>Open Source Spirit</h2>
                     <p>Building for the developer community</p>
                 </div>
-                
+
                 <div class="content-section">
-                    <p>SimpleMermaid believes in the open source community. While our platform provides a convenient hosted solution, we encourage developers to contribute ideas and feedback to make technical diagramming better for everyone.</p>
+                    <p>SimpleMermaid believes in the open source community. We are built on top of the incredible <a href="https://github.com/mermaid-js/mermaid" target="_blank" style="color: var(--primary);">Mermaid.js project</a>, and we're grateful for the work of every contributor who makes that library possible. While our platform provides a convenient hosted solution, we encourage developers to contribute ideas, submit example diagrams, and provide feedback to make technical diagramming better for everyone.</p>
+
+                    <p>If SimpleMermaid has saved you time or helped you communicate an idea more clearly, consider <a href="https://buymeacoffee.com/hexobandit" target="_blank" style="color: var(--primary);">buying us a coffee</a> to help keep the servers running and the tool free for the community.</p>
                 </div>
             </section>
         </div>
@@ -839,23 +961,24 @@
                 </div>
                 
                 <div class="footer-section">
-                    <h3>Features</h3>
+                    <h3>Resources</h3>
                     <ul class="footer-links">
-                        <li><a href="mermaid-tool.html">Real-time Editor</a></li>
-                        <li><a href="mermaid-tool.html">URL Sharing</a></li>
-                        <li><a href="mermaid-tool.html">Export Tools</a></li>
+                        <li><a href="blog/index.html">Blog</a></li>
+                        <li><a href="guides/diagram-gallery.html">Diagram Gallery</a></li>
+                        <li><a href="guides/best-practices.html">Best Practices</a></li>
+                        <li><a href="guides/use-cases.html">Use Cases</a></li>
                         <li><a href="learn-mermaid.html">Examples</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-section">
                     <h3>Company</h3>
                     <ul class="footer-links">
                         <li><a href="about.html">About</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
                         <li><a href="changelog.html">Changelog</a></li>
                         <li><a href="privacy.html">Privacy Policy</a></li>
                         <li><a href="terms.html">Terms of Service</a></li>
-                        <li><a href="https://github.com/mermaid-js/mermaid" target="_blank">Mermaid.js</a></li>
                     </ul>
                 </div>
             </div>

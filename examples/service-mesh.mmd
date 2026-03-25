@@ -1,0 +1,113 @@
+flowchart TB
+    INGRESS["Istio Ingress\nGateway\n(Envoy)"]
+    EGRESS["Istio Egress\nGateway\n(Envoy)"]
+    EXTERNAL["External\nServices\n(APIs, DBs)"]
+
+    subgraph ControlPlane["Control Plane (istiod)"]
+        direction LR
+        PILOT["Pilot\n(Service Discovery\n& Traffic Mgmt)"]
+        CITADEL["Citadel\n(Certificate\nAuthority)"]
+        GALLEY["Galley\n(Configuration\nValidation)"]
+        PILOT <--> CITADEL
+        CITADEL <--> GALLEY
+    end
+
+    subgraph Observability["Observability Stack"]
+        direction LR
+        KIALI["Kiali\nService Graph\n(Dashboard)"]
+        JAEGER["Jaeger\nDistributed\nTracing"]
+        PROMETHEUS["Prometheus\nMetrics\nCollection"]
+        GRAFANA["Grafana\nMetrics\nVisualization"]
+        PROMETHEUS --> GRAFANA
+        PROMETHEUS --> KIALI
+        JAEGER --> KIALI
+    end
+
+    subgraph DataPlane["Data Plane (Application Namespace)"]
+        direction TB
+
+        subgraph PodA["Pod: API Gateway"]
+            APP_A["api-gateway\nContainer\n(Port 8080)"]
+            SIDECAR_A["Envoy Sidecar\nProxy\n(Port 15001)"]
+            APP_A <-->|"localhost"| SIDECAR_A
+        end
+
+        subgraph PodB["Pod: User Service"]
+            APP_B["user-service\nContainer\n(Port 8081)"]
+            SIDECAR_B["Envoy Sidecar\nProxy\n(Port 15001)"]
+            APP_B <-->|"localhost"| SIDECAR_B
+        end
+
+        subgraph PodC["Pod: Order Service"]
+            APP_C["order-service\nContainer\n(Port 8082)"]
+            SIDECAR_C["Envoy Sidecar\nProxy\n(Port 15001)"]
+            APP_C <-->|"localhost"| SIDECAR_C
+        end
+
+        subgraph PodD["Pod: Payment Service"]
+            APP_D["payment-service\nContainer\n(Port 8083)"]
+            SIDECAR_D["Envoy Sidecar\nProxy\n(Port 15001)"]
+            APP_D <-->|"localhost"| SIDECAR_D
+        end
+
+        subgraph PodE["Pod: Notification Service"]
+            APP_E["notification-svc\nContainer\n(Port 8084)"]
+            SIDECAR_E["Envoy Sidecar\nProxy\n(Port 15001)"]
+            APP_E <-->|"localhost"| SIDECAR_E
+        end
+
+        subgraph PodF["Pod: Inventory Service"]
+            APP_F["inventory-svc\nContainer\n(Port 8085)"]
+            SIDECAR_F["Envoy Sidecar\nProxy\n(Port 15001)"]
+            APP_F <-->|"localhost"| SIDECAR_F
+        end
+
+        SIDECAR_A ==>|"mTLS\nEncrypted"| SIDECAR_B
+        SIDECAR_A ==>|"mTLS\nEncrypted"| SIDECAR_C
+        SIDECAR_C ==>|"mTLS\nEncrypted"| SIDECAR_D
+        SIDECAR_C ==>|"mTLS\nEncrypted"| SIDECAR_F
+        SIDECAR_D ==>|"mTLS\nEncrypted"| SIDECAR_E
+        SIDECAR_B ==>|"mTLS\nEncrypted"| SIDECAR_E
+    end
+
+    INGRESS -->|"Inbound\nTraffic"| SIDECAR_A
+    SIDECAR_D -->|"Outbound\nTraffic"| EGRESS
+    EGRESS --> EXTERNAL
+
+    PILOT -->|"xDS API\n(Config Push)"| SIDECAR_A
+    PILOT -->|"xDS API"| SIDECAR_B
+    PILOT -->|"xDS API"| SIDECAR_C
+    PILOT -->|"xDS API"| SIDECAR_D
+    PILOT -->|"xDS API"| SIDECAR_E
+    PILOT -->|"xDS API"| SIDECAR_F
+
+    CITADEL -->|"mTLS Certs\n(SPIFFE)"| SIDECAR_A
+    CITADEL -->|"mTLS Certs"| SIDECAR_B
+    CITADEL -->|"mTLS Certs"| SIDECAR_C
+    CITADEL -->|"mTLS Certs"| SIDECAR_D
+    CITADEL -->|"mTLS Certs"| SIDECAR_E
+    CITADEL -->|"mTLS Certs"| SIDECAR_F
+
+    SIDECAR_A -.->|"Telemetry\n& Traces"| PROMETHEUS
+    SIDECAR_B -.->|"Telemetry"| PROMETHEUS
+    SIDECAR_C -.->|"Telemetry"| PROMETHEUS
+    SIDECAR_D -.->|"Telemetry"| PROMETHEUS
+    SIDECAR_E -.->|"Telemetry"| PROMETHEUS
+    SIDECAR_F -.->|"Telemetry"| PROMETHEUS
+
+    SIDECAR_A -.->|"Span\nData"| JAEGER
+    SIDECAR_C -.->|"Span\nData"| JAEGER
+    SIDECAR_D -.->|"Span\nData"| JAEGER
+
+    style ControlPlane fill:#7950f2,stroke:#5f3dc4,color:#fff
+    style DataPlane fill:#228be6,stroke:#1864ab,color:#fff
+    style Observability fill:#20c997,stroke:#099268,color:#fff
+    style PodA fill:#4dabf7,stroke:#1c7ed6,color:#fff
+    style PodB fill:#4dabf7,stroke:#1c7ed6,color:#fff
+    style PodC fill:#4dabf7,stroke:#1c7ed6,color:#fff
+    style PodD fill:#4dabf7,stroke:#1c7ed6,color:#fff
+    style PodE fill:#4dabf7,stroke:#1c7ed6,color:#fff
+    style PodF fill:#4dabf7,stroke:#1c7ed6,color:#fff
+    style INGRESS fill:#f06595,stroke:#c2255c,color:#fff
+    style EGRESS fill:#ff922b,stroke:#e8590c,color:#fff
+    style EXTERNAL fill:#868e96,stroke:#495057,color:#fff

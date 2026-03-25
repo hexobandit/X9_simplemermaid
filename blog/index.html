@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - SimpleMermaid | Tutorials, Tips & Best Practices</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="SimpleMermaid blog: tutorials, tips, and best practices for technical diagramming with Mermaid.js. Learn flowcharts, architecture diagrams, sequence diagrams, and more.">
+    <meta name="keywords" content="Mermaid.js blog, diagramming tutorials, flowchart tips, architecture diagrams, sequence diagrams, technical documentation, diagrams as code">
+    <meta name="author" content="SimpleMermaid.com">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="SimpleMermaid Blog - Tutorials, Tips & Best Practices">
+    <meta property="og:description" content="Tutorials, tips, and best practices for technical diagramming with Mermaid.js. Learn to create better diagrams for your projects.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://simplemermaid.com/blog/">
+    <meta property="og:image" content="https://simplemermaid.com/simplemermaid.png">
+    <meta property="og:site_name" content="SimpleMermaid">
+
+    <!-- Twitter/X Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SimpleMermaid Blog - Tutorials, Tips & Best Practices">
+    <meta name="twitter:description" content="Tutorials, tips, and best practices for technical diagramming with Mermaid.js.">
+    <meta name="twitter:image" content="https://simplemermaid.com/simplemermaid.png">
+    <meta name="twitter:creator" content="@simplemermaid">
+    <meta name="twitter:site" content="@simplemermaid">
+
+    <!-- Additional SEO -->
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://simplemermaid.com/blog/">
+    <meta name="theme-color" content="#6366f1">
+
+    <!-- Google AdSense Account -->
+    <meta name="google-adsense-account" content="ca-pub-8641410034592329">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../favicon.png">
+
+    <!-- Schema.org Blog Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "SimpleMermaid Blog",
+        "description": "Tutorials, tips, and best practices for technical diagramming with Mermaid.js.",
+        "url": "https://simplemermaid.com/blog/",
+        "publisher": {
+            "@type": "Organization",
+            "name": "SimpleMermaid.com",
+            "url": "https://simplemermaid.com"
+        },
+        "blogPost": [
+            {
+                "@type": "BlogPosting",
+                "headline": "How to Create Effective Architecture Diagrams",
+                "url": "https://simplemermaid.com/blog/how-to-create-architecture-diagrams.html",
+                "datePublished": "2026-03-20",
+                "author": { "@type": "Organization", "name": "SimpleMermaid.com" }
+            },
+            {
+                "@type": "BlogPosting",
+                "headline": "Flowchart Best Practices for Developers",
+                "url": "https://simplemermaid.com/blog/flowchart-best-practices.html",
+                "datePublished": "2026-03-18",
+                "author": { "@type": "Organization", "name": "SimpleMermaid.com" }
+            },
+            {
+                "@type": "BlogPosting",
+                "headline": "Sequence Diagram Tutorial for Microservices",
+                "url": "https://simplemermaid.com/blog/sequence-diagram-tutorial-microservices.html",
+                "datePublished": "2026-03-16",
+                "author": { "@type": "Organization", "name": "SimpleMermaid.com" }
+            },
+            {
+                "@type": "BlogPosting",
+                "headline": "Mermaid.js vs Draw.io: When to Use Each",
+                "url": "https://simplemermaid.com/blog/mermaid-vs-drawio.html",
+                "datePublished": "2026-03-14",
+                "author": { "@type": "Organization", "name": "SimpleMermaid.com" }
+            },
+            {
+                "@type": "BlogPosting",
+                "headline": "5 Diagram Types Every Developer Should Know",
+                "url": "https://simplemermaid.com/blog/5-diagram-types-every-developer-should-know.html",
+                "datePublished": "2026-03-12",
+                "author": { "@type": "Organization", "name": "SimpleMermaid.com" }
+            },
+            {
+                "@type": "BlogPosting",
+                "headline": "Using Diagrams for Better Documentation",
+                "url": "https://simplemermaid.com/blog/using-diagrams-for-documentation.html",
+                "datePublished": "2026-03-10",
+                "author": { "@type": "Organization", "name": "SimpleMermaid.com" }
+            },
+            {
+                "@type": "BlogPosting",
+                "headline": "Entity Relationship Diagrams Explained",
+                "url": "https://simplemermaid.com/blog/entity-relationship-diagrams-explained.html",
+                "datePublished": "2026-03-08",
+                "author": { "@type": "Organization", "name": "SimpleMermaid.com" }
+            },
+            {
+                "@type": "BlogPosting",
+                "headline": "Gantt Charts for Project Management",
+                "url": "https://simplemermaid.com/blog/gantt-charts-project-management.html",
+                "datePublished": "2026-03-06",
+                "author": { "@type": "Organization", "name": "SimpleMermaid.com" }
+            },
+            {
+                "@type": "BlogPosting",
+                "headline": "State Diagrams for UI Design",
+                "url": "https://simplemermaid.com/blog/state-diagrams-ui-design.html",
+                "datePublished": "2026-03-04",
+                "author": { "@type": "Organization", "name": "SimpleMermaid.com" }
+            },
+            {
+                "@type": "BlogPosting",
+                "headline": "How to Document APIs with Diagrams",
+                "url": "https://simplemermaid.com/blog/how-to-document-apis-with-diagrams.html",
+                "datePublished": "2026-03-02",
+                "author": { "@type": "Organization", "name": "SimpleMermaid.com" }
+            },
+            {
+                "@type": "BlogPosting",
+                "headline": "A Beginner's Guide to Mermaid.js",
+                "url": "https://simplemermaid.com/blog/mermaid-js-beginners-guide.html",
+                "datePublished": "2026-03-01",
+                "author": { "@type": "Organization", "name": "SimpleMermaid.com" }
+            },
+            {
+                "@type": "BlogPosting",
+                "headline": "Diagrams as Code: Integrating into Your Workflow",
+                "url": "https://simplemermaid.com/blog/diagrams-as-code-workflow.html",
+                "datePublished": "2026-03-01",
+                "author": { "@type": "Organization", "name": "SimpleMermaid.com" }
+            }
+        ]
+    }
+    </script>
+
+    <style>
+        /* Modern CSS Variables */
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #f8fafc;
+            --accent: #10b981;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-muted: #9ca3af;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-code: #1f2937;
+            --border: #e5e7eb;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.15);
+            --radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --primary: #8b5cf6;
+            --primary-hover: #7c3aed;
+            --primary-light: #a78bfa;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --text-muted: #9ca3af;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-code: #111827;
+            --border: #374151;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            transition: var(--transition);
+        }
+
+        /* Navigation Header */
+        .nav-header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .logo-icon {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .diagram-node {
+            width: 16px;
+            height: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            border-radius: 3px;
+        }
+
+        .diagram-connection {
+            width: 10px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        /* Desktop Navigation */
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            background: var(--bg-secondary);
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+            background: var(--bg-secondary);
+        }
+
+        .nav-cta {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-cta:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .nav-bmc {
+            display: flex;
+            align-items: center;
+            padding: 0.35rem 0.75rem;
+            background: #ffdd00;
+            border-radius: 8px;
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(255, 221, 0, 0.3);
+        }
+
+        .nav-bmc:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(255, 221, 0, 0.5);
+            background: #ffdd00;
+        }
+
+        /* Mobile Navigation */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 1rem;
+            z-index: 999;
+        }
+
+        .mobile-menu.show {
+            display: block;
+        }
+
+        .mobile-nav-link {
+            display: block;
+            padding: 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .mobile-nav-link:hover {
+            background: var(--bg-secondary);
+            color: var(--primary);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 0.5rem;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary);
+            background: var(--bg-secondary);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            padding: 2rem;
+        }
+
+        .content-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .blog-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+            border-radius: var(--radius);
+            margin-bottom: 3rem;
+        }
+
+        .blog-hero h1 {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            margin-bottom: 1rem;
+        }
+
+        .blog-hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Blog Grid */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Blog Card */
+        .blog-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+
+        .blog-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .blog-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-category {
+            display: inline-block;
+            background: var(--bg-secondary);
+            color: var(--primary);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+            margin-bottom: 1rem;
+            align-self: flex-start;
+        }
+
+        .blog-card:hover .card-category {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .card-excerpt {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .card-date {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .card-read-time {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        /* Cyberpunk Footer */
+        .footer {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #16213e 100%);
+            border-top: 2px solid;
+            border-image: linear-gradient(90deg, #00d4ff, #6366f1, #8b5cf6, #00d4ff) 1;
+            padding: 4rem 2rem 2rem;
+            position: relative;
+            overflow: hidden;
+            margin-top: 4rem;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            animation: cyberpunk-scan 3s linear infinite;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #00d4ff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px #00d4ff50;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #a1a1aa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer-links a:hover {
+            color: #00d4ff;
+            text-shadow: 0 0 5px #00d4ff50;
+            padding-left: 10px;
+        }
+
+        .footer-links a::before {
+            content: '>';
+            position: absolute;
+            left: -15px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            color: #6366f1;
+        }
+
+        .footer-links a:hover::before {
+            opacity: 1;
+            left: -10px;
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #6366f1, transparent);
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .footer-divider::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            opacity: 0;
+            animation: cyberpunk-pulse 2s ease-in-out infinite alternate;
+        }
+
+        .footer-bottom {
+            text-align: center;
+        }
+
+        .footer-copyright {
+            color: #71717a;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-tech {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .tech-badge {
+            background: linear-gradient(135deg, #374151, #1f2937);
+            border: 1px solid #6366f1;
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            color: #00d4ff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 5px #00d4ff30;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tech-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 25px rgba(0, 212, 255, 0.3);
+            border-color: #00d4ff;
+        }
+
+        .footer-glow {
+            color: #6366f1;
+            text-shadow: 0 0 10px #6366f150;
+            font-weight: 700;
+        }
+
+        /* Cyberpunk Animations */
+        @keyframes cyberpunk-scan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes cyberpunk-pulse {
+            0% { opacity: 0; }
+            100% { opacity: 0.6; }
+        }
+
+        /* Dark theme adjustments */
+        [data-theme="dark"] .footer {
+            background: linear-gradient(135deg, #000000 0%, #1a0b3d 50%, #2d1b69 100%);
+        }
+
+        [data-theme="dark"] .tech-badge {
+            background: linear-gradient(135deg, #1e1b4b, #312e81);
+            border-color: #8b5cf6;
+        }
+
+        [data-theme="dark"] .footer-section h3 {
+            color: #a78bfa;
+            text-shadow: 0 0 10px #8b5cf650;
+        }
+
+        [data-theme="dark"] .footer-links a:hover {
+            color: #a78bfa;
+            text-shadow: 0 0 5px #8b5cf650;
+        }
+
+        [data-theme="dark"] .tech-badge:hover {
+            border-color: #a78bfa;
+            box-shadow: 0 5px 25px rgba(139, 92, 246, 0.3);
+        }
+
+        /* Navigation breakpoint */
+        @media (max-width: 1030px) {
+            .nav-container {
+                padding: 1rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-content {
+                margin-top: 60px;
+                padding: 1rem;
+            }
+
+            .blog-hero {
+                padding: 3rem 1.5rem;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .blog-card {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .blog-hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .blog-hero p {
+                font-size: 1rem;
+            }
+
+            .card-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+
+    <!-- Early theme detection to prevent flash -->
+    <script>
+        (function() {
+            var theme = localStorage.getItem('simplemermaid-theme');
+            if (!theme) {
+                var oldTheme = localStorage.getItem('theme');
+                if (oldTheme) {
+                    theme = oldTheme;
+                    localStorage.setItem('simplemermaid-theme', theme);
+                    localStorage.removeItem('theme');
+                } else {
+                    theme = 'light';
+                }
+            }
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6FZM0EGT74"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-6FZM0EGT74');
+</script>
+
+<body>
+    <!-- Navigation Header -->
+    <header class="nav-header">
+        <nav class="nav-container">
+            <a href="../index.html" class="nav-logo">
+                <div class="logo-icon">
+                    <div class="diagram-node"></div>
+                    <div class="diagram-connection"></div>
+                    <div class="diagram-node"></div>
+                    <div class="diagram-connection"></div>
+                    <div class="diagram-node"></div>
+                </div>
+                <span>SimpleMermaid</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="../learn-mermaid.html" class="nav-link">Learn</a></li>
+                <li><a href="index.html" class="nav-link active">Blog</a></li>
+                <li><a href="../mermaid-tool.html" class="nav-link">Editor</a></li>
+                <li><a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="nav-bmc" title="Buy me a coffee"><img src="../bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 28px; vertical-align: middle; border-radius: 4px;"></a></li>
+                <li><button class="theme-toggle" id="themeToggle">&#9728;&#65039;</button></li>
+                <li><a href="../mermaid-tool.html" class="nav-cta">Start Creating</a></li>
+            </ul>
+
+            <!-- Mobile Hamburger -->
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="../index.html" class="mobile-nav-link">Home</a>
+            <a href="../learn-mermaid.html" class="mobile-nav-link">Learn</a>
+            <a href="index.html" class="mobile-nav-link" style="color: var(--primary); font-weight: 600;">Blog</a>
+            <a href="../mermaid-tool.html" class="mobile-nav-link">Editor</a>
+            <a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="mobile-nav-link" style="display: flex; align-items: center; gap: 0.5rem;"><img src="../bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 24px; border-radius: 4px;"> Buy Me A Coffee</a>
+            <a href="../mermaid-tool.html" class="mobile-nav-link nav-cta">Start Creating</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-container">
+            <!-- Hero Section -->
+            <div class="blog-hero">
+                <h1>SimpleMermaid Blog</h1>
+                <p>Tutorials, tips, and best practices for technical diagramming</p>
+            </div>
+
+            <!-- Blog Grid -->
+            <div class="blog-grid">
+                <!-- Article 1 -->
+                <a href="how-to-create-architecture-diagrams.html" class="blog-card">
+                    <span class="card-category">Architecture</span>
+                    <h2 class="card-title">How to Create Effective Architecture Diagrams</h2>
+                    <p class="card-excerpt">Learn how to create clear, effective architecture diagrams that communicate system design to your entire team.</p>
+                    <div class="card-meta">
+                        <span class="card-date">Mar 20, 2026</span>
+                        <span class="card-read-time">5 min read</span>
+                    </div>
+                </a>
+
+                <!-- Article 2 -->
+                <a href="flowchart-best-practices.html" class="blog-card">
+                    <span class="card-category">Flowcharts</span>
+                    <h2 class="card-title">Flowchart Best Practices for Developers</h2>
+                    <p class="card-excerpt">Master the art of creating clear, maintainable flowcharts with proven best practices and Mermaid.js tips.</p>
+                    <div class="card-meta">
+                        <span class="card-date">Mar 18, 2026</span>
+                        <span class="card-read-time">4 min read</span>
+                    </div>
+                </a>
+
+                <!-- Article 3 -->
+                <a href="sequence-diagram-tutorial-microservices.html" class="blog-card">
+                    <span class="card-category">Microservices</span>
+                    <h2 class="card-title">Sequence Diagram Tutorial for Microservices</h2>
+                    <p class="card-excerpt">Step-by-step guide to documenting microservice interactions with sequence diagrams.</p>
+                    <div class="card-meta">
+                        <span class="card-date">Mar 16, 2026</span>
+                        <span class="card-read-time">5 min read</span>
+                    </div>
+                </a>
+
+                <!-- Article 4 -->
+                <a href="mermaid-vs-drawio.html" class="blog-card">
+                    <span class="card-category">Comparison</span>
+                    <h2 class="card-title">Mermaid.js vs Draw.io: When to Use Each</h2>
+                    <p class="card-excerpt">An honest comparison of two popular diagramming tools and when each one shines.</p>
+                    <div class="card-meta">
+                        <span class="card-date">Mar 14, 2026</span>
+                        <span class="card-read-time">5 min read</span>
+                    </div>
+                </a>
+
+                <!-- Article 5 -->
+                <a href="5-diagram-types-every-developer-should-know.html" class="blog-card">
+                    <span class="card-category">Fundamentals</span>
+                    <h2 class="card-title">5 Diagram Types Every Developer Should Know</h2>
+                    <p class="card-excerpt">The essential diagram types that every software developer should have in their toolkit.</p>
+                    <div class="card-meta">
+                        <span class="card-date">Mar 12, 2026</span>
+                        <span class="card-read-time">5 min read</span>
+                    </div>
+                </a>
+
+                <!-- Article 6 -->
+                <a href="using-diagrams-for-documentation.html" class="blog-card">
+                    <span class="card-category">Documentation</span>
+                    <h2 class="card-title">Using Diagrams for Better Documentation</h2>
+                    <p class="card-excerpt">How to use diagrams to make your technical documentation clearer and more engaging.</p>
+                    <div class="card-meta">
+                        <span class="card-date">Mar 10, 2026</span>
+                        <span class="card-read-time">4 min read</span>
+                    </div>
+                </a>
+
+                <!-- Article 7 -->
+                <a href="entity-relationship-diagrams-explained.html" class="blog-card">
+                    <span class="card-category">Database</span>
+                    <h2 class="card-title">Entity Relationship Diagrams Explained</h2>
+                    <p class="card-excerpt">A comprehensive guide to ERDs, cardinality notation, and database schema design.</p>
+                    <div class="card-meta">
+                        <span class="card-date">Mar 8, 2026</span>
+                        <span class="card-read-time">5 min read</span>
+                    </div>
+                </a>
+
+                <!-- Article 8 -->
+                <a href="gantt-charts-project-management.html" class="blog-card">
+                    <span class="card-category">Project Management</span>
+                    <h2 class="card-title">Gantt Charts for Project Management</h2>
+                    <p class="card-excerpt">How to use Gantt charts effectively for planning sprints, releases, and project timelines.</p>
+                    <div class="card-meta">
+                        <span class="card-date">Mar 6, 2026</span>
+                        <span class="card-read-time">4 min read</span>
+                    </div>
+                </a>
+
+                <!-- Article 9 -->
+                <a href="state-diagrams-ui-design.html" class="blog-card">
+                    <span class="card-category">UI/UX</span>
+                    <h2 class="card-title">State Diagrams for UI Design</h2>
+                    <p class="card-excerpt">Using state diagrams to model and document complex UI behaviors and transitions.</p>
+                    <div class="card-meta">
+                        <span class="card-date">Mar 4, 2026</span>
+                        <span class="card-read-time">4 min read</span>
+                    </div>
+                </a>
+
+                <!-- Article 10 -->
+                <a href="how-to-document-apis-with-diagrams.html" class="blog-card">
+                    <span class="card-category">API Design</span>
+                    <h2 class="card-title">How to Document APIs with Diagrams</h2>
+                    <p class="card-excerpt">Visual techniques for documenting REST APIs, webhooks, and authentication flows.</p>
+                    <div class="card-meta">
+                        <span class="card-date">Mar 2, 2026</span>
+                        <span class="card-read-time">5 min read</span>
+                    </div>
+                </a>
+
+                <!-- Article 11 -->
+                <a href="mermaid-js-beginners-guide.html" class="blog-card">
+                    <span class="card-category">Tutorial</span>
+                    <h2 class="card-title">A Beginner's Guide to Mermaid.js</h2>
+                    <p class="card-excerpt">Everything you need to know to start creating diagrams with Mermaid.js syntax.</p>
+                    <div class="card-meta">
+                        <span class="card-date">Mar 1, 2026</span>
+                        <span class="card-read-time">5 min read</span>
+                    </div>
+                </a>
+
+                <!-- Article 12 -->
+                <a href="diagrams-as-code-workflow.html" class="blog-card">
+                    <span class="card-category">DevOps</span>
+                    <h2 class="card-title">Diagrams as Code: Integrating into Your Workflow</h2>
+                    <p class="card-excerpt">How to treat diagrams as code and integrate them into your development workflow.</p>
+                    <div class="card-meta">
+                        <span class="card-date">Mar 1, 2026</span>
+                        <span class="card-read-time">5 min read</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Cyberpunk Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Product</h3>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../mermaid-tool.html">Editor</a></li>
+                        <li><a href="../learn-mermaid.html">Learn Mermaid</a></li>
+                        <li><a href="../changelog.html">Changelog</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="../mermaid-tool.html">Real-time Editor</a></li>
+                        <li><a href="../mermaid-tool.html">URL Sharing</a></li>
+                        <li><a href="../mermaid-tool.html">Export Tools</a></li>
+                        <li><a href="../learn-mermaid.html">Examples</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="../about.html">About</a></li>
+                        <li><a href="../changelog.html">Changelog</a></li>
+                        <li><a href="../privacy.html">Privacy Policy</a></li>
+                        <li><a href="../terms.html">Terms of Service</a></li>
+                        <li><a href="https://github.com/mermaid-js/mermaid" target="_blank">Mermaid.js</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom">
+                <div class="footer-tech">
+                    <span class="tech-badge">Developer Tool</span>
+                    <span class="tech-badge">Productivity</span>
+                    <span class="tech-badge">Open Source</span>
+                    <span class="tech-badge">Enterprise Ready</span>
+                    <span class="tech-badge">Privacy First</span>
+                </div>
+
+                <p class="footer-copyright">
+                    &copy; 2025 <span class="footer-glow">SimpleMermaid.com</span> |
+                    Developer Productivity Tool |
+                    <span class="footer-glow">Code | Document | Collaborate</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const body = document.body;
+
+        // Migrate old theme setting if exists
+        const oldTheme = localStorage.getItem('theme');
+        if (oldTheme && !localStorage.getItem('simplemermaid-theme')) {
+            localStorage.setItem('simplemermaid-theme', oldTheme);
+            localStorage.removeItem('theme');
+        }
+
+        // Load saved theme and sync both html and body
+        const savedTheme = localStorage.getItem('simplemermaid-theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        body.setAttribute('data-theme', savedTheme);
+        themeToggle.textContent = savedTheme === 'light' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+            html.setAttribute('data-theme', newTheme);
+            body.setAttribute('data-theme', newTheme);
+            themeToggle.textContent = newTheme === 'light' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+            localStorage.setItem('simplemermaid-theme', newTheme);
+        });
+
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('show');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('show');
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

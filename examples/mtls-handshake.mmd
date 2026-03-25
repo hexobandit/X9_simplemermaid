@@ -1,0 +1,83 @@
+sequenceDiagram
+    participant Client as Client Application<br/>(Service A)
+    participant Server as Server Application<br/>(Service B)
+    participant CA as Certificate Authority<br/>(Internal PKI / Root CA)
+
+    Note over Client,CA: Pre-Handshake: Certificate Provisioning
+    Client->>CA: Submit CSR (Certificate Signing Request)<br/>CN=service-a.internal, SANs, Key Usage
+    CA->>CA: Validate identity & organization<br/>Apply certificate policy
+    CA->>Client: Issue signed client certificate<br/>(X.509 v3, RSA-2048 / ECDSA P-256)
+
+    Server->>CA: Submit CSR<br/>CN=service-b.internal, SANs
+    CA->>CA: Validate identity & organization
+    CA->>Server: Issue signed server certificate<br/>(X.509 v3, RSA-2048 / ECDSA P-256)
+
+    Note over Client,CA: Both parties store CA root<br/>certificate in trust store
+
+    Note over Client,Server: TLS 1.3 Mutual Authentication Handshake
+
+    rect rgb(230, 245, 255)
+        Note over Client,Server: Phase 1: Hello & Server Authentication
+        Client->>Server: ClientHello<br/>TLS 1.3, supported cipher suites:<br/>[TLS_AES_256_GCM_SHA384,<br/>TLS_CHACHA20_POLY1305_SHA256]<br/>supported groups: [x25519, secp256r1]<br/>key_share: client_public_key<br/>SNI: service-b.internal
+
+        Server->>Server: Select cipher suite:<br/>TLS_AES_256_GCM_SHA384<br/>Select key exchange: x25519
+
+        Server->>Client: ServerHello<br/>Selected cipher suite<br/>key_share: server_public_key
+
+        Server->>Client: EncryptedExtensions<br/>ALPN: h2 (HTTP/2)
+
+        Server->>Client: CertificateRequest<br/>Acceptable CAs: [Internal Root CA]<br/>Signature algorithms:<br/>[ecdsa_secp256r1_sha256,<br/>rsa_pss_rsae_sha256]
+
+        Server->>Client: Certificate<br/>Server X.509 certificate chain:<br/>- service-b.internal (leaf)<br/>- Intermediate CA<br/>- Root CA
+
+        Server->>Client: CertificateVerify<br/>Digital signature over handshake<br/>using server private key
+
+        Server->>Client: Finished<br/>HMAC over entire handshake transcript
+    end
+
+    rect rgb(255, 245, 230)
+        Note over Client,Server: Phase 2: Client Certificate Verification
+        Client->>Client: Verify server certificate chain:<br/>1. Check signature chain to trusted Root CA<br/>2. Validate certificate not expired<br/>3. Check CRL / OCSP for revocation<br/>4. Verify SAN matches service-b.internal<br/>5. Validate key usage: digitalSignature
+
+        Client->>CA: OCSP Request: Is server cert revoked?
+        CA->>Client: OCSP Response: Good<br/>(signed by CA, stapled)
+
+        alt Server Certificate Valid
+            Client->>Client: Server identity confirmed
+        else Server Certificate Invalid
+            Client->>Server: Alert: bad_certificate / certificate_revoked
+            Note over Client,Server: Handshake aborted
+        end
+    end
+
+    rect rgb(230, 255, 230)
+        Note over Client,Server: Phase 3: Client Authentication (Mutual TLS)
+        Client->>Server: Certificate<br/>Client X.509 certificate chain:<br/>- service-a.internal (leaf)<br/>- Intermediate CA<br/>- Root CA
+
+        Client->>Server: CertificateVerify<br/>Digital signature over handshake<br/>using client private key
+
+        Client->>Server: Finished<br/>HMAC over entire handshake transcript
+
+        Server->>Server: Verify client certificate chain:<br/>1. Check signature chain to trusted Root CA<br/>2. Validate certificate not expired<br/>3. Check CRL / OCSP for revocation<br/>4. Verify CN/SAN matches allowed clients<br/>5. Validate key usage: clientAuth
+
+        Server->>CA: OCSP Request: Is client cert revoked?
+        CA->>Server: OCSP Response: Good
+
+        alt Client Certificate Valid
+            Server->>Server: Client identity confirmed<br/>Extract CN: service-a.internal<br/>Map to authorization policy
+        else Client Certificate Invalid
+            Server->>Client: Alert: bad_certificate<br/>/ handshake_failure
+            Note over Client,Server: Handshake aborted,<br/>connection closed
+        end
+    end
+
+    rect rgb(245, 230, 255)
+        Note over Client,Server: Phase 4: Encrypted Session Established
+        Note over Client,Server: Both parties derive session keys<br/>from shared secret via HKDF:<br/>- client_write_key<br/>- server_write_key<br/>- client_write_iv<br/>- server_write_iv
+
+        Client->>Server: Application Data (encrypted)<br/>POST /api/v1/data<br/>AES-256-GCM encrypted payload
+
+        Server->>Client: Application Data (encrypted)<br/>200 OK response<br/>AES-256-GCM encrypted payload
+
+        Note over Client,Server: All subsequent traffic encrypted<br/>with forward secrecy (PFS)<br/>Session keys rotated via KeyUpdate
+    end

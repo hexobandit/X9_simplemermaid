@@ -1,0 +1,103 @@
+flowchart TD
+    USERS["Global Users\n(Web & Mobile)"]
+    CDN["CloudFront CDN\n(Edge Locations Worldwide)"]
+    DNS["Route 53\nDNS Failover\n(Health-Check Routing)"]
+    HEALTHCHECK["Route 53\nHealth Checks\n(30s Intervals)"]
+
+    USERS --> CDN
+    CDN --> DNS
+    DNS <-.->|"Monitor\nEndpoints"| HEALTHCHECK
+
+    subgraph PrimaryRegion["Primary Region: US-East-1 (N. Virginia)"]
+        direction TB
+        subgraph PrimaryIngress["Ingress Layer"]
+            P_WAF["AWS WAF\n(Rate Limiting)"]
+            P_ALB["Application\nLoad Balancer"]
+        end
+        subgraph PrimaryCompute["Compute Layer"]
+            P_ECS["ECS Fargate\nCluster\n(6 Tasks)"]
+            P_LAMBDA["Lambda\nAsync Workers"]
+            P_CACHE["ElastiCache\nRedis Primary"]
+        end
+        subgraph PrimaryData["Data Layer"]
+            P_AURORA[("Aurora PostgreSQL\nWriter Instance\n(db.r6g.2xlarge)")]
+            P_READ1[("Aurora\nRead Replica 1")]
+            P_READ2[("Aurora\nRead Replica 2")]
+            P_S3["S3 Bucket\n(Primary)"]
+            P_DYNAMO[("DynamoDB\nGlobal Table")]
+        end
+        subgraph PrimaryMonitor["Monitoring"]
+            P_CW["CloudWatch\nAlarms"]
+            P_XRAY["X-Ray\nTracing"]
+        end
+    end
+
+    subgraph SecondaryRegion["Secondary Region: EU-West-1 (Ireland)"]
+        direction TB
+        subgraph SecondaryIngress["Ingress Layer"]
+            S_WAF["AWS WAF\n(Rate Limiting)"]
+            S_ALB["Application\nLoad Balancer"]
+        end
+        subgraph SecondaryCompute["Compute Layer"]
+            S_ECS["ECS Fargate\nCluster\n(3 Tasks - Standby)"]
+            S_LAMBDA["Lambda\nAsync Workers"]
+            S_CACHE["ElastiCache\nRedis Replica"]
+        end
+        subgraph SecondaryData["Data Layer"]
+            S_AURORA[("Aurora PostgreSQL\nReader Instance\n(Cross-Region)")]
+            S_READ1[("Aurora\nRead Replica 1")]
+            S_S3["S3 Bucket\n(Replica)"]
+            S_DYNAMO[("DynamoDB\nGlobal Table Replica")]
+        end
+        subgraph SecondaryMonitor["Monitoring"]
+            S_CW["CloudWatch\nAlarms"]
+            S_XRAY["X-Ray\nTracing"]
+        end
+    end
+
+    DNS -->|"Primary\n(Active)"| P_WAF
+    DNS -.->|"Failover\n(Standby)"| S_WAF
+
+    P_WAF --> P_ALB
+    P_ALB --> P_ECS
+    P_ECS --> P_CACHE
+    P_ECS --> P_AURORA
+    P_ECS --> P_LAMBDA
+    P_AURORA --> P_READ1
+    P_AURORA --> P_READ2
+    P_ECS --> P_DYNAMO
+    P_ECS --> P_S3
+    P_CW -->|"Trigger\nAlarms"| HEALTHCHECK
+    P_ECS --> P_XRAY
+
+    S_WAF --> S_ALB
+    S_ALB --> S_ECS
+    S_ECS --> S_CACHE
+    S_ECS --> S_AURORA
+    S_ECS --> S_LAMBDA
+    S_AURORA --> S_READ1
+    S_ECS --> S_DYNAMO
+    S_ECS --> S_S3
+    S_CW -->|"Trigger\nAlarms"| HEALTHCHECK
+    S_ECS --> S_XRAY
+
+    P_AURORA ==>|"Cross-Region\nReplication\n(Async ~1s lag)"| S_AURORA
+    P_S3 ==>|"S3 Cross-Region\nReplication\n(CRR)"| S_S3
+    P_DYNAMO ==>|"DynamoDB\nGlobal Tables\n(Multi-Active)"| S_DYNAMO
+    P_CACHE ==>|"Redis\nGlobal Datastore"| S_CACHE
+
+    HEALTHCHECK -->|"Primary Unhealthy\nPromote Secondary"| DNS
+
+    style PrimaryRegion fill:#339af0,stroke:#1864ab,color:#fff
+    style SecondaryRegion fill:#ff922b,stroke:#d9480f,color:#fff
+    style PrimaryIngress fill:#4dabf7,stroke:#1c7ed6,color:#fff
+    style PrimaryCompute fill:#4dabf7,stroke:#1c7ed6,color:#fff
+    style PrimaryData fill:#4dabf7,stroke:#1c7ed6,color:#fff
+    style PrimaryMonitor fill:#4dabf7,stroke:#1c7ed6,color:#fff
+    style SecondaryIngress fill:#ffa94d,stroke:#e8590c,color:#fff
+    style SecondaryCompute fill:#ffa94d,stroke:#e8590c,color:#fff
+    style SecondaryData fill:#ffa94d,stroke:#e8590c,color:#fff
+    style SecondaryMonitor fill:#ffa94d,stroke:#e8590c,color:#fff
+    style DNS fill:#be4bdb,stroke:#862e9c,color:#fff
+    style CDN fill:#20c997,stroke:#099268,color:#fff
+    style HEALTHCHECK fill:#f06595,stroke:#c2255c,color:#fff

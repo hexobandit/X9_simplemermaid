@@ -1,0 +1,79 @@
+sequenceDiagram
+    participant Client as Client App
+    participant GW as API Gateway
+    participant GQL as GraphQL Server
+    participant WS as WebSocket Handler
+    participant DB as Database
+    participant PubSub as PubSub Engine
+
+    Note over Client,PubSub: GraphQL Subscription Lifecycle
+
+    rect rgb(230, 240, 255)
+        Note over Client,GW: Phase 1 - Connection Initialization
+        Client->>GW: HTTP Upgrade Request (ws://)
+        GW->>GW: Validate Origin & Rate Limit
+        GW->>WS: Forward WebSocket Handshake
+        WS-->>GW: 101 Switching Protocols
+        GW-->>Client: WebSocket Connection Established
+        Client->>WS: connection_init {authToken: "jwt-xyz"}
+        WS->>GQL: Validate Authentication Token
+        GQL-->>WS: Token Valid (user: alice)
+        WS-->>Client: connection_ack {keepAlive: 30000}
+    end
+
+    rect rgb(230, 255, 230)
+        Note over Client,PubSub: Phase 2 - Subscription Registration
+        Client->>WS: subscribe {id: "sub-1", query: "subscription { orderUpdated(userId: 42) { id status estimatedDelivery } }"}
+        WS->>GQL: Parse & Validate Subscription Query
+        GQL->>GQL: Check Field Permissions for User
+        GQL->>PubSub: Register Listener on "orders:42" channel
+        PubSub-->>GQL: Subscription Registered
+        GQL-->>WS: Subscription Active (sub-1)
+    end
+
+    rect rgb(255, 248, 220)
+        Note over Client,PubSub: Phase 3 - Real-time Data Push
+        Note over DB: External event: Order status changes
+        DB->>PubSub: Publish event: orders:42 {status: "PREPARING"}
+        PubSub->>GQL: Notify Subscriber (sub-1)
+        GQL->>DB: Resolve subscription fields (fetch latest data)
+        DB-->>GQL: {id: 1001, status: "PREPARING", eta: "12:30"}
+        GQL->>GQL: Apply field-level authorization
+        GQL-->>WS: next {id: "sub-1", data: {orderUpdated: {...}}}
+        WS-->>Client: Push: Order is being prepared
+
+        Note over DB: Another event: Rider assigned
+        DB->>PubSub: Publish event: orders:42 {status: "OUT_FOR_DELIVERY"}
+        PubSub->>GQL: Notify Subscriber (sub-1)
+        GQL->>DB: Resolve subscription fields
+        DB-->>GQL: {id: 1001, status: "OUT_FOR_DELIVERY", eta: "12:15", rider: "Bob"}
+        GQL-->>WS: next {id: "sub-1", data: {orderUpdated: {...}}}
+        WS-->>Client: Push: Order out for delivery
+
+        Note over DB: Final event: Order delivered
+        DB->>PubSub: Publish event: orders:42 {status: "DELIVERED"}
+        PubSub->>GQL: Notify Subscriber (sub-1)
+        GQL->>DB: Resolve subscription fields
+        DB-->>GQL: {id: 1001, status: "DELIVERED", deliveredAt: "12:10"}
+        GQL-->>WS: next {id: "sub-1", data: {orderUpdated: {...}}}
+        WS-->>Client: Push: Order delivered!
+    end
+
+    rect rgb(255, 230, 230)
+        Note over Client,PubSub: Phase 4 - Unsubscribe & Cleanup
+        Client->>WS: complete {id: "sub-1"}
+        WS->>GQL: Unsubscribe sub-1
+        GQL->>PubSub: Remove Listener on "orders:42"
+        PubSub-->>GQL: Listener Removed
+        GQL-->>WS: Subscription Ended (sub-1)
+
+        Note over Client,WS: Connection Keep-Alive
+        loop Every 30 seconds
+            WS-->>Client: ka (keep-alive ping)
+            Client->>WS: pong
+        end
+
+        Client->>WS: connection_terminate
+        WS->>GQL: Cleanup all subscriptions for session
+        WS-->>Client: Connection Closed
+    end
