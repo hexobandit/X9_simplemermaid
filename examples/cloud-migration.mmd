@@ -1,0 +1,103 @@
+flowchart LR
+    subgraph OnPrem["On-Premises Data Center"]
+        direction TB
+        subgraph Legacy["Legacy Applications"]
+            APP1["ERP System\n(Monolithic Java)"]
+            APP2["CRM Platform\n(.NET Framework)"]
+            APP3["HR Portal\n(PHP/Apache)"]
+            APP4["Inventory Service\n(COBOL Mainframe)"]
+        end
+        subgraph Databases["Database Servers"]
+            DB1[("Oracle DB\n12c")]
+            DB2[("SQL Server\n2016")]
+            DB3[("MySQL 5.7\nCluster")]
+        end
+        subgraph Storage["File & Storage"]
+            NAS["NAS Filer\n50TB"]
+            SAN["SAN Storage\n200TB"]
+            BACKUP["Tape Backup\nArchive"]
+        end
+        subgraph Network["Network Infrastructure"]
+            FW["Hardware\nFirewall"]
+            LB["F5 Load\nBalancer"]
+            VPN["VPN\nGateway"]
+        end
+    end
+
+    subgraph Cloud["AWS Cloud Environment"]
+        direction TB
+        subgraph VPC["Production VPC (10.0.0.0/16)"]
+            subgraph PublicSubnet["Public Subnet"]
+                ALB["Application\nLoad Balancer"]
+                NAT["NAT\nGateway"]
+                BASTION["Bastion\nHost"]
+            end
+            subgraph PrivateSubnet["Private Subnet - Compute"]
+                ECS["ECS Fargate\nCluster"]
+                EKS["EKS Kubernetes\nCluster"]
+                EC2["EC2 Instances\n(Auto Scaling)"]
+                LAMBDA["Lambda\nFunctions"]
+            end
+            subgraph DataSubnet["Private Subnet - Data"]
+                RDS[("RDS\nPostgreSQL 15")]
+                AURORA[("Aurora\nMySQL")]
+                DYNAMO[("DynamoDB\nTables")]
+                ELASTICACHE["ElastiCache\nRedis"]
+            end
+        end
+        subgraph StorageCloud["Cloud Storage"]
+            S3["S3 Standard\nBuckets"]
+            S3IA["S3 Infrequent\nAccess"]
+            GLACIER["S3 Glacier\nDeep Archive"]
+            EFS["EFS\nFile System"]
+        end
+        subgraph Security["Security & Monitoring"]
+            WAF["AWS WAF"]
+            GUARD["GuardDuty"]
+            CLOUDWATCH["CloudWatch\nMonitoring"]
+            SECRETS["Secrets\nManager"]
+        end
+    end
+
+    subgraph Migration["Migration Strategies"]
+        direction TB
+        LIFT["Lift & Shift\n(Rehost)"]
+        REPLAT["Re-Platform\n(Lift & Reshape)"]
+        REARCH["Re-Architect\n(Refactor)"]
+        RETIRE["Retire\n(Decommission)"]
+    end
+
+    APP1 -->|"Lift & Shift\nvia AWS SMS"| EC2
+    APP2 -->|"Re-Platform\nContainerize"| ECS
+    APP3 -->|"Re-Architect\nServerless"| LAMBDA
+    APP4 -->|"Retire &\nReplace"| DYNAMO
+
+    DB1 -->|"AWS DMS\nSchema Convert"| RDS
+    DB2 -->|"AWS DMS\nContinuous Replication"| AURORA
+    DB3 -->|"Native Replication\nCutover"| AURORA
+
+    NAS -->|"AWS DataSync\nIncremental"| EFS
+    SAN -->|"AWS Storage\nGateway"| S3
+    BACKUP -->|"Snowball Edge\nBulk Transfer"| GLACIER
+
+    FW -.->|"Replaced by"| WAF
+    LB -.->|"Replaced by"| ALB
+    VPN -->|"AWS Direct\nConnect"| VPC
+
+    LIFT ~~~ REPLAT
+    REPLAT ~~~ REARCH
+    REARCH ~~~ RETIRE
+
+    style OnPrem fill:#ff6b6b,stroke:#c92a2a,color:#fff
+    style Cloud fill:#51cf66,stroke:#2b8a3e,color:#fff
+    style Migration fill:#ffd43b,stroke:#f08c00,color:#333
+    style Legacy fill:#ff8787,stroke:#e03131,color:#fff
+    style Databases fill:#ff8787,stroke:#e03131,color:#fff
+    style Storage fill:#ff8787,stroke:#e03131,color:#fff
+    style Network fill:#ff8787,stroke:#e03131,color:#fff
+    style VPC fill:#69db7c,stroke:#2f9e44,color:#333
+    style PublicSubnet fill:#8ce99a,stroke:#37b24d,color:#333
+    style PrivateSubnet fill:#8ce99a,stroke:#37b24d,color:#333
+    style DataSubnet fill:#8ce99a,stroke:#37b24d,color:#333
+    style StorageCloud fill:#69db7c,stroke:#2f9e44,color:#333
+    style Security fill:#69db7c,stroke:#2f9e44,color:#333

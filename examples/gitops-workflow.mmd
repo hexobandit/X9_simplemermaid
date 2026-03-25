@@ -1,0 +1,78 @@
+flowchart TD
+    subgraph Developers["Developer Workflow"]
+        Dev1["Developer A"] -->|feature branch| AppRepo["Application Repo\n(github.com/org/app)"]
+        Dev2["Developer B"] -->|feature branch| AppRepo
+        AppRepo -->|PR merged| CIPipeline["CI Pipeline\n(Build & Test)"]
+        CIPipeline -->|build image| Registry["Container Registry\n(ghcr.io/org/app:v2.1.0)"]
+        CIPipeline -->|update image tag| ConfigRepo["GitOps Config Repo\n(github.com/org/deployments)"]
+    end
+
+    subgraph GitOpsRepo["GitOps Config Repository"]
+        ConfigRepo --> RepoStructure["Repository Structure"]
+        RepoStructure --> EnvDev["environments/dev/\n- kustomization.yaml\n- deployment.yaml\n- values.yaml"]
+        RepoStructure --> EnvStaging["environments/staging/\n- kustomization.yaml\n- deployment.yaml\n- values.yaml"]
+        RepoStructure --> EnvProd["environments/prod/\n- kustomization.yaml\n- deployment.yaml\n- values.yaml"]
+        RepoStructure --> BaseManifests["base/\n- deployment.yaml\n- service.yaml\n- ingress.yaml\n- configmap.yaml"]
+    end
+
+    subgraph Promotion["Environment Promotion"]
+        EnvDev -->|auto-promote\non green tests| PromoDev["Promote to Staging\n(auto PR created)"]
+        PromoDev -->|update tag in| EnvStaging
+        EnvStaging -->|manual approval\nrequired| PromoStaging["Promote to Prod\n(manual PR + review)"]
+        PromoStaging -->|update tag in| EnvProd
+    end
+
+    subgraph ArgoCD["ArgoCD Controller"]
+        direction TB
+        ArgoCDServer["ArgoCD Server\n(argocd.internal.co)"]
+        ArgoCDServer -->|watch repo\npolling 3min| ConfigRepo
+        ArgoCDServer --> AppDev["Application: app-dev\nSync: Auto\nPrune: Enabled"]
+        ArgoCDServer --> AppStaging["Application: app-staging\nSync: Auto\nPrune: Enabled"]
+        ArgoCDServer --> AppProd["Application: app-prod\nSync: Manual\nPrune: Disabled"]
+    end
+
+    subgraph DevCluster["K8s Cluster: Development"]
+        AppDev -->|sync manifests| DevNS["Namespace: app-dev"]
+        DevNS --> DevDeploy["Deployment: app\nreplicas: 1\nimage: v2.1.0"]
+        DevNS --> DevSvc["Service: app-svc"]
+        DevNS --> DevIngress["Ingress:\ndev.app.internal.co"]
+        DevDeploy -->|run| DevSmokeTest["Smoke Tests\n(automated)"]
+        DevSmokeTest -->|pass| DevHealthy["Status: Healthy"]
+        DevSmokeTest -->|fail| DevRollback["Auto Rollback\n(ArgoCD sync to prev)"]
+    end
+
+    subgraph StagingCluster["K8s Cluster: Staging"]
+        AppStaging -->|sync manifests| StagNS["Namespace: app-staging"]
+        StagNS --> StagDeploy["Deployment: app\nreplicas: 2\nimage: v2.1.0"]
+        StagNS --> StagSvc["Service: app-svc"]
+        StagNS --> StagIngress["Ingress:\nstaging.app.internal.co"]
+        StagDeploy -->|run| StagE2E["E2E Tests + Load Tests\n(automated)"]
+        StagE2E -->|pass| StagHealthy["Status: Healthy"]
+        StagE2E -->|fail| StagRollback["Auto Rollback\n(ArgoCD sync to prev)"]
+    end
+
+    subgraph ProdCluster["K8s Cluster: Production"]
+        AppProd -->|manual sync| ProdNS["Namespace: app-prod"]
+        ProdNS --> ProdDeploy["Deployment: app\nreplicas: 5\nstrategy: RollingUpdate\nimage: v2.1.0"]
+        ProdNS --> ProdSvc["Service: app-svc"]
+        ProdNS --> ProdIngress["Ingress:\napp.company.com"]
+        ProdNS --> ProdHPA["HPA: min 5 / max 20"]
+        ProdDeploy -->|canary analysis| Canary["Canary: 10% traffic\nfor 15 min"]
+        Canary -->|success rate > 99.5%| ProdHealthy["Full Rollout\nStatus: Healthy"]
+        Canary -->|error rate > 0.5%| ProdRollback["Auto Rollback\nIncident Created"]
+    end
+
+    subgraph Notifications["Notification & Audit"]
+        ArgoCDServer -->|sync events| Slack["Slack\n#deployments"]
+        ArgoCDServer -->|audit log| AuditLog["Audit Log\n(who deployed what when)"]
+        ProdRollback -->|alert| PagerDuty["PagerDuty\nIncident Alert"]
+    end
+
+    style Developers fill:#1e272e,stroke:#485460,color:#d2dae2
+    style GitOpsRepo fill:#1e272e,stroke:#485460,color:#d2dae2
+    style Promotion fill:#2c2c54,stroke:#474787,color:#d2dae2
+    style ArgoCD fill:#0a3d62,stroke:#3c6382,color:#d2dae2
+    style DevCluster fill:#1e3799,stroke:#4a69bd,color:#d2dae2
+    style StagingCluster fill:#0c2461,stroke:#1e3799,color:#d2dae2
+    style ProdCluster fill:#6a0572,stroke:#a239a0,color:#d2dae2
+    style Notifications fill:#2d3436,stroke:#636e72,color:#dfe6e9

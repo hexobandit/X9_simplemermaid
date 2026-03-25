@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagram Gallery - SimpleMermaid | Curated Mermaid.js Examples</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Browse curated Mermaid.js diagram examples for software architecture, project management, database design, security, and DevOps. Copy code and try each example in the editor.">
+    <meta name="keywords" content="Mermaid.js examples, diagram gallery, flowchart examples, architecture diagrams, ERD examples, Gantt chart examples, sequence diagram examples">
+    <meta name="author" content="SimpleMermaid.com">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Diagram Gallery - SimpleMermaid | Curated Mermaid.js Examples">
+    <meta property="og:description" content="Browse curated Mermaid.js diagram examples for software architecture, project management, database design, security, and DevOps.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://simplemermaid.com/guides/diagram-gallery.html">
+    <meta property="og:image" content="https://simplemermaid.com/simplemermaid.png">
+    <meta property="og:site_name" content="SimpleMermaid">
+
+    <!-- Twitter/X Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Diagram Gallery - SimpleMermaid | Curated Mermaid.js Examples">
+    <meta name="twitter:description" content="Browse curated Mermaid.js diagram examples for software architecture, project management, database design, security, and DevOps.">
+    <meta name="twitter:image" content="https://simplemermaid.com/simplemermaid.png">
+    <meta name="twitter:creator" content="@simplemermaid">
+    <meta name="twitter:site" content="@simplemermaid">
+
+    <!-- Additional SEO -->
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://simplemermaid.com/guides/diagram-gallery.html">
+    <meta name="theme-color" content="#6366f1">
+
+    <!-- Google AdSense Account -->
+    <meta name="google-adsense-account" content="ca-pub-8641410034592329">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../favicon.png">
+
+    <style>
+        /* Modern CSS Variables */
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #f8fafc;
+            --accent: #10b981;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-muted: #9ca3af;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-code: #1f2937;
+            --border: #e5e7eb;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.15);
+            --radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --primary: #8b5cf6;
+            --primary-hover: #7c3aed;
+            --primary-light: #a78bfa;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --text-muted: #9ca3af;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-code: #111827;
+            --border: #374151;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            transition: var(--transition);
+        }
+
+        /* Navigation Header */
+        .nav-header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .logo-icon { display: flex; align-items: center; gap: 6px; }
+
+        .diagram-node {
+            width: 16px; height: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            border-radius: 3px;
+        }
+
+        .diagram-connection { width: 10px; height: 2px; background: var(--primary); }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .nav-link:hover { color: var(--primary); background: var(--bg-secondary); }
+        .nav-link.active { color: var(--primary); background: var(--bg-secondary); }
+
+        .nav-cta {
+            background: var(--primary);
+            color: white !important;
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-cta:hover { background: var(--primary-hover); transform: translateY(-1px); }
+
+        .nav-bmc {
+            display: flex;
+            align-items: center;
+            padding: 0.35rem 0.75rem;
+            background: #ffdd00;
+            border-radius: 8px;
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(255, 221, 0, 0.3);
+        }
+
+        .nav-bmc:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(255, 221, 0, 0.5);
+            background: #ffdd00;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .hamburger span { width: 24px; height: 2px; background: var(--text-primary); transition: var(--transition); }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 60px; left: 0; right: 0;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 1rem;
+            z-index: 999;
+        }
+
+        .mobile-menu.show { display: block; }
+
+        .mobile-nav-link {
+            display: block;
+            padding: 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .mobile-nav-link:hover { background: var(--bg-secondary); color: var(--primary); }
+
+        .mobile-nav-link.nav-cta {
+            background: var(--primary);
+            color: white !important;
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 0.5rem;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover { border-color: var(--primary); background: var(--bg-secondary); }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            padding: 2rem;
+        }
+
+        .content-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Hero */
+        .gallery-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+            border-radius: var(--radius);
+            margin-bottom: 3rem;
+        }
+
+        .gallery-hero h1 {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            margin-bottom: 1rem;
+        }
+
+        .gallery-hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* Category */
+        .gallery-category {
+            margin-bottom: 3rem;
+        }
+
+        .gallery-category-title {
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-category-desc {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Example Card */
+        .example-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .example-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow);
+        }
+
+        .example-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .example-card .description {
+            color: var(--text-secondary);
+            margin-bottom: 1.25rem;
+            line-height: 1.7;
+        }
+
+        .code-block {
+            background: var(--bg-code);
+            color: #e5e7eb;
+            border-radius: 8px;
+            padding: 1.25rem;
+            overflow-x: auto;
+            font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            white-space: pre;
+        }
+
+        [data-theme="dark"] .code-block {
+            background: #0d1117;
+            border: 1px solid var(--border);
+        }
+
+        .try-link {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .try-link:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        /* Intro text */
+        .intro-text {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+        }
+
+        .intro-text a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .intro-text a:hover { text-decoration: underline; }
+
+        /* Cyberpunk Footer */
+        .footer {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #16213e 100%);
+            border-top: 2px solid;
+            border-image: linear-gradient(90deg, #00d4ff, #6366f1, #8b5cf6, #00d4ff) 1;
+            padding: 4rem 2rem 2rem;
+            position: relative;
+            overflow: hidden;
+            margin-top: 4rem;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            animation: cyberpunk-scan 3s linear infinite;
+        }
+
+        .footer-content { max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #00d4ff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px #00d4ff50;
+        }
+
+        .footer-links { list-style: none; padding: 0; }
+        .footer-links li { margin-bottom: 0.5rem; }
+
+        .footer-links a {
+            color: #a1a1aa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer-links a:hover {
+            color: #00d4ff;
+            text-shadow: 0 0 5px #00d4ff50;
+            padding-left: 10px;
+        }
+
+        .footer-links a::before {
+            content: '\25B6';
+            position: absolute;
+            left: -15px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            color: #6366f1;
+        }
+
+        .footer-links a:hover::before { opacity: 1; left: -10px; }
+
+        .footer-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #6366f1, transparent);
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .footer-divider::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 1px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            opacity: 0;
+            animation: cyberpunk-pulse 2s ease-in-out infinite alternate;
+        }
+
+        .footer-bottom { text-align: center; }
+
+        .footer-copyright { color: #71717a; font-size: 0.875rem; margin-bottom: 1rem; }
+
+        .footer-tech {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .tech-badge {
+            background: linear-gradient(135deg, #374151, #1f2937);
+            border: 1px solid #6366f1;
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            color: #00d4ff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 5px #00d4ff30;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tech-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 25px rgba(0, 212, 255, 0.3);
+            border-color: #00d4ff;
+        }
+
+        .footer-glow {
+            color: #6366f1;
+            text-shadow: 0 0 10px #6366f150;
+            font-weight: 700;
+        }
+
+        @keyframes cyberpunk-scan { 0% { left: -100%; } 100% { left: 100%; } }
+        @keyframes cyberpunk-pulse { 0% { opacity: 0; } 100% { opacity: 0.6; } }
+
+        [data-theme="dark"] .footer { background: linear-gradient(135deg, #000000 0%, #1a0b3d 50%, #2d1b69 100%); }
+        [data-theme="dark"] .tech-badge { background: linear-gradient(135deg, #1e1b4b, #312e81); border-color: #8b5cf6; }
+        [data-theme="dark"] .footer-section h3 { color: #a78bfa; text-shadow: 0 0 10px #8b5cf650; }
+        [data-theme="dark"] .footer-links a:hover { color: #a78bfa; text-shadow: 0 0 5px #8b5cf650; }
+        [data-theme="dark"] .tech-badge:hover { border-color: #a78bfa; box-shadow: 0 5px 25px rgba(139, 92, 246, 0.3); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container { padding: 1rem; }
+            .nav-menu { display: none; }
+            .hamburger { display: flex; }
+            .main-content { margin-top: 60px; padding: 1rem; }
+            .gallery-hero { padding: 3rem 1.5rem; }
+            .example-card { padding: 1.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-hero h1 { font-size: 1.75rem; }
+            .gallery-hero p { font-size: 1rem; }
+            .gallery-category-title { font-size: 1.3rem; }
+        }
+    </style>
+    <!-- Early theme detection to prevent flash -->
+    <script>
+        (function() {
+            var theme = localStorage.getItem('simplemermaid-theme');
+            if (!theme) {
+                var oldTheme = localStorage.getItem('theme');
+                if (oldTheme) {
+                    theme = oldTheme;
+                    localStorage.setItem('simplemermaid-theme', theme);
+                    localStorage.removeItem('theme');
+                } else {
+                    theme = 'light';
+                }
+            }
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6FZM0EGT74"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6FZM0EGT74');
+</script>
+
+<body>
+    <!-- Navigation Header -->
+    <header class="nav-header">
+        <nav class="nav-container">
+            <a href="../index.html" class="nav-logo">
+                <div class="logo-icon">
+                    <div class="diagram-node"></div>
+                    <div class="diagram-connection"></div>
+                    <div class="diagram-node"></div>
+                    <div class="diagram-connection"></div>
+                    <div class="diagram-node"></div>
+                </div>
+                <span>SimpleMermaid</span>
+            </a>
+
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="../learn-mermaid.html" class="nav-link">Learn</a></li>
+                <li><a href="../blog/index.html" class="nav-link">Blog</a></li>
+                <li><a href="../mermaid-tool.html" class="nav-link">Editor</a></li>
+                <li><a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="nav-bmc" title="Buy me a coffee"><img src="../bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 28px; vertical-align: middle; border-radius: 4px;"></a></li>
+                <li><button class="theme-toggle" id="themeToggle" title="Toggle theme">&#9788;&#65039;</button></li>
+                <li><a href="../mermaid-tool.html" class="nav-cta">Start Creating</a></li>
+            </ul>
+
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="../index.html" class="mobile-nav-link">Home</a>
+            <a href="../learn-mermaid.html" class="mobile-nav-link">Learn</a>
+            <a href="../blog/index.html" class="mobile-nav-link">Blog</a>
+            <a href="../mermaid-tool.html" class="mobile-nav-link">Editor</a>
+            <a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="mobile-nav-link" style="display: flex; align-items: center; gap: 0.5rem;"><img src="../bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 24px; border-radius: 4px;"> Buy Me A Coffee</a>
+            <a href="../mermaid-tool.html" class="mobile-nav-link nav-cta">Start Creating</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-container">
+            <!-- Hero -->
+            <div class="gallery-hero">
+                <h1>Diagram Gallery</h1>
+                <p>Curated Mermaid.js examples organized by real-world use case. Copy any example and open it directly in the editor.</p>
+            </div>
+
+            <div class="intro-text">
+                <p>This gallery contains production-ready diagram templates covering the most common scenarios in software development, project management, and system design. Each example includes the complete Mermaid.js code you can paste directly into the <a href="../mermaid-tool.html">SimpleMermaid editor</a>. If you are new to Mermaid syntax, start with the <a href="../learn-mermaid.html">Learn page</a> for a full reference. For guidance on structuring your diagrams, see our <a href="best-practices.html">Best Practices guide</a>.</p>
+            </div>
+
+            <!-- Software Architecture -->
+            <section class="gallery-category">
+                <h2 class="gallery-category-title">Software Architecture</h2>
+                <p class="gallery-category-desc">Diagrams for documenting system structure, service boundaries, and communication patterns.</p>
+
+                <div class="example-card">
+                    <h3>Microservices Architecture</h3>
+                    <div class="description">Use this template when you need to document the boundaries between services, their communication protocols, and shared infrastructure. It is ideal for architecture reviews, onboarding new team members, or creating documentation for a service catalog.</div>
+                    <div class="code-block">flowchart TB
+    Client[Client App] --> Gateway[API Gateway]
+    Gateway --> Auth[Auth Service]
+    Gateway --> Users[User Service]
+    Gateway --> Orders[Order Service]
+    Gateway --> Products[Product Service]
+
+    Users --> DB1[(User DB)]
+    Orders --> DB2[(Order DB)]
+    Products --> DB3[(Product DB)]
+
+    Orders --> Queue{Message Queue}
+    Queue --> Notifications[Notification Service]
+    Queue --> Analytics[Analytics Service]
+
+    subgraph Infrastructure
+        Gateway
+        Queue
+    end</div>
+                    <a href="../mermaid-tool.html?example=microservices" class="try-link">Try it in Editor</a>
+                </div>
+
+                <div class="example-card">
+                    <h3>API Gateway Pattern</h3>
+                    <div class="description">Visualize how client requests are routed through a centralized gateway to backend services. Useful for API design discussions, rate limiting documentation, and illustrating authentication flows in distributed systems.</div>
+                    <div class="code-block">flowchart LR
+    Mobile[Mobile App] --> GW[API Gateway]
+    Web[Web App] --> GW
+    Partner[Partner API] --> GW
+
+    GW --> RL{Rate Limiter}
+    RL --> Auth{Auth Check}
+    Auth -->|Valid| Router{Router}
+    Auth -->|Invalid| Reject[401 Rejected]
+
+    Router --> V1[/v1/users/]
+    Router --> V2[/v1/orders/]
+    Router --> V3[/v1/products/]
+
+    V1 --> UserSvc[User Service]
+    V2 --> OrderSvc[Order Service]
+    V3 --> ProductSvc[Product Service]</div>
+                    <a href="../mermaid-tool.html" class="try-link">Try it in Editor</a>
+                </div>
+
+                <div class="example-card">
+                    <h3>Event-Driven Architecture</h3>
+                    <div class="description">Map out event producers, consumers, and the event bus that connects them. This diagram pattern is essential for documenting asynchronous workflows, CQRS implementations, and systems where components communicate through events rather than direct API calls.</div>
+                    <div class="code-block">flowchart TB
+    subgraph Producers
+        WebApp[Web Application]
+        MobileApp[Mobile App]
+        CronJob[Scheduled Jobs]
+    end
+
+    subgraph Event Bus
+        Kafka[Apache Kafka]
+    end
+
+    subgraph Consumers
+        OrderProcessor[Order Processor]
+        EmailService[Email Service]
+        InventoryService[Inventory Service]
+        AuditLog[Audit Logger]
+    end
+
+    WebApp -->|OrderCreated| Kafka
+    MobileApp -->|UserSignedUp| Kafka
+    CronJob -->|ReportGenerated| Kafka
+
+    Kafka -->|OrderCreated| OrderProcessor
+    Kafka -->|UserSignedUp| EmailService
+    Kafka -->|OrderCreated| InventoryService
+    Kafka -->|All Events| AuditLog</div>
+                    <a href="../mermaid-tool.html?example=event-driven" class="try-link">Try it in Editor</a>
+                </div>
+            </section>
+
+            <!-- Project Management -->
+            <section class="gallery-category">
+                <h2 class="gallery-category-title">Project Management</h2>
+                <p class="gallery-category-desc">Planning, scheduling, and tracking diagrams for agile and traditional project workflows.</p>
+
+                <div class="example-card">
+                    <h3>Sprint Planning Gantt Chart</h3>
+                    <div class="description">Model a two-week sprint with task dependencies and milestones. Gantt charts are valuable during sprint planning ceremonies, progress reviews, and when communicating timelines to stakeholders who prefer visual schedules over backlog lists.</div>
+                    <div class="code-block">gantt
+    title Sprint 24 - Q1 2026
+    dateFormat  YYYY-MM-DD
+    axisFormat  %b %d
+
+    section Backend
+    API Design           :a1, 2026-01-06, 2d
+    Database Migration    :a2, after a1, 3d
+    Service Implementation :a3, after a2, 4d
+    Unit Tests           :a4, after a3, 2d
+
+    section Frontend
+    UI Mockups           :b1, 2026-01-06, 2d
+    Component Build      :b2, after b1, 4d
+    Integration          :b3, after b2, 2d
+
+    section QA
+    Test Plan            :c1, 2026-01-08, 2d
+    Integration Testing  :c2, after a4, 3d
+    UAT                  :c3, after c2, 2d
+
+    section Milestones
+    Sprint Review        :milestone, 2026-01-17, 0d</div>
+                    <a href="../mermaid-tool.html?example=sprint-planning" class="try-link">Try it in Editor</a>
+                </div>
+
+                <div class="example-card">
+                    <h3>Product Roadmap</h3>
+                    <div class="description">Lay out quarterly objectives and feature milestones across multiple workstreams. Product roadmaps are essential for aligning engineering, product, and design teams on shared priorities and for communicating strategy to leadership.</div>
+                    <div class="code-block">gantt
+    title Product Roadmap 2026
+    dateFormat  YYYY-MM-DD
+    axisFormat  %b
+
+    section Core Platform
+    Performance Optimization :2026-01-01, 90d
+    Plugin Architecture      :2026-04-01, 60d
+    API v2 Launch            :milestone, 2026-06-01, 0d
+
+    section User Experience
+    Dashboard Redesign       :2026-01-15, 75d
+    Mobile App MVP           :2026-04-01, 90d
+    Accessibility Audit      :2026-07-01, 30d
+
+    section Growth
+    Self-serve Onboarding    :2026-02-01, 60d
+    Analytics Dashboard      :2026-05-01, 45d
+    Enterprise Features      :2026-07-01, 90d</div>
+                    <a href="../mermaid-tool.html?example=product-roadmap" class="try-link">Try it in Editor</a>
+                </div>
+            </section>
+
+            <!-- Database Design -->
+            <section class="gallery-category">
+                <h2 class="gallery-category-title">Database Design</h2>
+                <p class="gallery-category-desc">Entity relationships and data flow diagrams for schema documentation and design reviews.</p>
+
+                <div class="example-card">
+                    <h3>E-Commerce ERD</h3>
+                    <div class="description">Document the core entities, attributes, and relationships for an online store. ERDs are indispensable during database design reviews, when onboarding new backend engineers, or when refactoring a data model to support new features.</div>
+                    <div class="code-block">erDiagram
+    CUSTOMER ||--o{ ORDER : places
+    CUSTOMER {
+        int id PK
+        string name
+        string email UK
+        date created_at
+    }
+    ORDER ||--|{ ORDER_ITEM : contains
+    ORDER {
+        int id PK
+        int customer_id FK
+        date order_date
+        string status
+        decimal total
+    }
+    ORDER_ITEM }o--|| PRODUCT : references
+    ORDER_ITEM {
+        int id PK
+        int order_id FK
+        int product_id FK
+        int quantity
+        decimal unit_price
+    }
+    PRODUCT ||--o{ PRODUCT_CATEGORY : "belongs to"
+    PRODUCT {
+        int id PK
+        string name
+        decimal price
+        int stock_qty
+    }
+    PRODUCT_CATEGORY {
+        int id PK
+        string name
+        string description
+    }</div>
+                    <a href="../mermaid-tool.html?example=erd" class="try-link">Try it in Editor</a>
+                </div>
+
+                <div class="example-card">
+                    <h3>Data Pipeline Flow</h3>
+                    <div class="description">Trace data from ingestion through transformation to consumption. This pattern is useful for documenting ETL pipelines, data warehouse architectures, and the flow of events through streaming platforms.</div>
+                    <div class="code-block">flowchart LR
+    subgraph Sources
+        App[Application DB]
+        Logs[Log Files]
+        API[Third-party APIs]
+    end
+
+    subgraph Ingestion
+        Kafka[Kafka Streams]
+        Batch[Batch Import]
+    end
+
+    subgraph Processing
+        Spark[Apache Spark]
+        Transform[Data Transform]
+    end
+
+    subgraph Storage
+        DW[(Data Warehouse)]
+        Lake[(Data Lake)]
+    end
+
+    subgraph Consumption
+        BI[BI Dashboard]
+        ML[ML Pipeline]
+        Reports[Reports]
+    end
+
+    App --> Kafka
+    Logs --> Kafka
+    API --> Batch
+    Kafka --> Spark
+    Batch --> Transform
+    Spark --> DW
+    Transform --> Lake
+    DW --> BI
+    DW --> Reports
+    Lake --> ML</div>
+                    <a href="../mermaid-tool.html" class="try-link">Try it in Editor</a>
+                </div>
+            </section>
+
+            <!-- Security -->
+            <section class="gallery-category">
+                <h2 class="gallery-category-title">Security</h2>
+                <p class="gallery-category-desc">Threat models, authentication flows, and security architecture diagrams.</p>
+
+                <div class="example-card">
+                    <h3>OAuth 2.0 Authorization Code Flow</h3>
+                    <div class="description">Document the step-by-step authorization code grant type used in most web applications. This sequence diagram is valuable during security reviews, when explaining auth architecture to auditors, or when onboarding developers to a project with OAuth integration.</div>
+                    <div class="code-block">sequenceDiagram
+    participant User
+    participant Browser
+    participant App as App Server
+    participant AuthZ as Auth Server
+    participant API as Resource API
+
+    User->>Browser: Click "Login"
+    Browser->>AuthZ: GET /authorize?response_type=code
+    AuthZ->>Browser: Show login page
+    User->>AuthZ: Enter credentials
+    AuthZ->>Browser: Redirect with auth code
+    Browser->>App: GET /callback?code=abc123
+    App->>AuthZ: POST /token (code + client_secret)
+    AuthZ->>App: Access token + refresh token
+    App->>API: GET /resource (Bearer token)
+    API->>App: Protected data
+    App->>Browser: Render page</div>
+                    <a href="../mermaid-tool.html?example=oauth-flow" class="try-link">Try it in Editor</a>
+                </div>
+
+                <div class="example-card">
+                    <h3>API Threat Model</h3>
+                    <div class="description">Identify attack surfaces and potential threats against a REST API. Threat model diagrams are a key artifact in security design reviews, penetration test scoping, and compliance documentation for frameworks like SOC 2 or ISO 27001.</div>
+                    <div class="code-block">flowchart TD
+    Attacker[Threat Actor] --> |Injection| API[API Endpoint]
+    Attacker --> |DDoS| LB[Load Balancer]
+    Attacker --> |Credential Stuffing| Auth[Auth Layer]
+
+    API --> |SQL Injection| DB[(Database)]
+    API --> |SSRF| Internal[Internal Services]
+    Auth --> |Brute Force| Tokens[Token Store]
+
+    subgraph Mitigations
+        WAF[Web App Firewall]
+        RateLimit[Rate Limiting]
+        InputVal[Input Validation]
+        Encryption[TLS + Encryption]
+    end
+
+    LB --> WAF --> API
+    API --> InputVal
+    Auth --> RateLimit
+    DB --> Encryption</div>
+                    <a href="../mermaid-tool.html?example=api-threats" class="try-link">Try it in Editor</a>
+                </div>
+            </section>
+
+            <!-- DevOps -->
+            <section class="gallery-category">
+                <h2 class="gallery-category-title">DevOps</h2>
+                <p class="gallery-category-desc">CI/CD pipelines, deployment architectures, and infrastructure diagrams.</p>
+
+                <div class="example-card">
+                    <h3>CI/CD Pipeline</h3>
+                    <div class="description">Visualize the complete delivery pipeline from code commit to production deployment. This diagram type is frequently used in DevOps runbooks, new hire onboarding docs, and architecture decision records that document how code reaches production.</div>
+                    <div class="code-block">flowchart LR
+    Dev[Developer] --> |git push| Repo[GitHub Repo]
+    Repo --> |webhook| CI[CI Server]
+
+    subgraph CI Pipeline
+        CI --> Lint[Lint &amp; Format]
+        Lint --> Test[Unit Tests]
+        Test --> SAST[Security Scan]
+        SAST --> Build[Docker Build]
+    end
+
+    Build --> Registry[Container Registry]
+    Registry --> Staging[Deploy to Staging]
+    Staging --> IntTest[Integration Tests]
+    IntTest --> |Approve| Prod[Deploy to Production]
+
+    subgraph Monitoring
+        Prod --> Metrics[Prometheus]
+        Prod --> Logs[ELK Stack]
+        Prod --> Alerts[PagerDuty]
+    end</div>
+                    <a href="../mermaid-tool.html?example=cicd-devsecops" class="try-link">Try it in Editor</a>
+                </div>
+            </section>
+
+            <!-- CTA -->
+            <div class="example-card" style="text-align: center; background: var(--bg-secondary);">
+                <h3>Want to explore more?</h3>
+                <div class="description" style="margin-bottom: 1.5rem;">The SimpleMermaid editor includes 45+ built-in examples covering every Mermaid.js diagram type. Open the editor and browse the examples dropdown, or check out the <a href="use-cases.html" style="color: var(--primary); text-decoration: none; font-weight: 600;">Use Cases guide</a> for scenario-based recommendations.</div>
+                <a href="../mermaid-tool.html" class="try-link">Open the Editor</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Cyberpunk Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Product</h3>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../mermaid-tool.html">Editor</a></li>
+                        <li><a href="../learn-mermaid.html">Learn Mermaid</a></li>
+                        <li><a href="../about.html">About</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="../faq.html">FAQ</a></li>
+                        <li><a href="diagram-gallery.html">Diagram Gallery</a></li>
+                        <li><a href="best-practices.html">Best Practices</a></li>
+                        <li><a href="use-cases.html">Use Cases</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="../about.html">About</a></li>
+                        <li><a href="../changelog.html">Changelog</a></li>
+                        <li><a href="../privacy.html">Privacy Policy</a></li>
+                        <li><a href="../terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom">
+                <div class="footer-tech">
+                    <span class="tech-badge">Mermaid.js</span>
+                    <span class="tech-badge">Vanilla JS</span>
+                    <span class="tech-badge">CSS Grid</span>
+                    <span class="tech-badge">LocalStorage</span>
+                    <span class="tech-badge">PWA Ready</span>
+                </div>
+
+                <p class="footer-copyright">
+                    &copy; 2025 <span class="footer-glow">SimpleMermaid.com</span> |
+                    Powered by the future of diagramming |
+                    <span class="footer-glow">Create &bull; Share &bull; Inspire</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const body = document.body;
+
+        const oldTheme = localStorage.getItem('theme');
+        if (oldTheme && !localStorage.getItem('simplemermaid-theme')) {
+            localStorage.setItem('simplemermaid-theme', oldTheme);
+            localStorage.removeItem('theme');
+        }
+
+        const savedTheme = localStorage.getItem('simplemermaid-theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        body.setAttribute('data-theme', savedTheme);
+        themeToggle.textContent = savedTheme === 'light' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+            body.setAttribute('data-theme', newTheme);
+            themeToggle.textContent = newTheme === 'light' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+            localStorage.setItem('simplemermaid-theme', newTheme);
+        });
+
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('show');
+        });
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('show');
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+sequenceDiagram
+    participant User as User Agent<br/>(Browser)
+    participant SPA as SPA Client<br/>(JavaScript App)
+    participant Auth as Authorization Server<br/>(e.g., Auth0 / Okta)
+    participant API as Resource Server<br/>(Protected API)
+
+    Note over SPA: PKCE Setup Phase
+    SPA->>SPA: Generate cryptographic random<br/>code_verifier (43-128 chars)
+    SPA->>SPA: Compute code_challenge =<br/>BASE64URL(SHA256(code_verifier))
+    SPA->>SPA: Store code_verifier in session storage
+
+    Note over User,Auth: Authorization Phase
+    SPA->>User: Redirect to authorization endpoint
+    User->>Auth: GET /authorize?<br/>response_type=code<br/>&client_id=spa_client_id<br/>&redirect_uri=https://app.example.com/callback<br/>&scope=openid profile api:read<br/>&state=random_state_value<br/>&code_challenge=E9Melhoa2OwvFrEMTJguCH...<br/>&code_challenge_method=S256
+
+    Auth->>User: Display login form
+    User->>Auth: Submit credentials<br/>(username + password)
+    Auth->>Auth: Validate user credentials<br/>against identity store
+
+    opt MFA Enabled
+        Auth->>User: Request second factor
+        User->>Auth: Provide TOTP / push confirmation
+        Auth->>Auth: Verify second factor
+    end
+
+    Auth->>Auth: Generate authorization_code<br/>Store code_challenge mapping
+
+    Auth->>User: 302 Redirect to callback URL<br/>?code=auth_code_xyz<br/>&state=random_state_value
+    User->>SPA: Load callback URL with auth code
+
+    Note over SPA,Auth: Token Exchange Phase
+    SPA->>SPA: Validate state parameter<br/>matches stored value
+    SPA->>SPA: Retrieve code_verifier<br/>from session storage
+
+    SPA->>Auth: POST /oauth/token<br/>grant_type=authorization_code<br/>&code=auth_code_xyz<br/>&redirect_uri=https://app.example.com/callback<br/>&client_id=spa_client_id<br/>&code_verifier=dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk
+
+    Auth->>Auth: Compute SHA256(code_verifier)<br/>and compare with stored code_challenge
+    Auth->>Auth: Validate authorization_code<br/>not expired / not reused
+
+    alt PKCE Verification Succeeds
+        Auth->>Auth: Generate access_token (JWT)<br/>+ refresh_token + id_token
+        Auth->>SPA: 200 OK<br/>{ access_token, refresh_token,<br/>id_token, expires_in: 3600,<br/>token_type: "Bearer" }
+    else PKCE Verification Fails
+        Auth->>SPA: 401 Unauthorized<br/>{ error: "invalid_grant" }
+    end
+
+    Note over SPA,API: Resource Access Phase
+    SPA->>SPA: Store tokens securely in memory<br/>(NOT localStorage)
+
+    SPA->>API: GET /api/user/profile<br/>Authorization: Bearer eyJhbGciOiJS...
+    API->>API: Validate JWT signature<br/>using Auth Server public key
+    API->>API: Check token expiration (exp claim)<br/>Verify audience (aud claim)<br/>Verify scopes (scope claim)
+
+    alt Token Valid
+        API->>SPA: 200 OK { user profile data }
+    else Token Expired
+        API->>SPA: 401 Unauthorized<br/>{ error: "token_expired" }
+        SPA->>Auth: POST /oauth/token<br/>grant_type=refresh_token<br/>&refresh_token=stored_refresh_token<br/>&client_id=spa_client_id
+        Auth->>Auth: Validate refresh token<br/>Check rotation policy
+        Auth->>SPA: 200 OK { new access_token,<br/>new refresh_token }
+        SPA->>API: Retry request with<br/>new access_token
+        API->>SPA: 200 OK { user profile data }
+    end
+
+    Note over SPA: Cleanup: Remove code_verifier<br/>from session storage

@@ -8,7 +8,9 @@
         {"id": "standup-meeting", "title": "Stand-up Meeting Reality - emphonic.com", "file": "standup-meeting.mmd"},
         {"id": "bug-lifecycle", "title": "The Bug Life Cycle - emphonic.com", "file": "bug-lifecycle.mmd"},
         {"id": "deploy-friday", "title": "Deploy Friday - emphonic.com", "file": "deploy-friday.mmd"},
-        {"id": "meeting-reality", "title": "Meeting Reality - trackmytime.net", "file": "meeting-reality.mmd"}
+        {"id": "meeting-reality", "title": "Meeting Reality - trackmytime.net", "file": "meeting-reality.mmd"},
+        {"id": "dev-tools-reality", "title": "Dev Tools I Actually Use", "file": "dev-tools-reality.mmd"},
+        {"id": "git-branching", "title": "Git Branching Strategies", "file": "git-branching.mmd"}
       ]
     },
     "basic": {
@@ -29,7 +31,9 @@
         {"id": "sequence-jwt", "title": "JWT Authentication", "file": "sequence-jwt.mmd"},
         {"id": "sequence-payment", "title": "Payment Processing", "file": "sequence-payment.mmd"},
         {"id": "sequence-websocket", "title": "WebSocket Chat", "file": "sequence-websocket.mmd"},
-        {"id": "sequence-microservices", "title": "Microservices Call", "file": "sequence-microservices.mmd"}
+        {"id": "sequence-microservices", "title": "Microservices Call", "file": "sequence-microservices.mmd"},
+        {"id": "sequence-graphql", "title": "GraphQL Subscription", "file": "sequence-graphql.mmd"},
+        {"id": "sequence-grpc", "title": "gRPC Bidirectional Stream", "file": "sequence-grpc.mmd"}
       ]
     },
     "project": {
@@ -40,7 +44,9 @@
         {"id": "gantt-sprint", "title": "Sprint Planning", "file": "gantt-sprint.mmd"},
         {"id": "gantt-release", "title": "Release Schedule", "file": "gantt-release.mmd"},
         {"id": "product-roadmap", "title": "Product Roadmap", "file": "product-roadmap.mmd"},
-        {"id": "journey-onboarding", "title": "User Onboarding", "file": "journey-onboarding.mmd"}
+        {"id": "journey-onboarding", "title": "User Onboarding", "file": "journey-onboarding.mmd"},
+        {"id": "raci-matrix", "title": "RACI Matrix", "file": "raci-matrix.mmd"},
+        {"id": "risk-assessment", "title": "Risk Assessment", "file": "risk-assessment.mmd"}
       ]
     },
     "architecture": {
@@ -54,7 +60,27 @@
         {"id": "microservices", "title": "Microservices", "file": "microservices.mmd"},
         {"id": "event-driven", "title": "Event-Driven", "file": "event-driven.mmd"},
         {"id": "three-tier", "title": "Three-Tier", "file": "three-tier.mmd"},
-        {"id": "serverless", "title": "Serverless", "file": "serverless.mmd"}
+        {"id": "serverless", "title": "Serverless", "file": "serverless.mmd"},
+        {"id": "cloud-migration", "title": "Cloud Migration", "file": "cloud-migration.mmd"},
+        {"id": "multi-region-failover", "title": "Multi-Region Failover", "file": "multi-region-failover.mmd"},
+        {"id": "service-mesh", "title": "Service Mesh", "file": "service-mesh.mmd"}
+      ]
+    },
+    "devops": {
+      "name": "DevOps & CI/CD",
+      "examples": [
+        {"id": "docker-orchestration", "title": "Docker Orchestration", "file": "docker-orchestration.mmd"},
+        {"id": "terraform-pipeline", "title": "Terraform Pipeline", "file": "terraform-pipeline.mmd"},
+        {"id": "gitops-workflow", "title": "GitOps Workflow", "file": "gitops-workflow.mmd"},
+        {"id": "monitoring-alerting", "title": "Monitoring & Alerting", "file": "monitoring-alerting.mmd"}
+      ]
+    },
+    "data": {
+      "name": "Data Engineering",
+      "examples": [
+        {"id": "etl-pipeline", "title": "ETL Pipeline", "file": "etl-pipeline.mmd"},
+        {"id": "streaming-architecture", "title": "Streaming Architecture", "file": "streaming-architecture.mmd"},
+        {"id": "data-lineage", "title": "Data Lineage", "file": "data-lineage.mmd"}
       ]
     },
     "security": {
@@ -69,7 +95,10 @@
         {"id": "api-threats", "title": "API Threats", "file": "api-threats.mmd"},
         {"id": "data-breach", "title": "Data Breach Flow", "file": "data-breach.mmd"},
         {"id": "supply-chain", "title": "Supply Chain Attack", "file": "supply-chain.mmd"},
-        {"id": "incident-response", "title": "Incident Response", "file": "incident-response.mmd"}
+        {"id": "incident-response", "title": "Incident Response", "file": "incident-response.mmd"},
+        {"id": "oauth2-pkce", "title": "OAuth 2.0 PKCE", "file": "oauth2-pkce.mmd"},
+        {"id": "mtls-handshake", "title": "mTLS Handshake", "file": "mtls-handshake.mmd"},
+        {"id": "soc2-compliance", "title": "SOC2 Compliance", "file": "soc2-compliance.mmd"}
       ]
     }
   }

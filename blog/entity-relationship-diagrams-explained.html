@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entity Relationship Diagrams Explained | SimpleMermaid Blog</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Learn everything about Entity Relationship Diagrams: cardinality notation, database schema design, normalization tips, and how to create ERDs with Mermaid.js syntax.">
+    <meta name="keywords" content="entity relationship diagram, ERD, database design, cardinality, one-to-many, many-to-many, Mermaid.js, database schema, normalization, SQL">
+    <meta name="author" content="SimpleMermaid.com">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://simplemermaid.com/blog/entity-relationship-diagrams-explained.html">
+    <meta name="theme-color" content="#6366f1">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Entity Relationship Diagrams Explained">
+    <meta property="og:description" content="Master ERD notation, cardinality, and database schema design with practical Mermaid.js examples.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://simplemermaid.com/blog/entity-relationship-diagrams-explained.html">
+    <meta property="og:image" content="https://simplemermaid.com/simplemermaid.png">
+    <meta property="og:site_name" content="SimpleMermaid">
+
+    <!-- Twitter/X Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Entity Relationship Diagrams Explained">
+    <meta name="twitter:description" content="Master ERD notation, cardinality, and database schema design with Mermaid.js examples.">
+    <meta name="twitter:image" content="https://simplemermaid.com/simplemermaid.png">
+
+    <!-- Google AdSense Account -->
+    <meta name="google-adsense-account" content="ca-pub-8641410034592329">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../favicon.png">
+
+    <!-- Article Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Entity Relationship Diagrams Explained",
+        "description": "Learn everything about Entity Relationship Diagrams: cardinality notation, database schema design, normalization tips, and how to create ERDs with Mermaid.js.",
+        "author": {
+            "@type": "Organization",
+            "name": "SimpleMermaid.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "SimpleMermaid.com",
+            "url": "https://simplemermaid.com"
+        },
+        "datePublished": "2026-03-25",
+        "dateModified": "2026-03-25",
+        "mainEntityOfPage": "https://simplemermaid.com/blog/entity-relationship-diagrams-explained.html",
+        "url": "https://simplemermaid.com/blog/entity-relationship-diagrams-explained.html"
+    }
+    </script>
+
+    <style>
+        /* Modern CSS Variables */
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --secondary: #f8fafc;
+            --accent: #10b981;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-muted: #9ca3af;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --border: #e5e7eb;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.15);
+            --radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --primary: #8b5cf6;
+            --primary-hover: #7c3aed;
+            --secondary: #1f2937;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --text-muted: #9ca3af;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-hero: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --border: #374151;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            transition: var(--transition);
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-link {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .css-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-icon {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .diagram-node {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .diagram-connection {
+            width: 12px;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-simple {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1;
+        }
+
+        .logo-tagline {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .logo-link:hover .diagram-node {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
+
+        .logo-link:hover .diagram-connection {
+            background: linear-gradient(90deg, #7c3aed, #06b6d4);
+        }
+
+        .logo-link:hover .logo-simple {
+            color: var(--primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            background: var(--bg-secondary);
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+            background: var(--bg-secondary);
+        }
+
+        .nav-cta {
+            background: var(--primary);
+            color: white !important;
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-cta:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .nav-bmc {
+            display: flex;
+            align-items: center;
+            padding: 0.35rem 0.75rem;
+            background: #ffdd00;
+            border-radius: 8px;
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(255, 221, 0, 0.3);
+        }
+
+        .nav-bmc:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(255, 221, 0, 0.5);
+            background: #ffdd00;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 1rem;
+            z-index: 999;
+        }
+
+        .mobile-menu.show {
+            display: block;
+        }
+
+        .mobile-nav-link {
+            display: block;
+            padding: 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .mobile-nav-link:hover {
+            background: var(--bg-secondary);
+            color: var(--primary);
+        }
+
+        .mobile-nav-link.nav-cta {
+            background: var(--primary);
+            color: white !important;
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            padding: 0.5rem;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary);
+            background: var(--bg-secondary);
+        }
+
+        /* Blog Hero */
+        .blog-hero {
+            background: var(--bg-hero);
+            color: white;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+        }
+
+        .blog-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .blog-hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .blog-hero h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .blog-meta {
+            font-size: 0.95rem;
+            opacity: 0.85;
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .blog-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* Article Content */
+        .article-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem 4rem;
+        }
+
+        .article-container h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .article-container h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 2rem 0 0.75rem;
+        }
+
+        .article-container p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1.25rem;
+        }
+
+        .article-container ul, .article-container ol {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+        }
+
+        .article-container li {
+            margin-bottom: 0.5rem;
+        }
+
+        .article-container strong {
+            color: var(--text-primary);
+        }
+
+        .article-container a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .article-container a:hover {
+            text-decoration: underline;
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: #1e1e2e;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin: 1.25rem 0 1.75rem;
+            overflow-x: auto;
+            border: 1px solid #313244;
+        }
+
+        .code-block code {
+            color: #cdd6f4;
+            font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            white-space: pre;
+        }
+
+        .code-label {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Pro Tip / Info Box */
+        .pro-tip {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(139, 92, 246, 0.08));
+            border-left: 4px solid var(--primary);
+            border-radius: 0 var(--radius) var(--radius) 0;
+            padding: 1.25rem 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .pro-tip strong {
+            color: var(--primary);
+        }
+
+        .pro-tip p {
+            margin-bottom: 0;
+        }
+
+        /* Notation Table */
+        .notation-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.25rem 0 1.75rem;
+            font-size: 0.95rem;
+        }
+
+        .notation-table th {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .notation-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        .notation-table code {
+            background: var(--bg-secondary);
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: var(--primary);
+        }
+
+        /* CTA Box */
+        .cta-box {
+            background: var(--bg-hero);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            text-align: center;
+            margin: 3rem 0 2rem;
+            color: white;
+        }
+
+        .cta-box h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .cta-box p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-box .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: white;
+            color: var(--primary);
+            padding: 0.875rem 1.75rem;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .cta-box .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            text-decoration: none;
+        }
+
+        /* Related Articles */
+        .related-articles {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .related-articles h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+
+        .related-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.25rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .related-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+            text-decoration: none;
+        }
+
+        .related-card h4 {
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .related-card p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 0;
+            line-height: 1.4;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #16213e 100%);
+            border-top: 2px solid;
+            border-image: linear-gradient(90deg, #00d4ff, #6366f1, #8b5cf6, #00d4ff) 1;
+            padding: 4rem 2rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            animation: cyberpunk-scan 3s linear infinite;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #00d4ff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px #00d4ff50;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #a1a1aa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer-links a:hover {
+            color: #00d4ff;
+            text-shadow: 0 0 5px #00d4ff50;
+            padding-left: 10px;
+        }
+
+        .footer-links a::before {
+            content: '\25B6';
+            position: absolute;
+            left: -15px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            color: #6366f1;
+        }
+
+        .footer-links a:hover::before {
+            opacity: 1;
+            left: -10px;
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #6366f1, transparent);
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .footer-divider::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            opacity: 0;
+            animation: cyberpunk-pulse 2s ease-in-out infinite alternate;
+        }
+
+        .footer-bottom {
+            text-align: center;
+        }
+
+        .footer-copyright {
+            color: #71717a;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-tech {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        .tech-badge {
+            background: linear-gradient(135deg, #374151, #1f2937);
+            border: 1px solid #6366f1;
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            color: #00d4ff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 5px #00d4ff30;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tech-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 25px rgba(0, 212, 255, 0.3);
+            border-color: #00d4ff;
+        }
+
+        .footer-glow {
+            color: #6366f1;
+            text-shadow: 0 0 10px #6366f150;
+            font-weight: 700;
+        }
+
+        @keyframes cyberpunk-scan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes cyberpunk-pulse {
+            0% { opacity: 0; }
+            100% { opacity: 0.6; }
+        }
+
+        [data-theme="dark"] .footer {
+            background: linear-gradient(135deg, #000000 0%, #1a0b3d 50%, #2d1b69 100%);
+        }
+
+        [data-theme="dark"] .tech-badge {
+            background: linear-gradient(135deg, #1e1b4b, #312e81);
+            border-color: #8b5cf6;
+        }
+
+        [data-theme="dark"] .footer-section h3 {
+            color: #a78bfa;
+            text-shadow: 0 0 10px #8b5cf650;
+        }
+
+        [data-theme="dark"] .footer-links a:hover {
+            color: #a78bfa;
+            text-shadow: 0 0 5px #8b5cf650;
+        }
+
+        [data-theme="dark"] .tech-badge:hover {
+            border-color: #a78bfa;
+            box-shadow: 0 5px 25px rgba(139, 92, 246, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 1030px) {
+            .header-content {
+                padding: 0 1rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .logo-text {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .blog-hero {
+                padding: 7rem 1.5rem 3rem;
+            }
+
+            .blog-hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .article-container {
+                padding: 2rem 1.25rem 3rem;
+            }
+
+            .article-container h2 {
+                font-size: 1.4rem;
+            }
+
+            .notation-table {
+                font-size: 0.85rem;
+            }
+
+            .notation-table th, .notation-table td {
+                padding: 0.5rem 0.6rem;
+            }
+
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .blog-hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .cta-box {
+                padding: 1.75rem 1.25rem;
+            }
+        }
+    </style>
+    <!-- Early theme detection to prevent flash -->
+    <script>
+        (function() {
+            var theme = localStorage.getItem('simplemermaid-theme');
+            if (!theme) {
+                var oldTheme = localStorage.getItem('theme');
+                if (oldTheme) {
+                    theme = oldTheme;
+                    localStorage.setItem('simplemermaid-theme', theme);
+                    localStorage.removeItem('theme');
+                } else {
+                    theme = 'light';
+                }
+            }
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6FZM0EGT74"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6FZM0EGT74');
+</script>
+
+<body>
+    <!-- Navigation Header -->
+    <header class="header">
+        <nav class="header-content">
+            <a href="../index.html" class="logo-link">
+                <div class="css-logo">
+                    <div class="logo-icon">
+                        <div class="diagram-node"></div>
+                        <div class="diagram-connection"></div>
+                        <div class="diagram-node"></div>
+                        <div class="diagram-connection"></div>
+                        <div class="diagram-node"></div>
+                    </div>
+                </div>
+                <div class="logo-text">
+                    <div class="logo-simple">SimpleMermaid</div>
+                    <div class="logo-tagline">Diagram Editor</div>
+                </div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="../learn-mermaid.html" class="nav-link">Learn</a></li>
+                <li><a href="index.html" class="nav-link active">Blog</a></li>
+                <li><a href="../mermaid-tool.html" class="nav-link">Editor</a></li>
+                <li><a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="nav-bmc" title="Buy me a coffee"><img src="../bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 28px; vertical-align: middle; border-radius: 4px;"></a></li>
+                <li><button class="theme-toggle" id="themeToggle" title="Toggle theme">&#9728;&#65039;</button></li>
+                <li><a href="../mermaid-tool.html" class="nav-cta">Start Creating</a></li>
+            </ul>
+
+            <!-- Mobile Hamburger -->
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="../index.html" class="mobile-nav-link">Home</a>
+            <a href="../learn-mermaid.html" class="mobile-nav-link">Learn</a>
+            <a href="index.html" class="mobile-nav-link">Blog</a>
+            <a href="../mermaid-tool.html" class="mobile-nav-link">Editor</a>
+            <a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="mobile-nav-link" style="display: flex; align-items: center; gap: 0.5rem;"><img src="../bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 24px; border-radius: 4px;"> Buy Me A Coffee</a>
+            <a href="../mermaid-tool.html" class="mobile-nav-link nav-cta">Start Creating</a>
+        </div>
+    </header>
+
+    <!-- Blog Hero -->
+    <section class="blog-hero">
+        <div class="blog-hero-content">
+            <h1>Entity Relationship Diagrams Explained</h1>
+            <div class="blog-meta">
+                <span>March 25, 2026</span>
+                <span>9 min read</span>
+                <span>Database Design</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Article Content -->
+    <article class="article-container">
+        <p>If you have ever designed a database, you have probably sketched boxes and lines on a whiteboard to figure out how your tables relate to each other. That sketch has a formal name: an Entity Relationship Diagram, or ERD. ERDs are one of the oldest and most valuable tools in software engineering, and understanding them deeply will make you a better database designer, a clearer communicator, and a more effective engineer.</p>
+
+        <h2>What Are Entity Relationship Diagrams?</h2>
+
+        <p>An ERD is a visual representation of the data model behind a system. It shows <strong>entities</strong> (the things you store data about, like users, orders, or products), their <strong>attributes</strong> (the columns in your tables), and the <strong>relationships</strong> between them (foreign keys and join tables). ERDs answer the fundamental question of database design: "What data do we have, and how does it connect?"</p>
+
+        <h3>A Brief History</h3>
+        <p>The ERD was introduced by Peter Chen in 1976 in his seminal paper "The Entity-Relationship Model -- Toward a Unified View of Data." Chen proposed a way to describe data that was independent of any particular database management system. His notation became the foundation for conceptual data modeling and influenced every major database design methodology that followed. Today, variations like Crow's Foot notation (used by Mermaid.js) have become the industry standard because they communicate cardinality more intuitively than Chen's original diamonds and ovals.</p>
+
+        <h2>Understanding Cardinality</h2>
+
+        <p>Cardinality defines how many instances of one entity can be associated with instances of another. It is the most important concept in ERD notation and the one that developers most commonly get wrong. Here is a reference table for Mermaid's Crow's Foot notation:</p>
+
+        <table class="notation-table">
+            <thead>
+                <tr>
+                    <th>Mermaid Syntax</th>
+                    <th>Meaning</th>
+                    <th>Example</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>||--||</code></td>
+                    <td>Exactly one to exactly one</td>
+                    <td>User has one Profile</td>
+                </tr>
+                <tr>
+                    <td><code>||--o|</code></td>
+                    <td>Exactly one to zero or one</td>
+                    <td>Employee has optional Parking Spot</td>
+                </tr>
+                <tr>
+                    <td><code>||--o{</code></td>
+                    <td>Exactly one to zero or many</td>
+                    <td>Author writes zero or more Books</td>
+                </tr>
+                <tr>
+                    <td><code>||--|{</code></td>
+                    <td>Exactly one to one or many</td>
+                    <td>Order contains at least one Item</td>
+                </tr>
+                <tr>
+                    <td><code>}o--o{</code></td>
+                    <td>Zero or many to zero or many</td>
+                    <td>Students enroll in Courses</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>The symbols at each end of the relationship line tell you the minimum and maximum participation. A vertical line (<code>|</code>) means "exactly one" or "at least one." A circle (<code>o</code>) means "zero" (optional). A crow's foot (<code>{</code>) means "many." Read each end independently: <code>||--o{</code> means "the left entity participates exactly once, the right entity participates zero or many times."</p>
+
+        <h2>When to Use ERDs</h2>
+
+        <ul>
+            <li><strong>Before writing migrations:</strong> Sketch the ERD first to catch design issues before they become schema changes.</li>
+            <li><strong>During code reviews:</strong> Attach an ERD to PRs that add or modify database tables so reviewers can see the structural impact.</li>
+            <li><strong>In documentation:</strong> Every service that owns data should have an ERD in its README. See our guide on <a href="using-diagrams-for-documentation.html">using diagrams for documentation</a>.</li>
+            <li><strong>When debugging data issues:</strong> ERDs help you trace foreign key paths when investigating data integrity problems.</li>
+            <li><strong>During system design interviews:</strong> ERDs are a common ask in backend interviews; fluency here is a career advantage.</li>
+        </ul>
+
+        <h2>Designing a Database Schema Step by Step</h2>
+
+        <p>Let us walk through designing an ERD for a simple blog platform. We will start with requirements, identify entities, define relationships, and refine the model.</p>
+
+        <h3>Step 1: Identify Entities</h3>
+        <p>From the requirements "users can write posts, posts can have tags, and users can comment on posts," we extract four entities: <strong>User</strong>, <strong>Post</strong>, <strong>Tag</strong>, and <strong>Comment</strong>.</p>
+
+        <h3>Step 2: Define Relationships</h3>
+        <ul>
+            <li>A User writes zero or many Posts (one-to-many).</li>
+            <li>A Post has zero or many Comments (one-to-many).</li>
+            <li>A User writes zero or many Comments (one-to-many).</li>
+            <li>A Post has zero or many Tags, and a Tag appears on zero or many Posts (many-to-many).</li>
+        </ul>
+
+        <h3>Step 3: Add Attributes</h3>
+        <p>For each entity, list the columns and mark primary keys (PK) and foreign keys (FK).</p>
+
+        <h3>Step 4: Build the ERD</h3>
+        <div class="code-block"><code>erDiagram
+    USER ||--o{ POST : writes
+    USER ||--o{ COMMENT : authors
+    POST ||--o{ COMMENT : has
+    POST }o--o{ TAG : "tagged with"
+
+    USER {
+        int id PK
+        string username
+        string email
+        datetime created_at
+    }
+    POST {
+        int id PK
+        int author_id FK
+        string title
+        text body
+        datetime published_at
+    }
+    COMMENT {
+        int id PK
+        int post_id FK
+        int user_id FK
+        text body
+        datetime created_at
+    }
+    TAG {
+        int id PK
+        string name
+        string slug
+    }</code></div>
+
+        <p>Notice that the many-to-many relationship between Post and Tag will require a join table (<code>POST_TAG</code>) in the actual database. Mermaid's ERD syntax models the conceptual relationship; the physical join table is an implementation detail.</p>
+
+        <h2>More ERD Examples</h2>
+
+        <h3>E-Commerce Schema</h3>
+        <div class="code-block"><code>erDiagram
+    CUSTOMER ||--o{ ORDER : places
+    ORDER ||--|{ LINE_ITEM : contains
+    PRODUCT ||--o{ LINE_ITEM : "appears in"
+    PRODUCT }o--|| CATEGORY : "belongs to"
+    ORDER ||--o| SHIPMENT : "shipped via"
+
+    CUSTOMER {
+        int id PK
+        string name
+        string email
+    }
+    ORDER {
+        int id PK
+        int customer_id FK
+        decimal total
+        string status
+        datetime ordered_at
+    }
+    PRODUCT {
+        int id PK
+        string name
+        decimal price
+        int category_id FK
+    }
+    CATEGORY {
+        int id PK
+        string name
+    }
+    LINE_ITEM {
+        int id PK
+        int order_id FK
+        int product_id FK
+        int quantity
+        decimal unit_price
+    }
+    SHIPMENT {
+        int id PK
+        int order_id FK
+        string tracking_number
+        datetime shipped_at
+    }</code></div>
+
+        <h3>SaaS Multi-Tenant Schema</h3>
+        <div class="code-block"><code>erDiagram
+    ORGANIZATION ||--|{ USER : employs
+    ORGANIZATION ||--o{ PROJECT : owns
+    PROJECT ||--o{ TASK : contains
+    USER ||--o{ TASK : "assigned to"
+    USER ||--o{ TASK : creates
+
+    ORGANIZATION {
+        int id PK
+        string name
+        string plan
+    }
+    USER {
+        int id PK
+        int org_id FK
+        string name
+        string role
+    }
+    PROJECT {
+        int id PK
+        int org_id FK
+        string name
+        string status
+    }
+    TASK {
+        int id PK
+        int project_id FK
+        int assignee_id FK
+        int creator_id FK
+        string title
+        string priority
+    }</code></div>
+
+        <h2>Common Mistakes</h2>
+
+        <ul>
+            <li><strong>Skipping cardinality analysis:</strong> Drawing lines without thinking carefully about minimum and maximum participation leads to schemas that allow invalid data. Ask yourself: "Can this entity exist without the related entity? Can there be zero, one, or many?"</li>
+            <li><strong>Modeling join tables as entities:</strong> A many-to-many relationship at the conceptual level does not need a visible join table entity in your ERD unless the join table carries its own attributes (like an enrollment date or a role).</li>
+            <li><strong>Overloading entities:</strong> If an entity has 20+ attributes, it is probably doing too much. Consider splitting it into related entities.</li>
+            <li><strong>Ignoring nullable foreign keys:</strong> Using <code>||</code> (exactly one) when the relationship is actually optional (<code>o|</code>) misrepresents your data model and can lead to NOT NULL constraints that do not match reality.</li>
+            <li><strong>Not labeling relationships:</strong> A line between User and Post is ambiguous. Does the user write the post, review it, or own it? Always include a relationship label.</li>
+        </ul>
+
+        <h2>Normalization Tips</h2>
+
+        <p>ERDs and normalization go hand in hand. As you build your diagram, keep these guidelines in mind:</p>
+
+        <ul>
+            <li><strong>First Normal Form (1NF):</strong> Every attribute should be atomic. If you are tempted to store a comma-separated list in a column (like tags), create a separate entity and a relationship instead.</li>
+            <li><strong>Second Normal Form (2NF):</strong> Every non-key attribute should depend on the entire primary key, not just part of it. If your composite key has attributes that depend on only one part, split the entity.</li>
+            <li><strong>Third Normal Form (3NF):</strong> No transitive dependencies. If attribute A determines B and B determines C, then C should live in a separate entity keyed by B.</li>
+        </ul>
+
+        <div class="pro-tip">
+            <p><strong>Pro Tip:</strong> Do not normalize blindly. Over-normalization can hurt read performance. Use your ERD to find the right balance -- normalize for data integrity, then denormalize strategically where performance requires it. Document both the normalized ERD and the denormalized physical schema so future developers understand why they differ.</p>
+        </div>
+
+        <p>ERDs are not just academic exercises. They are the blueprint for your data layer. A well-designed ERD prevents data integrity bugs, simplifies queries, and makes your schema self-documenting. With Mermaid syntax, creating and maintaining ERDs is as fast as typing a few lines of text. Open <a href="../mermaid-tool.html">SimpleMermaid</a>, paste any example from this article, and start designing your own data model today.</p>
+
+        <!-- CTA Box -->
+        <div class="cta-box">
+            <h3>Design Your Database Schema</h3>
+            <p>Paste any ERD example above into SimpleMermaid and start modeling your data. Free, instant, no signup.</p>
+            <a href="../mermaid-tool.html" class="cta-button">Open the Editor</a>
+        </div>
+
+        <!-- Related Articles -->
+        <div class="related-articles">
+            <h3>Continue Reading</h3>
+            <div class="related-grid">
+                <a href="5-diagram-types-every-developer-should-know.html" class="related-card">
+                    <h4>5 Diagram Types Every Developer Should Know</h4>
+                    <p>Flowcharts, sequence diagrams, class diagrams, ERDs, and state diagrams with examples.</p>
+                </a>
+                <a href="using-diagrams-for-documentation.html" class="related-card">
+                    <h4>Using Diagrams for Better Documentation</h4>
+                    <p>Learn where to place diagrams and how to keep them in sync with your code.</p>
+                </a>
+                <a href="gantt-charts-project-management.html" class="related-card">
+                    <h4>Gantt Charts for Project Management</h4>
+                    <p>Plan your sprints and releases with Mermaid Gantt chart syntax.</p>
+                </a>
+            </div>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Diagram Engine</h3>
+                    <ul class="footer-links">
+                        <li><a href="../mermaid-tool.html">Editor</a></li>
+                        <li><a href="../learn-mermaid.html">Learn Syntax</a></li>
+                        <li><a href="../index.html#features">Features</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://mermaid.js.org" target="_blank">Mermaid.js Docs</a></li>
+                        <li><a href="../learn-mermaid.html#quick-reference">Quick Reference</a></li>
+                        <li><a href="../learn-mermaid.html#diagram-types">Diagram Types</a></li>
+                        <li><a href="../mermaid-tool.html">Live Preview</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="../about.html">About</a></li>
+                        <li><a href="../changelog.html">Changelog</a></li>
+                        <li><a href="../privacy.html">Privacy Policy</a></li>
+                        <li><a href="../terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://trackmytime.net" target="_blank">TrackMyTime</a></li>
+                        <li><a href="https://threatbandit.com" target="_blank">ThreatBandit</a></li>
+                        <li><a href="https://freekanban.com" target="_blank">FreeKanban</a></li>
+                        <li><a href="https://emphonic.com" target="_blank">Emphonic</a></li>
+                        <li style="margin-top: 0.75rem;"><a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer"><img src="../bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 30px; vertical-align: middle; border-radius: 4px;"> Support Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom">
+                <div class="footer-tech">
+                    <span class="tech-badge">Mermaid.js</span>
+                    <span class="tech-badge">Vanilla JS</span>
+                    <span class="tech-badge">CSS Grid</span>
+                    <span class="tech-badge">LocalStorage</span>
+                    <span class="tech-badge">PWA Ready</span>
+                </div>
+
+                <p class="footer-copyright">
+                    &copy; 2025 <span class="footer-glow">SimpleMermaid.com</span> |
+                    Powered by the future of diagramming |
+                    <span class="footer-glow">Create &bull; Share &bull; Inspire</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const body = document.body;
+
+        const oldTheme = localStorage.getItem('theme');
+        if (oldTheme && !localStorage.getItem('simplemermaid-theme')) {
+            localStorage.setItem('simplemermaid-theme', oldTheme);
+            localStorage.removeItem('theme');
+        }
+
+        const savedTheme = localStorage.getItem('simplemermaid-theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        body.setAttribute('data-theme', savedTheme);
+        themeToggle.textContent = savedTheme === 'light' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+            body.setAttribute('data-theme', newTheme);
+            themeToggle.textContent = newTheme === 'light' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+            localStorage.setItem('simplemermaid-theme', newTheme);
+        });
+
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('show');
+        });
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('show');
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

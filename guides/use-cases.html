@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagram Use Cases - SimpleMermaid | Real-World Scenarios</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Discover how to use Mermaid.js diagrams in real-world scenarios: developer onboarding, design reviews, post-mortems, sprint planning, API documentation, and security threat modeling.">
+    <meta name="keywords" content="Mermaid.js use cases, diagram scenarios, developer onboarding diagrams, architecture decision records, post-mortem diagrams, sprint planning diagrams, API documentation, threat modeling">
+    <meta name="author" content="SimpleMermaid.com">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Diagram Use Cases - SimpleMermaid | Real-World Scenarios">
+    <meta property="og:description" content="Discover how to use Mermaid.js diagrams in real-world scenarios: onboarding, design reviews, post-mortems, sprint planning, API docs, and threat modeling.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://simplemermaid.com/guides/use-cases.html">
+    <meta property="og:image" content="https://simplemermaid.com/simplemermaid.png">
+    <meta property="og:site_name" content="SimpleMermaid">
+
+    <!-- Twitter/X Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Diagram Use Cases - SimpleMermaid | Real-World Scenarios">
+    <meta name="twitter:description" content="Real-world scenarios for using Mermaid.js diagrams in software development workflows.">
+    <meta name="twitter:image" content="https://simplemermaid.com/simplemermaid.png">
+    <meta name="twitter:creator" content="@simplemermaid">
+    <meta name="twitter:site" content="@simplemermaid">
+
+    <!-- Additional SEO -->
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://simplemermaid.com/guides/use-cases.html">
+    <meta name="theme-color" content="#6366f1">
+
+    <!-- Google AdSense Account -->
+    <meta name="google-adsense-account" content="ca-pub-8641410034592329">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../favicon.png">
+
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #f8fafc;
+            --accent: #10b981;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-muted: #9ca3af;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-code: #1f2937;
+            --border: #e5e7eb;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.15);
+            --radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --primary: #8b5cf6;
+            --primary-hover: #7c3aed;
+            --primary-light: #a78bfa;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --text-muted: #9ca3af;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-code: #111827;
+            --border: #374151;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            transition: var(--transition);
+        }
+
+        .nav-header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            position: fixed; top: 0; left: 0; right: 0;
+            z-index: 1000; backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1200px; margin: 0 auto; padding: 1rem 2rem;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .nav-logo {
+            display: flex; align-items: center; gap: 0.75rem;
+            text-decoration: none; color: var(--text-primary);
+            font-weight: 700; font-size: 1.25rem;
+        }
+
+        .logo-icon { display: flex; align-items: center; gap: 6px; }
+
+        .diagram-node {
+            width: 16px; height: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            border-radius: 3px;
+        }
+
+        .diagram-connection { width: 10px; height: 2px; background: var(--primary); }
+
+        .nav-menu { display: flex; gap: 2rem; list-style: none; align-items: center; }
+
+        .nav-link {
+            color: var(--text-secondary); text-decoration: none; font-weight: 500;
+            transition: var(--transition); padding: 0.5rem 1rem; border-radius: 8px;
+        }
+
+        .nav-link:hover { color: var(--primary); background: var(--bg-secondary); }
+        .nav-link.active { color: var(--primary); background: var(--bg-secondary); }
+
+        .nav-cta {
+            background: var(--primary); color: white !important;
+            padding: 0.5rem 1.25rem; border-radius: 8px; text-decoration: none;
+            font-weight: 600; transition: var(--transition);
+        }
+
+        .nav-cta:hover { background: var(--primary-hover); transform: translateY(-1px); }
+
+        .nav-bmc {
+            display: flex; align-items: center; padding: 0.35rem 0.75rem;
+            background: #ffdd00; border-radius: 8px; transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(255, 221, 0, 0.3);
+        }
+
+        .nav-bmc:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(255, 221, 0, 0.5); background: #ffdd00; }
+
+        .hamburger {
+            display: none; flex-direction: column; gap: 4px;
+            background: none; border: none; cursor: pointer; padding: 0.5rem;
+        }
+
+        .hamburger span { width: 24px; height: 2px; background: var(--text-primary); transition: var(--transition); }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        .mobile-menu {
+            display: none; position: fixed; top: 60px; left: 0; right: 0;
+            background: var(--bg-primary); border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow); padding: 1rem; z-index: 999;
+        }
+
+        .mobile-menu.show { display: block; }
+
+        .mobile-nav-link {
+            display: block; padding: 1rem; color: var(--text-primary);
+            text-decoration: none; border-radius: 8px; transition: var(--transition);
+        }
+
+        .mobile-nav-link:hover { background: var(--bg-secondary); color: var(--primary); }
+        .mobile-nav-link.nav-cta { background: var(--primary); color: white !important; text-align: center; margin-top: 0.5rem; }
+
+        .theme-toggle {
+            background: none; border: 2px solid var(--border); border-radius: 8px;
+            padding: 0.5rem; font-size: 1.25rem; cursor: pointer; transition: var(--transition);
+        }
+
+        .theme-toggle:hover { border-color: var(--primary); background: var(--bg-secondary); }
+
+        /* Main Content */
+        .main-content { margin-top: 80px; padding: 2rem; }
+        .content-container { max-width: 900px; margin: 0 auto; }
+
+        .page-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; text-align: center; padding: 4rem 2rem;
+            border-radius: var(--radius); margin-bottom: 3rem;
+        }
+
+        .page-hero h1 { font-size: clamp(2rem, 4vw, 2.5rem); margin-bottom: 1rem; }
+        .page-hero p { font-size: 1.1rem; opacity: 0.9; max-width: 650px; margin: 0 auto; }
+
+        .intro-text {
+            color: var(--text-secondary); font-size: 1.05rem; line-height: 1.8; margin-bottom: 2.5rem;
+        }
+
+        .intro-text a { color: var(--primary); text-decoration: none; font-weight: 500; }
+        .intro-text a:hover { text-decoration: underline; }
+
+        /* Scenario Card */
+        .scenario {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+
+        .scenario:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow);
+        }
+
+        .scenario h2 {
+            font-size: 1.4rem;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .scenario-context {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .scenario-context strong {
+            color: var(--text-primary);
+        }
+
+        .scenario-meta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.25rem;
+        }
+
+        .scenario-tag {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 0.3rem 0.9rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .scenario h3 {
+            font-size: 1rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .code-block {
+            background: var(--bg-code);
+            color: #e5e7eb;
+            border-radius: 8px;
+            padding: 1.25rem;
+            overflow-x: auto;
+            font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            white-space: pre;
+        }
+
+        [data-theme="dark"] .code-block {
+            background: #0d1117;
+            border: 1px solid var(--border);
+        }
+
+        .scenario-tips {
+            list-style: none;
+            padding: 0;
+            margin-top: 1rem;
+        }
+
+        .scenario-tips li {
+            padding: 0.4rem 0 0.4rem 1.5rem;
+            position: relative;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .scenario-tips li::before {
+            content: '\2713';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .try-link {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            margin-top: 0.5rem;
+        }
+
+        .try-link:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        /* CTA */
+        .page-cta {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .page-cta h2 { font-size: 1.5rem; margin-bottom: 0.75rem; color: var(--text-primary); }
+        .page-cta p { color: var(--text-secondary); margin-bottom: 1.5rem; }
+
+        .btn {
+            display: inline-block; background: var(--primary); color: white;
+            padding: 0.75rem 2rem; border-radius: 8px; text-decoration: none;
+            font-weight: 600; transition: var(--transition);
+        }
+
+        .btn:hover { background: var(--primary-hover); transform: translateY(-2px); }
+
+        /* Cyberpunk Footer */
+        .footer {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #16213e 100%);
+            border-top: 2px solid;
+            border-image: linear-gradient(90deg, #00d4ff, #6366f1, #8b5cf6, #00d4ff) 1;
+            padding: 4rem 2rem 2rem;
+            position: relative; overflow: hidden; margin-top: 4rem;
+        }
+
+        .footer::before {
+            content: ''; position: absolute; top: 0; left: -100%;
+            width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            animation: cyberpunk-scan 3s linear infinite;
+        }
+
+        .footer-content { max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
+
+        .footer-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 3rem; margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #00d4ff; font-size: 1.1rem; font-weight: 700;
+            margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px;
+            text-shadow: 0 0 10px #00d4ff50;
+        }
+
+        .footer-links { list-style: none; padding: 0; }
+        .footer-links li { margin-bottom: 0.5rem; }
+        .footer-links a { color: #a1a1aa; text-decoration: none; transition: all 0.3s ease; position: relative; }
+        .footer-links a:hover { color: #00d4ff; text-shadow: 0 0 5px #00d4ff50; padding-left: 10px; }
+        .footer-links a::before { content: '\25B6'; position: absolute; left: -15px; opacity: 0; transition: all 0.3s ease; color: #6366f1; }
+        .footer-links a:hover::before { opacity: 1; left: -10px; }
+
+        .footer-divider {
+            height: 1px; background: linear-gradient(90deg, transparent, #6366f1, transparent);
+            margin: 1.5rem 0; position: relative;
+        }
+
+        .footer-divider::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 1px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            opacity: 0; animation: cyberpunk-pulse 2s ease-in-out infinite alternate;
+        }
+
+        .footer-bottom { text-align: center; }
+        .footer-copyright { color: #71717a; font-size: 0.875rem; margin-bottom: 1rem; }
+
+        .footer-tech { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 1rem; }
+
+        .tech-badge {
+            background: linear-gradient(135deg, #374151, #1f2937); border: 1px solid #6366f1;
+            border-radius: 20px; padding: 0.5rem 1rem; color: #00d4ff; font-size: 0.75rem;
+            font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+            text-shadow: 0 0 5px #00d4ff30; box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tech-badge:hover { transform: translateY(-2px); box-shadow: 0 5px 25px rgba(0, 212, 255, 0.3); border-color: #00d4ff; }
+        .footer-glow { color: #6366f1; text-shadow: 0 0 10px #6366f150; font-weight: 700; }
+
+        @keyframes cyberpunk-scan { 0% { left: -100%; } 100% { left: 100%; } }
+        @keyframes cyberpunk-pulse { 0% { opacity: 0; } 100% { opacity: 0.6; } }
+
+        [data-theme="dark"] .footer { background: linear-gradient(135deg, #000000 0%, #1a0b3d 50%, #2d1b69 100%); }
+        [data-theme="dark"] .tech-badge { background: linear-gradient(135deg, #1e1b4b, #312e81); border-color: #8b5cf6; }
+        [data-theme="dark"] .footer-section h3 { color: #a78bfa; text-shadow: 0 0 10px #8b5cf650; }
+        [data-theme="dark"] .footer-links a:hover { color: #a78bfa; text-shadow: 0 0 5px #8b5cf650; }
+        [data-theme="dark"] .tech-badge:hover { border-color: #a78bfa; box-shadow: 0 5px 25px rgba(139, 92, 246, 0.3); }
+
+        @media (max-width: 768px) {
+            .nav-container { padding: 1rem; }
+            .nav-menu { display: none; }
+            .hamburger { display: flex; }
+            .main-content { margin-top: 60px; padding: 1rem; }
+            .page-hero { padding: 3rem 1.5rem; }
+            .scenario { padding: 1.5rem; }
+            .scenario-meta { gap: 0.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            .page-hero h1 { font-size: 1.75rem; }
+            .page-hero p { font-size: 1rem; }
+            .scenario h2 { font-size: 1.2rem; }
+        }
+    </style>
+    <script>
+        (function() {
+            var theme = localStorage.getItem('simplemermaid-theme');
+            if (!theme) {
+                var oldTheme = localStorage.getItem('theme');
+                if (oldTheme) { theme = oldTheme; localStorage.setItem('simplemermaid-theme', theme); localStorage.removeItem('theme'); }
+                else { theme = 'light'; }
+            }
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6FZM0EGT74"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6FZM0EGT74');
+</script>
+
+<body>
+    <header class="nav-header">
+        <nav class="nav-container">
+            <a href="../index.html" class="nav-logo">
+                <div class="logo-icon">
+                    <div class="diagram-node"></div>
+                    <div class="diagram-connection"></div>
+                    <div class="diagram-node"></div>
+                    <div class="diagram-connection"></div>
+                    <div class="diagram-node"></div>
+                </div>
+                <span>SimpleMermaid</span>
+            </a>
+
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="../learn-mermaid.html" class="nav-link">Learn</a></li>
+                <li><a href="../blog/index.html" class="nav-link">Blog</a></li>
+                <li><a href="../mermaid-tool.html" class="nav-link">Editor</a></li>
+                <li><a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="nav-bmc" title="Buy me a coffee"><img src="../bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 28px; vertical-align: middle; border-radius: 4px;"></a></li>
+                <li><button class="theme-toggle" id="themeToggle" title="Toggle theme">&#9788;&#65039;</button></li>
+                <li><a href="../mermaid-tool.html" class="nav-cta">Start Creating</a></li>
+            </ul>
+
+            <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+        </nav>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="../index.html" class="mobile-nav-link">Home</a>
+            <a href="../learn-mermaid.html" class="mobile-nav-link">Learn</a>
+            <a href="../blog/index.html" class="mobile-nav-link">Blog</a>
+            <a href="../mermaid-tool.html" class="mobile-nav-link">Editor</a>
+            <a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="mobile-nav-link" style="display: flex; align-items: center; gap: 0.5rem;"><img src="../bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 24px; border-radius: 4px;"> Buy Me A Coffee</a>
+            <a href="../mermaid-tool.html" class="mobile-nav-link nav-cta">Start Creating</a>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="content-container">
+            <div class="page-hero">
+                <h1>Real-World Use Cases</h1>
+                <p>Practical scenarios showing how teams use Mermaid diagrams to solve actual problems in their daily workflow.</p>
+            </div>
+
+            <div class="intro-text">
+                <p>Diagrams are most valuable when they solve a specific communication problem at a specific moment. This guide walks through six common scenarios where a well-placed diagram saves time, prevents misunderstandings, and creates a lasting artifact for your team. Each scenario includes context about who creates the diagram and why, a recommended diagram type, working Mermaid code, and tips for getting the most value out of the effort. For syntax help, visit the <a href="../learn-mermaid.html">Learn page</a>. For design guidance, see the <a href="best-practices.html">Best Practices guide</a>.</p>
+            </div>
+
+            <!-- Scenario 1: Developer Onboarding -->
+            <div class="scenario">
+                <h2>Developer Onboarding</h2>
+                <div class="scenario-meta">
+                    <span class="scenario-tag">Flowchart</span>
+                    <span class="scenario-tag">Architecture</span>
+                    <span class="scenario-tag">New Hires</span>
+                </div>
+                <div class="scenario-context">
+                    <p><strong>Who:</strong> Engineering leads or senior developers preparing for a new team member's first week. <strong>When:</strong> Before the new hire starts, or during their first day. <strong>Why:</strong> New engineers routinely cite "understanding the system architecture" as their biggest challenge during onboarding. A high-level architecture diagram that shows service boundaries, data stores, and communication patterns reduces the time-to-productivity from weeks to days.</p>
+                    <p>The goal is not to document every detail, but to provide a mental map that the new hire can reference as they explore the codebase. Focus on the services they will interact with most frequently, the databases they will query, and the key integrations with external systems.</p>
+                </div>
+
+                <h3>Recommended Diagram</h3>
+                <div class="code-block">flowchart TB
+    subgraph Client Layer
+        Web[React SPA]
+        Mobile[Mobile App]
+    end
+
+    subgraph API Layer
+        Gateway[API Gateway]
+        Auth[Auth Service]
+    end
+
+    subgraph Core Services
+        Users[User Service]
+        Orders[Order Service]
+        Payments[Payment Service]
+        Notify[Notification Service]
+    end
+
+    subgraph Data Layer
+        PG[(PostgreSQL)]
+        Redis[(Redis Cache)]
+        S3[(S3 Bucket)]
+    end
+
+    subgraph External
+        Stripe[Stripe API]
+        SendGrid[SendGrid]
+    end
+
+    Web --> Gateway
+    Mobile --> Gateway
+    Gateway --> Auth
+    Gateway --> Users
+    Gateway --> Orders
+    Orders --> Payments
+    Payments --> Stripe
+    Orders --> Notify
+    Notify --> SendGrid
+    Users --> PG
+    Orders --> PG
+    Payments --> PG
+    Gateway --> Redis
+    Users --> S3</div>
+                <a href="../mermaid-tool.html" class="try-link">Try it in Editor</a>
+
+                <h3>Tips for This Scenario</h3>
+                <ul class="scenario-tips">
+                    <li>Keep the diagram to one level of abstraction. Show services, not individual endpoints or functions.</li>
+                    <li>Label external services clearly so the new hire knows which integrations require API keys or special credentials.</li>
+                    <li>Store the diagram in the project's README or wiki and update it when services are added or removed.</li>
+                    <li>Pair the architecture diagram with a separate sequence diagram showing the most common user flow (e.g., login, place an order).</li>
+                </ul>
+            </div>
+
+            <!-- Scenario 2: Design Reviews and ADRs -->
+            <div class="scenario">
+                <h2>Design Reviews and Architecture Decision Records</h2>
+                <div class="scenario-meta">
+                    <span class="scenario-tag">Flowchart</span>
+                    <span class="scenario-tag">Sequence Diagram</span>
+                    <span class="scenario-tag">Decision Making</span>
+                </div>
+                <div class="scenario-context">
+                    <p><strong>Who:</strong> The engineer proposing a new feature or system change, presenting to the team during a design review. <strong>When:</strong> Before implementation begins, typically as part of an RFC or ADR (Architecture Decision Record) document. <strong>Why:</strong> Words alone are ambiguous when describing system interactions. A sequence diagram attached to a design document makes the proposed behavior explicit, reducing the number of "what about this edge case?" questions during the review.</p>
+                    <p>The diagram should illustrate the proposed change in context, showing how new components interact with existing ones. Include the happy path and at least one error path to demonstrate you have considered failure scenarios.</p>
+                </div>
+
+                <h3>Recommended Diagram</h3>
+                <div class="code-block">sequenceDiagram
+    participant Client
+    participant API
+    participant Cache
+    participant DB
+    participant Queue
+
+    Note over API: Proposed: Add caching layer
+
+    Client->>API: GET /products/123
+    API->>Cache: Check cache
+    alt Cache Hit
+        Cache-->>API: Cached data
+        API-->>Client: 200 OK (from cache)
+    else Cache Miss
+        Cache-->>API: null
+        API->>DB: SELECT * FROM products
+        DB-->>API: Product data
+        API->>Cache: SET with 5min TTL
+        API-->>Client: 200 OK
+    end
+
+    Note over Client,Queue: Write path (cache invalidation)
+    Client->>API: PUT /products/123
+    API->>DB: UPDATE products
+    API->>Cache: DELETE key
+    API->>Queue: Emit ProductUpdated
+    API-->>Client: 200 OK</div>
+                <a href="../mermaid-tool.html" class="try-link">Try it in Editor</a>
+
+                <h3>Tips for This Scenario</h3>
+                <ul class="scenario-tips">
+                    <li>Use <code>Note</code> annotations to highlight what is new or changed versus what already exists in the system.</li>
+                    <li>Show at least one error or alternate path using <code>alt</code>/<code>else</code> blocks to demonstrate failure handling.</li>
+                    <li>Keep the participant list short. If you need more than 6 participants, consider splitting into multiple diagrams.</li>
+                    <li>Share the diagram as a SimpleMermaid URL in the ADR document so reviewers can modify it during discussion.</li>
+                </ul>
+            </div>
+
+            <!-- Scenario 3: Post-Mortem Analysis -->
+            <div class="scenario">
+                <h2>Post-Mortem Analysis</h2>
+                <div class="scenario-meta">
+                    <span class="scenario-tag">Sequence Diagram</span>
+                    <span class="scenario-tag">Flowchart</span>
+                    <span class="scenario-tag">Incident Response</span>
+                </div>
+                <div class="scenario-context">
+                    <p><strong>Who:</strong> The incident commander or on-call engineer writing the post-mortem report after a production incident. <strong>When:</strong> Within 48 hours of an incident, as part of the blameless post-mortem process. <strong>Why:</strong> A timeline diagram makes the sequence of events unambiguous. It shows exactly when each system failed, when alerts fired, and when remediation steps were taken. This clarity is essential for identifying the root cause and preventing recurrence.</p>
+                </div>
+
+                <h3>Recommended Diagram</h3>
+                <div class="code-block">sequenceDiagram
+    participant User
+    participant LB as Load Balancer
+    participant App as App Server
+    participant DB as Database
+    participant Alert as PagerDuty
+
+    Note over User,Alert: Incident Timeline - 2026-03-15
+
+    User->>LB: Requests spike (3x normal)
+    LB->>App: Forward traffic
+    App->>DB: Connection pool exhausted
+    DB-->>App: Connection timeout
+    App-->>LB: 503 Service Unavailable
+    LB-->>User: Error page
+
+    Note over App: 14:23 - Error rate exceeds 5%
+    App->>Alert: Trigger P1 alert
+
+    Note over Alert: 14:25 - On-call engineer paged
+    Note over App: 14:32 - Connection pool limit raised
+    App->>DB: Connections restored
+    Note over App: 14:35 - Error rate returns to normal
+    App-->>User: 200 OK</div>
+                <a href="../mermaid-tool.html?example=incident-response" class="try-link">Try it in Editor</a>
+
+                <h3>Tips for This Scenario</h3>
+                <ul class="scenario-tips">
+                    <li>Use <code>Note</code> annotations with timestamps to create a clear timeline of events.</li>
+                    <li>Color-code failure steps if possible. Red for the failure cascade, green for the recovery steps.</li>
+                    <li>Include human actions (alerts, escalations, manual interventions) alongside system interactions.</li>
+                    <li>Link the diagram in the post-mortem document and reference it during the review meeting.</li>
+                </ul>
+            </div>
+
+            <!-- Scenario 4: Sprint Planning -->
+            <div class="scenario">
+                <h2>Sprint Planning</h2>
+                <div class="scenario-meta">
+                    <span class="scenario-tag">Gantt Chart</span>
+                    <span class="scenario-tag">Project Management</span>
+                    <span class="scenario-tag">Agile</span>
+                </div>
+                <div class="scenario-context">
+                    <p><strong>Who:</strong> The engineering manager, scrum master, or tech lead facilitating the sprint planning ceremony. <strong>When:</strong> At the start of each sprint, after stories have been estimated and prioritized. <strong>Why:</strong> A Gantt chart makes task dependencies and parallel workstreams visible at a glance. It helps the team identify bottlenecks before the sprint starts, balance work across team members, and communicate the plan to stakeholders who want to know when specific features will be ready for testing.</p>
+                </div>
+
+                <h3>Recommended Diagram</h3>
+                <div class="code-block">gantt
+    title Sprint 12 - Authentication Revamp
+    dateFormat  YYYY-MM-DD
+    axisFormat  %a %b %d
+
+    section Backend (Alice)
+    Design JWT schema           :des1, 2026-03-23, 1d
+    Implement token service     :impl1, after des1, 3d
+    Write migration scripts     :mig1, after impl1, 1d
+
+    section Frontend (Bob)
+    Update login components     :fe1, 2026-03-23, 2d
+    Integrate token refresh     :fe2, after fe1, 2d
+    Error handling UI           :fe3, after fe2, 1d
+
+    section QA (Carol)
+    Write test cases            :qa1, 2026-03-25, 2d
+    Integration testing         :qa2, after impl1, 2d
+    Regression suite            :qa3, after qa2, 1d
+
+    section Milestones
+    Feature complete            :milestone, after mig1, 0d
+    Sprint demo                 :milestone, 2026-04-03, 0d</div>
+                <a href="../mermaid-tool.html?example=sprint-planning" class="try-link">Try it in Editor</a>
+
+                <h3>Tips for This Scenario</h3>
+                <ul class="scenario-tips">
+                    <li>Group tasks by person or team to make workload distribution visible.</li>
+                    <li>Use <code>after</code> dependencies to show which tasks block others, revealing the critical path.</li>
+                    <li>Add milestone markers for key deliverables like "feature complete" and "sprint demo."</li>
+                    <li>Update the Gantt chart mid-sprint if priorities shift, and share the updated SimpleMermaid URL in Slack.</li>
+                </ul>
+            </div>
+
+            <!-- Scenario 5: API Documentation -->
+            <div class="scenario">
+                <h2>API Documentation</h2>
+                <div class="scenario-meta">
+                    <span class="scenario-tag">Sequence Diagram</span>
+                    <span class="scenario-tag">Flowchart</span>
+                    <span class="scenario-tag">Developer Docs</span>
+                </div>
+                <div class="scenario-context">
+                    <p><strong>Who:</strong> Backend engineers or technical writers creating API documentation for internal or external consumers. <strong>When:</strong> When publishing a new API version, or when onboarding partners who will integrate with your API. <strong>Why:</strong> API consumers need to understand the order of calls, required headers, and expected responses. A sequence diagram in the API docs is far more effective than a wall of curl examples because it shows the full interaction flow including authentication, pagination, and error handling.</p>
+                </div>
+
+                <h3>Recommended Diagram</h3>
+                <div class="code-block">sequenceDiagram
+    participant Dev as Developer
+    participant API as REST API
+    participant Auth as Auth Server
+
+    Note over Dev,Auth: API Integration Flow
+
+    Dev->>Auth: POST /oauth/token
+    Note right of Dev: client_id + client_secret
+    Auth-->>Dev: access_token (expires in 1h)
+
+    Dev->>API: GET /v2/users?page=1
+    Note right of Dev: Authorization: Bearer {token}
+    API-->>Dev: 200 OK + users[] + pagination
+
+    Dev->>API: POST /v2/users
+    Note right of Dev: Content-Type: application/json
+    API-->>Dev: 201 Created + user object
+
+    Dev->>API: GET /v2/users/123
+    API-->>Dev: 200 OK + user detail
+
+    Note over Dev,API: Error handling
+    Dev->>API: GET /v2/users/999
+    API-->>Dev: 404 Not Found + error object
+
+    Dev->>API: GET /v2/users (expired token)
+    API-->>Dev: 401 Unauthorized
+    Dev->>Auth: POST /oauth/token (refresh)
+    Auth-->>Dev: New access_token</div>
+                <a href="../mermaid-tool.html" class="try-link">Try it in Editor</a>
+
+                <h3>Tips for This Scenario</h3>
+                <ul class="scenario-tips">
+                    <li>Show the authentication flow first, then the main API operations, then error handling.</li>
+                    <li>Use <code>Note</code> annotations to indicate required headers, content types, and key response fields.</li>
+                    <li>Include a token refresh flow so consumers understand the full lifecycle.</li>
+                    <li>Embed the diagram in your API documentation alongside the OpenAPI specification.</li>
+                </ul>
+            </div>
+
+            <!-- Scenario 6: Security Threat Modeling -->
+            <div class="scenario">
+                <h2>Security Threat Modeling</h2>
+                <div class="scenario-meta">
+                    <span class="scenario-tag">Flowchart</span>
+                    <span class="scenario-tag">Security</span>
+                    <span class="scenario-tag">Compliance</span>
+                </div>
+                <div class="scenario-context">
+                    <p><strong>Who:</strong> Security engineers, AppSec team members, or senior developers conducting threat modeling during the design phase of a new feature. <strong>When:</strong> During the design review, before code is written, or during a periodic security assessment. <strong>Why:</strong> Threat models identify attack surfaces and potential vulnerabilities before they reach production. A visual threat model makes it easy to communicate risks to non-security stakeholders and creates a traceable artifact for compliance audits (SOC 2, ISO 27001, PCI DSS).</p>
+                    <p>The diagram should show data flows, trust boundaries, and identified threats mapped to specific components. Pair it with a STRIDE analysis table for a complete threat model document.</p>
+                </div>
+
+                <h3>Recommended Diagram</h3>
+                <div class="code-block">flowchart TB
+    subgraph Internet
+        Attacker[Threat Actor]
+        User[Legitimate User]
+    end
+
+    subgraph DMZ
+        WAF[Web Application Firewall]
+        LB[Load Balancer]
+    end
+
+    subgraph Application Tier
+        API[API Server]
+        Auth[Auth Service]
+        FileUpload[File Upload Service]
+    end
+
+    subgraph Data Tier
+        DB[(Primary Database)]
+        Secrets[Secrets Manager]
+    end
+
+    User -->|HTTPS| WAF
+    Attacker -->|XSS, SQLi| WAF
+    Attacker -->|DDoS| LB
+    WAF --> LB --> API
+    API --> Auth
+    API --> FileUpload
+    Auth --> Secrets
+    API --> DB
+    Attacker -.->|Path Traversal| FileUpload
+    Attacker -.->|Credential Stuffing| Auth
+
+    style Attacker fill:#fef2f2,stroke:#dc2626,color:#991b1b
+    style WAF fill:#dcfce7,stroke:#16a34a,color:#166534
+    style Secrets fill:#dbeafe,stroke:#2563eb,color:#1e40af</div>
+                <a href="../mermaid-tool.html?example=api-threats" class="try-link">Try it in Editor</a>
+
+                <h3>Tips for This Scenario</h3>
+                <ul class="scenario-tips">
+                    <li>Use dashed lines (<code>-.-></code>) for attack vectors and solid lines for legitimate data flows.</li>
+                    <li>Color-code threat actors (red), defenses (green), and sensitive components (blue).</li>
+                    <li>Draw trust boundaries using subgraphs (Internet, DMZ, Application, Data) to make scope clear.</li>
+                    <li>Reference this diagram in your STRIDE analysis and link to it from Jira security stories.</li>
+                    <li>Explore the full set of security diagram templates in the <a href="diagram-gallery.html" style="color: var(--primary);">Diagram Gallery</a>.</li>
+                </ul>
+            </div>
+
+            <!-- CTA -->
+            <div class="page-cta">
+                <h2>Start with a scenario that matches your need</h2>
+                <p>Copy any example above, paste it into the editor, and adapt it to your specific project. The best diagram is the one your team will actually use.</p>
+                <a href="../mermaid-tool.html" class="btn">Open the Editor</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Cyberpunk Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Product</h3>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../mermaid-tool.html">Editor</a></li>
+                        <li><a href="../learn-mermaid.html">Learn Mermaid</a></li>
+                        <li><a href="../about.html">About</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="../faq.html">FAQ</a></li>
+                        <li><a href="diagram-gallery.html">Diagram Gallery</a></li>
+                        <li><a href="best-practices.html">Best Practices</a></li>
+                        <li><a href="use-cases.html">Use Cases</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="../about.html">About</a></li>
+                        <li><a href="../changelog.html">Changelog</a></li>
+                        <li><a href="../privacy.html">Privacy Policy</a></li>
+                        <li><a href="../terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom">
+                <div class="footer-tech">
+                    <span class="tech-badge">Mermaid.js</span>
+                    <span class="tech-badge">Vanilla JS</span>
+                    <span class="tech-badge">CSS Grid</span>
+                    <span class="tech-badge">LocalStorage</span>
+                    <span class="tech-badge">PWA Ready</span>
+                </div>
+
+                <p class="footer-copyright">
+                    &copy; 2025 <span class="footer-glow">SimpleMermaid.com</span> |
+                    Powered by the future of diagramming |
+                    <span class="footer-glow">Create &bull; Share &bull; Inspire</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const body = document.body;
+
+        const oldTheme = localStorage.getItem('theme');
+        if (oldTheme && !localStorage.getItem('simplemermaid-theme')) {
+            localStorage.setItem('simplemermaid-theme', oldTheme);
+            localStorage.removeItem('theme');
+        }
+
+        const savedTheme = localStorage.getItem('simplemermaid-theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        body.setAttribute('data-theme', savedTheme);
+        themeToggle.textContent = savedTheme === 'light' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+            body.setAttribute('data-theme', newTheme);
+            themeToggle.textContent = newTheme === 'light' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+            localStorage.setItem('simplemermaid-theme', newTheme);
+        });
+
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('show');
+        });
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('show');
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

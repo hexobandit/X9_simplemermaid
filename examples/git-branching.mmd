@@ -1,0 +1,68 @@
+flowchart TD
+    Title["Git Branching Strategies Compared"]:::title
+
+    Title --> GF
+    Title --> TBD
+
+    subgraph GF["GitFlow"]
+        direction TB
+        GF_Main["main\n(production releases)"]:::mainBranch
+        GF_Dev["develop\n(integration branch)"]:::devBranch
+
+        GF_Main -->|"create hotfix branch"| GF_HF["hotfix/payment-bug"]:::hotfixBranch
+        GF_HF -->|"merge fix"| GF_Main
+        GF_HF -->|"merge fix back"| GF_Dev
+
+        GF_Dev -->|"create feature"| GF_F1["feature/user-auth"]:::featureBranch
+        GF_Dev -->|"create feature"| GF_F2["feature/dashboard"]:::featureBranch
+        GF_F1 -->|"merge when complete"| GF_Dev
+        GF_F2 -->|"merge when complete"| GF_Dev
+
+        GF_Dev -->|"create release"| GF_Rel["release/v2.1.0"]:::releaseBranch
+        GF_Rel -->|"bug fixes only"| GF_RelFix["Fix: update changelog\nFix: version bump"]:::releaseBranch
+        GF_RelFix -->|"release to prod"| GF_Main
+        GF_RelFix -->|"merge back"| GF_Dev
+
+        GF_Main -->|"tag"| GF_Tag1["v2.0.0"]:::tag
+        GF_Main -->|"tag"| GF_Tag2["v2.0.1"]:::tag
+        GF_Main -->|"tag"| GF_Tag3["v2.1.0"]:::tag
+
+        GF_Note["Long-lived branches\nStrict merge rules\nBest for: scheduled releases\nversioned software"]:::note
+    end
+
+    subgraph TBD["Trunk-Based Development"]
+        direction TB
+        TBD_Main["main (trunk)\n(always deployable)"]:::mainBranch
+
+        TBD_Main -->|"short-lived branch\n(1-2 days max)"| TBD_F1["feat/add-search"]:::featureBranch
+        TBD_Main -->|"short-lived branch"| TBD_F2["feat/new-api"]:::featureBranch
+        TBD_Main -->|"short-lived branch"| TBD_F3["fix/null-check"]:::featureBranch
+
+        TBD_F1 -->|"PR + merge\n(same day)"| TBD_Main
+        TBD_F2 -->|"PR + merge\n(next day)"| TBD_Main
+        TBD_F3 -->|"PR + merge\n(within hours)"| TBD_Main
+
+        TBD_Main -->|"feature flag"| TBD_FF1["Feature Flag:\nsearch_v2 = OFF"]:::flagOff
+        TBD_Main -->|"feature flag"| TBD_FF2["Feature Flag:\nnew_api = 10% rollout"]:::flagPartial
+        TBD_Main -->|"feature flag"| TBD_FF3["Feature Flag:\ndark_mode = ON"]:::flagOn
+
+        TBD_FF3 -->|"flag cleanup"| TBD_Clean["Remove flag\ncode is now permanent"]:::featureBranch
+
+        TBD_Main -->|"continuous deploy"| TBD_CD1["Deploy #847"]:::tag
+        TBD_Main -->|"continuous deploy"| TBD_CD2["Deploy #848"]:::tag
+        TBD_Main -->|"continuous deploy"| TBD_CD3["Deploy #849"]:::tag
+
+        TBD_Note["Single main branch\nSmall frequent merges\nBest for: continuous deployment\nSaaS, web apps"]:::note
+    end
+
+    classDef title fill:#1e293b,stroke:#0f172a,color:#fff,font-weight:bold,font-size:16px
+    classDef mainBranch fill:#3b82f6,stroke:#1d4ed8,color:#fff,font-weight:bold
+    classDef devBranch fill:#8b5cf6,stroke:#6d28d9,color:#fff,font-weight:bold
+    classDef featureBranch fill:#22c55e,stroke:#15803d,color:#fff,font-weight:bold
+    classDef releaseBranch fill:#f97316,stroke:#c2410c,color:#fff,font-weight:bold
+    classDef hotfixBranch fill:#ef4444,stroke:#b91c1c,color:#fff,font-weight:bold
+    classDef tag fill:#fbbf24,stroke:#d97706,color:#000,font-weight:bold
+    classDef flagOff fill:#94a3b8,stroke:#64748b,color:#fff
+    classDef flagPartial fill:#facc15,stroke:#ca8a04,color:#000
+    classDef flagOn fill:#22c55e,stroke:#15803d,color:#fff
+    classDef note fill:#f1f5f9,stroke:#cbd5e1,color:#475569,font-style:italic

@@ -31,9 +31,12 @@
     <link rel="canonical" href="https://simplemermaid.com/learn-mermaid.html">
     <meta name="theme-color" content="#6366f1">
     
+    <!-- Google AdSense Account -->
+    <meta name="google-adsense-account" content="ca-pub-8641410034592329">
+
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon.png">
-    
+
     <!-- Structured Data -->
     <script type="application/ld+json">
     {
@@ -410,6 +413,18 @@
         }
         
         /* Syntax Guide */
+        .content-section {
+            background: var(--bg-secondary);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .content-section p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
         .syntax-guide {
             background: var(--bg-secondary);
             border-radius: var(--radius);
@@ -823,7 +838,9 @@
             <ul class="nav-menu">
                 <li><a href="index.html" class="nav-link">Home</a></li>
                 <li><a href="learn-mermaid.html" class="nav-link active">Learn</a></li>
+                <li><a href="blog/index.html" class="nav-link">Blog</a></li>
                 <li><a href="mermaid-tool.html" class="nav-link">Editor</a></li>
+                <li><a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="nav-bmc" title="Buy me a coffee"><img src="bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 28px; vertical-align: middle; border-radius: 4px;"></a></li>
                 <li><button class="theme-toggle" id="themeToggle">☀️</button></li>
                 <li><a href="mermaid-tool.html" class="nav-cta">Start Creating</a></li>
             </ul>
@@ -840,7 +857,9 @@
         <div class="mobile-menu" id="mobileMenu">
             <a href="index.html" class="mobile-nav-link">Home</a>
             <a href="learn-mermaid.html" class="mobile-nav-link">Learn</a>
+            <a href="blog/index.html" class="mobile-nav-link">Blog</a>
             <a href="mermaid-tool.html" class="mobile-nav-link">Editor</a>
+            <a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="mobile-nav-link" style="display: flex; align-items: center; gap: 0.5rem;"><img src="bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 24px; border-radius: 4px;"> Buy Me A Coffee</a>
             <a href="mermaid-tool.html" class="mobile-nav-link nav-cta">Start Creating</a>
         </div>
     </header>
@@ -860,18 +879,23 @@
                     <h2>What is Mermaid.js?</h2>
                     <p>A powerful, text-based diagramming tool that creates professional diagrams using simple, Markdown-like syntax</p>
                 </div>
-                
+
+                <div class="content-section" style="margin-bottom: 2rem;">
+                    <p>Mermaid.js is an open-source JavaScript library that transforms plain text descriptions into polished diagrams and charts. Instead of dragging shapes around a canvas, you write a few lines of intuitive syntax, and Mermaid handles all the layout, positioning, and styling automatically. Think of it as Markdown for diagrams: just as Markdown lets you write formatted documents with simple text syntax, Mermaid lets you create complex visual diagrams without touching a mouse.</p>
+                    <p>Mermaid supports a wide range of diagram types including flowcharts, sequence diagrams, class diagrams, state diagrams, entity relationship diagrams, Gantt charts, and more. It's natively supported in GitHub, GitLab, Notion, Confluence, and many other platforms, making it an ideal choice for developers who want their diagrams to live alongside their code and documentation.</p>
+                </div>
+
                 <div class="tutorial-grid">
                     <div class="tutorial-card">
                         <h3>📝 Text-Based</h3>
                         <p>Write diagrams as code using intuitive syntax. No dragging, no clicking - just type and see your diagram appear.</p>
                     </div>
-                    
+
                     <div class="tutorial-card">
                         <h3>⚡ Instant Rendering</h3>
                         <p>Watch your diagrams come to life in real-time as you type. Perfect for rapid prototyping and quick iterations.</p>
                     </div>
-                    
+
                     <div class="tutorial-card">
                         <h3>🎨 Professional Output</h3>
                         <p>Generate beautiful, publication-ready diagrams that look great in documentation, presentations, and reports.</p>
@@ -1172,6 +1196,195 @@ B --> C[End]</div>
                 </div>
             </section>
             
+            <!-- Subgraphs and Grouping -->
+            <section class="tutorial-section">
+                <div class="section-header">
+                    <h2>Subgraphs and Grouping</h2>
+                    <p>Organize complex diagrams into logical sections</p>
+                </div>
+
+                <div class="syntax-guide">
+                    <p>As diagrams grow, they can become difficult to read. Subgraphs let you group related nodes into labeled containers, creating visual boundaries that mirror your system's actual architecture. They're essential for any diagram with more than 8-10 nodes.</p>
+
+                    <p>Subgraphs can be nested to represent hierarchical structures like cloud regions containing availability zones, or organizational departments containing teams. You can also style subgraphs individually and create connections between subgraphs, not just between nodes.</p>
+
+                    <div class="code-block">flowchart TB
+    subgraph Cloud["AWS Cloud"]
+        subgraph VPC["VPC - 10.0.0.0/16"]
+            subgraph Public["Public Subnet"]
+                ALB[Load Balancer]
+                NAT[NAT Gateway]
+            end
+            subgraph Private["Private Subnet"]
+                App1[App Server 1]
+                App2[App Server 2]
+                DB[(RDS Database)]
+            end
+        end
+    end
+
+    User[Users] --> ALB
+    ALB --> App1
+    ALB --> App2
+    App1 --> DB
+    App2 --> DB</div>
+
+                    <p>Key tips: give your subgraphs descriptive IDs and display labels using the <code class="code-inline">subgraph ID["Display Label"]</code> syntax. Keep nesting to three levels maximum for readability.</p>
+                </div>
+            </section>
+
+            <!-- Sequence Diagram Deep Dive -->
+            <section class="tutorial-section">
+                <div class="section-header">
+                    <h2>Sequence Diagram Deep Dive</h2>
+                    <p>Master the most popular diagram type for API and system documentation</p>
+                </div>
+
+                <div class="syntax-guide">
+                    <p>Sequence diagrams are arguably the most useful diagram type for software developers. They show how components interact over time, making them perfect for documenting API flows, authentication handshakes, and microservice communication patterns.</p>
+
+                    <h3>Participants and Actors</h3>
+                    <p>Explicitly declare participants to control their order and give them display names. Use <code class="code-inline">actor</code> for human users and <code class="code-inline">participant</code> for systems:</p>
+
+                    <div class="code-block">sequenceDiagram
+    actor User
+    participant Client as Browser
+    participant Auth as Auth Service
+    participant API as API Gateway
+    participant DB as Database
+
+    User->>Client: Click Login
+    Client->>Auth: POST /auth/login
+    activate Auth
+    Auth->>DB: Verify credentials
+    DB-->>Auth: User record
+    Auth-->>Client: JWT Token
+    deactivate Auth
+    Client->>API: GET /data (Bearer token)
+    activate API
+    API->>DB: Query data
+    DB-->>API: Results
+    API-->>Client: JSON response
+    deactivate API
+    Client->>User: Display data</div>
+
+                    <h3>Loops, Alternatives, and Notes</h3>
+                    <p>Use <code class="code-inline">loop</code>, <code class="code-inline">alt</code>/<code class="code-inline">else</code>, and <code class="code-inline">Note</code> blocks to show conditional logic, repetition, and annotations:</p>
+
+                    <div class="code-block">sequenceDiagram
+    participant C as Client
+    participant S as Server
+
+    C->>S: Request with retry
+
+    alt Success
+        S-->>C: 200 OK
+    else Rate Limited
+        S-->>C: 429 Too Many Requests
+        Note right of C: Wait and retry
+        loop Retry up to 3 times
+            C->>S: Retry request
+            S-->>C: Response
+        end
+    end</div>
+                </div>
+            </section>
+
+            <!-- Advanced Gantt Chart Features -->
+            <section class="tutorial-section">
+                <div class="section-header">
+                    <h2>Advanced Gantt Chart Features</h2>
+                    <p>Go beyond basic timelines with milestones, excludes, and sections</p>
+                </div>
+
+                <div class="syntax-guide">
+                    <p>Gantt charts in Mermaid support much more than simple task bars. You can define milestones (diamond markers for key dates), exclude weekends or specific dates, mark tasks as done/active/critical, and organize work into sections. This makes them genuinely useful for sprint planning and release tracking.</p>
+
+                    <div class="code-block">gantt
+    title Q1 Release Schedule
+    dateFormat YYYY-MM-DD
+    excludes weekends
+
+    section Planning
+    Requirements gathering  :done, req, 2026-01-06, 5d
+    Architecture review     :done, arch, after req, 3d
+    Sprint planning         :done, plan, after arch, 2d
+
+    section Development
+    Core feature build      :active, core, after plan, 10d
+    API integration         :api, after core, 7d
+    Frontend polish         :fe, after api, 5d
+
+    section Release
+    QA testing              :qa, after fe, 5d
+    Performance testing     :perf, after fe, 5d
+    Beta release            :milestone, beta, after qa, 0d
+    Bug fixes               :fix, after beta, 5d
+    Production release      :milestone, prod, after fix, 0d</div>
+
+                    <p>The <code class="code-inline">excludes weekends</code> directive automatically skips Saturdays and Sundays in the timeline. Use <code class="code-inline">milestone</code> for zero-duration markers that highlight key dates. Tasks can reference other tasks with <code class="code-inline">after taskId</code> to create dependency chains.</p>
+                </div>
+            </section>
+
+            <!-- Common Mistakes and Debugging -->
+            <section class="tutorial-section">
+                <div class="section-header">
+                    <h2>Common Mistakes and Debugging</h2>
+                    <p>Save time by avoiding these frequent pitfalls</p>
+                </div>
+
+                <div class="syntax-guide">
+                    <p>Even experienced Mermaid users run into syntax issues. Here are the most common mistakes and how to fix them:</p>
+
+                    <h3>Special Characters in Labels</h3>
+                    <p>Parentheses, brackets, and quotes inside node labels will break your syntax. Always wrap labels with special characters in double quotes: <code class="code-inline">A["Process (v2.0)"]</code> instead of <code class="code-inline">A[Process (v2.0)]</code>.</p>
+
+                    <h3>Missing Diagram Type Declaration</h3>
+                    <p>Every diagram must start with its type keyword (<code class="code-inline">flowchart</code>, <code class="code-inline">sequenceDiagram</code>, <code class="code-inline">classDiagram</code>, etc.). Forgetting this line is the most common cause of "Parse error" messages.</p>
+
+                    <h3>Indentation Matters in Some Contexts</h3>
+                    <p>While flowcharts are forgiving about whitespace, class diagram methods and Gantt chart tasks are sensitive to indentation. Use consistent spacing to avoid unexpected parsing failures.</p>
+
+                    <h3>Node ID Reuse</h3>
+                    <p>If you define <code class="code-inline">A[First Label]</code> and later write <code class="code-inline">A[Second Label]</code>, Mermaid will use the first label. Node IDs are defined once; subsequent references don't need brackets. Just use <code class="code-inline">A</code> to reference an existing node.</p>
+
+                    <h3>Debugging Tips</h3>
+                    <p>When a diagram won't render, try these steps: First, check for a red error message in the preview, it usually points to the exact line with an issue. Second, comment out sections of your diagram to isolate the problem. Third, simplify complex labels by removing special characters temporarily. The SimpleMermaid editor shows errors in real-time, making it easy to catch issues as you type.</p>
+                </div>
+            </section>
+
+            <!-- Integration Tips -->
+            <section class="tutorial-section">
+                <div class="section-header">
+                    <h2>Integration Tips</h2>
+                    <p>Use Mermaid diagrams across your development workflow</p>
+                </div>
+
+                <div class="syntax-guide">
+                    <p>One of Mermaid's biggest advantages is its wide platform support. Here's how to use your diagrams beyond SimpleMermaid:</p>
+
+                    <h3>GitHub and GitLab</h3>
+                    <p>Both platforms render Mermaid diagrams natively in Markdown files. Simply wrap your Mermaid code in a fenced code block with the <code class="code-inline">mermaid</code> language identifier. This means your architecture diagrams can live directly in your README, ADRs (Architecture Decision Records), or pull request descriptions.</p>
+
+                    <div class="code-block">```mermaid
+flowchart LR
+    A[Feature Branch] --> B[Pull Request]
+    B --> C{Review}
+    C -->|Approved| D[Merge to Main]
+    C -->|Changes Needed| A
+```</div>
+
+                    <h3>Notion and Confluence</h3>
+                    <p>Notion supports Mermaid in code blocks natively. In Confluence, you can use the Mermaid plugin or embed diagrams as images exported from SimpleMermaid. For teams using Confluence, we recommend exporting as SVG for the best quality at any zoom level.</p>
+
+                    <h3>Documentation Sites</h3>
+                    <p>Popular documentation frameworks like Docusaurus, MkDocs (with the mermaid plugin), GitBook, and VuePress all support Mermaid diagrams. This lets you maintain a single source of truth for your diagrams in your documentation codebase, updated through the same pull request workflow as your code.</p>
+
+                    <h3>Presentations</h3>
+                    <p>For presentations, export your diagram as PNG from SimpleMermaid for maximum compatibility, or SVG if your presentation software supports it. The dark theme export works particularly well on dark slide backgrounds.</p>
+                </div>
+            </section>
+
             <!-- Best Practices -->
             <section class="tutorial-section">
                 <div class="section-header">
@@ -1179,52 +1392,56 @@ B --> C[End]</div>
                     <p>Create professional, maintainable diagrams</p>
                 </div>
                 
+                <div class="content-section" style="margin-bottom: 2rem;">
+                    <p>Writing good diagrams is a skill that improves with practice. These best practices will help you create diagrams that are clear, maintainable, and genuinely useful to your team.</p>
+                </div>
+
                 <ul class="practice-list">
                     <li>
                         <span class="practice-icon">✅</span>
                         <div class="practice-content">
                             <h4>Use Descriptive Labels</h4>
-                            <p>Instead of A, B, C, use meaningful names like User, Server, Database</p>
+                            <p>Instead of abstract identifiers like A, B, C, use meaningful names that describe what each node represents: User, AuthService, PostgresDB. A reader should understand the diagram without needing a legend. For connection labels, use action verbs: "authenticates," "queries," "returns" rather than generic terms like "connects to."</p>
                         </div>
                     </li>
-                    
+
                     <li>
                         <span class="practice-icon">✅</span>
                         <div class="practice-content">
                             <h4>Break Complex Diagrams</h4>
-                            <p>Split large diagrams into multiple smaller, focused ones</p>
+                            <p>If your diagram has more than 15-20 nodes, it's probably trying to show too much at once. Split it into focused views: a high-level system overview, a detailed authentication flow, a data pipeline diagram. Each diagram should answer one question clearly rather than trying to document everything in a single image.</p>
                         </div>
                     </li>
-                    
+
                     <li>
                         <span class="practice-icon">✅</span>
                         <div class="practice-content">
                             <h4>Use Consistent Direction</h4>
-                            <p>Maintain flow direction (TD for processes, LR for sequences)</p>
+                            <p>Pick a flow direction that matches the mental model of your audience. Top-down (TD) works well for hierarchical processes and decision trees. Left-to-right (LR) is natural for sequential workflows and timelines. Whichever you choose, be consistent across your project's diagrams so readers can build intuition.</p>
                         </div>
                     </li>
-                    
+
                     <li>
                         <span class="practice-icon">✅</span>
                         <div class="practice-content">
                             <h4>Apply Color Coding</h4>
-                            <p>Use colors consistently (green for success, red for errors, etc.)</p>
+                            <p>Use colors to convey meaning, not just for decoration. Establish a consistent palette: green for success paths, red for error states, blue for external services, gray for optional steps. Document your color conventions so the whole team uses them consistently. Use classDef to define reusable styles.</p>
                         </div>
                     </li>
-                    
+
                     <li>
                         <span class="practice-icon">✅</span>
                         <div class="practice-content">
                             <h4>Group Related Items</h4>
-                            <p>Use subgraphs to organize related nodes visually</p>
+                            <p>Use subgraphs to create visual boundaries that mirror your system's architecture. Group nodes by service, by team ownership, by deployment environment, or by security boundary. This makes large diagrams scannable and helps readers quickly find the section relevant to them.</p>
                         </div>
                     </li>
-                    
+
                     <li>
                         <span class="practice-icon">✅</span>
                         <div class="practice-content">
                             <h4>Label Important Connections</h4>
-                            <p>Add descriptions to arrows when the relationship isn't obvious</p>
+                            <p>Not every arrow needs a label, but critical transitions should be annotated. Decision branches should always show the condition (Yes/No, Success/Failure). API calls should show the method and endpoint. Data flows should indicate what data is being passed. When in doubt, add the label; a slightly verbose diagram is better than an ambiguous one.</p>
                         </div>
                     </li>
                 </ul>
@@ -1308,9 +1525,11 @@ B --> C[End]</div>
                 <div class="footer-section">
                     <h3>Resources</h3>
                     <ul class="footer-links">
+                        <li><a href="blog/index.html">Blog</a></li>
                         <li><a href="https://mermaid.js.org" target="_blank">Official Docs</a></li>
-                        <li><a href="index.html">Homepage</a></li>
-                        <li><a href="mermaid-tool.html">Editor Tool</a></li>
+                        <li><a href="guides/diagram-gallery.html">Diagram Gallery</a></li>
+                        <li><a href="guides/best-practices.html">Best Practices</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
                         <li><a href="changelog.html">Changelog</a></li>
                     </ul>
                 </div>

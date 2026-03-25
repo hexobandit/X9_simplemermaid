@@ -1,0 +1,131 @@
+flowchart LR
+    subgraph Producers["Data Producers"]
+        WEB["Web Application\n(Clickstream)"]
+        MOBILE["Mobile App\n(Events)"]
+        IOT["IoT Sensors\n(Telemetry)"]
+        SVC["Microservices\n(Domain Events)"]
+        CDC["Database CDC\n(Debezium)"]
+    end
+
+    subgraph Ingestion["Ingestion Layer"]
+        GW["API Gateway\n(Schema Registry)"]
+        SR["Schema Registry\n(Avro/Protobuf)"]
+    end
+
+    subgraph Kafka["Apache Kafka Cluster"]
+        subgraph Topics["Topics & Partitions"]
+            T1["clickstream-events\nP0 | P1 | P2 | P3"]
+            T2["user-actions\nP0 | P1 | P2"]
+            T3["iot-telemetry\nP0 | P1 | P2 | P3 | P4"]
+            T4["domain-events\nP0 | P1 | P2"]
+            T5["cdc-changes\nP0 | P1"]
+        end
+        subgraph KafkaInternals["Kafka Internals"]
+            ZK["ZooKeeper /\nKRaft Controller"]
+            REP["Replication\nFactor: 3"]
+            RET["Retention\n7 Days"]
+        end
+    end
+
+    subgraph ConsumerGroups["Consumer Groups"]
+        subgraph CG1["Analytics Consumer Group"]
+            C1A["Consumer 1"]
+            C1B["Consumer 2"]
+        end
+        subgraph CG2["ML Consumer Group"]
+            C2A["Consumer 1"]
+            C2B["Consumer 2"]
+        end
+        subgraph CG3["Alerting Consumer Group"]
+            C3A["Consumer 1"]
+        end
+    end
+
+    subgraph StreamProcessing["Stream Processing"]
+        FLINK["Apache Flink\n(Stateful Processing)"]
+        WINDOW["Windowed\nAggregations\n(Tumbling/Sliding)"]
+        CEP["Complex Event\nProcessing"]
+        JOIN["Stream-Stream\nJoins"]
+        ENRICH["Stream-Table\nEnrichment"]
+    end
+
+    subgraph StateStore["State Management"]
+        ROCKS["RocksDB\n(Local State)"]
+        CHECKPOINT["Checkpoints\n(S3)"]
+    end
+
+    subgraph Sinks["Data Sinks"]
+        ES["Elasticsearch\n(Search & Analytics)"]
+        PG["PostgreSQL\n(Materialized Views)"]
+        S3["S3 Data Lake\n(Parquet / Iceberg)"]
+        REDIS["Redis\n(Real-time Cache)"]
+        PROM["Prometheus\n(Metrics)"]
+    end
+
+    subgraph Serving["Serving Layer"]
+        GRAFANA["Grafana\nDashboard"]
+        API_OUT["Analytics\nAPI"]
+        ALERTS["Alert Manager\n(PagerDuty)"]
+        NOTEBOOK["Jupyter\nNotebooks"]
+    end
+
+    WEB --> GW
+    MOBILE --> GW
+    IOT --> GW
+    SVC --> GW
+    CDC --> T5
+
+    GW --> SR
+    SR --> T1
+    SR --> T2
+    SR --> T3
+    SR --> T4
+
+    ZK ~~~ REP
+    REP ~~~ RET
+
+    T1 --> C1A & C1B
+    T2 --> C1A & C2A
+    T3 --> C2B & C3A
+    T4 --> C1B & C2A
+    T5 --> C2B
+
+    CG1 --> FLINK
+    CG2 --> FLINK
+    CG3 --> CEP
+
+    FLINK --> WINDOW
+    FLINK --> JOIN
+    FLINK --> ENRICH
+    WINDOW --> CEP
+
+    FLINK --> ROCKS
+    ROCKS --> CHECKPOINT
+
+    CEP --> ALERTS
+    JOIN --> ES
+    JOIN --> PG
+    ENRICH --> S3
+    WINDOW --> REDIS
+    WINDOW --> PROM
+
+    ES --> API_OUT
+    PG --> API_OUT
+    REDIS --> API_OUT
+    PROM --> GRAFANA
+    S3 --> NOTEBOOK
+    ALERTS --> GRAFANA
+
+    style Producers fill:#e1f5fe,stroke:#0288d1,color:#000
+    style Ingestion fill:#f3e5f5,stroke:#7b1fa2,color:#000
+    style Kafka fill:#fff3e0,stroke:#e65100,color:#000
+    style Topics fill:#ffe0b2,stroke:#ef6c00,color:#000
+    style KafkaInternals fill:#ffe0b2,stroke:#ef6c00,color:#000
+    style ConsumerGroups fill:#fce4ec,stroke:#c62828,color:#000
+    style CG1 fill:#ffcdd2,stroke:#e53935,color:#000
+    style CG2 fill:#ffcdd2,stroke:#e53935,color:#000
+    style CG3 fill:#ffcdd2,stroke:#e53935,color:#000
+    style StreamProcessing fill:#fff9c4,stroke:#f9a825,color:#000
+    style StateStore fill:#f5f5f5,stroke:#616161,color:#000
+    style Sinks fill:#e8f5e9,stroke:#2e7d32,color:#000
+    style Serving fill:#e0f7fa,stroke:#00838f,color:#000

@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Beginner's Guide to Mermaid.js - SimpleMermaid Blog</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Learn Mermaid.js from scratch. This beginner's guide covers installation, basic syntax, your first flowchart, supported diagram types, styling, and where Mermaid is natively supported.">
+    <meta name="keywords" content="Mermaid.js, beginner guide, Mermaid tutorial, diagrams as code, flowchart syntax, Mermaid installation, Mermaid GitHub, Mermaid CDN, diagram types">
+    <meta name="author" content="SimpleMermaid.com">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="A Beginner's Guide to Mermaid.js - SimpleMermaid Blog">
+    <meta property="og:description" content="Learn Mermaid.js from scratch. Covers installation, basic syntax, your first flowchart, diagram types, styling, and platform support.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://simplemermaid.com/blog/mermaid-js-beginners-guide.html">
+    <meta property="og:image" content="https://simplemermaid.com/simplemermaid.png">
+    <meta property="og:site_name" content="SimpleMermaid">
+
+    <!-- Twitter/X Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="A Beginner's Guide to Mermaid.js - SimpleMermaid Blog">
+    <meta name="twitter:description" content="Learn Mermaid.js from scratch. Covers installation, basic syntax, your first flowchart, and more.">
+    <meta name="twitter:image" content="https://simplemermaid.com/simplemermaid.png">
+    <meta name="twitter:creator" content="@simplemermaid">
+    <meta name="twitter:site" content="@simplemermaid">
+
+    <!-- Additional SEO -->
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://simplemermaid.com/blog/mermaid-js-beginners-guide.html">
+    <meta name="theme-color" content="#6366f1">
+
+    <!-- Google AdSense Account -->
+    <meta name="google-adsense-account" content="ca-pub-8641410034592329">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../favicon.png">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "A Beginner's Guide to Mermaid.js",
+        "description": "Learn Mermaid.js from scratch. This beginner's guide covers installation, basic syntax, your first flowchart, supported diagram types, styling, and platform support.",
+        "url": "https://simplemermaid.com/blog/mermaid-js-beginners-guide.html",
+        "datePublished": "2026-03-25",
+        "dateModified": "2026-03-25",
+        "author": {
+            "@type": "Organization",
+            "name": "SimpleMermaid.com",
+            "url": "https://simplemermaid.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "SimpleMermaid.com",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://simplemermaid.com/simplemermaid.png"
+            }
+        },
+        "image": "https://simplemermaid.com/simplemermaid.png",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://simplemermaid.com/blog/mermaid-js-beginners-guide.html"
+        }
+    }
+    </script>
+
+    <style>
+        /* Modern CSS Variables */
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #f8fafc;
+            --accent: #10b981;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-muted: #9ca3af;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-code: #1f2937;
+            --border: #e5e7eb;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.15);
+            --radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --primary: #8b5cf6;
+            --primary-hover: #7c3aed;
+            --primary-light: #a78bfa;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --text-muted: #9ca3af;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-code: #111827;
+            --border: #374151;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            transition: var(--transition);
+        }
+
+        /* Navigation Header */
+        .nav-header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .logo-icon {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .diagram-node {
+            width: 16px;
+            height: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            border-radius: 3px;
+        }
+
+        .diagram-connection {
+            width: 10px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        /* Desktop Navigation */
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            background: var(--bg-secondary);
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+            background: var(--bg-secondary);
+        }
+
+        .nav-cta {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-cta:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .nav-bmc {
+            display: flex;
+            align-items: center;
+            padding: 0.35rem 0.75rem;
+            background: #ffdd00;
+            border-radius: 8px;
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(255, 221, 0, 0.3);
+        }
+
+        .nav-bmc:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(255, 221, 0, 0.5);
+            background: #ffdd00;
+        }
+
+        /* Mobile Navigation */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 1rem;
+            z-index: 999;
+        }
+
+        .mobile-menu.show {
+            display: block;
+        }
+
+        .mobile-nav-link {
+            display: block;
+            padding: 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .mobile-nav-link:hover {
+            background: var(--bg-secondary);
+            color: var(--primary);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 0.5rem;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary);
+            background: var(--bg-secondary);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            padding: 2rem;
+        }
+
+        /* Hero Section */
+        .article-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+            border-radius: var(--radius);
+            margin-bottom: 3rem;
+        }
+
+        .article-hero h1 {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            margin-bottom: 1rem;
+        }
+
+        .article-hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .article-meta {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Content Container */
+        .content-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Article Content */
+        .article-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .article-content h2 {
+            font-size: 1.75rem;
+            color: var(--text-primary);
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .article-content h3 {
+            font-size: 1.35rem;
+            color: var(--primary);
+            margin: 2rem 0 0.75rem;
+        }
+
+        .article-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .article-content ul, .article-content ol {
+            margin: 1rem 0 1.5rem;
+            padding-left: 2rem;
+        }
+
+        .article-content li {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .article-content strong {
+            color: var(--text-primary);
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: var(--bg-code);
+            color: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            margin: 1rem 0 1.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .code-inline {
+            background: var(--bg-secondary);
+            color: var(--primary);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: var(--bg-secondary);
+            border-left: 4px solid var(--primary);
+            border-radius: 0 var(--radius) var(--radius) 0;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .info-box p {
+            color: var(--text-secondary);
+            margin-bottom: 0;
+        }
+
+        /* Diagram Type Grid */
+        .type-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .type-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem;
+            transition: var(--transition);
+        }
+
+        .type-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .type-card h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .type-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+
+        .type-card code {
+            display: block;
+            background: var(--bg-code);
+            color: #f8fafc;
+            padding: 0.35rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        /* CTA Section */
+        .article-cta {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .article-cta h3 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .article-cta p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        /* Related Articles */
+        .related-articles {
+            margin: 3rem 0;
+        }
+
+        .related-articles h3 {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .related-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .related-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+            border-color: var(--primary);
+        }
+
+        .related-card h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .related-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Cyberpunk Footer */
+        .footer {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #16213e 100%);
+            border-top: 2px solid;
+            border-image: linear-gradient(90deg, #00d4ff, #6366f1, #8b5cf6, #00d4ff) 1;
+            padding: 4rem 2rem 2rem;
+            position: relative;
+            overflow: hidden;
+            margin-top: 4rem;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            animation: cyberpunk-scan 3s linear infinite;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #00d4ff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px #00d4ff50;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #a1a1aa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer-links a:hover {
+            color: #00d4ff;
+            text-shadow: 0 0 5px #00d4ff50;
+            padding-left: 10px;
+        }
+
+        .footer-links a::before {
+            content: '\25B6';
+            position: absolute;
+            left: -15px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            color: #6366f1;
+        }
+
+        .footer-links a:hover::before {
+            opacity: 1;
+            left: -10px;
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #6366f1, transparent);
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .footer-divider::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            opacity: 0;
+            animation: cyberpunk-pulse 2s ease-in-out infinite alternate;
+        }
+
+        .footer-bottom {
+            text-align: center;
+        }
+
+        .footer-copyright {
+            color: #71717a;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-tech {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .tech-badge {
+            background: linear-gradient(135deg, #374151, #1f2937);
+            border: 1px solid #6366f1;
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            color: #00d4ff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 5px #00d4ff30;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tech-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 25px rgba(0, 212, 255, 0.3);
+            border-color: #00d4ff;
+        }
+
+        .footer-glow {
+            color: #6366f1;
+            text-shadow: 0 0 10px #6366f150;
+            font-weight: 700;
+        }
+
+        /* Cyberpunk Animations */
+        @keyframes cyberpunk-scan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes cyberpunk-pulse {
+            0% { opacity: 0; }
+            100% { opacity: 0.6; }
+        }
+
+        /* Dark theme adjustments */
+        [data-theme="dark"] .footer {
+            background: linear-gradient(135deg, #000000 0%, #1a0b3d 50%, #2d1b69 100%);
+        }
+
+        [data-theme="dark"] .tech-badge {
+            background: linear-gradient(135deg, #1e1b4b, #312e81);
+            border-color: #8b5cf6;
+        }
+
+        [data-theme="dark"] .footer-section h3 {
+            color: #a78bfa;
+            text-shadow: 0 0 10px #8b5cf650;
+        }
+
+        [data-theme="dark"] .footer-links a:hover {
+            color: #a78bfa;
+            text-shadow: 0 0 5px #8b5cf650;
+        }
+
+        [data-theme="dark"] .tech-badge:hover {
+            border-color: #a78bfa;
+            box-shadow: 0 5px 25px rgba(139, 92, 246, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 1rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .main-content {
+                margin-top: 60px;
+                padding: 1rem;
+            }
+
+            .article-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .type-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .article-hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .article-hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+    <!-- Early theme detection to prevent flash -->
+    <script>
+        (function() {
+            var theme = localStorage.getItem('simplemermaid-theme');
+            if (!theme) {
+                var oldTheme = localStorage.getItem('theme');
+                if (oldTheme) {
+                    theme = oldTheme;
+                    localStorage.setItem('simplemermaid-theme', theme);
+                    localStorage.removeItem('theme');
+                } else {
+                    theme = 'light';
+                }
+            }
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6FZM0EGT74"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6FZM0EGT74');
+</script>
+
+<body>
+    <!-- Navigation Header -->
+    <header class="nav-header">
+        <nav class="nav-container">
+            <a href="../index.html" class="nav-logo">
+                <div class="logo-icon">
+                    <div class="diagram-node"></div>
+                    <div class="diagram-connection"></div>
+                    <div class="diagram-node"></div>
+                    <div class="diagram-connection"></div>
+                    <div class="diagram-node"></div>
+                </div>
+                <span>SimpleMermaid</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="../learn-mermaid.html" class="nav-link">Learn</a></li>
+                <li><a href="index.html" class="nav-link active">Blog</a></li>
+                <li><a href="../mermaid-tool.html" class="nav-link">Editor</a></li>
+                <li><a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="nav-bmc" title="Buy me a coffee"><img src="../bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 28px; vertical-align: middle; border-radius: 4px;"></a></li>
+                <li><button class="theme-toggle" id="themeToggle" title="Toggle theme">&#9728;&#65039;</button></li>
+                <li><a href="../mermaid-tool.html" class="nav-cta">Start Creating</a></li>
+            </ul>
+
+            <!-- Mobile Hamburger -->
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="../index.html" class="mobile-nav-link">Home</a>
+            <a href="../learn-mermaid.html" class="mobile-nav-link">Learn</a>
+            <a href="index.html" class="mobile-nav-link">Blog</a>
+            <a href="../mermaid-tool.html" class="mobile-nav-link">Editor</a>
+            <a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="mobile-nav-link" style="display: flex; align-items: center; gap: 0.5rem;"><img src="../bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 24px; border-radius: 4px;"> Buy Me A Coffee</a>
+            <a href="../mermaid-tool.html" class="mobile-nav-link nav-cta">Start Creating</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-container">
+            <!-- Hero Section -->
+            <div class="article-hero">
+                <h1>A Beginner's Guide to Mermaid.js</h1>
+                <p>Everything you need to start creating diagrams as code, from installation to your first flowchart</p>
+                <div class="article-meta">Published March 25, 2026 &middot; 7 min read</div>
+            </div>
+
+            <!-- Article Body -->
+            <div class="article-content">
+                <p>Mermaid.js is an open-source JavaScript library that turns plain text into diagrams. Instead of dragging boxes around in a GUI tool, you write a short description of what the diagram should contain, and Mermaid renders it as an SVG. If you can write Markdown, you can write Mermaid. This guide covers everything you need to go from zero to productive.</p>
+
+                <h2>What Is Mermaid.js?</h2>
+
+                <p>Mermaid was created by Knut Sveidqvist in 2014 to solve a simple problem: keeping diagrams in sync with code. Traditional diagramming tools produce binary files that cannot be diffed, reviewed, or version-controlled alongside source code. Mermaid takes a different approach -- diagrams are defined in plain text, so they live in the same repository, go through the same pull request process, and stay up to date with the systems they describe.</p>
+
+                <p>The library has grown from a simple flowchart renderer into a full diagramming toolkit supporting over a dozen diagram types. It is now one of the most-starred JavaScript visualization projects on GitHub, with native support in platforms like GitHub, GitLab, Notion, Obsidian, and Docusaurus.</p>
+
+                <h2>Getting Started</h2>
+
+                <p>There are several ways to start using Mermaid, depending on your needs.</p>
+
+                <h3>Option 1: Online Editor (Fastest)</h3>
+
+                <p>The fastest way to try Mermaid is with an online editor. Open the <a href="../mermaid-tool.html" style="color: var(--primary);">SimpleMermaid editor</a>, type your diagram code on the left, and see the rendered output on the right in real time. No installation, no setup, no account required. When your diagram is ready, export it as PNG or SVG, or generate a shareable link.</p>
+
+                <h3>Option 2: CDN (For Web Pages)</h3>
+
+                <p>To embed Mermaid diagrams in your own website, add the library via CDN:</p>
+
+<div class="code-block">&lt;script type="module"&gt;
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true });
+&lt;/script&gt;
+
+&lt;pre class="mermaid"&gt;
+  flowchart TD
+    A[Start] --&gt; B[End]
+&lt;/pre&gt;</div>
+
+                <p>Mermaid scans the page for elements with the <span class="code-inline">mermaid</span> class and replaces them with rendered SVGs. That is the entire integration -- no build step, no bundler configuration.</p>
+
+                <h3>Option 3: npm (For Projects)</h3>
+
+                <p>For Node.js projects, install Mermaid as a dependency:</p>
+
+<div class="code-block">npm install mermaid</div>
+
+                <p>Then import and initialize it in your JavaScript:</p>
+
+<div class="code-block">import mermaid from 'mermaid';
+mermaid.initialize({ startOnLoad: true, theme: 'default' });</div>
+
+                <h3>Option 4: GitHub Markdown (Zero Setup)</h3>
+
+                <p>GitHub renders Mermaid diagrams natively in Markdown files, issues, and pull requests. Wrap your diagram in a fenced code block with the <span class="code-inline">mermaid</span> language identifier:</p>
+
+<div class="code-block">```mermaid
+flowchart TD
+    A[Open PR] --> B[Code Review]
+    B --> C{Approved?}
+    C -- Yes --> D[Merge]
+    C -- No --> E[Request Changes]
+    E --> A
+```</div>
+
+                <p>When someone views the file on GitHub, they see the rendered diagram, not the source code. This makes it trivial to keep architecture diagrams in your repository.</p>
+
+                <h2>Your First Flowchart</h2>
+
+                <p>Let us build a flowchart step by step. Every Mermaid diagram begins with a declaration of its type.</p>
+
+                <p><strong>Step 1: Declare the diagram type and direction.</strong></p>
+
+<div class="code-block">flowchart TD</div>
+
+                <p><span class="code-inline">flowchart</span> tells Mermaid you want a flowchart. <span class="code-inline">TD</span> means top-down (top to bottom). Other options are <span class="code-inline">LR</span> (left to right), <span class="code-inline">BT</span> (bottom to top), and <span class="code-inline">RL</span> (right to left).</p>
+
+                <p><strong>Step 2: Add nodes.</strong></p>
+
+<div class="code-block">flowchart TD
+    A[Write Code]
+    B[Run Tests]
+    C{Tests Pass?}</div>
+
+                <p>Nodes are defined with an ID followed by text in brackets. Square brackets <span class="code-inline">[ ]</span> create rectangles. Curly braces <span class="code-inline">{ }</span> create diamonds (decision nodes). Round brackets <span class="code-inline">( )</span> create rounded rectangles.</p>
+
+                <p><strong>Step 3: Connect nodes with arrows.</strong></p>
+
+<div class="code-block">flowchart TD
+    A[Write Code] --> B[Run Tests]
+    B --> C{Tests Pass?}
+    C -- Yes --> D[Deploy]
+    C -- No --> E[Fix Bugs]
+    E --> A</div>
+
+                <p>The <span class="code-inline">--></span> operator draws an arrow. Text between dashes becomes the arrow label. The result is a complete CI/CD flowchart: write code, run tests, deploy if they pass, fix bugs and loop if they fail.</p>
+
+                <div class="info-box">
+                    <p><strong>Try it now:</strong> Copy the flowchart above and paste it into the <a href="../mermaid-tool.html" style="color: var(--primary);">SimpleMermaid editor</a> to see it rendered instantly.</p>
+                </div>
+
+                <h2>Supported Diagram Types</h2>
+
+                <p>Mermaid supports a wide range of diagram types. Here is an overview of the most commonly used ones:</p>
+
+                <div class="type-grid">
+                    <div class="type-card">
+                        <h4>Flowchart</h4>
+                        <p>Process flows, decision trees, algorithms</p>
+                        <code>flowchart TD</code>
+                    </div>
+                    <div class="type-card">
+                        <h4>Sequence Diagram</h4>
+                        <p>API calls, service interactions, protocols</p>
+                        <code>sequenceDiagram</code>
+                    </div>
+                    <div class="type-card">
+                        <h4>Class Diagram</h4>
+                        <p>Object-oriented design, inheritance, interfaces</p>
+                        <code>classDiagram</code>
+                    </div>
+                    <div class="type-card">
+                        <h4>State Diagram</h4>
+                        <p>UI states, workflows, finite state machines</p>
+                        <code>stateDiagram-v2</code>
+                    </div>
+                    <div class="type-card">
+                        <h4>Entity Relationship</h4>
+                        <p>Database models, data relationships</p>
+                        <code>erDiagram</code>
+                    </div>
+                    <div class="type-card">
+                        <h4>Gantt Chart</h4>
+                        <p>Project timelines, task scheduling</p>
+                        <code>gantt</code>
+                    </div>
+                    <div class="type-card">
+                        <h4>Pie Chart</h4>
+                        <p>Proportional data, survey results</p>
+                        <code>pie</code>
+                    </div>
+                    <div class="type-card">
+                        <h4>Git Graph</h4>
+                        <p>Branch strategies, merge workflows</p>
+                        <code>gitGraph</code>
+                    </div>
+                </div>
+
+                <p>Each type has its own syntax, but the philosophy is the same: short, readable text that produces a clear visual. The <a href="../learn-mermaid.html" style="color: var(--primary);">Learn Mermaid</a> page covers each type in depth with examples.</p>
+
+                <h2>Styling Basics</h2>
+
+                <p>Mermaid provides two ways to customize how your diagrams look.</p>
+
+                <h3>Themes</h3>
+
+                <p>Mermaid ships with built-in themes: <span class="code-inline">default</span>, <span class="code-inline">dark</span>, <span class="code-inline">forest</span>, and <span class="code-inline">neutral</span>. Set the theme during initialization:</p>
+
+<div class="code-block">mermaid.initialize({ theme: 'dark' });</div>
+
+                <h3>Inline Styles</h3>
+
+                <p>For fine-grained control, use the <span class="code-inline">style</span> directive to target individual nodes:</p>
+
+<div class="code-block">flowchart TD
+    A[Start] --> B[Process]
+    B --> C[End]
+    style A fill:#10b981,stroke:#059669,color:#fff
+    style C fill:#ef4444,stroke:#dc2626,color:#fff</div>
+
+                <p>You can also define CSS classes and apply them to multiple nodes at once using the <span class="code-inline">classDef</span> and <span class="code-inline">class</span> directives:</p>
+
+<div class="code-block">flowchart TD
+    A[Start] --> B[Process]
+    B --> C[End]
+    classDef success fill:#10b981,stroke:#059669,color:#fff
+    classDef danger fill:#ef4444,stroke:#dc2626,color:#fff
+    class A success
+    class C danger</div>
+
+                <h2>Where Mermaid Is Supported</h2>
+
+                <p>One of Mermaid's biggest advantages is its growing ecosystem of native integrations. You may already have access to Mermaid rendering without installing anything:</p>
+
+                <ul>
+                    <li><strong>GitHub</strong> -- Renders Mermaid in Markdown files, issues, PRs, and wikis.</li>
+                    <li><strong>GitLab</strong> -- Native Mermaid support in Markdown across the platform.</li>
+                    <li><strong>Notion</strong> -- Supports Mermaid in code blocks.</li>
+                    <li><strong>Obsidian</strong> -- Built-in Mermaid rendering in notes.</li>
+                    <li><strong>Docusaurus</strong> -- Mermaid plugin for documentation sites.</li>
+                    <li><strong>Jupyter Notebooks</strong> -- Available via extensions.</li>
+                    <li><strong>VS Code</strong> -- Preview with the Mermaid extension.</li>
+                    <li><strong>Confluence</strong> -- Via marketplace plugins.</li>
+                </ul>
+
+                <p>This broad support means your Mermaid diagrams are portable. Write them once, and they render wherever your team works.</p>
+
+                <h2>Next Steps</h2>
+
+                <p>You now have the foundation to start creating diagrams with Mermaid.js. Here is a roadmap for going deeper:</p>
+
+                <ol>
+                    <li><strong>Practice with the editor.</strong> Open the <a href="../mermaid-tool.html" style="color: var(--primary);">SimpleMermaid editor</a> and try each diagram type. The built-in examples cover 45+ real-world use cases.</li>
+                    <li><strong>Learn sequence diagrams.</strong> They are the most useful type for documenting APIs and microservice interactions. See our guide on <a href="how-to-document-apis-with-diagrams.html" style="color: var(--primary);">documenting APIs with diagrams</a>.</li>
+                    <li><strong>Explore state diagrams.</strong> If you build user interfaces, <a href="state-diagrams-ui-design.html" style="color: var(--primary);">state diagrams for UI design</a> will change how you think about component logic.</li>
+                    <li><strong>Adopt diagrams as code.</strong> Store your diagrams in version control and integrate them into your workflow. Read our article on <a href="diagrams-as-code-workflow.html" style="color: var(--primary);">diagrams as code workflows</a>.</li>
+                </ol>
+
+                <p>The best way to learn Mermaid is to use it. Pick a system you are working on right now, open the editor, and diagram it. You will be surprised how quickly the syntax becomes second nature.</p>
+
+                <!-- CTA -->
+                <div class="article-cta">
+                    <h3>Start Your First Diagram</h3>
+                    <p>Jump into the SimpleMermaid editor with 45+ examples to learn from.</p>
+                    <a href="../mermaid-tool.html" class="btn-primary">Open the Editor</a>
+                </div>
+
+                <!-- Related Articles -->
+                <div class="related-articles">
+                    <h3>Related Articles</h3>
+                    <div class="related-grid">
+                        <a href="state-diagrams-ui-design.html" class="related-card">
+                            <h4>State Diagrams for UI Design</h4>
+                            <p>Model complex UI behavior with finite state machines and Mermaid.js stateDiagram syntax.</p>
+                        </a>
+                        <a href="how-to-document-apis-with-diagrams.html" class="related-card">
+                            <h4>How to Document APIs with Diagrams</h4>
+                            <p>Use sequence diagrams, flowcharts, and ERDs to make your API documentation visual.</p>
+                        </a>
+                        <a href="diagrams-as-code-workflow.html" class="related-card">
+                            <h4>Diagrams as Code: Integrating into Your Workflow</h4>
+                            <p>Version-control your diagrams, automate rendering, and adopt diagrams-as-code across your team.</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Cyberpunk Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Product</h3>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../mermaid-tool.html">Editor</a></li>
+                        <li><a href="../learn-mermaid.html">Learn Mermaid</a></li>
+                        <li><a href="../about.html">About</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="../mermaid-tool.html">Real-time Editor</a></li>
+                        <li><a href="../mermaid-tool.html">URL Sharing</a></li>
+                        <li><a href="../mermaid-tool.html">Export Tools</a></li>
+                        <li><a href="../learn-mermaid.html">Examples</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="../about.html">About</a></li>
+                        <li><a href="../changelog.html">Changelog</a></li>
+                        <li><a href="../privacy.html">Privacy Policy</a></li>
+                        <li><a href="../terms.html">Terms of Service</a></li>
+                        <li><a href="https://github.com/mermaid-js/mermaid" target="_blank">Mermaid.js</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom">
+                <div class="footer-tech">
+                    <span class="tech-badge">Developer Tool</span>
+                    <span class="tech-badge">Productivity</span>
+                    <span class="tech-badge">Open Source</span>
+                    <span class="tech-badge">Enterprise Ready</span>
+                    <span class="tech-badge">Privacy First</span>
+                </div>
+
+                <p class="footer-copyright">
+                    &copy; 2025 <span class="footer-glow">SimpleMermaid.com</span> |
+                    Developer Productivity Tool |
+                    <span class="footer-glow">Code &bull; Document &bull; Collaborate</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const body = document.body;
+
+        // Migrate old theme setting if exists
+        const oldTheme = localStorage.getItem('theme');
+        if (oldTheme && !localStorage.getItem('simplemermaid-theme')) {
+            localStorage.setItem('simplemermaid-theme', oldTheme);
+            localStorage.removeItem('theme');
+        }
+
+        // Load saved theme and sync both html and body
+        const savedTheme = localStorage.getItem('simplemermaid-theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        body.setAttribute('data-theme', savedTheme);
+        themeToggle.textContent = savedTheme === 'light' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+            html.setAttribute('data-theme', newTheme);
+            body.setAttribute('data-theme', newTheme);
+            themeToggle.textContent = newTheme === 'light' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+            localStorage.setItem('simplemermaid-theme', newTheme);
+        });
+
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('show');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('show');
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+flowchart TD
+    Start(["Identify Risk Event"]):::start --> Categorize{"Risk Category?"}
+
+    Categorize -->|Technical| TechRisk["Technical Risk"]:::neutral
+    Categorize -->|Financial| FinRisk["Financial Risk"]:::neutral
+    Categorize -->|Operational| OpsRisk["Operational Risk"]:::neutral
+    Categorize -->|Security| SecRisk["Security Risk"]:::neutral
+
+    TechRisk --> Likelihood
+    FinRisk --> Likelihood
+    OpsRisk --> Likelihood
+    SecRisk --> Likelihood
+
+    Likelihood{"Assess Likelihood"}:::decision
+
+    Likelihood -->|"High (>70%)"| LH["High Likelihood"]:::highRisk
+    Likelihood -->|"Medium (30-70%)"| LM["Medium Likelihood"]:::medRisk
+    Likelihood -->|"Low (<30%)"| LL["Low Likelihood"]:::lowRisk
+
+    LH --> ImpactH{"Assess Impact"}:::decision
+    LM --> ImpactM{"Assess Impact"}:::decision
+    LL --> ImpactL{"Assess Impact"}:::decision
+
+    ImpactH -->|Critical| Score1["Risk Score: CRITICAL\n(Score: 9-10)"]:::critical
+    ImpactH -->|Moderate| Score2["Risk Score: HIGH\n(Score: 7-8)"]:::highRisk
+    ImpactH -->|Minor| Score3["Risk Score: MEDIUM\n(Score: 5-6)"]:::medRisk
+
+    ImpactM -->|Critical| Score4["Risk Score: HIGH\n(Score: 7-8)"]:::highRisk
+    ImpactM -->|Moderate| Score5["Risk Score: MEDIUM\n(Score: 5-6)"]:::medRisk
+    ImpactM -->|Minor| Score6["Risk Score: LOW\n(Score: 3-4)"]:::lowRisk
+
+    ImpactL -->|Critical| Score7["Risk Score: MEDIUM\n(Score: 5-6)"]:::medRisk
+    ImpactL -->|Moderate| Score8["Risk Score: LOW\n(Score: 3-4)"]:::lowRisk
+    ImpactL -->|Minor| Score9["Risk Score: MINIMAL\n(Score: 1-2)"]:::minimal
+
+    Score1 --> Avoid["AVOID\nEliminate the risk entirely\nCancel project/feature"]:::critical
+    Score2 --> Mitigate["MITIGATE\nReduce likelihood or impact\nAdd redundancy, testing, backups"]:::highRisk
+    Score3 --> Transfer["TRANSFER\nShift risk to third party\nInsurance, outsource, SLA"]:::medRisk
+    Score4 --> Mitigate
+    Score5 --> Transfer
+    Score6 --> Accept["ACCEPT\nAcknowledge and monitor\nAdd to risk register"]:::lowRisk
+    Score7 --> Transfer
+    Score8 --> Accept
+    Score9 --> Accept
+
+    Avoid --> Review["Add to Risk Register\nSchedule Review"]:::start
+    Mitigate --> Review
+    Transfer --> Review
+    Accept --> Review
+
+    Review --> Monitor(["Continuous Monitoring\n& Reassessment"]):::start
+
+    classDef start fill:#6366f1,stroke:#4338ca,color:#fff,font-weight:bold
+    classDef decision fill:#f8fafc,stroke:#475569,color:#1e293b,font-weight:bold
+    classDef neutral fill:#e2e8f0,stroke:#94a3b8,color:#334155
+    classDef critical fill:#dc2626,stroke:#991b1b,color:#fff,font-weight:bold
+    classDef highRisk fill:#ea580c,stroke:#9a3412,color:#fff,font-weight:bold
+    classDef medRisk fill:#eab308,stroke:#a16207,color:#000,font-weight:bold
+    classDef lowRisk fill:#22c55e,stroke:#15803d,color:#fff,font-weight:bold
+    classDef minimal fill:#94a3b8,stroke:#64748b,color:#fff

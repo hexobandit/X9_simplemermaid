@@ -1,0 +1,102 @@
+flowchart TD
+    subgraph DataSources["Metrics & Log Sources"]
+        App["Application Pods\n(/metrics endpoint)"]
+        Node["Node Exporter\n(CPU, Memory, Disk)"]
+        Kube["kube-state-metrics\n(Pod, Deploy, RS status)"]
+        DB["Database\n(PostgreSQL Exporter)"]
+        Redis["Redis Exporter"]
+        Nginx["Nginx Ingress\n(request metrics)"]
+        CW["AWS CloudWatch\n(infra metrics)"]
+        AppLogs["Application Logs\n(stdout/stderr)"]
+    end
+
+    subgraph Collection["Metrics Collection Layer"]
+        App -->|scrape /metrics| Prom["Prometheus Server\nRetention: 15d\nScrape interval: 15s"]
+        Node -->|scrape| Prom
+        Kube -->|scrape| Prom
+        DB -->|scrape| Prom
+        Redis -->|scrape| Prom
+        Nginx -->|scrape| Prom
+        CW -->|remote_write| Prom
+        Prom -->|remote_write| Thanos["Thanos / Cortex\nLong-term Storage (1yr)\nS3 Backend"]
+        AppLogs -->|ship via| Fluentbit["Fluent Bit\n(DaemonSet)"]
+        Fluentbit -->|forward| Loki["Grafana Loki\nLog Aggregation"]
+    end
+
+    subgraph Visualization["Dashboards & Visualization"]
+        Prom -->|data source| Grafana["Grafana\ngrafana.internal.co"]
+        Loki -->|data source| Grafana
+        Thanos -->|data source| Grafana
+        Grafana --> DashSRE["Dashboard: SRE Overview\n- Request Rate\n- Error Rate (5xx)\n- P99 Latency\n- Saturation"]
+        Grafana --> DashInfra["Dashboard: Infrastructure\n- Node CPU/Memory\n- Disk I/O\n- Network Traffic\n- Pod Restarts"]
+        Grafana --> DashBiz["Dashboard: Business Metrics\n- Active Users\n- Conversion Rate\n- Revenue/min\n- Cart Abandonment"]
+        Grafana --> DashDB["Dashboard: Database\n- Query Latency\n- Connection Pool\n- Replication Lag\n- Dead Tuples"]
+    end
+
+    subgraph AlertRules["Alert Rules Engine"]
+        Prom -->|evaluate rules| AlertManager["Alertmanager\n(HA cluster x3)"]
+
+        AlertManager --> CritAlerts["CRITICAL Alerts"]
+        AlertManager --> WarnAlerts["WARNING Alerts"]
+        AlertManager --> InfoAlerts["INFO Alerts"]
+
+        CritAlerts --> CritEx1["Error rate > 5%\nfor 5 min"]
+        CritAlerts --> CritEx2["P99 latency > 2s\nfor 10 min"]
+        CritAlerts --> CritEx3["Pod CrashLoopBackOff\n> 3 restarts"]
+        CritAlerts --> CritEx4["Disk usage > 90%"]
+        CritAlerts --> CritEx5["Database replication\nlag > 30s"]
+
+        WarnAlerts --> WarnEx1["Error rate > 1%\nfor 15 min"]
+        WarnAlerts --> WarnEx2["Memory usage > 80%\nfor 30 min"]
+        WarnAlerts --> WarnEx3["Certificate expiry\n< 14 days"]
+
+        InfoAlerts --> InfoEx1["Deployment completed"]
+        InfoAlerts --> InfoEx2["Scaling event triggered"]
+    end
+
+    subgraph Routing["Alert Routing & Dedup"]
+        AlertManager -->|group_by: alertname, cluster| Dedup["Deduplication\n& Grouping"]
+        Dedup -->|group_wait: 30s| Throttle["Throttle\nrepeat_interval: 4h"]
+        Throttle -->|silence active?| SilenceCheck{"Silence\nActive?"}
+        SilenceCheck -->|yes| Suppressed["Alert Suppressed\n(logged only)"]
+        SilenceCheck -->|no| Route["Route to\nReceivers"]
+    end
+
+    subgraph Escalation["PagerDuty Escalation Chain"]
+        Route -->|critical| PD["PagerDuty\nService: Production"]
+        Route -->|warning| SlackWarn["Slack\n#alerts-warning"]
+        Route -->|info| SlackInfo["Slack\n#alerts-info"]
+
+        PD -->|immediate| L1["L1: On-Call Engineer\nAck SLA: 5 min\nResolve SLA: 30 min"]
+        L1 -->|no ack in 5 min| L2["L2: Senior Engineer\nAck SLA: 10 min\nResolve SLA: 1 hr"]
+        L2 -->|no ack in 10 min| L3["L3: Engineering Manager\n+ VP Engineering\nAll-hands escalation"]
+        L3 -->|still unresolved| ExecBridge["Executive Bridge Call\nCTO + Status Page Update"]
+    end
+
+    subgraph IncidentLifecycle["Incident Lifecycle"]
+        L1 -->|acknowledge| Ack["Incident Acknowledged\nTimer starts"]
+        Ack -->|investigate| Investigate["Investigation\n- Check dashboards\n- Review logs in Loki\n- Correlate metrics"]
+        Investigate -->|root cause found| Mitigate["Mitigation\n- Rollback deploy\n- Scale resources\n- Failover DB"]
+        Mitigate -->|service restored| Resolved["Incident Resolved\nPagerDuty closed"]
+        Resolved -->|within 48h| Postmortem["Blameless Postmortem\n- Timeline\n- Root cause\n- Action items"]
+        Postmortem -->|track| ActionItems["Jira Action Items\n- Improve alerting\n- Add runbook\n- Harden system"]
+        ActionItems -->|feed back into| AlertRulesUpdate["Update Alert Rules\n& Dashboards"]
+        AlertRulesUpdate -.->|improve| AlertManager
+    end
+
+    subgraph StatusPage["External Communication"]
+        PD -->|auto-update| StatusIO["Statuspage.io\nPublic Status Page"]
+        StatusIO --> Operational["Operational"]
+        StatusIO --> Degraded["Degraded Performance"]
+        StatusIO --> PartialOutage["Partial Outage"]
+        StatusIO --> MajorOutage["Major Outage"]
+    end
+
+    style DataSources fill:#1a1a2e,stroke:#16213e,color:#e0e0e0
+    style Collection fill:#16213e,stroke:#0f3460,color:#e0e0e0
+    style Visualization fill:#1f4068,stroke:#1b1b2f,color:#e0e0e0
+    style AlertRules fill:#2d132c,stroke:#6b2d5b,color:#e0e0e0
+    style Routing fill:#2d3436,stroke:#636e72,color:#dfe6e9
+    style Escalation fill:#6a0572,stroke:#a239a0,color:#e0e0e0
+    style IncidentLifecycle fill:#0c2461,stroke:#1e3799,color:#d2dae2
+    style StatusPage fill:#34495e,stroke:#2c3e50,color:#ecf0f1

@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Document APIs with Diagrams - SimpleMermaid Blog</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Learn how to use sequence diagrams, flowcharts, ERDs, and architecture diagrams to create clear, visual API documentation. Practical examples with Mermaid.js.">
+    <meta name="keywords" content="API documentation, sequence diagrams, API diagrams, Mermaid.js, REST API docs, flowcharts, ERD, architecture diagrams, API gateway, developer documentation">
+    <meta name="author" content="SimpleMermaid.com">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="How to Document APIs with Diagrams - SimpleMermaid Blog">
+    <meta property="og:description" content="Learn how to use sequence diagrams, flowcharts, ERDs, and architecture diagrams to create clear, visual API documentation.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://simplemermaid.com/blog/how-to-document-apis-with-diagrams.html">
+    <meta property="og:image" content="https://simplemermaid.com/simplemermaid.png">
+    <meta property="og:site_name" content="SimpleMermaid">
+
+    <!-- Twitter/X Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How to Document APIs with Diagrams - SimpleMermaid Blog">
+    <meta name="twitter:description" content="Learn how to use sequence diagrams, flowcharts, ERDs, and architecture diagrams for API documentation.">
+    <meta name="twitter:image" content="https://simplemermaid.com/simplemermaid.png">
+    <meta name="twitter:creator" content="@simplemermaid">
+    <meta name="twitter:site" content="@simplemermaid">
+
+    <!-- Additional SEO -->
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://simplemermaid.com/blog/how-to-document-apis-with-diagrams.html">
+    <meta name="theme-color" content="#6366f1">
+
+    <!-- Google AdSense Account -->
+    <meta name="google-adsense-account" content="ca-pub-8641410034592329">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../favicon.png">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "How to Document APIs with Diagrams",
+        "description": "Learn how to use sequence diagrams, flowcharts, ERDs, and architecture diagrams to create clear, visual API documentation with Mermaid.js.",
+        "url": "https://simplemermaid.com/blog/how-to-document-apis-with-diagrams.html",
+        "datePublished": "2026-03-25",
+        "dateModified": "2026-03-25",
+        "author": {
+            "@type": "Organization",
+            "name": "SimpleMermaid.com",
+            "url": "https://simplemermaid.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "SimpleMermaid.com",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://simplemermaid.com/simplemermaid.png"
+            }
+        },
+        "image": "https://simplemermaid.com/simplemermaid.png",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://simplemermaid.com/blog/how-to-document-apis-with-diagrams.html"
+        }
+    }
+    </script>
+
+    <style>
+        /* Modern CSS Variables */
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #f8fafc;
+            --accent: #10b981;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-muted: #9ca3af;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-code: #1f2937;
+            --border: #e5e7eb;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.15);
+            --radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --primary: #8b5cf6;
+            --primary-hover: #7c3aed;
+            --primary-light: #a78bfa;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --text-muted: #9ca3af;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-code: #111827;
+            --border: #374151;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            transition: var(--transition);
+        }
+
+        /* Navigation Header */
+        .nav-header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .logo-icon {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .diagram-node {
+            width: 16px;
+            height: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            border-radius: 3px;
+        }
+
+        .diagram-connection {
+            width: 10px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        /* Desktop Navigation */
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            background: var(--bg-secondary);
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+            background: var(--bg-secondary);
+        }
+
+        .nav-cta {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-cta:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .nav-bmc {
+            display: flex;
+            align-items: center;
+            padding: 0.35rem 0.75rem;
+            background: #ffdd00;
+            border-radius: 8px;
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(255, 221, 0, 0.3);
+        }
+
+        .nav-bmc:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(255, 221, 0, 0.5);
+            background: #ffdd00;
+        }
+
+        /* Mobile Navigation */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 1rem;
+            z-index: 999;
+        }
+
+        .mobile-menu.show {
+            display: block;
+        }
+
+        .mobile-nav-link {
+            display: block;
+            padding: 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .mobile-nav-link:hover {
+            background: var(--bg-secondary);
+            color: var(--primary);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 0.5rem;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary);
+            background: var(--bg-secondary);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            padding: 2rem;
+        }
+
+        /* Hero Section */
+        .article-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+            border-radius: var(--radius);
+            margin-bottom: 3rem;
+        }
+
+        .article-hero h1 {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            margin-bottom: 1rem;
+        }
+
+        .article-hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .article-meta {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Content Container */
+        .content-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Article Content */
+        .article-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .article-content h2 {
+            font-size: 1.75rem;
+            color: var(--text-primary);
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .article-content h3 {
+            font-size: 1.35rem;
+            color: var(--primary);
+            margin: 2rem 0 0.75rem;
+        }
+
+        .article-content p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .article-content ul, .article-content ol {
+            margin: 1rem 0 1.5rem;
+            padding-left: 2rem;
+        }
+
+        .article-content li {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .article-content strong {
+            color: var(--text-primary);
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: var(--bg-code);
+            color: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            margin: 1rem 0 1.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .code-inline {
+            background: var(--bg-secondary);
+            color: var(--primary);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: var(--bg-secondary);
+            border-left: 4px solid var(--primary);
+            border-radius: 0 var(--radius) var(--radius) 0;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .info-box p {
+            color: var(--text-secondary);
+            margin-bottom: 0;
+        }
+
+        /* CTA Section */
+        .article-cta {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .article-cta h3 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .article-cta p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        /* Related Articles */
+        .related-articles {
+            margin: 3rem 0;
+        }
+
+        .related-articles h3 {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .related-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .related-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+            border-color: var(--primary);
+        }
+
+        .related-card h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .related-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Cyberpunk Footer */
+        .footer {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #16213e 100%);
+            border-top: 2px solid;
+            border-image: linear-gradient(90deg, #00d4ff, #6366f1, #8b5cf6, #00d4ff) 1;
+            padding: 4rem 2rem 2rem;
+            position: relative;
+            overflow: hidden;
+            margin-top: 4rem;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            animation: cyberpunk-scan 3s linear infinite;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #00d4ff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px #00d4ff50;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #a1a1aa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer-links a:hover {
+            color: #00d4ff;
+            text-shadow: 0 0 5px #00d4ff50;
+            padding-left: 10px;
+        }
+
+        .footer-links a::before {
+            content: '\25B6';
+            position: absolute;
+            left: -15px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            color: #6366f1;
+        }
+
+        .footer-links a:hover::before {
+            opacity: 1;
+            left: -10px;
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #6366f1, transparent);
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .footer-divider::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            opacity: 0;
+            animation: cyberpunk-pulse 2s ease-in-out infinite alternate;
+        }
+
+        .footer-bottom {
+            text-align: center;
+        }
+
+        .footer-copyright {
+            color: #71717a;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-tech {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .tech-badge {
+            background: linear-gradient(135deg, #374151, #1f2937);
+            border: 1px solid #6366f1;
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            color: #00d4ff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 5px #00d4ff30;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tech-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 25px rgba(0, 212, 255, 0.3);
+            border-color: #00d4ff;
+        }
+
+        .footer-glow {
+            color: #6366f1;
+            text-shadow: 0 0 10px #6366f150;
+            font-weight: 700;
+        }
+
+        /* Cyberpunk Animations */
+        @keyframes cyberpunk-scan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes cyberpunk-pulse {
+            0% { opacity: 0; }
+            100% { opacity: 0.6; }
+        }
+
+        /* Dark theme adjustments */
+        [data-theme="dark"] .footer {
+            background: linear-gradient(135deg, #000000 0%, #1a0b3d 50%, #2d1b69 100%);
+        }
+
+        [data-theme="dark"] .tech-badge {
+            background: linear-gradient(135deg, #1e1b4b, #312e81);
+            border-color: #8b5cf6;
+        }
+
+        [data-theme="dark"] .footer-section h3 {
+            color: #a78bfa;
+            text-shadow: 0 0 10px #8b5cf650;
+        }
+
+        [data-theme="dark"] .footer-links a:hover {
+            color: #a78bfa;
+            text-shadow: 0 0 5px #8b5cf650;
+        }
+
+        [data-theme="dark"] .tech-badge:hover {
+            border-color: #a78bfa;
+            box-shadow: 0 5px 25px rgba(139, 92, 246, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 1rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .main-content {
+                margin-top: 60px;
+                padding: 1rem;
+            }
+
+            .article-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .related-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .article-hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .article-hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+    <!-- Early theme detection to prevent flash -->
+    <script>
+        (function() {
+            var theme = localStorage.getItem('simplemermaid-theme');
+            if (!theme) {
+                var oldTheme = localStorage.getItem('theme');
+                if (oldTheme) {
+                    theme = oldTheme;
+                    localStorage.setItem('simplemermaid-theme', theme);
+                    localStorage.removeItem('theme');
+                } else {
+                    theme = 'light';
+                }
+            }
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6FZM0EGT74"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6FZM0EGT74');
+</script>
+
+<body>
+    <!-- Navigation Header -->
+    <header class="nav-header">
+        <nav class="nav-container">
+            <a href="../index.html" class="nav-logo">
+                <div class="logo-icon">
+                    <div class="diagram-node"></div>
+                    <div class="diagram-connection"></div>
+                    <div class="diagram-node"></div>
+                    <div class="diagram-connection"></div>
+                    <div class="diagram-node"></div>
+                </div>
+                <span>SimpleMermaid</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="../learn-mermaid.html" class="nav-link">Learn</a></li>
+                <li><a href="index.html" class="nav-link active">Blog</a></li>
+                <li><a href="../mermaid-tool.html" class="nav-link">Editor</a></li>
+                <li><a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="nav-bmc" title="Buy me a coffee"><img src="../bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 28px; vertical-align: middle; border-radius: 4px;"></a></li>
+                <li><button class="theme-toggle" id="themeToggle" title="Toggle theme">&#9728;&#65039;</button></li>
+                <li><a href="../mermaid-tool.html" class="nav-cta">Start Creating</a></li>
+            </ul>
+
+            <!-- Mobile Hamburger -->
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="../index.html" class="mobile-nav-link">Home</a>
+            <a href="../learn-mermaid.html" class="mobile-nav-link">Learn</a>
+            <a href="index.html" class="mobile-nav-link">Blog</a>
+            <a href="../mermaid-tool.html" class="mobile-nav-link">Editor</a>
+            <a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="mobile-nav-link" style="display: flex; align-items: center; gap: 0.5rem;"><img src="../bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 24px; border-radius: 4px;"> Buy Me A Coffee</a>
+            <a href="../mermaid-tool.html" class="mobile-nav-link nav-cta">Start Creating</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-container">
+            <!-- Hero Section -->
+            <div class="article-hero">
+                <h1>How to Document APIs with Diagrams</h1>
+                <p>Make your API documentation clear and actionable with sequence diagrams, flowcharts, and architecture visuals</p>
+                <div class="article-meta">Published March 25, 2026 &middot; 7 min read</div>
+            </div>
+
+            <!-- Article Body -->
+            <div class="article-content">
+                <p>Good API documentation tells developers what an endpoint does, what parameters it accepts, and what it returns. Great API documentation shows them how the pieces fit together. A well-placed diagram can communicate in seconds what paragraphs of prose struggle to explain: which services talk to each other, what order requests happen in, how authentication flows through the system, and what the underlying data model looks like.</p>
+
+                <p>This article covers four types of diagrams that belong in every API documentation set, with practical Mermaid.js examples you can copy and adapt.</p>
+
+                <h2>Why API Documentation Needs Visuals</h2>
+
+                <p>Text-based API references -- the kind generated by Swagger or Redoc -- are essential, but they describe each endpoint in isolation. They answer "what does this one endpoint do?" but not "how do these ten endpoints work together to complete a purchase?" Diagrams bridge that gap.</p>
+
+                <ul>
+                    <li><strong>Sequence diagrams</strong> show the order of requests across multiple services, making integration logic explicit.</li>
+                    <li><strong>Flowcharts</strong> map decision trees for authentication, error handling, and retry logic.</li>
+                    <li><strong>Entity-relationship diagrams</strong> reveal the data model behind the API, so developers know what to expect in nested responses.</li>
+                    <li><strong>Architecture diagrams</strong> provide the big picture: API gateways, load balancers, microservices, and data stores.</li>
+                </ul>
+
+                <p>Together, these four diagram types transform a reference manual into a developer guide.</p>
+
+                <h2>Sequence Diagrams for Request Flows</h2>
+
+                <p>Sequence diagrams are the single most useful visual for API documentation. They show exactly which actor sends which request, in what order, and what comes back. Here is a common pattern: a client authenticating via OAuth 2.0 and then fetching a protected resource.</p>
+
+<div class="code-block">sequenceDiagram
+    participant Client
+    participant AuthServer
+    participant API
+
+    Client->>AuthServer: POST /oauth/token (credentials)
+    AuthServer-->>Client: 200 { access_token, expires_in }
+
+    Client->>API: GET /users/me (Bearer token)
+    API->>AuthServer: Validate token
+    AuthServer-->>API: Token valid, scopes: [read]
+    API-->>Client: 200 { id, name, email }</div>
+
+                <p>This diagram communicates several things that pure endpoint docs cannot: the client must hit the auth server <strong>before</strong> the API, the API validates the token by calling back to the auth server, and the response includes scope information that controls what the client can access.</p>
+
+                <h3>Webhooks and Async Flows</h3>
+
+                <p>APIs that use webhooks or asynchronous processing are especially hard to document with text alone. A sequence diagram makes the flow intuitive:</p>
+
+<div class="code-block">sequenceDiagram
+    participant Client
+    participant API
+    participant Worker
+    participant Webhook
+
+    Client->>API: POST /exports { format: "csv" }
+    API-->>Client: 202 { job_id, status: "queued" }
+
+    API->>Worker: Enqueue export job
+    Worker->>Worker: Process export
+
+    Client->>API: GET /exports/{job_id}
+    API-->>Client: 200 { status: "processing" }
+
+    Worker->>API: Job complete, file ready
+    API->>Webhook: POST callback_url { job_id, download_url }
+    Webhook-->>API: 200 OK</div>
+
+                <p>Without this diagram, a developer would need to piece together the async flow from three separate endpoint descriptions and a webhook specification. The sequence diagram shows the full lifecycle in one view.</p>
+
+                <h2>Flowcharts for Auth and Error Handling</h2>
+
+                <p>Not every API interaction is a straight line. Authentication checks, rate limiting, permission logic, and error recovery all involve branching decisions. Flowcharts are the right tool for these.</p>
+
+<div class="code-block">flowchart TD
+    A[Incoming Request] --> B{Has Authorization header?}
+    B -- No --> C[Return 401 Unauthorized]
+    B -- Yes --> D{Token format valid?}
+    D -- No --> E[Return 401 Invalid Token]
+    D -- Yes --> F{Token expired?}
+    F -- Yes --> G[Return 401 Token Expired]
+    F -- No --> H{Has required scope?}
+    H -- No --> I[Return 403 Forbidden]
+    H -- Yes --> J[Process Request]
+    J --> K{Business logic error?}
+    K -- Yes --> L[Return 4xx with error body]
+    K -- No --> M[Return 2xx with data]</div>
+
+                <p>This flowchart serves double duty. For API consumers, it explains exactly which error code to expect for each failure mode. For backend developers, it documents the middleware pipeline. Put it at the top of your authentication guide, and most "why am I getting a 403?" support questions disappear.</p>
+
+                <h3>Retry and Rate Limit Logic</h3>
+
+                <p>If your API enforces rate limits, document the consumer's retry strategy as a flowchart:</p>
+
+<div class="code-block">flowchart TD
+    A[Send API Request] --> B{Response status?}
+    B -- 200-299 --> C[Success - process response]
+    B -- 429 --> D[Read Retry-After header]
+    D --> E[Wait specified duration]
+    E --> A
+    B -- 500-599 --> F{Retry count < 3?}
+    F -- Yes --> G[Exponential backoff wait]
+    G --> A
+    F -- No --> H[Log error, alert, fail gracefully]</div>
+
+                <h2>ERDs for Data Models</h2>
+
+                <p>When your API returns nested objects -- an order containing line items, each referencing a product and a customer -- an entity-relationship diagram makes the structure immediately clear.</p>
+
+<div class="code-block">erDiagram
+    CUSTOMER ||--o{ ORDER : places
+    ORDER ||--|{ LINE_ITEM : contains
+    LINE_ITEM }o--|| PRODUCT : references
+    PRODUCT }o--|| CATEGORY : "belongs to"
+
+    CUSTOMER {
+        string id PK
+        string name
+        string email
+        datetime created_at
+    }
+
+    ORDER {
+        string id PK
+        string customer_id FK
+        string status
+        decimal total
+        datetime ordered_at
+    }
+
+    LINE_ITEM {
+        string id PK
+        string order_id FK
+        string product_id FK
+        int quantity
+        decimal unit_price
+    }
+
+    PRODUCT {
+        string id PK
+        string category_id FK
+        string name
+        decimal price
+        boolean active
+    }</div>
+
+                <p>Place this diagram in the "Data Models" section of your docs. Developers integrating with your API can see at a glance that an ORDER has many LINE_ITEMs, each LINE_ITEM references one PRODUCT, and a CUSTOMER can have many ORDERs. The field names and types map directly to what they will see in API responses.</p>
+
+                <h2>Architecture Diagrams for the Big Picture</h2>
+
+                <p>Before diving into individual endpoints, developers need to understand the system they are integrating with. An architecture diagram answers the questions that endpoint documentation cannot: Where does my request actually go? What sits between my client and the database?</p>
+
+<div class="code-block">flowchart LR
+    Client[Client App] --> GW[API Gateway]
+    GW --> Auth[Auth Service]
+    GW --> Users[User Service]
+    GW --> Orders[Order Service]
+    GW --> Notify[Notification Service]
+
+    Auth --> DB1[(Auth DB)]
+    Users --> DB2[(User DB)]
+    Orders --> DB3[(Order DB)]
+    Orders --> Queue[Message Queue]
+    Queue --> Notify
+    Notify --> Email[Email Provider]
+    Notify --> Push[Push Service]</div>
+
+                <p>This diagram tells a developer that the API Gateway is the single entry point, that authentication is handled by a separate service, that orders communicate with notifications via a message queue, and that notifications fan out to email and push channels. That context makes every endpoint in the docs easier to understand.</p>
+
+                <h2>Integration Tips</h2>
+
+                <h3>Embed Diagrams in Your Existing Docs</h3>
+
+                <p>If you use Markdown-based documentation (GitBook, Docusaurus, MkDocs, or GitHub wikis), you can embed Mermaid code blocks directly. GitHub renders Mermaid natively in Markdown files, so diagrams in your README stay up to date with zero build step.</p>
+
+                <h3>Link Diagrams to the Editor</h3>
+
+                <p>For interactive documentation, generate a <a href="../mermaid-tool.html" style="color: var(--primary);">SimpleMermaid share link</a> for each diagram and embed it in your docs. Developers can click through to modify the diagram, explore variations, and export to PNG or SVG for presentations.</p>
+
+                <h3>Version Diagrams with Your Code</h3>
+
+                <p>Store <span class="code-inline">.mmd</span> files in the same repository as your API source code. When an endpoint changes, the diagram diff shows up in the same pull request. This practice, known as <a href="diagrams-as-code-workflow.html" style="color: var(--primary);">diagrams as code</a>, keeps documentation honest.</p>
+
+                <h3>Layer Your Documentation</h3>
+
+                <p>Use the four diagram types as layers of increasing detail:</p>
+
+                <ol>
+                    <li><strong>Architecture diagram</strong> -- the 10,000-foot view for onboarding new developers.</li>
+                    <li><strong>Sequence diagrams</strong> -- the workflow view for each major use case.</li>
+                    <li><strong>Flowcharts</strong> -- the decision view for error handling and auth.</li>
+                    <li><strong>ERDs</strong> -- the data view for understanding response shapes and relationships.</li>
+                </ol>
+
+                <div class="info-box">
+                    <p><strong>Tip:</strong> Start with one sequence diagram for your most-used API flow. That single visual will generate more positive developer feedback than pages of new text documentation. You can build out the other diagram types over time.</p>
+                </div>
+
+                <h2>Getting Started</h2>
+
+                <p>Pick the API flow that generates the most support questions. Open the <a href="../mermaid-tool.html" style="color: var(--primary);">SimpleMermaid editor</a>, paste in a sequence diagram skeleton, and fill in the participants and messages. Share the link with your team for review. Once approved, embed the Mermaid code block in your documentation source. Repeat for auth flows, error handling, and data models until your API documentation is genuinely visual.</p>
+
+                <p>Diagrams do not replace text documentation -- they complement it. The combination of a clear sequence diagram and a detailed endpoint reference is greater than the sum of its parts.</p>
+
+                <!-- CTA -->
+                <div class="article-cta">
+                    <h3>Create Your API Diagrams</h3>
+                    <p>Open the SimpleMermaid editor and start visualizing your API flows today.</p>
+                    <a href="../mermaid-tool.html" class="btn-primary">Open the Editor</a>
+                </div>
+
+                <!-- Related Articles -->
+                <div class="related-articles">
+                    <h3>Related Articles</h3>
+                    <div class="related-grid">
+                        <a href="mermaid-js-beginners-guide.html" class="related-card">
+                            <h4>A Beginner's Guide to Mermaid.js</h4>
+                            <p>Start from scratch with Mermaid.js syntax, installation, and your first diagram.</p>
+                        </a>
+                        <a href="state-diagrams-ui-design.html" class="related-card">
+                            <h4>State Diagrams for UI Design</h4>
+                            <p>Model complex UI behavior with finite state machines and Mermaid.js stateDiagram syntax.</p>
+                        </a>
+                        <a href="diagrams-as-code-workflow.html" class="related-card">
+                            <h4>Diagrams as Code: Integrating into Your Workflow</h4>
+                            <p>Version-control your diagrams, automate rendering, and adopt diagrams-as-code across your team.</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Cyberpunk Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Product</h3>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../mermaid-tool.html">Editor</a></li>
+                        <li><a href="../learn-mermaid.html">Learn Mermaid</a></li>
+                        <li><a href="../about.html">About</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="../mermaid-tool.html">Real-time Editor</a></li>
+                        <li><a href="../mermaid-tool.html">URL Sharing</a></li>
+                        <li><a href="../mermaid-tool.html">Export Tools</a></li>
+                        <li><a href="../learn-mermaid.html">Examples</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="../about.html">About</a></li>
+                        <li><a href="../changelog.html">Changelog</a></li>
+                        <li><a href="../privacy.html">Privacy Policy</a></li>
+                        <li><a href="../terms.html">Terms of Service</a></li>
+                        <li><a href="https://github.com/mermaid-js/mermaid" target="_blank">Mermaid.js</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom">
+                <div class="footer-tech">
+                    <span class="tech-badge">Developer Tool</span>
+                    <span class="tech-badge">Productivity</span>
+                    <span class="tech-badge">Open Source</span>
+                    <span class="tech-badge">Enterprise Ready</span>
+                    <span class="tech-badge">Privacy First</span>
+                </div>
+
+                <p class="footer-copyright">
+                    &copy; 2025 <span class="footer-glow">SimpleMermaid.com</span> |
+                    Developer Productivity Tool |
+                    <span class="footer-glow">Code &bull; Document &bull; Collaborate</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const body = document.body;
+
+        // Migrate old theme setting if exists
+        const oldTheme = localStorage.getItem('theme');
+        if (oldTheme && !localStorage.getItem('simplemermaid-theme')) {
+            localStorage.setItem('simplemermaid-theme', oldTheme);
+            localStorage.removeItem('theme');
+        }
+
+        // Load saved theme and sync both html and body
+        const savedTheme = localStorage.getItem('simplemermaid-theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        body.setAttribute('data-theme', savedTheme);
+        themeToggle.textContent = savedTheme === 'light' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+            html.setAttribute('data-theme', newTheme);
+            body.setAttribute('data-theme', newTheme);
+            themeToggle.textContent = newTheme === 'light' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+            localStorage.setItem('simplemermaid-theme', newTheme);
+        });
+
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('show');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('show');
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

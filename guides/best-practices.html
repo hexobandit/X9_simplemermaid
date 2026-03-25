@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Practices for Mermaid Diagrams - SimpleMermaid</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Learn best practices for creating clear, maintainable Mermaid.js diagrams. Covers choosing diagram types, layout direction, labeling, color, complexity management, and team standards.">
+    <meta name="keywords" content="Mermaid.js best practices, diagram design tips, flowchart guidelines, diagramming standards, clean diagrams, Mermaid styling">
+    <meta name="author" content="SimpleMermaid.com">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Best Practices for Mermaid Diagrams - SimpleMermaid">
+    <meta property="og:description" content="Learn best practices for creating clear, maintainable Mermaid.js diagrams. Covers layout, labeling, color, complexity management, and team standards.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://simplemermaid.com/guides/best-practices.html">
+    <meta property="og:image" content="https://simplemermaid.com/simplemermaid.png">
+    <meta property="og:site_name" content="SimpleMermaid">
+
+    <!-- Twitter/X Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Best Practices for Mermaid Diagrams - SimpleMermaid">
+    <meta name="twitter:description" content="Learn best practices for creating clear, maintainable Mermaid.js diagrams.">
+    <meta name="twitter:image" content="https://simplemermaid.com/simplemermaid.png">
+    <meta name="twitter:creator" content="@simplemermaid">
+    <meta name="twitter:site" content="@simplemermaid">
+
+    <!-- Additional SEO -->
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://simplemermaid.com/guides/best-practices.html">
+    <meta name="theme-color" content="#6366f1">
+
+    <!-- Google AdSense Account -->
+    <meta name="google-adsense-account" content="ca-pub-8641410034592329">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../favicon.png">
+
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #f8fafc;
+            --accent: #10b981;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-muted: #9ca3af;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-code: #1f2937;
+            --border: #e5e7eb;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.15);
+            --radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --primary: #8b5cf6;
+            --primary-hover: #7c3aed;
+            --primary-light: #a78bfa;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --text-muted: #9ca3af;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-code: #111827;
+            --border: #374151;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            transition: var(--transition);
+        }
+
+        .nav-header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex; align-items: center; gap: 0.75rem;
+            text-decoration: none; color: var(--text-primary);
+            font-weight: 700; font-size: 1.25rem;
+        }
+
+        .logo-icon { display: flex; align-items: center; gap: 6px; }
+
+        .diagram-node {
+            width: 16px; height: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            border-radius: 3px;
+        }
+
+        .diagram-connection { width: 10px; height: 2px; background: var(--primary); }
+
+        .nav-menu { display: flex; gap: 2rem; list-style: none; align-items: center; }
+
+        .nav-link {
+            color: var(--text-secondary); text-decoration: none; font-weight: 500;
+            transition: var(--transition); padding: 0.5rem 1rem; border-radius: 8px;
+        }
+
+        .nav-link:hover { color: var(--primary); background: var(--bg-secondary); }
+        .nav-link.active { color: var(--primary); background: var(--bg-secondary); }
+
+        .nav-cta {
+            background: var(--primary); color: white !important;
+            padding: 0.5rem 1.25rem; border-radius: 8px; text-decoration: none;
+            font-weight: 600; transition: var(--transition);
+        }
+
+        .nav-cta:hover { background: var(--primary-hover); transform: translateY(-1px); }
+
+        .nav-bmc {
+            display: flex; align-items: center; padding: 0.35rem 0.75rem;
+            background: #ffdd00; border-radius: 8px; transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(255, 221, 0, 0.3);
+        }
+
+        .nav-bmc:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(255, 221, 0, 0.5); background: #ffdd00; }
+
+        .hamburger {
+            display: none; flex-direction: column; gap: 4px;
+            background: none; border: none; cursor: pointer; padding: 0.5rem;
+        }
+
+        .hamburger span { width: 24px; height: 2px; background: var(--text-primary); transition: var(--transition); }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        .mobile-menu {
+            display: none; position: fixed; top: 60px; left: 0; right: 0;
+            background: var(--bg-primary); border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow); padding: 1rem; z-index: 999;
+        }
+
+        .mobile-menu.show { display: block; }
+
+        .mobile-nav-link {
+            display: block; padding: 1rem; color: var(--text-primary);
+            text-decoration: none; border-radius: 8px; transition: var(--transition);
+        }
+
+        .mobile-nav-link:hover { background: var(--bg-secondary); color: var(--primary); }
+        .mobile-nav-link.nav-cta { background: var(--primary); color: white !important; text-align: center; margin-top: 0.5rem; }
+
+        .theme-toggle {
+            background: none; border: 2px solid var(--border); border-radius: 8px;
+            padding: 0.5rem; font-size: 1.25rem; cursor: pointer; transition: var(--transition);
+        }
+
+        .theme-toggle:hover { border-color: var(--primary); background: var(--bg-secondary); }
+
+        /* Main Content */
+        .main-content { margin-top: 80px; padding: 2rem; }
+        .content-container { max-width: 900px; margin: 0 auto; }
+
+        .page-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; text-align: center; padding: 4rem 2rem;
+            border-radius: var(--radius); margin-bottom: 3rem;
+        }
+
+        .page-hero h1 { font-size: clamp(2rem, 4vw, 2.5rem); margin-bottom: 1rem; }
+        .page-hero p { font-size: 1.1rem; opacity: 0.9; max-width: 650px; margin: 0 auto; }
+
+        .intro-text {
+            color: var(--text-secondary); font-size: 1.05rem; line-height: 1.8; margin-bottom: 2.5rem;
+        }
+
+        .intro-text a { color: var(--primary); text-decoration: none; font-weight: 500; }
+        .intro-text a:hover { text-decoration: underline; }
+
+        /* Sections */
+        .guide-section {
+            margin-bottom: 3rem;
+        }
+
+        .guide-section h2 {
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .guide-section h2 a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .guide-section p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .guide-section ul, .guide-section ol {
+            color: var(--text-secondary);
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .guide-section li {
+            margin-bottom: 0.5rem;
+            line-height: 1.7;
+        }
+
+        .guide-section strong {
+            color: var(--text-primary);
+        }
+
+        /* Comparison blocks */
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .comparison-block {
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .comparison-label {
+            padding: 0.5rem 1rem;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .comparison-label.good {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .comparison-label.bad {
+            background: #fef2f2;
+            color: #991b1b;
+        }
+
+        [data-theme="dark"] .comparison-label.good {
+            background: #14532d;
+            color: #86efac;
+        }
+
+        [data-theme="dark"] .comparison-label.bad {
+            background: #450a0a;
+            color: #fca5a5;
+        }
+
+        .code-block {
+            background: var(--bg-code);
+            color: #e5e7eb;
+            border-radius: 0 0 8px 8px;
+            padding: 1.25rem;
+            overflow-x: auto;
+            font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin-bottom: 0;
+            white-space: pre;
+        }
+
+        .code-block.standalone {
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        [data-theme="dark"] .code-block {
+            background: #0d1117;
+            border: 1px solid var(--border);
+        }
+
+        /* Tip callout */
+        .tip {
+            background: var(--bg-secondary);
+            border-left: 4px solid var(--accent);
+            border-radius: 0 var(--radius) var(--radius) 0;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            color: var(--text-secondary);
+        }
+
+        .tip strong {
+            color: var(--accent);
+        }
+
+        /* Table */
+        .diagram-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .diagram-table th, .diagram-table td {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .diagram-table th {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .diagram-table td {
+            color: var(--text-secondary);
+        }
+
+        .diagram-table code {
+            background: var(--bg-secondary);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: var(--primary);
+        }
+
+        /* CTA */
+        .page-cta {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .page-cta h2 { font-size: 1.5rem; margin-bottom: 0.75rem; color: var(--text-primary); }
+        .page-cta p { color: var(--text-secondary); margin-bottom: 1.5rem; }
+
+        .btn {
+            display: inline-block; background: var(--primary); color: white;
+            padding: 0.75rem 2rem; border-radius: 8px; text-decoration: none;
+            font-weight: 600; transition: var(--transition);
+        }
+
+        .btn:hover { background: var(--primary-hover); transform: translateY(-2px); }
+
+        /* Cyberpunk Footer */
+        .footer {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #16213e 100%);
+            border-top: 2px solid;
+            border-image: linear-gradient(90deg, #00d4ff, #6366f1, #8b5cf6, #00d4ff) 1;
+            padding: 4rem 2rem 2rem;
+            position: relative; overflow: hidden; margin-top: 4rem;
+        }
+
+        .footer::before {
+            content: ''; position: absolute; top: 0; left: -100%;
+            width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            animation: cyberpunk-scan 3s linear infinite;
+        }
+
+        .footer-content { max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
+
+        .footer-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 3rem; margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #00d4ff; font-size: 1.1rem; font-weight: 700;
+            margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px;
+            text-shadow: 0 0 10px #00d4ff50;
+        }
+
+        .footer-links { list-style: none; padding: 0; }
+        .footer-links li { margin-bottom: 0.5rem; }
+        .footer-links a { color: #a1a1aa; text-decoration: none; transition: all 0.3s ease; position: relative; }
+        .footer-links a:hover { color: #00d4ff; text-shadow: 0 0 5px #00d4ff50; padding-left: 10px; }
+        .footer-links a::before { content: '\25B6'; position: absolute; left: -15px; opacity: 0; transition: all 0.3s ease; color: #6366f1; }
+        .footer-links a:hover::before { opacity: 1; left: -10px; }
+
+        .footer-divider {
+            height: 1px; background: linear-gradient(90deg, transparent, #6366f1, transparent);
+            margin: 1.5rem 0; position: relative;
+        }
+
+        .footer-divider::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 1px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            opacity: 0; animation: cyberpunk-pulse 2s ease-in-out infinite alternate;
+        }
+
+        .footer-bottom { text-align: center; }
+        .footer-copyright { color: #71717a; font-size: 0.875rem; margin-bottom: 1rem; }
+
+        .footer-tech { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 1rem; }
+
+        .tech-badge {
+            background: linear-gradient(135deg, #374151, #1f2937); border: 1px solid #6366f1;
+            border-radius: 20px; padding: 0.5rem 1rem; color: #00d4ff; font-size: 0.75rem;
+            font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+            text-shadow: 0 0 5px #00d4ff30; box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tech-badge:hover { transform: translateY(-2px); box-shadow: 0 5px 25px rgba(0, 212, 255, 0.3); border-color: #00d4ff; }
+        .footer-glow { color: #6366f1; text-shadow: 0 0 10px #6366f150; font-weight: 700; }
+
+        @keyframes cyberpunk-scan { 0% { left: -100%; } 100% { left: 100%; } }
+        @keyframes cyberpunk-pulse { 0% { opacity: 0; } 100% { opacity: 0.6; } }
+
+        [data-theme="dark"] .footer { background: linear-gradient(135deg, #000000 0%, #1a0b3d 50%, #2d1b69 100%); }
+        [data-theme="dark"] .tech-badge { background: linear-gradient(135deg, #1e1b4b, #312e81); border-color: #8b5cf6; }
+        [data-theme="dark"] .footer-section h3 { color: #a78bfa; text-shadow: 0 0 10px #8b5cf650; }
+        [data-theme="dark"] .footer-links a:hover { color: #a78bfa; text-shadow: 0 0 5px #8b5cf650; }
+        [data-theme="dark"] .tech-badge:hover { border-color: #a78bfa; box-shadow: 0 5px 25px rgba(139, 92, 246, 0.3); }
+
+        @media (max-width: 768px) {
+            .nav-container { padding: 1rem; }
+            .nav-menu { display: none; }
+            .hamburger { display: flex; }
+            .main-content { margin-top: 60px; padding: 1rem; }
+            .page-hero { padding: 3rem 1.5rem; }
+            .comparison { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 480px) {
+            .page-hero h1 { font-size: 1.75rem; }
+            .page-hero p { font-size: 1rem; }
+            .guide-section h2 { font-size: 1.3rem; }
+        }
+    </style>
+    <script>
+        (function() {
+            var theme = localStorage.getItem('simplemermaid-theme');
+            if (!theme) {
+                var oldTheme = localStorage.getItem('theme');
+                if (oldTheme) { theme = oldTheme; localStorage.setItem('simplemermaid-theme', theme); localStorage.removeItem('theme'); }
+                else { theme = 'light'; }
+            }
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6FZM0EGT74"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6FZM0EGT74');
+</script>
+
+<body>
+    <header class="nav-header">
+        <nav class="nav-container">
+            <a href="../index.html" class="nav-logo">
+                <div class="logo-icon">
+                    <div class="diagram-node"></div>
+                    <div class="diagram-connection"></div>
+                    <div class="diagram-node"></div>
+                    <div class="diagram-connection"></div>
+                    <div class="diagram-node"></div>
+                </div>
+                <span>SimpleMermaid</span>
+            </a>
+
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">Home</a></li>
+                <li><a href="../learn-mermaid.html" class="nav-link">Learn</a></li>
+                <li><a href="../blog/index.html" class="nav-link">Blog</a></li>
+                <li><a href="../mermaid-tool.html" class="nav-link">Editor</a></li>
+                <li><a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="nav-bmc" title="Buy me a coffee"><img src="../bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 28px; vertical-align: middle; border-radius: 4px;"></a></li>
+                <li><button class="theme-toggle" id="themeToggle" title="Toggle theme">&#9788;&#65039;</button></li>
+                <li><a href="../mermaid-tool.html" class="nav-cta">Start Creating</a></li>
+            </ul>
+
+            <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+        </nav>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="../index.html" class="mobile-nav-link">Home</a>
+            <a href="../learn-mermaid.html" class="mobile-nav-link">Learn</a>
+            <a href="../blog/index.html" class="mobile-nav-link">Blog</a>
+            <a href="../mermaid-tool.html" class="mobile-nav-link">Editor</a>
+            <a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="mobile-nav-link" style="display: flex; align-items: center; gap: 0.5rem;"><img src="../bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 24px; border-radius: 4px;"> Buy Me A Coffee</a>
+            <a href="../mermaid-tool.html" class="mobile-nav-link nav-cta">Start Creating</a>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="content-container">
+            <div class="page-hero">
+                <h1>Best Practices for Mermaid Diagrams</h1>
+                <p>Practical guidelines for creating clear, maintainable, and professional diagrams that your team will actually use.</p>
+            </div>
+
+            <div class="intro-text">
+                <p>A well-crafted diagram communicates in seconds what paragraphs of text cannot. But a poorly structured diagram can be worse than no diagram at all: it misleads, confuses, and quickly becomes outdated. This guide collects the patterns and principles that lead to diagrams people genuinely find useful. If you are new to Mermaid.js syntax, start with the <a href="../learn-mermaid.html">Learn page</a> first, then return here to refine your approach.</p>
+            </div>
+
+            <!-- Section 1: Choosing the Right Diagram Type -->
+            <section class="guide-section">
+                <h2><a id="choosing-diagram-type">Choosing the Right Diagram Type</a></h2>
+                <p>The first decision is which diagram type best represents the information you want to convey. Choosing the wrong type forces readers to mentally translate the diagram, which defeats the purpose of visual communication. Here is a quick reference for common scenarios:</p>
+
+                <table class="diagram-table">
+                    <thead>
+                        <tr>
+                            <th>You want to show...</th>
+                            <th>Use this type</th>
+                            <th>Mermaid keyword</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Process steps or decision logic</td>
+                            <td>Flowchart</td>
+                            <td><code>flowchart</code></td>
+                        </tr>
+                        <tr>
+                            <td>Request/response between systems</td>
+                            <td>Sequence Diagram</td>
+                            <td><code>sequenceDiagram</code></td>
+                        </tr>
+                        <tr>
+                            <td>Project schedule with dependencies</td>
+                            <td>Gantt Chart</td>
+                            <td><code>gantt</code></td>
+                        </tr>
+                        <tr>
+                            <td>Object relationships and methods</td>
+                            <td>Class Diagram</td>
+                            <td><code>classDiagram</code></td>
+                        </tr>
+                        <tr>
+                            <td>System states and transitions</td>
+                            <td>State Diagram</td>
+                            <td><code>stateDiagram-v2</code></td>
+                        </tr>
+                        <tr>
+                            <td>Database tables and relationships</td>
+                            <td>ER Diagram</td>
+                            <td><code>erDiagram</code></td>
+                        </tr>
+                        <tr>
+                            <td>User experience touchpoints</td>
+                            <td>User Journey</td>
+                            <td><code>journey</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="tip">
+                    <strong>Tip:</strong> When in doubt, start with a flowchart. It is the most flexible type and works for the widest range of situations. You can always convert to a more specific type later. Explore the <a href="diagram-gallery.html" style="color: var(--primary);">Diagram Gallery</a> for examples of each type.
+                </div>
+            </section>
+
+            <!-- Section 2: Layout and Flow Direction -->
+            <section class="guide-section">
+                <h2><a id="layout-direction">Layout and Flow Direction</a></h2>
+                <p>Mermaid supports four flow directions: <code>TB</code> (top to bottom), <code>BT</code> (bottom to top), <code>LR</code> (left to right), and <code>RL</code> (right to left). Choosing the right direction makes your diagram feel natural to read.</p>
+
+                <p>As a general rule, use <strong>top-down (TD/TB)</strong> for hierarchical relationships like org charts, architecture layers, and decision trees. Use <strong>left-to-right (LR)</strong> for sequential processes like pipelines, timelines, and data flows. Readers in left-to-right languages naturally expect time and sequence to flow horizontally.</p>
+
+                <div class="comparison">
+                    <div class="comparison-block">
+                        <div class="comparison-label good">Good: LR for a pipeline</div>
+                        <div class="code-block">flowchart LR
+    Code --> Build --> Test --> Deploy</div>
+                    </div>
+                    <div class="comparison-block">
+                        <div class="comparison-label bad">Avoid: TD for a pipeline</div>
+                        <div class="code-block">flowchart TD
+    Code --> Build --> Test --> Deploy</div>
+                    </div>
+                </div>
+
+                <p>Vertical layouts work better when the diagram has many branches or when nodes have long labels, because vertical space is usually more abundant on screen than horizontal space. Horizontal layouts shine when the primary relationship is a sequence of steps happening in order.</p>
+            </section>
+
+            <!-- Section 3: Labeling Conventions -->
+            <section class="guide-section">
+                <h2><a id="labeling-conventions">Labeling Conventions</a></h2>
+                <p>Good labels are short, descriptive, and consistent. Every node and edge label should answer one question: "What is this?" or "What happens here?" Avoid abbreviations that are not universally understood by your audience, and avoid verbose sentences that clutter the diagram.</p>
+
+                <div class="comparison">
+                    <div class="comparison-block">
+                        <div class="comparison-label good">Good: Clear, concise labels</div>
+                        <div class="code-block">flowchart LR
+    A[User Request] -->|Authenticate| B[Auth Service]
+    B -->|Valid Token| C[API Gateway]
+    C -->|Route| D[Order Service]</div>
+                    </div>
+                    <div class="comparison-block">
+                        <div class="comparison-label bad">Avoid: Vague or overlong labels</div>
+                        <div class="code-block">flowchart LR
+    A[req] -->|do auth| B[svc1]
+    B -->|The token has been validated
+    and the user is confirmed| C[gw]
+    C -->|send to the appropriate
+    downstream microservice| D[svc2]</div>
+                    </div>
+                </div>
+
+                <p>Additional labeling tips:</p>
+                <ul>
+                    <li>Use <strong>noun phrases</strong> for nodes (e.g., "Auth Service," "User DB") and <strong>verb phrases</strong> for edge labels (e.g., "Validate," "Send Request").</li>
+                    <li>Keep edge labels under 5 words. If you need more context, add a note or link to documentation instead.</li>
+                    <li>Use consistent casing. Title Case for node names and lowercase for edge labels is a common convention.</li>
+                    <li>Assign meaningful node IDs (e.g., <code>AuthSvc</code> instead of <code>A</code>) so the raw code is readable even without rendering.</li>
+                </ul>
+            </section>
+
+            <!-- Section 4: Using Color Effectively -->
+            <section class="guide-section">
+                <h2><a id="using-color">Using Color Effectively</a></h2>
+                <p>Color is a powerful tool for drawing attention and grouping related elements, but overusing it creates visual noise. Limit your palette to 3-4 colors and assign each one a clear meaning. Common conventions include green for success or healthy states, red for errors or critical paths, blue for informational elements, and gray for background or inactive components.</p>
+
+                <div class="code-block standalone">flowchart TD
+    A[Request] --> B{Validate}
+    B -->|Pass| C[Process]
+    B -->|Fail| D[Reject]
+    C --> E[Respond 200]
+    D --> F[Respond 400]
+
+    style C fill:#dcfce7,stroke:#16a34a,color:#166534
+    style E fill:#dcfce7,stroke:#16a34a,color:#166534
+    style D fill:#fef2f2,stroke:#dc2626,color:#991b1b
+    style F fill:#fef2f2,stroke:#dc2626,color:#991b1b</div>
+
+                <p>Use <code>classDef</code> to define reusable style classes instead of applying inline styles to every node. This keeps your code DRY and makes it easy to update colors across the entire diagram:</p>
+
+                <div class="code-block standalone">flowchart TD
+    classDef success fill:#dcfce7,stroke:#16a34a,color:#166534
+    classDef error fill:#fef2f2,stroke:#dc2626,color:#991b1b
+
+    A[Request] --> B{Validate}
+    B -->|Pass| C[Process]:::success
+    B -->|Fail| D[Reject]:::error</div>
+
+                <div class="tip">
+                    <strong>Tip:</strong> Always test your color choices in both light and dark mode. SimpleMermaid applies automatic theme adjustments to SVG diagrams, but inline colors override those defaults. Ensure sufficient contrast in both themes.
+                </div>
+            </section>
+
+            <!-- Section 5: Managing Complexity -->
+            <section class="guide-section">
+                <h2><a id="managing-complexity">Managing Complexity</a></h2>
+                <p>A diagram with more than 15-20 nodes starts to lose its value as a communication tool. When a diagram grows beyond that threshold, readers spend more time deciphering the layout than understanding the system. Here are strategies for managing complexity:</p>
+
+                <p><strong>Use subgraphs to group related nodes.</strong> Subgraphs create visual boundaries that help readers process the diagram in logical chunks rather than as a flat network of connections.</p>
+
+                <div class="code-block standalone">flowchart TB
+    subgraph Frontend
+        UI[React App]
+        CDN[CDN]
+    end
+
+    subgraph Backend
+        API[API Server]
+        Worker[Background Worker]
+    end
+
+    subgraph Data
+        DB[(PostgreSQL)]
+        Cache[(Redis)]
+    end
+
+    UI --> CDN
+    UI --> API
+    API --> DB
+    API --> Cache
+    API --> Worker
+    Worker --> DB</div>
+
+                <p><strong>Create multiple focused diagrams instead of one monolithic one.</strong> A high-level architecture overview should show service boundaries and major data flows. Separate diagrams can then zoom into each service's internal structure, specific API flows, or database schemas. Link between these diagrams in your documentation.</p>
+
+                <p><strong>Remove decorative elements.</strong> Every node, edge, and label should earn its place in the diagram. If removing an element does not reduce understanding, remove it. Simplicity is not about dumbing down; it is about focusing attention on what matters.</p>
+            </section>
+
+            <!-- Section 6: Team Standards and Consistency -->
+            <section class="guide-section">
+                <h2><a id="team-standards">Team Standards and Consistency</a></h2>
+                <p>When multiple people on a team create diagrams, inconsistency creeps in quickly. Different naming conventions, flow directions, and styling choices make the diagram collection feel chaotic rather than cohesive. Establishing lightweight standards prevents this.</p>
+
+                <p>Consider defining these conventions for your team:</p>
+                <ul>
+                    <li><strong>Flow direction:</strong> Agree on LR for processes and TD for hierarchies.</li>
+                    <li><strong>Node ID naming:</strong> Use PascalCase for services (e.g., <code>AuthService</code>) and lowercase with underscores for data stores (e.g., <code>user_db</code>).</li>
+                    <li><strong>Color palette:</strong> Define a shared set of <code>classDef</code> declarations that everyone copies into their diagrams.</li>
+                    <li><strong>Granularity guidelines:</strong> Define what belongs in a "Level 1" overview versus a "Level 2" detail diagram. A common approach is to follow the C4 model (Context, Container, Component, Code).</li>
+                    <li><strong>Storage location:</strong> Store diagram source files alongside the code they describe, such as in a <code>docs/</code> or <code>diagrams/</code> directory in the same repository.</li>
+                </ul>
+
+                <p>Store your team conventions in a shared document or wiki page, and include a template diagram that new team members can copy as a starting point. The <a href="use-cases.html">Use Cases guide</a> provides scenario-specific templates that can serve as that foundation.</p>
+
+                <div class="tip">
+                    <strong>Tip:</strong> Treat diagrams like code. Review them in pull requests, version them alongside your source code, and update them when the system changes. A stale diagram is worse than no diagram because it actively misleads.
+                </div>
+            </section>
+
+            <!-- CTA -->
+            <div class="page-cta">
+                <h2>Put these practices to work</h2>
+                <p>Open the editor and apply these guidelines to your next diagram. Start from one of the 45+ built-in examples and refine it using the principles above.</p>
+                <a href="../mermaid-tool.html" class="btn">Open the Editor</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Cyberpunk Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Product</h3>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../mermaid-tool.html">Editor</a></li>
+                        <li><a href="../learn-mermaid.html">Learn Mermaid</a></li>
+                        <li><a href="../about.html">About</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="../faq.html">FAQ</a></li>
+                        <li><a href="diagram-gallery.html">Diagram Gallery</a></li>
+                        <li><a href="best-practices.html">Best Practices</a></li>
+                        <li><a href="use-cases.html">Use Cases</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="../about.html">About</a></li>
+                        <li><a href="../changelog.html">Changelog</a></li>
+                        <li><a href="../privacy.html">Privacy Policy</a></li>
+                        <li><a href="../terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom">
+                <div class="footer-tech">
+                    <span class="tech-badge">Mermaid.js</span>
+                    <span class="tech-badge">Vanilla JS</span>
+                    <span class="tech-badge">CSS Grid</span>
+                    <span class="tech-badge">LocalStorage</span>
+                    <span class="tech-badge">PWA Ready</span>
+                </div>
+
+                <p class="footer-copyright">
+                    &copy; 2025 <span class="footer-glow">SimpleMermaid.com</span> |
+                    Powered by the future of diagramming |
+                    <span class="footer-glow">Create &bull; Share &bull; Inspire</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const body = document.body;
+
+        const oldTheme = localStorage.getItem('theme');
+        if (oldTheme && !localStorage.getItem('simplemermaid-theme')) {
+            localStorage.setItem('simplemermaid-theme', oldTheme);
+            localStorage.removeItem('theme');
+        }
+
+        const savedTheme = localStorage.getItem('simplemermaid-theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        body.setAttribute('data-theme', savedTheme);
+        themeToggle.textContent = savedTheme === 'light' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+            body.setAttribute('data-theme', newTheme);
+            themeToggle.textContent = newTheme === 'light' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+            localStorage.setItem('simplemermaid-theme', newTheme);
+        });
+
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('show');
+        });
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('show');
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

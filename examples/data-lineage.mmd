@@ -1,0 +1,103 @@
+flowchart TD
+    subgraph RawSources["Raw Data Sources"]
+        R1["PostgreSQL\nTransactions DB"]:::raw
+        R2["MongoDB\nUser Profiles"]:::raw
+        R3["S3 Bucket\nClickstream Logs"]:::raw
+        R4["Salesforce API\nCRM Data"]:::raw
+        R5["Google Analytics\nWeb Analytics"]:::raw
+        R6["Stripe API\nPayment Events"]:::raw
+        R7["Zendesk API\nSupport Tickets"]:::raw
+    end
+
+    subgraph BronzeLayer["Bronze Layer (Ingested)"]
+        B1["raw_transactions\n(daily snapshot)"]:::raw
+        B2["raw_user_profiles\n(CDC stream)"]:::raw
+        B3["raw_clickstream\n(hourly partitioned)"]:::raw
+        B4["raw_crm_contacts\n(daily sync)"]:::raw
+        B5["raw_web_analytics\n(daily extract)"]:::raw
+        B6["raw_payments\n(near real-time)"]:::raw
+        B7["raw_support_tickets\n(daily sync)"]:::raw
+    end
+
+    subgraph SilverLayer["Silver Layer (Cleaned & Conformed)"]
+        S1["clean_transactions\n(deduped, validated)"]:::transformed
+        S2["clean_customers\n(merged, standardized)"]:::transformed
+        S3["clean_sessions\n(sessionized clicks)"]:::transformed
+        S4["clean_crm_accounts\n(normalized fields)"]:::transformed
+        S5["clean_payments\n(reconciled)"]:::transformed
+        S6["clean_support\n(categorized)"]:::transformed
+        S7["dim_customer_360\n(unified profile)"]:::transformed
+        S8["dim_product\n(enriched catalog)"]:::transformed
+    end
+
+    subgraph GoldLayer["Gold Layer (Business-Ready)"]
+        G1["fact_revenue\n(daily grain)"]:::serving
+        G2["fact_user_engagement\n(session metrics)"]:::serving
+        G3["agg_monthly_cohorts\n(retention analysis)"]:::serving
+        G4["agg_customer_ltv\n(lifetime value)"]:::serving
+        G5["agg_funnel_conversion\n(step-by-step)"]:::serving
+        G6["agg_support_metrics\n(CSAT, resolution time)"]:::serving
+        G7["agg_product_performance\n(revenue by SKU)"]:::serving
+    end
+
+    subgraph ConsumptionLayer["Reports & Dashboards"]
+        D1["Executive Revenue\nDashboard"]:::serving
+        D2["Marketing Funnel\nReport"]:::serving
+        D3["Customer 360\nProfile View"]:::serving
+        D4["Product Analytics\nDashboard"]:::serving
+        D5["Support KPI\nDashboard"]:::serving
+        D6["ML Feature Store\n(Model Training)"]:::serving
+        D7["Investor Monthly\nReport"]:::serving
+    end
+
+    R1 --> B1
+    R2 --> B2
+    R3 --> B3
+    R4 --> B4
+    R5 --> B5
+    R6 --> B6
+    R7 --> B7
+
+    B1 --> S1
+    B2 --> S2
+    B3 --> S3
+    B4 --> S4
+    B5 --> S3
+    B6 --> S5
+    B7 --> S6
+
+    S1 --> S7
+    S2 --> S7
+    S4 --> S7
+    S1 --> S8
+
+    S1 & S5 --> G1
+    S3 --> G2
+    S7 & S3 --> G3
+    S7 & G1 --> G4
+    S3 & S7 --> G5
+    S6 & S7 --> G6
+    S8 & G1 --> G7
+
+    G1 --> D1
+    G4 --> D1
+    G5 --> D2
+    G2 --> D2
+    S7 --> D3
+    G4 --> D3
+    G6 --> D3
+    G7 --> D4
+    G2 --> D4
+    G6 --> D5
+    S7 & G3 & G4 --> D6
+    G1 & G3 & G4 --> D7
+
+    classDef raw fill:#bbdefb,stroke:#1565c0,color:#000
+    classDef transformed fill:#fff9c4,stroke:#f9a825,color:#000
+    classDef serving fill:#c8e6c9,stroke:#2e7d32,color:#000
+
+    style RawSources fill:#e3f2fd,stroke:#1565c0,color:#000
+    style BronzeLayer fill:#e3f2fd,stroke:#1565c0,color:#000
+    style SilverLayer fill:#fffde7,stroke:#f9a825,color:#000
+    style GoldLayer fill:#e8f5e9,stroke:#2e7d32,color:#000
+    style ConsumptionLayer fill:#e8f5e9,stroke:#2e7d32,color:#000

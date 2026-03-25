@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - SimpleMermaid | Frequently Asked Questions</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Find answers to common questions about SimpleMermaid. Learn about diagram creation, sharing, exporting, browser support, troubleshooting, and more.">
+    <meta name="keywords" content="SimpleMermaid FAQ, Mermaid.js help, diagram editor questions, flowchart tool FAQ, diagram sharing, export diagrams">
+    <meta name="author" content="SimpleMermaid.com">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="FAQ - SimpleMermaid | Frequently Asked Questions">
+    <meta property="og:description" content="Find answers to common questions about SimpleMermaid. Learn about diagram creation, sharing, exporting, browser support, and troubleshooting.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://simplemermaid.com/faq.html">
+    <meta property="og:image" content="https://simplemermaid.com/simplemermaid.png">
+    <meta property="og:site_name" content="SimpleMermaid">
+
+    <!-- Twitter/X Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="FAQ - SimpleMermaid | Frequently Asked Questions">
+    <meta name="twitter:description" content="Find answers to common questions about SimpleMermaid. Learn about diagram creation, sharing, exporting, and troubleshooting.">
+    <meta name="twitter:image" content="https://simplemermaid.com/simplemermaid.png">
+    <meta name="twitter:creator" content="@simplemermaid">
+    <meta name="twitter:site" content="@simplemermaid">
+
+    <!-- Additional SEO -->
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://simplemermaid.com/faq.html">
+    <meta name="theme-color" content="#6366f1">
+
+    <!-- Google AdSense Account -->
+    <meta name="google-adsense-account" content="ca-pub-8641410034592329">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <!-- FAQPage Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What is SimpleMermaid?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "SimpleMermaid is a free, browser-based diagram editor built on Mermaid.js. It lets you create flowcharts, sequence diagrams, Gantt charts, entity relationship diagrams, and many other diagram types using simple text-based syntax. There is no registration required and your diagrams never leave your browser."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is SimpleMermaid free to use?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, SimpleMermaid is completely free. There are no paid tiers, no usage limits, and no watermarks on exported diagrams. You can create unlimited diagrams and share them with anyone."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Do I need to create an account?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No. SimpleMermaid requires no registration, no login, and no personal information. Just open the editor and start creating diagrams immediately."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I create a diagram?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Open the editor at simplemermaid.com/mermaid-tool.html. Type your Mermaid.js syntax in the left panel and the diagram renders in real time on the right. You can start with a template from the examples dropdown or write your own code from scratch."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What diagram types does SimpleMermaid support?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "SimpleMermaid supports all Mermaid.js diagram types including flowcharts, sequence diagrams, Gantt charts, class diagrams, state diagrams, entity relationship diagrams, user journey maps, pie charts, requirement diagrams, and more."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How does URL sharing work?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "When you click Share, SimpleMermaid compresses your diagram code using LZ-String and encodes it into the URL. Anyone with the link can open it and see your exact diagram. No server storage is involved."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What export formats are available?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "You can export diagrams as PNG images for presentations, SVG for scalable vector graphics, or PDF documents for formal documentation. All exports are high quality with no watermarks."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Which browsers are supported?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "SimpleMermaid works in all modern browsers including Chrome, Firefox, Safari, and Edge. For the best experience, use the latest version of your preferred browser."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I use SimpleMermaid offline?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "SimpleMermaid can work with limited offline capability. The editor uses embedded fallback examples when external files cannot be loaded. However, the initial page load requires an internet connection to fetch the Mermaid.js library from the CDN."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Where is my data stored?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Your diagrams are stored entirely in your browser. SimpleMermaid has no backend server and does not collect or store your diagram data. Theme preferences are saved in localStorage. Shared diagrams are encoded directly in the URL."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Why is my diagram not rendering?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The most common cause is a syntax error in your Mermaid code. Check for missing arrows, unclosed brackets, or incorrect diagram type declarations. The editor shows error messages below the preview panel to help you identify the issue."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "My sharing link is not working. What should I do?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "If a sharing link does not load properly, make sure the full URL was copied including everything after the # symbol. Some messaging apps or email clients may truncate long URLs. Try copying the link directly from the browser address bar."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I switch between light and dark mode?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Click the sun/moon icon in the top navigation bar to toggle between light and dark themes. Your preference is saved automatically and persists across sessions."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I use SimpleMermaid for commercial projects?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. SimpleMermaid is free for both personal and commercial use. You can use it to create diagrams for client presentations, internal documentation, architecture reviews, and any other professional purpose."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I learn Mermaid.js syntax?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Visit the Learn page at simplemermaid.com/learn-mermaid.html for comprehensive tutorials covering all diagram types. You can also load any of the 45+ built-in examples in the editor to see working code and modify it to understand how the syntax works."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Does SimpleMermaid support custom styling?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. Mermaid.js supports inline styling and CSS classes within diagrams. You can customize colors, borders, fonts, and more directly in your diagram code using style statements and classDef declarations."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <style>
+        /* Modern CSS Variables */
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #f8fafc;
+            --accent: #10b981;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-muted: #9ca3af;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-code: #1f2937;
+            --border: #e5e7eb;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.15);
+            --radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --primary: #8b5cf6;
+            --primary-hover: #7c3aed;
+            --primary-light: #a78bfa;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --text-muted: #9ca3af;
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-code: #111827;
+            --border: #374151;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            transition: var(--transition);
+        }
+
+        /* Navigation Header */
+        .nav-header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .logo-icon {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .diagram-node {
+            width: 16px;
+            height: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            border-radius: 3px;
+        }
+
+        .diagram-connection {
+            width: 10px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        /* Desktop Navigation */
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            background: var(--bg-secondary);
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+            background: var(--bg-secondary);
+        }
+
+        .nav-cta {
+            background: var(--primary);
+            color: white !important;
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-cta:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .nav-bmc {
+            display: flex;
+            align-items: center;
+            padding: 0.35rem 0.75rem;
+            background: #ffdd00;
+            border-radius: 8px;
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(255, 221, 0, 0.3);
+        }
+
+        .nav-bmc:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(255, 221, 0, 0.5);
+            background: #ffdd00;
+        }
+
+        /* Mobile Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 1rem;
+            z-index: 999;
+        }
+
+        .mobile-menu.show {
+            display: block;
+        }
+
+        .mobile-nav-link {
+            display: block;
+            padding: 1rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .mobile-nav-link:hover {
+            background: var(--bg-secondary);
+            color: var(--primary);
+        }
+
+        .mobile-nav-link.nav-cta {
+            background: var(--primary);
+            color: white !important;
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            padding: 0.5rem;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary);
+            background: var(--bg-secondary);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            padding: 2rem;
+        }
+
+        .content-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .faq-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+            border-radius: var(--radius);
+            margin-bottom: 3rem;
+        }
+
+        .faq-hero h1 {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            margin-bottom: 1rem;
+        }
+
+        .faq-hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* FAQ Category */
+        .faq-category {
+            margin-bottom: 2.5rem;
+        }
+
+        .faq-category-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        /* Accordion */
+        .faq-item {
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .faq-item:hover {
+            border-color: var(--primary);
+        }
+
+        .faq-question {
+            width: 100%;
+            background: var(--bg-secondary);
+            border: none;
+            padding: 1.25rem 1.5rem;
+            text-align: left;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            transition: var(--transition);
+            font-family: inherit;
+            line-height: 1.4;
+        }
+
+        .faq-question:hover {
+            background: var(--bg-primary);
+        }
+
+        .faq-question .chevron {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s ease;
+            color: var(--text-muted);
+        }
+
+        .faq-item.open .faq-question .chevron {
+            transform: rotate(180deg);
+            color: var(--primary);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 500px;
+        }
+
+        .faq-answer-inner {
+            padding: 0 1.5rem 1.25rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .faq-answer-inner a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .faq-answer-inner a:hover {
+            text-decoration: underline;
+        }
+
+        /* CTA Section */
+        .faq-cta {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .faq-cta h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .faq-cta p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .faq-cta .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .faq-cta .btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        /* Cyberpunk Footer */
+        .footer {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 50%, #16213e 100%);
+            border-top: 2px solid;
+            border-image: linear-gradient(90deg, #00d4ff, #6366f1, #8b5cf6, #00d4ff) 1;
+            padding: 4rem 2rem 2rem;
+            position: relative;
+            overflow: hidden;
+            margin-top: 4rem;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            animation: cyberpunk-scan 3s linear infinite;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #00d4ff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px #00d4ff50;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #a1a1aa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer-links a:hover {
+            color: #00d4ff;
+            text-shadow: 0 0 5px #00d4ff50;
+            padding-left: 10px;
+        }
+
+        .footer-links a::before {
+            content: '\25B6';
+            position: absolute;
+            left: -15px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            color: #6366f1;
+        }
+
+        .footer-links a:hover::before {
+            opacity: 1;
+            left: -10px;
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #6366f1, transparent);
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .footer-divider::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+            opacity: 0;
+            animation: cyberpunk-pulse 2s ease-in-out infinite alternate;
+        }
+
+        .footer-bottom {
+            text-align: center;
+        }
+
+        .footer-copyright {
+            color: #71717a;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-tech {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .tech-badge {
+            background: linear-gradient(135deg, #374151, #1f2937);
+            border: 1px solid #6366f1;
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            color: #00d4ff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-shadow: 0 0 5px #00d4ff30;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tech-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 25px rgba(0, 212, 255, 0.3);
+            border-color: #00d4ff;
+        }
+
+        .footer-glow {
+            color: #6366f1;
+            text-shadow: 0 0 10px #6366f150;
+            font-weight: 700;
+        }
+
+        /* Cyberpunk Animations */
+        @keyframes cyberpunk-scan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        @keyframes cyberpunk-pulse {
+            0% { opacity: 0; }
+            100% { opacity: 0.6; }
+        }
+
+        /* Dark theme footer adjustments */
+        [data-theme="dark"] .footer {
+            background: linear-gradient(135deg, #000000 0%, #1a0b3d 50%, #2d1b69 100%);
+        }
+
+        [data-theme="dark"] .tech-badge {
+            background: linear-gradient(135deg, #1e1b4b, #312e81);
+            border-color: #8b5cf6;
+        }
+
+        [data-theme="dark"] .footer-section h3 {
+            color: #a78bfa;
+            text-shadow: 0 0 10px #8b5cf650;
+        }
+
+        [data-theme="dark"] .footer-links a:hover {
+            color: #a78bfa;
+            text-shadow: 0 0 5px #8b5cf650;
+        }
+
+        [data-theme="dark"] .tech-badge:hover {
+            border-color: #a78bfa;
+            box-shadow: 0 5px 25px rgba(139, 92, 246, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 1rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .main-content {
+                margin-top: 60px;
+                padding: 1rem;
+            }
+
+            .faq-hero {
+                padding: 3rem 1.5rem;
+            }
+
+            .faq-question {
+                padding: 1rem 1.25rem;
+                font-size: 0.95rem;
+            }
+
+            .faq-answer-inner {
+                padding: 0 1.25rem 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .faq-hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .faq-hero p {
+                font-size: 1rem;
+            }
+
+            .faq-category-title {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+    <!-- Early theme detection to prevent flash -->
+    <script>
+        (function() {
+            var theme = localStorage.getItem('simplemermaid-theme');
+            if (!theme) {
+                var oldTheme = localStorage.getItem('theme');
+                if (oldTheme) {
+                    theme = oldTheme;
+                    localStorage.setItem('simplemermaid-theme', theme);
+                    localStorage.removeItem('theme');
+                } else {
+                    theme = 'light';
+                }
+            }
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+</head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6FZM0EGT74"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6FZM0EGT74');
+</script>
+
+<body>
+    <!-- Navigation Header -->
+    <header class="nav-header">
+        <nav class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <div class="logo-icon">
+                    <div class="diagram-node"></div>
+                    <div class="diagram-connection"></div>
+                    <div class="diagram-node"></div>
+                    <div class="diagram-connection"></div>
+                    <div class="diagram-node"></div>
+                </div>
+                <span>SimpleMermaid</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="learn-mermaid.html" class="nav-link">Learn</a></li>
+                <li><a href="blog/index.html" class="nav-link">Blog</a></li>
+                <li><a href="mermaid-tool.html" class="nav-link">Editor</a></li>
+                <li><a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="nav-bmc" title="Buy me a coffee"><img src="bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 28px; vertical-align: middle; border-radius: 4px;"></a></li>
+                <li><button class="theme-toggle" id="themeToggle" title="Toggle theme">&#9788;&#65039;</button></li>
+                <li><a href="mermaid-tool.html" class="nav-cta">Start Creating</a></li>
+            </ul>
+
+            <!-- Mobile Hamburger -->
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="index.html" class="mobile-nav-link">Home</a>
+            <a href="learn-mermaid.html" class="mobile-nav-link">Learn</a>
+            <a href="blog/index.html" class="mobile-nav-link">Blog</a>
+            <a href="mermaid-tool.html" class="mobile-nav-link">Editor</a>
+            <a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="mobile-nav-link" style="display: flex; align-items: center; gap: 0.5rem;"><img src="bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 24px; border-radius: 4px;"> Buy Me A Coffee</a>
+            <a href="mermaid-tool.html" class="mobile-nav-link nav-cta">Start Creating</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-container">
+            <!-- Hero Section -->
+            <div class="faq-hero">
+                <h1>Frequently Asked Questions</h1>
+                <p>Everything you need to know about SimpleMermaid, from getting started to advanced features and troubleshooting.</p>
+            </div>
+
+            <!-- General Questions -->
+            <section class="faq-category">
+                <h2 class="faq-category-title">General</h2>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>What is SimpleMermaid?</span>
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            SimpleMermaid is a free, browser-based diagram editor built on <strong>Mermaid.js</strong>. It lets you create flowcharts, sequence diagrams, Gantt charts, entity relationship diagrams, and many other diagram types using simple text-based syntax. There is no registration required and your diagrams are processed entirely in your browser, meaning they never leave your machine. Whether you are a software developer documenting architecture, a project manager planning sprints, or a student learning about system design, SimpleMermaid provides a fast, distraction-free environment for visual communication. Visit the <a href="learn-mermaid.html">Learn page</a> to get started with the syntax.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Is SimpleMermaid free to use?</span>
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Yes, SimpleMermaid is completely free. There are no paid tiers, no usage limits, and no watermarks on exported diagrams. You can create unlimited diagrams and share them with anyone. The tool is supported by the community and will remain free for both personal and commercial use.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Do I need to create an account?</span>
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            No. SimpleMermaid requires no registration, no login, and no personal information. Just open the <a href="mermaid-tool.html">editor</a> and start creating diagrams immediately. Your theme preference is stored in your browser's localStorage, but no data is ever sent to a server.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Can I use SimpleMermaid for commercial projects?</span>
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Absolutely. SimpleMermaid is free for both personal and commercial use. You can use it to create diagrams for client presentations, internal documentation, architecture reviews, sprint planning sessions, and any other professional purpose. There are no restrictions on how you use the diagrams you create.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Editor Features -->
+            <section class="faq-category">
+                <h2 class="faq-category-title">Editor Features</h2>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>How do I create a diagram?</span>
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Open the <a href="mermaid-tool.html">editor</a> and type your Mermaid.js syntax in the left panel. The diagram renders in real time on the right. You can start with any of the 45+ built-in examples from the dropdown, or write your own code from scratch. For example, type <code>flowchart TD</code> followed by <code>A[Start] --> B[End]</code> to create a simple flowchart. Check out the <a href="learn-mermaid.html">Learn page</a> for a complete syntax reference.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>What diagram types does SimpleMermaid support?</span>
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            SimpleMermaid supports all Mermaid.js diagram types, including flowcharts, sequence diagrams, Gantt charts, class diagrams, state diagrams, entity relationship diagrams (ERDs), user journey maps, pie charts, requirement diagrams, git graphs, mindmaps, and timeline diagrams. The editor stays up to date with the latest Mermaid.js releases via CDN. Explore the <a href="guides/diagram-gallery.html">Diagram Gallery</a> for curated examples of each type.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Can I change the editor layout?</span>
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Yes. The editor supports both vertical (side-by-side) and horizontal (stacked) layouts. You can toggle between them using the layout button in the toolbar. The editor also features a resizable separator that you can drag to adjust the ratio between the code panel and the preview panel, giving you full control over your workspace.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Does SimpleMermaid support custom styling in diagrams?</span>
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Yes. Mermaid.js supports inline styling and CSS classes within diagrams. You can customize colors, borders, fonts, and more directly in your diagram code using <code>style</code> statements and <code>classDef</code> declarations. For guidance on using color effectively, see our <a href="guides/best-practices.html">Best Practices guide</a>.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sharing & Export -->
+            <section class="faq-category">
+                <h2 class="faq-category-title">Sharing & Export</h2>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>How does URL sharing work?</span>
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            When you click the Share button, SimpleMermaid compresses your diagram code using LZ-String compression and encodes it into the URL after the <code>#diagram=</code> fragment. Anyone with the link can open it and see your exact diagram rendered instantly. No server storage is involved at all. The diagram data lives entirely in the URL itself, making it perfect for pasting into Slack messages, emails, or documentation.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>What export formats are available?</span>
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            You can export diagrams in three formats: <strong>PNG</strong> for raster images ideal for presentations and chat messages, <strong>SVG</strong> for scalable vector graphics that look sharp at any size and work well in web pages, and <strong>PDF</strong> for formal documentation and printing. All exports are high quality with no watermarks.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Is there a size limit for shared diagrams?</span>
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            The practical limit is determined by the maximum URL length supported by your browser, which is typically around 2,000 characters for most platforms. LZ-String compression is very efficient, so most diagrams fit comfortably. For extremely large diagrams, consider breaking them into smaller, focused diagrams or using subgraphs to manage complexity. See our <a href="guides/best-practices.html#managing-complexity">Managing Complexity</a> section for tips.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Technical -->
+            <section class="faq-category">
+                <h2 class="faq-category-title">Technical</h2>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Which browsers are supported?</span>
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            SimpleMermaid works in all modern browsers including Chrome, Firefox, Safari, and Edge. For the best experience, use the latest version of your preferred browser. The editor uses standard web APIs including CSS Grid, CSS custom properties, and the Fetch API, which are supported in all current browser versions.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Can I use SimpleMermaid offline?</span>
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            SimpleMermaid has limited offline capability. The editor includes embedded fallback examples that load when external example files are unavailable. However, the initial page load requires an internet connection to fetch the Mermaid.js library from the CDN. Once the page is loaded and cached by your browser, basic editing may continue to work even if connectivity is temporarily lost.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Where is my data stored?</span>
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Your diagrams are processed and rendered entirely in your browser. SimpleMermaid has no backend server and does not collect or store your diagram data. Theme preferences and editor settings are saved in your browser's <code>localStorage</code>. Shared diagrams are encoded directly in the URL. We take your privacy seriously; read our full <a href="privacy.html">Privacy Policy</a> for details.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Troubleshooting -->
+            <section class="faq-category">
+                <h2 class="faq-category-title">Troubleshooting</h2>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>Why is my diagram not rendering?</span>
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            The most common cause is a syntax error in your Mermaid code. Check for missing arrows (<code>--></code>), unclosed brackets, or an incorrect diagram type declaration on the first line. The editor displays error messages below the preview panel to help you identify the issue. You can also try loading one of the built-in examples to compare working syntax with your own code. Visit the <a href="learn-mermaid.html">Learn page</a> for a comprehensive syntax reference.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>My sharing link is not working. What should I do?</span>
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            If a sharing link does not load your diagram properly, make sure the full URL was copied including everything after the <code>#</code> symbol. Some messaging apps, email clients, or URL shorteners may truncate long URLs or strip the hash fragment. Try copying the link directly from the browser address bar rather than from a chat message. If the link is very long, consider using a URL shortener that preserves fragments, or break your diagram into smaller parts.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>The diagram looks different in dark mode. Is that expected?</span>
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Yes, this is expected behavior. SimpleMermaid applies specific SVG-level theme overrides to ensure diagrams are readable in both light and dark modes. Colors, backgrounds, and text within the rendered SVG are adjusted automatically to match your selected theme. If you notice any readability issues with a specific diagram type in dark mode, try toggling back to light mode for comparison, or adjust your inline styles accordingly.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        <span>How do I learn Mermaid.js syntax?</span>
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            The best place to start is our <a href="learn-mermaid.html">Learn Mermaid page</a>, which covers all diagram types with examples and explanations. You can also load any of the 45+ built-in examples in the <a href="mermaid-tool.html">editor</a> to see working code and modify it interactively. For real-world usage patterns, check out the <a href="guides/use-cases.html">Use Cases guide</a> and the <a href="guides/diagram-gallery.html">Diagram Gallery</a>.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <div class="faq-cta">
+                <h2>Still have questions?</h2>
+                <p>The best way to learn is by doing. Open the editor and start experimenting with diagrams right away.</p>
+                <a href="mermaid-tool.html" class="btn">Open the Editor</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Cyberpunk Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Product</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="mermaid-tool.html">Editor</a></li>
+                        <li><a href="learn-mermaid.html">Learn Mermaid</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="guides/diagram-gallery.html">Diagram Gallery</a></li>
+                        <li><a href="guides/best-practices.html">Best Practices</a></li>
+                        <li><a href="guides/use-cases.html">Use Cases</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="changelog.html">Changelog</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom">
+                <div class="footer-tech">
+                    <span class="tech-badge">Mermaid.js</span>
+                    <span class="tech-badge">Vanilla JS</span>
+                    <span class="tech-badge">CSS Grid</span>
+                    <span class="tech-badge">LocalStorage</span>
+                    <span class="tech-badge">PWA Ready</span>
+                </div>
+
+                <p class="footer-copyright">
+                    &copy; 2025 <span class="footer-glow">SimpleMermaid.com</span> |
+                    Powered by the future of diagramming |
+                    <span class="footer-glow">Create &bull; Share &bull; Inspire</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const body = document.body;
+
+        const oldTheme = localStorage.getItem('theme');
+        if (oldTheme && !localStorage.getItem('simplemermaid-theme')) {
+            localStorage.setItem('simplemermaid-theme', oldTheme);
+            localStorage.removeItem('theme');
+        }
+
+        const savedTheme = localStorage.getItem('simplemermaid-theme') || 'light';
+        html.setAttribute('data-theme', savedTheme);
+        body.setAttribute('data-theme', savedTheme);
+        themeToggle.textContent = savedTheme === 'light' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+            body.setAttribute('data-theme', newTheme);
+            themeToggle.textContent = newTheme === 'light' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+            localStorage.setItem('simplemermaid-theme', newTheme);
+        });
+
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('show');
+        });
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('show');
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+                hamburger.classList.remove('active');
+                mobileMenu.classList.remove('show');
+            }
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.closest('.faq-item');
+                const isOpen = item.classList.contains('open');
+
+                // Close all others
+                document.querySelectorAll('.faq-item.open').forEach(openItem => {
+                    if (openItem !== item) {
+                        openItem.classList.remove('open');
+                        openItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+                    }
+                });
+
+                // Toggle current
+                item.classList.toggle('open');
+                button.setAttribute('aria-expanded', !isOpen);
+            });
+        });
+    </script>
+</body>
+</html>

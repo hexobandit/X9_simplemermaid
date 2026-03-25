@@ -1,0 +1,67 @@
+flowchart LR
+    subgraph Code["Code Stage"]
+        Dev["Developer"] -->|write HCL| IDE["IDE / Editor"]
+        IDE -->|terraform fmt| Format["Format Check"]
+        Format -->|terraform validate| Validate["Syntax Validation"]
+        Validate -->|tflint| TFLint["TFLint\nLinting"]
+        TFLint -->|checkov / tfsec| SecurityScan["Security Scan\n(Policy as Code)"]
+        SecurityScan -->|git commit| PR["Pull Request"]
+    end
+
+    subgraph Plan["Plan Stage"]
+        PR -->|CI trigger| Init["terraform init\n(-backend-config)"]
+        Init -->|select| Workspace{"Workspace\nSelection"}
+        Workspace -->|dev| WSDev["workspace: dev"]
+        Workspace -->|staging| WSStag["workspace: staging"]
+        Workspace -->|prod| WSProd["workspace: prod"]
+        WSDev --> TFPlan["terraform plan\n(-out=tfplan)"]
+        WSStag --> TFPlan
+        WSProd --> TFPlan
+        TFPlan -->|generate| PlanOutput["Plan Output\n(+3 ~1 -0)"]
+        TFPlan -->|cost estimate| Infracost["Infracost\nEstimated: $42/mo"]
+        PlanOutput -->|post to PR| PRComment["PR Comment\nwith Plan Diff"]
+    end
+
+    subgraph Review["Review Stage"]
+        PRComment --> TeamReview["Team Review\n(2 approvals required)"]
+        Infracost --> TeamReview
+        TeamReview -->|approved| Approved["Approved"]
+        TeamReview -->|changes requested| Rejected["Changes Requested"]
+        Rejected -->|iterate| Dev
+    end
+
+    subgraph Apply["Apply Stage"]
+        Approved -->|merge to main| Merge["Merge PR"]
+        Merge -->|CD trigger| ApplyInit["terraform init"]
+        ApplyInit --> TFApply["terraform apply\n(-auto-approve tfplan)"]
+        TFApply -->|lock| StateLock["State Lock\n(DynamoDB)"]
+        StateLock -->|read/write| RemoteState["Remote State\n(S3 Bucket)\nVersioned + Encrypted"]
+        TFApply -->|success| ApplySuccess["Deploy Success\nOutputs recorded"]
+        TFApply -->|failure| ApplyFail["Deploy Failed"]
+    end
+
+    subgraph DriftDetection["Drift Detection"]
+        CronJob["Scheduled CronJob\n(every 6h)"] -->|terraform plan| DriftPlan["Drift Plan"]
+        DriftPlan -->|no changes| NoDrift["No Drift\nAll Clear"]
+        DriftPlan -->|changes detected| DriftAlert["Drift Alert\nSlack Notification"]
+        DriftAlert -->|option 1| AutoRemediate["Auto-Remediate\nterraform apply"]
+        DriftAlert -->|option 2| ManualReview["Manual Review\nCreate Issue"]
+    end
+
+    subgraph Rollback["Rollback Strategy"]
+        ApplyFail -->|retrieve| PrevState["Previous State\n(S3 Version)"]
+        PrevState -->|terraform state pull| StateRestore["State Restore"]
+        StateRestore -->|terraform apply| RollbackApply["Rollback Apply"]
+        RollbackApply -->|verify| HealthCheck["Health Check"]
+        HealthCheck -->|pass| RollbackSuccess["Rollback Complete"]
+        HealthCheck -->|fail| Escalate["Escalate to\nPlatform Team"]
+    end
+
+    RemoteState -.->|state source| CronJob
+
+    style Code fill:#2d3436,stroke:#636e72,color:#dfe6e9
+    style Plan fill:#2d3436,stroke:#636e72,color:#dfe6e9
+    style Review fill:#2d3436,stroke:#636e72,color:#dfe6e9
+    style Apply fill:#2d3436,stroke:#636e72,color:#dfe6e9
+    style DriftDetection fill:#34495e,stroke:#2c3e50,color:#ecf0f1
+    style Rollback fill:#34495e,stroke:#2c3e50,color:#ecf0f1

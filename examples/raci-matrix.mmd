@@ -1,0 +1,89 @@
+flowchart TD
+    title["RACI Matrix - Product Launch"]
+
+    subgraph Tasks["Project Tasks"]
+        T1["Requirements Gathering"]
+        T2["UI/UX Design"]
+        T3["Backend Development"]
+        T4["Frontend Development"]
+        T5["QA Testing"]
+        T6["Deployment & Release"]
+    end
+
+    subgraph PM_Col["Project Manager"]
+        PM1["A"]:::accountable
+        PM2["C"]:::consulted
+        PM3["I"]:::informed
+        PM4["I"]:::informed
+        PM5["A"]:::accountable
+        PM6["A"]:::accountable
+    end
+
+    subgraph Eng_Col["Engineering Lead"]
+        E1["C"]:::consulted
+        E2["C"]:::consulted
+        E3["R"]:::responsible
+        E4["R"]:::responsible
+        E5["C"]:::consulted
+        E6["R"]:::responsible
+    end
+
+    subgraph Des_Col["Design Lead"]
+        D1["R"]:::responsible
+        D2["R"]:::responsible
+        D3["I"]:::informed
+        D4["C"]:::consulted
+        D5["I"]:::informed
+        D6["I"]:::informed
+    end
+
+    subgraph QA_Col["QA Engineer"]
+        Q1["I"]:::informed
+        Q2["I"]:::informed
+        Q3["I"]:::informed
+        Q4["I"]:::informed
+        Q5["R"]:::responsible
+        Q6["C"]:::consulted
+    end
+
+    T1 --- PM1
+    T1 --- E1
+    T1 --- D1
+    T1 --- Q1
+
+    T2 --- PM2
+    T2 --- E2
+    T2 --- D2
+    T2 --- Q2
+
+    T3 --- PM3
+    T3 --- E3
+    T3 --- D3
+    T3 --- Q3
+
+    T4 --- PM4
+    T4 --- E4
+    T4 --- D4
+    T4 --- Q4
+
+    T5 --- PM5
+    T5 --- E5
+    T5 --- D5
+    T5 --- Q5
+
+    T6 --- PM6
+    T6 --- E6
+    T6 --- D6
+    T6 --- Q6
+
+    classDef responsible fill:#3b82f6,stroke:#1e40af,color:#fff,font-weight:bold
+    classDef accountable fill:#22c55e,stroke:#15803d,color:#fff,font-weight:bold
+    classDef consulted fill:#eab308,stroke:#a16207,color:#000,font-weight:bold
+    classDef informed fill:#9ca3af,stroke:#6b7280,color:#fff,font-weight:bold
+
+    subgraph Legend
+        LR["R = Responsible"]:::responsible
+        LA["A = Accountable"]:::accountable
+        LC["C = Consulted"]:::consulted
+        LI["I = Informed"]:::informed
+    end
