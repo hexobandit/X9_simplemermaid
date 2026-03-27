@@ -1,194 +1,132 @@
 # SimpleMermaid.com
 
-🚀 **The easiest way to create Mermaid.js diagrams** - A fast, distraction-free online editor for creating flowcharts, sequence diagrams, Gantt charts, and more with real-time preview.
+The easiest way to create and share Mermaid.js diagrams. A fast, distraction-free online editor with real-time preview, instant URL sharing, and export to PNG/SVG/PDF.
+
+**Live Site**: [simplemermaid.com](https://simplemermaid.com)
 
 ## Features
 
-✨ **No Setup Required** - Just open and start diagramming  
-🔄 **Live Preview** - See your diagrams update as you type  
-🎨 **Multiple Themes** - Light, dark, and colorful modes  
-📱 **Mobile Friendly** - Responsive design that works on any device  
-📊 **Rich Examples** - 20+ pre-loaded diagram templates organized by category  
-⚡ **Modern Interface** - 2025 Bootstrap-inspired responsive design  
-🔧 **Layout Options** - Vertical (code up, diagram below) or horizontal layouts
+- **No Setup Required** - Open and start diagramming. No account, no login, no backend
+- **Live Preview** - Diagrams update as you type with real-time syntax validation
+- **Instant Sharing** - Generate a shareable URL containing the full diagram (LZ-String compressed)
+- **Export** - PNG, SVG, and PDF export for presentations and documentation
+- **61 Example Templates** - Organized across 8 categories
+- **Tabbed Editor** - Work on multiple diagrams simultaneously with per-tab state
+- **Dark Mode** - Light and dark themes for comfortable extended use
+- **Responsive** - Works on desktop, tablet, and mobile
+- **Privacy First** - Diagrams never leave your browser. No server-side processing
 
 ## Supported Diagram Types
 
-- **Flowcharts** - Decision trees and process flows
-- **Sequence Diagrams** - System interactions and API flows  
-- **Gantt Charts** - Project timelines and scheduling
-- **State Diagrams** - State machines and workflows
-- **Class Diagrams** - UML and object relationships
-- **Entity Relationship** - Database schemas
-- **Network Diagrams** - System architecture
-- **User Journey** - Experience mapping
-- **Security Models** - Threat modeling and RBAC
+- **Flowcharts** - Decision trees, process flows, system workflows
+- **Sequence Diagrams** - API flows, OAuth, JWT, WebSocket, GraphQL, gRPC
+- **Gantt Charts** - Sprint planning, release schedules, product roadmaps
+- **Class Diagrams** - UML, object relationships
+- **State Diagrams** - State machines and transitions
+- **Entity Relationship** - Database schemas and data models
+- **User Journey** - Experience mapping and onboarding flows
+- **Pie Charts** - Data distribution visualization
 
-## Quick Start
+## Example Categories
 
-1. **Choose an Example** - Select from dropdown categories at the top
-2. **Edit the Code** - Modify Mermaid syntax in the left panel  
-3. **See Live Preview** - Watch your diagram update in real-time
-4. **Switch Themes** - Use the theme toggle (🌙) for different color modes
-5. **Change Layout** - Toggle between vertical/horizontal with the layout button (⬍)
+| Category | Examples | Highlights |
+|----------|----------|------------|
+| Community Showcase | 8 | Humorous developer life diagrams, Git branching strategies |
+| Basic Diagrams | 5 | Flowcharts, shapes, subgraphs |
+| Sequence Diagrams | 8 | OAuth, JWT, payments, GraphQL subscriptions, gRPC streaming |
+| Project Management | 8 | Gantt charts, user journeys, RACI matrix, risk assessment |
+| System Architecture | 12 | Microservices, event-driven, serverless, cloud migration, service mesh |
+| DevOps & CI/CD | 4 | Docker orchestration, Terraform, GitOps, monitoring & alerting |
+| Data Engineering | 3 | ETL pipelines, streaming architecture, data lineage |
+| Security & Threat Models | 13 | RBAC, zero trust, OAuth 2.0 PKCE, mTLS, SOC2 compliance |
 
-## Example Usage
-
-```mermaid
-flowchart TD
-    A[Start] --> B{Decision}
-    B -- Yes --> C[Do something]
-    B -- No --> D[Do something else]
-    C --> E[End]
-    D --> E
-```
-
-## Development
-
-This is a single-page application built with:
-- **Mermaid.js v10** - Diagram rendering engine
-- **Modern CSS** - Custom properties and responsive design
-- **ES6 Modules** - Clean, modular JavaScript
-- **External Examples** - JSON-configured diagram templates
-
-### Project Structure
+## Site Structure
 
 ```
-X9_simplemermaid/
-├── index.html          # Main application
-├── examples/           # Diagram templates
-│   ├── config.json    # Category configuration  
-│   └── *.mmd          # Individual diagram files
-├── CLAUDE.md          # Development documentation
-└── README.md          # This file
+simplemermaid.com/
+├── index.html              # Landing page
+├── mermaid-tool.html       # Main editor application
+├── learn-mermaid.html      # Mermaid.js tutorials and syntax guide
+├── about.html              # About page with mission, comparisons, values
+├── changelog.html          # Version history and development roadmap
+├── faq.html                # FAQ with accordion UI (16 Q&As)
+├── privacy.html            # Privacy policy
+├── terms.html              # Terms of service
+├── blog/                   # Blog section (12 articles)
+│   ├── index.html          # Blog listing page
+│   ├── how-to-create-architecture-diagrams.html
+│   ├── flowchart-best-practices.html
+│   ├── sequence-diagram-tutorial-microservices.html
+│   ├── mermaid-vs-drawio.html
+│   ├── 5-diagram-types-every-developer-should-know.html
+│   ├── using-diagrams-for-documentation.html
+│   ├── entity-relationship-diagrams-explained.html
+│   ├── gantt-charts-project-management.html
+│   ├── state-diagrams-ui-design.html
+│   ├── how-to-document-apis-with-diagrams.html
+│   ├── mermaid-js-beginners-guide.html
+│   └── diagrams-as-code-workflow.html
+├── guides/                 # Resource guides
+│   ├── diagram-gallery.html
+│   ├── best-practices.html
+│   └── use-cases.html
+├── examples/               # Diagram templates (61 .mmd files)
+│   ├── config.json         # Category configuration
+│   └── *.mmd              # Individual diagram files
+├── sitemap.xml
+├── robots.txt
+└── favicon.png
 ```
 
-### Local Development
+## Local Development
 
-1. **HTTP Server** (recommended):
-   ```bash
-   python -m http.server 8000
-   # or
-   npx serve .
-   ```
-   
-2. **Direct File Access**:
-   - Open `index.html` directly in browser
-   - Uses embedded fallback examples
+**HTTP Server** (recommended for external example files):
+```bash
+python -m http.server 8000
+# or
+npx serve .
+```
+
+**Direct File Access**: Open `mermaid-tool.html` directly in a browser. Uses embedded fallback examples automatically.
+
+## Tech Stack
+
+- **Mermaid.js** - Diagram rendering engine (CDN)
+- **LZ-String** - URL compression for sharing (CDN)
+- **jsPDF** - PDF export (CDN)
+- **Vanilla JS** - No frameworks, no build step
+- **CSS Custom Properties** - Theming via `data-theme` attribute
+- **Google Analytics** - Usage tracking
+- **GitHub Actions** - CI/CD with FTPS deployment
 
 ## Architecture
 
-- **Theme System** - CSS custom properties with data attributes
-- **Layout System** - CSS Grid with responsive breakpoints  
-- **Example Loading** - Fetch API with embedded fallbacks
-- **SVG Theming** - Dynamic color overrides for diagram elements
+- **No Backend** - Everything runs client-side in the browser
+- **URL Sharing** - Diagram content compressed into URL hash with LZ-String
+- **Theme System** - CSS custom properties with `data-theme="light|dark"`
+- **Dual-Mode Examples** - Fetch API for HTTP, embedded JSON fallback for file:// protocol
+- **Tabbed Editor** - Per-tab state (zoom, cursor, scroll) persisted to localStorage
+
+## Deployment
+
+- **CI/CD**: GitHub Actions (`.github/workflow/deploy.yml`)
+- **Security**: Gitleaks scan on all pushes and PRs
+- **Deploy**: Automatic FTPS to production on `main` branch push
+- **Branch**: `zoom` is the working branch, `main` is production
 
 ## Browser Support
 
 - Chrome/Edge 88+
-- Firefox 85+  
+- Firefox 85+
 - Safari 14+
-- Mobile browsers
+- Mobile browsers (iOS Safari, Chrome Android)
 
 ## License
 
-© 2025 SimpleMermaid.com. All rights reserved.
+All rights reserved. SimpleMermaid.com 2025.
 
----
+## Support
 
-## 📝 Google Ads Implementation Todo List
+If SimpleMermaid has been useful to you, consider supporting the project:
 
-### 1. Google AdSense Account Setup
-- [ ] Create Google AdSense account at [adsense.google.com](https://adsense.google.com)
-- [ ] Verify domain ownership for simplemermaid.com
-- [ ] Add website to AdSense account
-- [ ] Wait for AdSense approval (can take 1-14 days)
-- [ ] Note: Site needs substantial content and traffic for approval
-
-### 2. Ad Unit Creation
-- [ ] Login to AdSense dashboard after approval
-- [ ] Go to "Ads" → "By ad unit" → "Display ads"
-- [ ] Create new ad unit with these settings:
-  - **Name**: SimpleMermaid Banner
-  - **Ad type**: Display ads
-  - **Ad size**: Responsive (recommended) or 728x90 banner
-  - **Ad placement**: Above content (current placeholder location)
-- [ ] Copy the generated ad code
-
-### 3. Code Implementation
-- [ ] Replace the placeholder div in `index.html` at line ~2022:
-  ```html
-  <!-- Replace this: -->
-  <div class="ad-demo">Google Ads Placeholder</div>
-  
-  <!-- With your AdSense code: -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX"
-       crossorigin="anonymous"></script>
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-XXXXXXXXXX"
-       data-ad-slot="XXXXXXXXXX"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
-  <script>
-       (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
-  ```
-- [ ] Replace `ca-pub-XXXXXXXXXX` with your actual Publisher ID
-- [ ] Replace `data-ad-slot="XXXXXXXXXX"` with your actual Ad Slot ID
-
-### 4. Testing & Optimization
-- [ ] Test ads on staging environment first
-- [ ] Verify ads display correctly on desktop and mobile
-- [ ] Check ad placement doesn't interfere with user experience
-- [ ] Monitor Core Web Vitals impact (ads can slow page load)
-- [ ] Test with all three themes (light/dark/colorful)
-
-### 5. Alternative Ad Networks (if AdSense rejected)
-- [ ] **Media.net** - Good alternative, especially for tech sites
-- [ ] **Carbon Ads** - Developer-focused, clean ads
-- [ ] **CodeFund** - Ethical ads for developers
-- [ ] **BuySellAds** - Direct ad sales platform
-
-### 6. Ad Performance Monitoring
-- [ ] Set up Google Analytics enhanced events for ad impressions
-- [ ] Monitor revenue per thousand impressions (RPM)
-- [ ] Track click-through rates (CTR)
-- [ ] Monitor user engagement metrics (bounce rate, time on site)
-- [ ] A/B test ad placement if needed
-
-### 7. Legal Compliance
-- [ ] Add Privacy Policy mentioning ad tracking cookies
-- [ ] Update cookie consent (if using GDPR compliance)
-- [ ] Add AdSense disclosure: "This site contains affiliate links and advertisements"
-- [ ] Consider adding "Advertisement" label above ads for transparency
-
-### 8. Ad Location Notes
-- **Current placement**: Above "Instant Sharing & Collaboration" section
-- **CSS styling**: Matches existing design with `.ads-section` class
-- **Container**: Max-width 800px, centered, responsive
-- **Placeholder**: Currently shows "Google Ads Placeholder" text
-- **File location**: `index.html` lines 2014-2026
-
-### 9. Revenue Optimization Tips
-- [ ] Start with responsive display ads (best performance)
-- [ ] Consider adding a second ad unit in footer after traffic grows
-- [ ] Monitor heatmaps to find optimal ad placement
-- [ ] Test different ad sizes (300x250, 728x90, 320x50 for mobile)
-- [ ] Ensure content quality remains high (affects ad rates)
-
-### 10. Backup Plan
-If ads negatively impact user experience:
-- [ ] Add CSS to hide ads: `.ads-section { display: none; }`
-- [ ] Remove entire ads section from HTML
-- [ ] Consider donation/support model instead
-- [ ] Look into minimal, developer-friendly ad networks
-
----
-
-**Live Site**: [simplemermaid.com](https://simplemermaid.com)  
-**Purpose**: Educational tool for learning Mermaid.js diagram syntax
-
-## Buy me a coffee
-
-<script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="hexobandit" data-color="#FFDD00" data-emoji="🚀"  data-font="Bree" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/hexobandit)

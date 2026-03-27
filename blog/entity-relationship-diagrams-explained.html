@@ -20,6 +20,7 @@
     <meta property="og:url" content="https://simplemermaid.com/blog/entity-relationship-diagrams-explained.html">
     <meta property="og:image" content="https://simplemermaid.com/simplemermaid.png">
     <meta property="og:site_name" content="SimpleMermaid">
+    <meta property="article:published_time" content="2026-02-12">
 
     <!-- Twitter/X Cards -->
     <meta name="twitter:card" content="summary_large_image">
@@ -41,16 +42,17 @@
         "headline": "Entity Relationship Diagrams Explained",
         "description": "Learn everything about Entity Relationship Diagrams: cardinality notation, database schema design, normalization tips, and how to create ERDs with Mermaid.js.",
         "author": {
-            "@type": "Organization",
-            "name": "SimpleMermaid.com"
+            "@type": "Person",
+            "name": "SimpleMermaid Team",
+            "url": "https://simplemermaid.com/about.html"
         },
         "publisher": {
             "@type": "Organization",
             "name": "SimpleMermaid.com",
             "url": "https://simplemermaid.com"
         },
-        "datePublished": "2026-03-25",
-        "dateModified": "2026-03-25",
+        "datePublished": "2026-02-12",
+        "dateModified": "2026-02-12",
         "mainEntityOfPage": "https://simplemermaid.com/blog/entity-relationship-diagrams-explained.html",
         "url": "https://simplemermaid.com/blog/entity-relationship-diagrams-explained.html"
     }
@@ -336,7 +338,9 @@
 
         /* Blog Hero */
         .blog-hero {
-            background: var(--bg-hero);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.85) 0%, rgba(118, 75, 162, 0.85) 100%), url('../simplemermaid-back.png');
+            background-size: cover;
+            background-position: center;
             color: white;
             text-align: center;
             padding: 8rem 2rem 4rem;
@@ -382,6 +386,11 @@
             align-items: center;
             gap: 0.4rem;
         }
+
+        .author {
+            font-weight: 600;
+        }
+
 
         /* Article Content */
         .article-container {
@@ -933,12 +942,14 @@
         <div class="blog-hero-content">
             <h1>Entity Relationship Diagrams Explained</h1>
             <div class="blog-meta">
-                <span>March 25, 2026</span>
+                <span class="author">By SimpleMermaid Team</span>
+                <time datetime="2026-02-12">February 12, 2026</time>
                 <span>9 min read</span>
                 <span>Database Design</span>
             </div>
         </div>
     </section>
+
 
     <!-- Article Content -->
     <article class="article-container">
@@ -1195,7 +1206,7 @@
         <div class="footer-content">
             <div class="footer-grid">
                 <div class="footer-section">
-                    <h3>Diagram Engine</h3>
+                    <h3>Product</h3>
                     <ul class="footer-links">
                         <li><a href="../mermaid-tool.html">Editor</a></li>
                         <li><a href="../learn-mermaid.html">Learn Syntax</a></li>
@@ -1206,10 +1217,11 @@
                 <div class="footer-section">
                     <h3>Resources</h3>
                     <ul class="footer-links">
-                        <li><a href="https://mermaid.js.org" target="_blank">Mermaid.js Docs</a></li>
-                        <li><a href="../learn-mermaid.html#quick-reference">Quick Reference</a></li>
-                        <li><a href="../learn-mermaid.html#diagram-types">Diagram Types</a></li>
-                        <li><a href="../mermaid-tool.html">Live Preview</a></li>
+                        <li><a href="index.html">Blog</a></li>
+                        <li><a href="../guides/diagram-gallery.html">Diagram Gallery</a></li>
+                        <li><a href="../guides/best-practices.html">Best Practices</a></li>
+                        <li><a href="../guides/use-cases.html">Use Cases</a></li>
+                        <li><a href="../faq.html">FAQ</a></li>
                     </ul>
                 </div>
 
@@ -1220,17 +1232,6 @@
                         <li><a href="../changelog.html">Changelog</a></li>
                         <li><a href="../privacy.html">Privacy Policy</a></li>
                         <li><a href="../terms.html">Terms of Service</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Connect</h3>
-                    <ul class="footer-links">
-                        <li><a href="https://trackmytime.net" target="_blank">TrackMyTime</a></li>
-                        <li><a href="https://threatbandit.com" target="_blank">ThreatBandit</a></li>
-                        <li><a href="https://freekanban.com" target="_blank">FreeKanban</a></li>
-                        <li><a href="https://emphonic.com" target="_blank">Emphonic</a></li>
-                        <li style="margin-top: 0.75rem;"><a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer"><img src="../bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 30px; vertical-align: middle; border-radius: 4px;"> Support Us</a></li>
                     </ul>
                 </div>
             </div>
