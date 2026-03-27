@@ -48,9 +48,9 @@
         "description": "Learn how to create clear, effective architecture diagrams using Mermaid.js. Covers system architecture, deployment diagrams, data flow, best practices, and common mistakes to avoid.",
         "image": "https://simplemermaid.com/simplemermaid.png",
         "author": {
-            "@type": "Organization",
-            "name": "SimpleMermaid.com",
-            "url": "https://simplemermaid.com"
+            "@type": "Person",
+            "name": "SimpleMermaid Team",
+            "url": "https://simplemermaid.com/about.html"
         },
         "publisher": {
             "@type": "Organization",
@@ -356,7 +356,9 @@
 
         /* Hero Section */
         .blog-hero {
-            background: var(--bg-hero);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.85) 0%, rgba(118, 75, 162, 0.85) 100%), url('../simplemermaid-back.png');
+            background-size: cover;
+            background-position: center;
             color: white;
             text-align: center;
             padding: 8rem 2rem 4rem;
@@ -384,6 +386,11 @@
             padding-left: 1.5rem;
             border-left: 1px solid rgba(255,255,255,0.4);
         }
+
+        .author {
+            font-weight: 600;
+        }
+
 
         /* Article Content */
         .article-content {
@@ -878,6 +885,7 @@
     <section class="blog-hero">
         <h1>How to Create Effective Architecture Diagrams</h1>
         <div class="meta">
+            <span class="author">By SimpleMermaid Team</span>
             <time datetime="2026-03-25">March 25, 2026</time>
             <span class="reading-time">8 min read</span>
         </div>
@@ -1047,7 +1055,7 @@
         <div class="footer-content">
             <div class="footer-grid">
                 <div class="footer-section">
-                    <h3>Diagram Engine</h3>
+                    <h3>Product</h3>
                     <ul class="footer-links">
                         <li><a href="../mermaid-tool.html">Editor</a></li>
                         <li><a href="../learn-mermaid.html">Learn Syntax</a></li>
@@ -1058,10 +1066,11 @@
                 <div class="footer-section">
                     <h3>Resources</h3>
                     <ul class="footer-links">
-                        <li><a href="https://mermaid.js.org" target="_blank">Mermaid.js Docs</a></li>
-                        <li><a href="../learn-mermaid.html#quick-reference">Quick Reference</a></li>
-                        <li><a href="../learn-mermaid.html#diagram-types">Diagram Types</a></li>
-                        <li><a href="../mermaid-tool.html">Live Preview</a></li>
+                        <li><a href="index.html">Blog</a></li>
+                        <li><a href="../guides/diagram-gallery.html">Diagram Gallery</a></li>
+                        <li><a href="../guides/best-practices.html">Best Practices</a></li>
+                        <li><a href="../guides/use-cases.html">Use Cases</a></li>
+                        <li><a href="../faq.html">FAQ</a></li>
                     </ul>
                 </div>
 
