@@ -307,7 +307,9 @@
 
         /* Hero Section */
         .learn-hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.85) 0%, rgba(118, 75, 162, 0.85) 100%), url('simplemermaid-back.png');
+            background-size: cover;
+            background-position: center;
             color: white;
             text-align: center;
             padding: 4rem 2rem;
@@ -430,6 +432,22 @@
             border-radius: var(--radius);
             padding: 2rem;
             margin: 2.5rem 0;
+        }
+
+        .syntax-guide h3 {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .syntax-guide h3:first-of-type {
+            margin-top: 0.5rem;
+            padding-top: 0;
+            border-top: none;
+        }
+
+        .syntax-guide p {
+            margin-top: 0.5rem;
         }
         
         .syntax-table {

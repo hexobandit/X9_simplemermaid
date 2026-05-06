@@ -44,6 +44,9 @@
     <!-- jsPDF Library for PDF Export -->
     <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 
+    <!-- Prism core for editor syntax highlighting (Mermaid grammar defined inline) -->
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+
     <style>
         /* CSS Variables for Theme System */
         :root {
@@ -601,7 +604,37 @@
         .editor::placeholder {
             color: var(--text-muted);
         }
-        
+
+        /* Contenteditable editor (Prism-highlighted) */
+        div.editor[contenteditable] {
+            position: absolute;
+            inset: 0;
+            overflow: auto;
+            white-space: pre-wrap;
+            word-break: break-word;
+            cursor: text;
+        }
+        div.editor[contenteditable]:focus {
+            outline: none;
+        }
+        .editor.is-empty::before {
+            content: attr(data-placeholder);
+            color: var(--text-muted);
+            pointer-events: none;
+            white-space: pre-wrap;
+        }
+        .editor .token.comment    { color: var(--text-muted); font-style: italic; }
+        .editor .token.keyword    { color: var(--primary-color); font-weight: 600; }
+        .editor .token.string     { color: #16a34a; }
+        [data-theme="dark"] .editor .token.string { color: #4ade80; }
+        .editor .token.arrow,
+        .editor .token.operator   { color: #ea580c; }
+        [data-theme="dark"] .editor .token.arrow,
+        [data-theme="dark"] .editor .token.operator { color: #fb923c; }
+        .editor .token.punctuation { color: var(--text-muted); }
+        .editor .token.number     { color: #7c3aed; }
+        [data-theme="dark"] .editor .token.number { color: #a78bfa; }
+
         /* Preview Styles */
         .preview-container {
             flex: 1;
@@ -1199,7 +1232,7 @@
                     <img src="bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 24px; border-radius: 4px;">
                 </a>
                 <a href="changelog.html" class="version-link" title="View changelog">
-                    <span class="version-badge">v1.3.0</span>
+                    <span class="version-badge">v1.4.0</span>
                     <span>What's new</span>
                 </a>
             </div>
@@ -1266,10 +1299,12 @@
                 <button id="addTabBtn" class="tab-add-btn" title="New tab (Ctrl+T)">+</button>
             </div>
             <div class="editor-container">
-                <textarea
+                <div
                     id="editor"
-                    class="editor"
-                    placeholder="Enter your Mermaid diagram code here...
+                    class="editor is-empty"
+                    contenteditable="plaintext-only"
+                    spellcheck="false"
+                    data-placeholder="Enter your Mermaid diagram code here...
 
 Example:
 graph TD
@@ -1279,8 +1314,7 @@ graph TD
     C --> D
 
 Or choose an example from the dropdown above!"
-                    spellcheck="false"
-                ></textarea>
+                ></div>
             </div>
         </section>
         
@@ -1373,6 +1407,81 @@ Or choose an example from the dropdown above!"
             });
         })();
 
+        /* === Editor adapter: contenteditable + Prism, exposes textarea-like API ===
+         * Wraps the editor <div> so the rest of SimpleMermaid keeps using
+         * .value / .selectionStart / .selectionEnd / .scrollTop / .focus / .addEventListener
+         * unchanged. Underlying DOM element accessible via .el for event-target checks.
+         */
+        Prism.languages.mermaid = {
+            'comment': /%%.*/,
+            'string': { pattern: /"[^"]*"|'[^']*'/, greedy: true },
+            'keyword': /\b(?:graph|flowchart|sequenceDiagram|classDiagram|stateDiagram(?:-v2)?|erDiagram|gantt|journey|pie|gitGraph|mindmap|timeline|quadrantChart|requirementDiagram|C4Context|subgraph|end|participant|actor|loop|alt|else|opt|par|note|over|class|state|section|title|dateFormat|axisFormat|excludes|click|style|classDef|linkStyle|direction|TD|TB|BT|LR|RL)\b/,
+            'arrow': /-{1,3}>{1,2}|={1,3}>{1,2}|-?\.+->|<-{1,3}|<={1,3}|--[xo]/,
+            'number': /\b\d+(?:\.\d+)?\b/,
+            'punctuation': /[\[\]{}()|:;,]/
+        };
+
+        function _getCaretCharOffset(el) {
+            const sel = window.getSelection();
+            if (!sel || !sel.rangeCount) return 0;
+            const range = sel.getRangeAt(0);
+            if (!el.contains(range.endContainer)) return 0;
+            const pre = range.cloneRange();
+            pre.selectNodeContents(el);
+            pre.setEnd(range.endContainer, range.endOffset);
+            return pre.toString().length;
+        }
+
+        function _setCaretCharOffset(el, offset) {
+            const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+            let node, charsLeft = offset, target = null, targetOffset = 0;
+            while ((node = walker.nextNode())) {
+                const len = node.nodeValue.length;
+                if (charsLeft <= len) { target = node; targetOffset = charsLeft; break; }
+                charsLeft -= len;
+            }
+            const sel = window.getSelection();
+            const range = document.createRange();
+            if (target) range.setStart(target, targetOffset);
+            else { range.selectNodeContents(el); range.collapse(false); }
+            range.collapse(true);
+            sel.removeAllRanges();
+            sel.addRange(range);
+        }
+
+        function createEditorAdapter(el) {
+            function paint(code) {
+                const text = code !== undefined ? code : el.textContent;
+                const focused = code === undefined && document.activeElement === el;
+                const offset = focused ? _getCaretCharOffset(el) : null;
+                el.innerHTML = Prism.highlight(text, Prism.languages.mermaid, 'mermaid');
+                el.classList.toggle('is-empty', !el.textContent.length);
+                if (offset !== null) _setCaretCharOffset(el, offset);
+            }
+            el.addEventListener('input', () => paint());
+            el.addEventListener('keydown', (e) => {
+                if (e.key === 'Tab') {
+                    e.preventDefault();
+                    document.execCommand('insertText', false, '  ');
+                }
+            });
+            paint();
+
+            return {
+                el,
+                get value() { return el.textContent; },
+                set value(v) { paint(String(v ?? '')); },
+                get selectionStart() { return _getCaretCharOffset(el); },
+                set selectionStart(n) { _setCaretCharOffset(el, n); },
+                get selectionEnd() { return _getCaretCharOffset(el); },
+                set selectionEnd(_) { /* prototype: matched by selectionStart */ },
+                get scrollTop() { return el.scrollTop; },
+                set scrollTop(v) { el.scrollTop = v; },
+                addEventListener(ev, cb) { el.addEventListener(ev, cb); },
+                focus() { el.focus(); }
+            };
+        }
+
         /**
          * SimpleMermaid - Real-time Mermaid Diagram Editor with Examples
          * A secure, feature-rich Mermaid diagram editor with live preview and example loading
@@ -1382,7 +1491,7 @@ Or choose an example from the dropdown above!"
         class SimpleMermaid {
             constructor() {
                 // DOM Elements
-                this.editor = document.getElementById('editor');
+                this.editor = createEditorAdapter(document.getElementById('editor'));
                 this.preview = document.getElementById('preview');
                 this.categorySelect = document.getElementById('categorySelect');
                 this.exampleSelect = document.getElementById('exampleSelect');
@@ -2499,7 +2608,7 @@ Or choose an example from the dropdown above!"
                 }
 
                 // Ctrl/Cmd + C: Copy (when not in editor)
-                if ((event.ctrlKey || event.metaKey) && event.key === 'c' && event.target !== this.editor) {
+                if ((event.ctrlKey || event.metaKey) && event.key === 'c' && !this.editor.el.contains(event.target)) {
                     event.preventDefault();
                     this.copyCode();
                     return;

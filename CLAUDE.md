@@ -19,6 +19,8 @@ SimpleMermaid.com is a multi-page web application for creating and editing Merma
 - `blog/*.html` - 12 individual blog articles
 - `guides/diagram-gallery.html`, `guides/best-practices.html`, `guides/use-cases.html` - Resource guides
 - `privacy.html`, `terms.html` - Legal pages
+- `Ads.txt` - AdSense ownership declaration (deployed to site root)
+- `old/` - Legacy files retained for reference; not deployed and not edited as part of normal work
 
 ### Editor Application (`mermaid-tool.html`)
 Single-file application containing all CSS, HTML, and JS:
@@ -72,7 +74,7 @@ Open `mermaid-tool.html` directly in browser - uses embedded examples as fallbac
 - **Security**: Gitleaks scan runs on all pushes and PRs
 - **Deployment**: Automatic FTPS deployment to production on main branch pushes
 - **Branch Strategy**: Deploy only from `main` branch; `zoom` is current working branch
-- **Excluded Files**: .git*, .github/, node_modules/, CLAUDE.md, README.md, .claude/, .vscode/
+- **Excluded Files** (per `deploy.yml`): `.git*`, `.github/**`, `node_modules/**`, `.gitleaks.toml`, `CLAUDE.md`, `README.md`, `.claude/**`, `.vscode/**`, `.gitignore`. The deploy action also writes `.ftp-deploy-sync-state.json` for incremental sync — do not commit it.
 
 ## Key Implementation Details (mermaid-tool.html)
 
@@ -96,23 +98,24 @@ SEO content lives in a slide-up drawer (`info-drawer` class) below `</main>`. Tr
 
 1. Create `.mmd` file in `examples/` directory
 2. Add entry to `examples/config.json` under appropriate category with `id`, `title`, and `file` fields
-3. Update embedded fallback examples in `mermaid-tool.html` (search for `embeddedExamples`). Content must be single-line with `\n` for newlines.
+3. Update embedded fallback examples in `mermaid-tool.html` (search for `embeddedExamples`). The structure mirrors `config.json` — same `categories` → `examples` shape — but each example has a `content` string (literal `\n` for newlines, not a `file` reference) so the editor works on the file:// protocol.
 4. Test both HTTP server mode and file:// mode
 
-Categories and current example counts are defined in `examples/config.json` (8 categories, 61 examples). Use the `/add-example` slash command to automate this process.
+`examples/config.json` defines 8 categories (`community`, `basic`, `sequence`, `project`, `architecture`, `devops`, `data`, `security`) totaling 61 examples. Use the `/add-example` slash command to automate this process — note its argument hint currently lists only 5 categories but all 8 are valid targets.
 
 ## Adding New Pages
 
 Use `about.html` as template for new subpages (nav, CSS vars, footer, theme JS). For blog articles, use any existing `blog/*.html`. For guides, use `guides/best-practices.html`.
 
 Checklist for new pages:
-1. Include `<meta name="google-adsense-account" content="ca-pub-8641410034592329">`
-2. Include Google Analytics gtag.js
-3. Include early theme detection script in `<head>`
-4. Add Blog nav link + BMC icon in desktop/mobile nav (adjust paths for subdirectory)
-5. Add page to footer on all existing pages (adjust paths)
-6. Add URL to `sitemap.xml`
-7. Add `Allow:` rule to `robots.txt` if in a new directory
+1. Set a unique `<title>` and `<meta name="description">` (every existing page has both — they drive search snippets)
+2. Include `<meta name="google-adsense-account" content="ca-pub-8641410034592329">`
+3. Include Google Analytics gtag.js
+4. Include early theme detection script in `<head>`
+5. Add Blog nav link + BMC icon in desktop/mobile nav (adjust paths for subdirectory)
+6. Add page to footer on all existing pages (adjust paths)
+7. Add URL to `sitemap.xml`
+8. Add `Allow:` rule to `robots.txt` if in a new directory
 
 ## Claude Code Tooling (`.claude/`)
 
