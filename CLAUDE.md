@@ -18,6 +18,7 @@ SimpleMermaid.com is a multi-page web application for creating and editing Merma
 - `blog/index.html` - Blog listing page (12 article cards)
 - `blog/*.html` - 12 individual blog articles
 - `guides/diagram-gallery.html`, `guides/best-practices.html`, `guides/use-cases.html` - Resource guides
+- `for/<use-case>.html` - **Use-case landing pages** (programmatic SEO surface). Each page is a curated showcase: hero, intro, ~5 example diagrams rendered via Mermaid.js, "Open in editor" deep links generated client-side via LZ-String, "why Mermaid for X" + tips sections, cross-links. Currently `for/security-threat-modeling.html` exists as the proof-of-concept; adopt that file's structure when adding more (`/for/api-documentation.html`, `/for/database-schemas.html`, etc.).
 - `privacy.html`, `terms.html` - Legal pages
 - `Ads.txt` - AdSense ownership declaration (deployed to site root)
 - `old/` - Legacy files retained for reference; not deployed and not edited as part of normal work
