@@ -146,4 +146,11 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <!-- Use-case landing pages -->
+  <url>
+    <loc>https://simplemermaid.com/for/security-threat-modeling.html</loc>
+    <lastmod>2026-05-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
