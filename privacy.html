@@ -622,6 +622,9 @@
                 padding: 1.5rem;
             }
         }
+    
+        .skip-link { position: absolute; left: -9999px; top: 0; z-index: 2000; background: #6366f1; color: #fff; padding: 0.6rem 1rem; border-radius: 0 0 8px 0; text-decoration: none; font-weight: 600; }
+        .skip-link:focus { left: 0; }
     </style>
     <!-- Early theme detection to prevent flash -->
     <script>
@@ -642,17 +645,133 @@
     </script>
 </head>
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-6FZM0EGT74"></script>
+<!-- Consent-gated analytics & ads (GDPR / Google Consent Mode v2).
+     Nothing Google-related loads until the visitor explicitly accepts. -->
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+(function () {
+    var KEY = 'simplemermaid-consent';
+    var GA_ID = 'G-6FZM0EGT74';
+    var ADS = false; // AdSense Auto-ads loader allowed on this page after consent
+    var PRIVACY = 'privacy.html';
 
-  gtag('config', 'G-6FZM0EGT74');
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    window.gtag = gtag;
+    // Consent Mode v2: everything denied until the visitor decides
+    gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied'
+    });
+
+    function loadTracking() {
+        gtag('consent', 'update', {
+            ad_storage: 'granted',
+            ad_user_data: 'granted',
+            ad_personalization: 'granted',
+            analytics_storage: 'granted'
+        });
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+        document.head.appendChild(s);
+        gtag('js', new Date());
+        gtag('config', GA_ID);
+        if (ADS) {
+            var a = document.createElement('script');
+            a.async = true;
+            a.crossOrigin = 'anonymous';
+            a.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8641410034592329';
+            document.head.appendChild(a);
+        }
+    }
+
+    function clearGoogleCookies() {
+        // Best-effort removal of _ga* cookies when consent is withdrawn
+        try {
+            document.cookie.split(';').forEach(function (c) {
+                var name = c.split('=')[0].trim();
+                if (name.indexOf('_ga') === 0 || name.indexOf('_gid') === 0) {
+                    document.cookie = name + '=; Max-Age=0; path=/';
+                    document.cookie = name + '=; Max-Age=0; path=/; domain=.' + location.hostname;
+                }
+            });
+        } catch (e) {}
+    }
+
+    function showBanner() {
+        if (document.getElementById('smConsentBanner')) return;
+        if (!document.getElementById('smConsentCss')) {
+            var css = document.createElement('style');
+            css.id = 'smConsentCss';
+            css.textContent =
+                '#smConsentBanner{position:fixed;left:50%;transform:translateX(-50%);bottom:12px;z-index:10010;max-width:560px;width:calc(100vw - 24px);background:var(--bg-primary,#fff);color:var(--text-primary,#1f2937);border:1px solid var(--border,var(--border-color,#e5e7eb));border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,.25);padding:1rem 1.25rem;font-size:.9rem;line-height:1.5;font-family:inherit}' +
+                '[data-theme="dark"] #smConsentBanner{background:var(--bg-secondary,#1f2937);color:var(--text-primary,#f9fafb)}' +
+                '#smConsentBanner p{margin:0}' +
+                '#smConsentBanner a{color:var(--primary,var(--primary-color,#6366f1));text-decoration:none;font-weight:600}' +
+                '.sm-consent-actions{display:flex;gap:.5rem;justify-content:flex-end;margin-top:.8rem;flex-wrap:wrap}' +
+                '.sm-consent-actions button{border-radius:8px;padding:.5rem 1.1rem;font-weight:600;cursor:pointer;font-size:.85rem;font-family:inherit}' +
+                '#smConsentAccept{background:#6366f1;color:#fff;border:1px solid #6366f1}' +
+                '#smConsentAccept:hover{background:#4f46e5}' +
+                '#smConsentDecline{background:transparent;color:inherit;border:1px solid var(--border,var(--border-color,#9ca3af))}' +
+                '#smConsentDecline:hover{border-color:#6366f1;color:#6366f1}';
+            document.head.appendChild(css);
+        }
+        var el = document.createElement('div');
+        el.id = 'smConsentBanner';
+        el.setAttribute('role', 'dialog');
+        el.setAttribute('aria-modal', 'false');
+        el.setAttribute('aria-label', 'Cookie consent');
+        el.innerHTML =
+            '<p><strong>Your privacy.</strong> We use cookies for anonymous usage analytics' +
+            ' and, on article pages, to show Google ads. Nothing is set until you choose.' +
+            ' <a href="' + PRIVACY + '">Privacy policy</a></p>' +
+            '<div class="sm-consent-actions">' +
+            '<button id="smConsentDecline" type="button">Essential only</button>' +
+            '<button id="smConsentAccept" type="button">Accept</button>' +
+            '</div>';
+        document.body.appendChild(el);
+        document.getElementById('smConsentAccept').addEventListener('click', function () { choose('granted'); });
+        document.getElementById('smConsentDecline').addEventListener('click', function () { choose('denied'); });
+    }
+
+    function hideBanner() {
+        var b = document.getElementById('smConsentBanner');
+        if (b) b.remove();
+    }
+
+    function choose(v) {
+        try { localStorage.setItem(KEY, v); } catch (e) {}
+        hideBanner();
+        if (v === 'granted') loadTracking();
+        else clearGoogleCookies();
+    }
+
+    // Footer "Cookie Preferences" links call this to change a previous choice
+    window.smConsent = {
+        manage: function () {
+            try { localStorage.removeItem(KEY); } catch (e) {}
+            showBanner();
+        },
+        status: function () {
+            try { return localStorage.getItem(KEY); } catch (e) { return null; }
+        }
+    };
+
+    var choice = null;
+    try { choice = localStorage.getItem(KEY); } catch (e) {}
+    if (choice === 'granted') {
+        loadTracking();
+    } else if (choice !== 'denied') {
+        if (document.body) showBanner();
+        else document.addEventListener('DOMContentLoaded', showBanner);
+    }
+})();
 </script>
 
 <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
     <!-- Navigation Header -->
     <header class="nav-header">
         <nav class="nav-container">
@@ -673,12 +792,12 @@
                 <li><a href="learn-mermaid.html" class="nav-link">Learn</a></li>
                 <li><a href="blog/index.html" class="nav-link">Blog</a></li>
                 <li><a href="mermaid-tool.html" class="nav-link">Editor</a></li>
-                <li><button class="theme-toggle" id="themeToggle">☀️</button></li>
+                <li><button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle light/dark theme">☀️</button></li>
                 <li><a href="mermaid-tool.html" class="nav-cta">Start Creating</a></li>
             </ul>
             
             <!-- Mobile Hamburger -->
-            <button class="hamburger" id="hamburger">
+            <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -696,7 +815,7 @@
     </header>
     
     <!-- Main Content -->
-    <main class="main-content">
+    <main id="main-content" class="main-content">
         <div class="content-container">
             <!-- Hero Section -->
             <div class="privacy-hero">
@@ -705,7 +824,7 @@
             </div>
             
             <div class="effective-date">
-                <strong>Effective Date: January 1, 2025</strong>
+                <strong>Effective Date: July 10, 2026</strong>
             </div>
             
             <div class="highlight-box">
@@ -763,13 +882,14 @@
             <!-- Use of Cookies -->
             <section class="privacy-section">
                 <div class="content-section">
-                    <h2>3. Use of Cookies</h2>
-                    <p>SimpleMermaid uses minimal cookies:</p>
+                    <h2>3. Cookies &amp; Consent</h2>
+                    <p><span class="highlight">Nothing is set until you choose.</span> When you first visit, a consent banner asks whether we may use cookies. No analytics or advertising cookies are set — and no Google scripts are loaded — before you accept.</p>
                     <ul>
-                        <li><span class="highlight">Google Analytics Cookies:</span> Used to analyze site usage and improve user experience</li>
-                        <li><span class="highlight">Theme Preference:</span> Stores your theme choice (light/dark) locally</li>
+                        <li><span class="highlight">If you accept:</span> Google Analytics cookies (<code>_ga</code>) measure anonymous site usage, and Google AdSense may set cookies on article and guide pages to show ads. The editor itself never shows ads.</li>
+                        <li><span class="highlight">If you choose "Essential only":</span> no analytics or advertising cookies are set at all. The site works identically.</li>
+                        <li><span class="highlight">Local application data (not cookies):</span> your theme choice, editor tabs, saved diagrams, and your consent choice itself are stored in your browser's localStorage. They never leave your device.</li>
                     </ul>
-                    <p>You can disable cookies in your browser settings, though this may affect some functionality.</p>
+                    <p><span class="highlight">Changing your mind:</span> use the "Cookie Preferences" link in the footer of any page to withdraw or grant consent at any time. Withdrawing consent also removes existing Google Analytics cookies.</p>
                 </div>
             </section>
             
@@ -779,8 +899,9 @@
                     <h2>4. Third-Party Services</h2>
                     <p>We use the following third-party services:</p>
                     <ul>
-                        <li><span class="highlight">Google Analytics:</span> For usage analytics (see Google's privacy policy)</li>
-                        <li><span class="highlight">CDN Services:</span> For loading Mermaid.js and other libraries (jsDelivr)</li>
+                        <li><span class="highlight">Google Analytics:</span> For usage analytics — loaded only after you consent (see <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's privacy policy</a>)</li>
+                        <li><span class="highlight">Google AdSense:</span> Shows ads on article and guide pages — loaded only after you consent. Google may use cookies to personalize ads; see <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer">how Google uses ad data</a></li>
+                        <li><span class="highlight">CDN Services:</span> For loading Mermaid.js and other libraries (jsDelivr) — required for the site to function</li>
                         <li><span class="highlight">Google Fonts:</span> For typography</li>
                     </ul>
                 </div>
@@ -895,6 +1016,9 @@
                         <li><a href="changelog.html">Changelog</a></li>
                         <li><a href="privacy.html">Privacy Policy</a></li>
                         <li><a href="terms.html">Terms of Service</a></li>
+                        <li style="margin-top: 0.75rem;"><a href="https://github.com/hexobandit" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                        <li><a href="https://x.com/hexobandit" target="_blank" rel="noopener noreferrer">X / Twitter</a></li>
+                        <li><a href="#" onclick="smConsent.manage(); return false;">Cookie Preferences</a></li>
                     </ul>
                 </div>
             </div>
@@ -954,6 +1078,7 @@
         
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', hamburger.classList.contains('active'));
             mobileMenu.classList.toggle('show');
         });
         
@@ -961,6 +1086,7 @@
         document.querySelectorAll('.mobile-nav-link').forEach(link => {
             link.addEventListener('click', () => {
                 hamburger.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
                 mobileMenu.classList.remove('show');
             });
         });
@@ -969,6 +1095,7 @@
         document.addEventListener('click', (e) => {
             if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
                 hamburger.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
                 mobileMenu.classList.remove('show');
             }
         });

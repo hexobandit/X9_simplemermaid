@@ -4,71 +4,71 @@
 
 **How to use this file:** Every task is scoped to be delegated to a dev (or dev model) independently. Each includes the files involved and a definition of done. Work top-down within each phase — tasks are ordered by impact. Check items off as they land.
 
-> ⚠️ **Before deploying this file:** add `DEV_PLAN.md` to the FTP deploy `exclude:` list (see Task 1.1) or it will be published to the live site.
+> ✅ `DEV_PLAN.md`, `tests.html`, and `adsense-problem.md` are excluded from FTP deploy as of 2026-07-10 (Task 1.1).
 
 ---
 
-## Phase 1 — Quick Wins (< ~2h each)
+## Phase 1 — Quick Wins (< ~2h each) — ✅ COMPLETED 2026-07-10
 
-### 1.1 Reconcile the GitHub Actions workflow files 🔧
+### ✅ 1.1 Reconcile the GitHub Actions workflow files 🔧
 The **active** workflow on GitHub is `.github/workflows/deploy2.yml` (plural dir, on `main`) — runs are green. This branch carries a dead duplicate at `.github/workflow/deploy.yml` (singular dir, never executed by GitHub).
 - Delete the dead `.github/workflow/` directory on this branch, or align it with the active `workflows/deploy2.yml` so a merge to main doesn't leave two copies.
 - Add `DEV_PLAN.md` and `adsense-problem.md` to the deploy `exclude:` list.
 - Update the stale note in `CLAUDE.md` (it documents the singular dir as the real one).
 - **Done when:** one workflow file exists under `.github/workflows/`, a push to main deploys, and internal docs aren't published.
 
-### 1.2 Pin the Mermaid.js CDN version 🔧
+### ✅ 1.2 Pin the Mermaid.js CDN version 🔧
 `mermaid-tool.html:39` loads `npm/mermaid/dist/mermaid.min.js` with **no version** — any breaking Mermaid release silently breaks the whole product for every user. (lz-string, jspdf, prism are already pinned.)
 - Pin to the current known-good version (check what jsdelivr serves today, e.g. `mermaid@10.x`), test all 8 example categories render.
 - **Done when:** version is pinned and all examples render in light + dark themes.
 
-### 1.3 Cut ~1 MB from the landing page image 🚀
+### ✅ 1.3 Cut ~1 MB from the landing page image 🚀
 `index.html:1941` ships `geek-girl.png` (1.2 MB) while an identical `geek-girl.jpg` (289 KB) sits **unused on disk**.
 - Swap the `src` to the JPG, add `loading="lazy"` (it's below the fold) and explicit `width`/`height`.
 - **Done when:** landing page no longer requests the PNG; delete the PNG.
 
-### 1.4 Shrink the 2.3 MB hero background 🚀
+### ✅ 1.4 Shrink the 2.3 MB hero background 🚀
 `simplemermaid-back.png` (2.3 MB) is a CSS `background-image` on **16 pages** (index + 15 blog heroes). This is the single biggest performance drag on the site.
 - Convert to WebP (target ≤ 300 KB; `sips`/`cwebp`/Squoosh), update the CSS `url()` on all pages, keep the PNG as fallback via `image-set()` or just replace outright.
 - **Done when:** no page downloads > 400 KB for the hero background.
 
-### 1.5 Delete orphaned assets and examples 🧹
+### ✅ 1.5 Delete orphaned assets and examples 🧹
 - `main-printscreen.png` (860 KB) is referenced by **no** HTML file — delete (it deploys to production today).
 - Three `.mmd` files exist on disk but aren't in `examples/config.json`: `access-lifecycle.mmd`, `security-breach.mmd`, `system-secure.mmd`. Either wire them into config.json + the embedded fallback (use `/add-example` flow), or delete them.
 - **Done when:** every deployed asset is referenced; examples on disk == examples in config.
 
-### 1.6 Fix the missing autosave indicator 🐛
+### ✅ 1.6 Fix the missing autosave indicator 🐛
 `mermaid-tool.html` (~line 2586–2603) calls `document.getElementById('autoSaveIndicator')` but **the element doesn't exist in the HTML** — the CSS for it does (~line 1174). Users get zero feedback that their work is saved.
 - Add the `<div id="autoSaveIndicator">` element, verify it flashes "Saved" on the debounced save.
 - **Done when:** typing then pausing shows a visible save confirmation.
 
-### 1.7 Handle localStorage quota errors visibly 🐛
+### ✅ 1.7 Handle localStorage quota errors visibly 🐛
 Save failures (~lines 2586–2603, 3099–3160) are caught and only logged to console — a user with a full quota **silently loses work**.
 - Catch `QuotaExceededError`, show a visible warning in the status area, offer to clear old history entries (history keeps 20).
 - **Done when:** filling the quota produces a user-visible warning, not silence.
 
-### 1.8 Fix modal/copy-button event leaks 🐛
+### ✅ 1.8 Fix modal/copy-button event leaks 🐛
 - Modal overlay `click` handlers are added on open but never removed on close (`mermaid-tool.html` ~2760–2950, share/save/saved-diagrams modals) — they stack up over a session.
 - `copyCode()` (~2131–2145) sets a reset timeout without clearing the previous one — rapid clicks leave the button stuck.
 - **Done when:** opening/closing a modal 10× adds no duplicate listeners; copy button always recovers.
 
-### 1.9 Baseline accessibility pass ♿
+### ✅ 1.9 Baseline accessibility pass ♿
 - Add `aria-label` to the hamburger button, theme toggle, and the editor toolbar buttons that only have `title` (`mermaid-tool.html` ~1218–1230; `index.html` ~1670–1671).
 - Add `role="status" aria-live="polite"` to the render status element (`mermaid-tool.html` ~1334) so screen readers hear "Rendered"/"Error".
 - Add a "Skip to content" link on content pages.
 - **Done when:** keyboard/screen-reader users can operate nav, theme, and hear render status.
 
-### 1.10 Refresh sitemap + minor SEO gaps 🔍
+### ✅ 1.10 Refresh sitemap + minor SEO gaps 🔍
 - All `<lastmod>` values in `sitemap.xml` are ≤ 2026-03-25; files were modified 2026-05-06. Update them.
 - `changelog.html` is the only content page without schema.org JSON-LD — add `WebPage` structured data.
 - **Done when:** sitemap dates match reality; every content page has structured data.
 
-### 1.11 Add social/community links 🔍
+### ✅ 1.11 Add social/community links 🔍
 Footer "Connect" column links only to partner projects and BMC — no GitHub, no X/Twitter. Users have nowhere to follow updates or report issues.
 - Add GitHub + X links to the footer across all pages (respecting per-directory path depth).
 - **Done when:** every footer has working social links.
 
-### 1.12 Clean console output 🧹
+### ✅ 1.12 Clean console output 🧹
 Verbose `console.log` calls (with emojis) throughout `mermaid-tool.html` (~1564, 1651, 1704, 2037…) look unprofessional to the exact dev audience this tool targets.
 - Gate behind a `DEBUG` flag; keep `console.error` for real failures.
 - **Done when:** normal usage produces a clean console.
@@ -77,13 +77,13 @@ Verbose `console.log` calls (with emojis) throughout `mermaid-tool.html` (~1564,
 
 ## Phase 2 — Medium Enhancements (0.5–2 days each)
 
-### 2.1 Cookie consent banner (compliance prerequisite) ⚖️
+### ✅ 2.1 Cookie consent banner (compliance prerequisite) ⚖️ — DONE 2026-07-10
 GA (`gtag`, sets `_ga` cookies) fires on every page with **no consent banner** — a GDPR problem today, and a hard blocker for AdSense in the EU. `privacy.html` even claims "no cookies beyond theme preference", which is currently untrue.
 - Add a lightweight consent banner (Consent Mode v2 compatible) that defers gtag/AdSense until opt-in; update `privacy.html` to match reality.
 - **Done when:** no tracking cookies before consent; privacy page is accurate.
 - **Must ship before 2.2.**
 
-### 2.2 First AdSense placements 💰
+### ✅ 2.2 First AdSense placements 💰 — DONE 2026-07-10 (consent-gated Auto-ads loader on 17 content pages; flip “Auto ads” on in the AdSense console to go live)
 AdSense account is declared on every page (`ca-pub-8641410034592329`, Ads.txt in place) but there are **zero `adsbygoogle` units anywhere** — revenue is structurally $0.
 - Add the AdSense loader + 1–2 tasteful ad units to *content* pages only (blog articles, guides, FAQ, `for/` pages). Keep the editor ad-free — it's the product.
 - **Done when:** ads render on content pages after consent, editor stays clean.
