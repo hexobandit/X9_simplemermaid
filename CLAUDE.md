@@ -25,10 +25,11 @@ SimpleMermaid.com is a multi-page web application for creating and editing Merma
 
 ### Editor Application (`mermaid-tool.html`)
 Single-file application containing all CSS, HTML, and JS:
-- CSS custom properties for theming (`:root` and `[data-theme="dark"]`)
+- CSS custom properties for theming (`:root` and `[data-theme="dark"]`) — token set aligned with `index.html` (indigo `#6366f1`/`#8b5cf6`, `--radius: 12px`, shared shadow scale, `--brand-gradient`)
 - SVG-specific dark theme overrides for Mermaid diagrams
-- Info drawer with SEO content (slide-up panel triggered by header info button)
-- `SimpleMermaid` class - Main application controller (search for `class SimpleMermaid`)
+- **Shell layout**: left icon `.rail` (Save/My Diagrams/Clear/Layout, then Info/BMC/Theme pinned bottom) + a single `.topbar` (brand, category/example selects, version link, Export dropdown, Copy, gradient Share CTA), inside `.app-shell` > `.workspace`. Rail/topbar buttons **reuse the original element ids** so the `SimpleMermaid` class wiring is untouched — never rename these ids. Export uses a native `<details class="export-menu">` (no JS dependency). Icons are inline SVGs; the `ICONS` const (declared just above `class SimpleMermaid`) supplies the sun/moon/cols/rows glyphs that `toggleTheme`/`toggleLayout` swap in.
+- Info drawer with SEO content (slide-up panel triggered by rail info button)
+- `SimpleMermaid` class - Main application controller (search for `class SimpleMermaid`); the instance is exposed as `window.app`
 - Embedded fallback examples JSON for file:// protocol support (search for `embeddedExamples`)
 - Mermaid.js, LZ-String, jsPDF loaded via CDN
 
@@ -63,6 +64,7 @@ npx serve .
 Open `mermaid-tool.html` directly in browser - uses embedded examples as fallback.
 
 ### Testing Changes
+- **Automated suite**: `tests.html` (repo root, dev-only, not deployed). Serve the folder (`python -m http.server`) and open `http://localhost:8000/tests.html`. It runs a zero-dependency in-browser harness: pure-logic LZ-String round-trip plus app-driven tests that load `mermaid-tool.html` in a hidden iframe and assert the **DOM-contract ids all resolve** and that `generateShareLink`/`formatErrorMessage`/`updateDiagramStats`/tabs/`toggleTheme` still work. It snapshots+restores `localStorage` so your saved work is untouched, shows a PASS/FAIL banner, and logs `TEST_SUMMARY:PASS|FAIL` to the console (for headless/CI scraping). Run it after any editor change — it's the regression net that proves a reskin didn't unwire the JS.
 - Editor: Navigate to `mermaid-tool.html`, test example loading from `examples/` directory
 - Sharing: Verify `#diagram=` parameter compression/decompression works
 - Themes: Test light/dark theme switching on all pages and on rendered diagrams
