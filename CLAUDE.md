@@ -10,7 +10,7 @@ SimpleMermaid.com is a multi-page web application for creating and editing Merma
 
 ### Multi-Page Structure
 - `index.html` - Landing page with marketing content, features, template grid, feedback form
-- `mermaid-tool.html` - **Main editor application** (~3400 lines) with live preview, sharing, tabs, export
+- `mermaid-tool.html` - **Main editor application** (~3500 lines) with live preview, sharing, tabs, export
 - `learn-mermaid.html` - Tutorial/documentation for Mermaid syntax
 - `changelog.html` - Version history and development roadmap
 - `about.html` - Story, mission, comparisons, values, technical philosophy
@@ -25,10 +25,11 @@ SimpleMermaid.com is a multi-page web application for creating and editing Merma
 
 ### Editor Application (`mermaid-tool.html`)
 Single-file application containing all CSS, HTML, and JS:
-- CSS custom properties for theming (`:root` and `[data-theme="dark"]`)
+- CSS custom properties for theming (`:root` and `[data-theme="dark"]`) — token set aligned with `index.html` (indigo `#6366f1`/`#8b5cf6`, `--radius: 12px`, shared shadow scale, `--brand-gradient`)
 - SVG-specific dark theme overrides for Mermaid diagrams
-- Info drawer with SEO content (slide-up panel triggered by header info button)
-- `SimpleMermaid` class - Main application controller (search for `class SimpleMermaid`)
+- **Shell layout**: left icon `.rail` (Save/My Diagrams/Clear/Layout, then Info/BMC/Theme pinned bottom) + a single `.topbar` (brand, category/example selects, version link, Export dropdown, Copy, gradient Share CTA), inside `.app-shell` > `.workspace`. Rail/topbar buttons **reuse the original element ids** so the `SimpleMermaid` class wiring is untouched — never rename these ids. Export uses a native `<details class="export-menu">` (no JS dependency). Icons are inline SVGs; the `ICONS` const (declared just above `class SimpleMermaid`) supplies the sun/moon/cols/rows glyphs that `toggleTheme`/`toggleLayout` swap in.
+- Info drawer with SEO content (slide-up panel triggered by rail info button)
+- `SimpleMermaid` class - Main application controller (search for `class SimpleMermaid`); the instance is exposed as `window.app`
 - Embedded fallback examples JSON for file:// protocol support (search for `embeddedExamples`)
 - Mermaid.js, LZ-String, jsPDF loaded via CDN
 
@@ -63,6 +64,7 @@ npx serve .
 Open `mermaid-tool.html` directly in browser - uses embedded examples as fallback.
 
 ### Testing Changes
+- **Automated suite**: `tests.html` (repo root, dev-only, not deployed). Serve the folder (`python -m http.server`) and open `http://localhost:8000/tests.html`. It runs a zero-dependency in-browser harness: pure-logic LZ-String round-trip plus app-driven tests that load `mermaid-tool.html` in a hidden iframe and assert the **DOM-contract ids all resolve** and that `generateShareLink`/`formatErrorMessage`/`updateDiagramStats`/tabs/`toggleTheme` still work. It snapshots+restores `localStorage` so your saved work is untouched, shows a PASS/FAIL banner, and logs `TEST_SUMMARY:PASS|FAIL` to the console (for headless/CI scraping). Run it after any editor change — it's the regression net that proves a reskin didn't unwire the JS.
 - Editor: Navigate to `mermaid-tool.html`, test example loading from `examples/` directory
 - Sharing: Verify `#diagram=` parameter compression/decompression works
 - Themes: Test light/dark theme switching on all pages and on rendered diagrams
@@ -73,8 +75,8 @@ Open `mermaid-tool.html` directly in browser - uses embedded examples as fallbac
 ### Deployment
 - **CI/CD Pipeline**: GitHub Actions workflow (`.github/workflow/deploy.yml` — note singular "workflow", not "workflows")
 - **Security**: Gitleaks scan runs on all pushes and PRs
-- **Deployment**: Automatic FTPS deployment to production on main branch pushes
-- **Branch Strategy**: Deploy only from `main` branch; `zoom` is current working branch
+- **Deployment**: Automatic FTPS deployment to production (`/public_html/`) on main branch pushes; the deploy job only runs if the Gitleaks job passes
+- **Branch Strategy**: Deploy only from `main` branch; do feature work on a branch (`editor-prototype` is the current working branch and is far ahead of `main` — most of the current site exists only on this branch)
 - **Excluded Files** (per `deploy.yml`): `.git*`, `.github/**`, `node_modules/**`, `.gitleaks.toml`, `CLAUDE.md`, `README.md`, `.claude/**`, `.vscode/**`, `.gitignore`. The deploy action also writes `.ftp-deploy-sync-state.json` for incremental sync — do not commit it.
 
 ## Key Implementation Details (mermaid-tool.html)
@@ -103,6 +105,8 @@ SEO content lives in a slide-up drawer (`info-drawer` class) below `</main>`. Tr
 4. Test both HTTP server mode and file:// mode
 
 `examples/config.json` defines 8 categories (`community`, `basic`, `sequence`, `project`, `architecture`, `devops`, `data`, `security`) totaling 61 examples. Use the `/add-example` slash command to automate this process — note its argument hint currently lists only 5 categories but all 8 are valid targets.
+
+Note: three `.mmd` files on disk (`access-lifecycle.mmd`, `security-breach.mmd`, `system-secure.mmd`) are not referenced in `config.json` — the file count in `examples/` does not equal the example count.
 
 ## Adding New Pages
 

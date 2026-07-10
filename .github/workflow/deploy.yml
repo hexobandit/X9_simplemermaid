@@ -56,5 +56,7 @@ jobs:
             .claude/**
             .vscode/**
             .gitignore
+            tests.html
+            DEV_PLAN.md
           # Passive mode is default. Keeps a deploy state to speed diffs:d
           state-name: .ftp-deploy-sync-state.json

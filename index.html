@@ -317,22 +317,6 @@
             transform: translateY(-1px);
         }
 
-        .nav-bmc {
-            display: flex;
-            align-items: center;
-            padding: 0.35rem 0.75rem;
-            background: #ffdd00;
-            border-radius: 8px;
-            transition: var(--transition);
-            box-shadow: 0 2px 8px rgba(255, 221, 0, 0.3);
-        }
-
-        .nav-bmc:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(255, 221, 0, 0.5);
-            background: #ffdd00;
-        }
-        
         /* Mobile Hamburger */
         .hamburger {
             display: none;
@@ -1667,7 +1651,6 @@
                 <li><a href="learn-mermaid.html" class="nav-link">Learn</a></li>
                 <li><a href="blog/index.html" class="nav-link">Blog</a></li>
                 <li><a href="mermaid-tool.html" class="nav-link">Editor</a></li>
-                <li><a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="nav-bmc" title="Buy me a coffee"><img src="bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 28px; vertical-align: middle; border-radius: 4px;"></a></li>
                 <li><button class="theme-toggle" id="themeToggle" title="Toggle theme">☀️</button></li>
                 <li><a href="mermaid-tool.html" class="nav-cta">Start Creating</a></li>
             </ul>
@@ -1686,7 +1669,6 @@
             <a href="learn-mermaid.html" class="mobile-nav-link">Learn</a>
             <a href="blog/index.html" class="mobile-nav-link">Blog</a>
             <a href="mermaid-tool.html" class="mobile-nav-link">Editor</a>
-            <a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="mobile-nav-link" style="display: flex; align-items: center; gap: 0.5rem;"><img src="bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 24px; border-radius: 4px;"> Buy Me A Coffee</a>
             <a href="mermaid-tool.html" class="mobile-nav-link nav-cta">Start Creating</a>
         </div>
     </header>
@@ -1756,7 +1738,16 @@
         <div style="max-width: 800px; margin: 0 auto;">
             <div style="background: var(--bg-primary); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem 2rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
                 <div>
-                    <span style="background: linear-gradient(135deg, #6366f1, #4f46e5); color: white; padding: 0.25rem 0.75rem; border-radius: 50px; font-size: 0.75rem; font-weight: 600; margin-right: 0.75rem;">v1.4.0</span>
+                    <span style="background: linear-gradient(135deg, #6366f1, #4f46e5); color: white; padding: 0.25rem 0.75rem; border-radius: 50px; font-size: 0.75rem; font-weight: 600; margin-right: 0.75rem;">v1.5.0</span>
+                    <span style="color: var(--text-muted); font-size: 0.9rem;">July 10, 2026</span>
+                </div>
+                <div style="color: var(--text-secondary);">
+                    Redesigned editor — a clean icon rail and single toolbar, refreshed to match the site, with a polished dark mode
+                </div>
+            </div>
+            <div style="background: var(--bg-primary); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem 2rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                <div>
+                    <span style="background: linear-gradient(135deg, #94a3b8, #64748b); color: white; padding: 0.25rem 0.75rem; border-radius: 50px; font-size: 0.75rem; font-weight: 600; margin-right: 0.75rem;">v1.4.0</span>
                     <span style="color: var(--text-muted); font-size: 0.9rem;">May 6, 2026</span>
                 </div>
                 <div style="color: var(--text-secondary);">
@@ -1770,15 +1761,6 @@
                 </div>
                 <div style="color: var(--text-secondary);">
                     Editor tabs — work on multiple diagrams side-by-side with per-tab zoom and auto-save
-                </div>
-            </div>
-            <div style="background: var(--bg-primary); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem 2rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-                <div>
-                    <span style="background: linear-gradient(135deg, #ffdd00, #f5c800); color: #1a1a1a; padding: 0.25rem 0.75rem; border-radius: 50px; font-size: 0.75rem; font-weight: 600; margin-right: 0.75rem;">v1.2.7</span>
-                    <span style="color: var(--text-muted); font-size: 0.9rem;">February 22, 2026</span>
-                </div>
-                <div style="color: var(--text-secondary);">
-                    Buy Me A Coffee support — help keep SimpleMermaid ad-free and running
                 </div>
             </div>
             <div style="background: var(--bg-primary); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem 2rem; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
@@ -2072,11 +2054,6 @@
                 ✨ Try It Now
             </a>
 
-            <div style="margin-top: 2rem;">
-                <a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" title="Buy me a coffee">
-                    <img src="yellow-button.png" alt="Buy Me A Coffee" style="height: 50px; border-radius: 8px; transition: transform 0.2s ease; vertical-align: middle;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
-                </a>
-            </div>
         </div>
     </section>
     
@@ -2125,7 +2102,6 @@
                         <li><a href="https://threatbandit.com" target="_blank">ThreatBandit</a></li>
                         <li><a href="https://freekanban.com" target="_blank">FreeKanban</a></li>
                         <li><a href="https://emphonic.com" target="_blank">Emphonic</a></li>
-                        <li style="margin-top: 0.75rem;"><a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer"><img src="bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 30px; vertical-align: middle; border-radius: 4px;"> Support Us</a></li>
                     </ul>
                 </div>
             </div>

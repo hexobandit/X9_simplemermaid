@@ -179,21 +179,7 @@
             transform: translateY(-1px);
         }
 
-        .nav-bmc {
-            display: flex;
-            align-items: center;
-            padding: 0.35rem 0.75rem;
-            background: #ffdd00;
-            border-radius: 8px;
-            transition: var(--transition);
-            box-shadow: 0 2px 8px rgba(255, 221, 0, 0.3);
-        }
 
-        .nav-bmc:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(255, 221, 0, 0.5);
-            background: #ffdd00;
-        }
 
         /* Mobile Navigation */
         .hamburger {
@@ -787,7 +773,6 @@
                 <li><a href="learn-mermaid.html" class="nav-link">Learn</a></li>
                 <li><a href="blog/index.html" class="nav-link">Blog</a></li>
                 <li><a href="mermaid-tool.html" class="nav-link">Editor</a></li>
-                <li><a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="nav-bmc" title="Buy me a coffee"><img src="bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 28px; vertical-align: middle; border-radius: 4px;"></a></li>
                 <li><button class="theme-toggle" id="themeToggle">☀️</button></li>
                 <li><a href="mermaid-tool.html" class="nav-cta">Start Creating</a></li>
             </ul>
@@ -806,7 +791,6 @@
             <a href="learn-mermaid.html" class="mobile-nav-link">Learn</a>
             <a href="blog/index.html" class="mobile-nav-link">Blog</a>
             <a href="mermaid-tool.html" class="mobile-nav-link">Editor</a>
-            <a href="https://buymeacoffee.com/hexobandit" target="_blank" rel="noopener noreferrer" class="mobile-nav-link" style="display: flex; align-items: center; gap: 0.5rem;"><img src="bmc-logo-yellow.png" alt="Buy Me A Coffee" style="height: 24px; border-radius: 4px;"> Buy Me A Coffee</a>
             <a href="mermaid-tool.html" class="mobile-nav-link nav-cta">Start Creating</a>
         </div>
     </header>
@@ -827,14 +811,45 @@
                 <p>SimpleMermaid follows <a href="https://semver.org" target="_blank" style="color: var(--primary);">semantic versioning</a>: major versions introduce significant new capabilities, minor versions add features and improvements, and patch versions fix bugs. We ship updates regularly based on community feedback and our own roadmap.</p>
             </div>
 
-            <!-- Version 1.4.0 - Latest -->
+            <!-- Version 1.5.0 - Latest -->
+            <article class="version-entry">
+                <div class="version-header">
+                    <div class="version-info">
+                        <span class="version-number">v1.5.0</span>
+                        <span class="version-date">July 10, 2026</span>
+                    </div>
+                    <span class="version-tag tag-latest">Latest</span>
+                </div>
+                <div class="version-content">
+                    <p style="color: var(--text-secondary); margin-bottom: 1rem;">The editor got its biggest visual refresh since launch. The old three-row toolbar packed a dozen buttons into a cramped band that never quite matched the rest of the site. This release replaces it with a clean layout: a slim icon rail down the left for your tools, and a single, breathable toolbar up top for examples, export, and sharing. The whole editor now speaks the same indigo palette, rounded corners, and soft shadows as the landing page — one coherent product.</p>
+                    <div class="change-category">
+                        <h3>New Features</h3>
+                        <ul>
+                            <li><span class="highlight-feature">Redesigned editor shell</span> - A left icon rail (Save, My Diagrams, Clear, Layout, Theme) plus a single clean toolbar for the category/example pickers, Export, Copy, and Share</li>
+                            <li><span class="highlight-feature">Unified design language</span> - Colors, radii, and shadows now match the SimpleMermaid landing page for a consistent look end to end</li>
+                            <li><span class="highlight-feature">Polished dark mode</span> - The refreshed rail, toolbar, dropdowns, tabs, and dialogs all read cleanly in dark theme</li>
+                            <li><span class="highlight-feature">Crisp SVG icons</span> - Toolbar icons are now sharp vector graphics with hover tooltips and accessible labels</li>
+                        </ul>
+                    </div>
+                    <div class="change-category">
+                        <h3>Under the hood</h3>
+                        <ul>
+                            <li>The redesign is a presentation-only reskin — the editor's core logic (tabs, sharing, examples, export) is untouched, so every existing share link and saved diagram keeps working</li>
+                            <li>Added a zero-dependency browser test suite (<code>tests.html</code>) that drives the real editor and verifies sharing, tabs, theme, error handling, and diagram-type detection on every change</li>
+                            <li>Export (PNG/SVG/PDF) moved into a tidy dropdown; the info panel opens from the rail</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Version 1.4.0 -->
             <article class="version-entry">
                 <div class="version-header">
                     <div class="version-info">
                         <span class="version-number">v1.4.0</span>
                         <span class="version-date">May 6, 2026</span>
                     </div>
-                    <span class="version-tag tag-latest">Latest</span>
+                    <span class="version-tag tag-minor">Feature</span>
                 </div>
                 <div class="version-content">
                     <p style="color: var(--text-secondary); margin-bottom: 1rem;">Until now the editor was a plain textarea — readable, but every keyword and arrow looked the same as the surrounding text. This release brings real syntax highlighting to the code panel: diagram keywords, arrows, comments, and strings each get their own color, so the structure of a diagram is visible at a glance while you write it.</p>
