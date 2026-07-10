@@ -10,7 +10,7 @@ SimpleMermaid.com is a multi-page web application for creating and editing Merma
 
 ### Multi-Page Structure
 - `index.html` - Landing page with marketing content, features, template grid, feedback form
-- `mermaid-tool.html` - **Main editor application** (~3400 lines) with live preview, sharing, tabs, export
+- `mermaid-tool.html` - **Main editor application** (~3500 lines) with live preview, sharing, tabs, export
 - `learn-mermaid.html` - Tutorial/documentation for Mermaid syntax
 - `changelog.html` - Version history and development roadmap
 - `about.html` - Story, mission, comparisons, values, technical philosophy
@@ -73,8 +73,8 @@ Open `mermaid-tool.html` directly in browser - uses embedded examples as fallbac
 ### Deployment
 - **CI/CD Pipeline**: GitHub Actions workflow (`.github/workflow/deploy.yml` — note singular "workflow", not "workflows")
 - **Security**: Gitleaks scan runs on all pushes and PRs
-- **Deployment**: Automatic FTPS deployment to production on main branch pushes
-- **Branch Strategy**: Deploy only from `main` branch; `zoom` is current working branch
+- **Deployment**: Automatic FTPS deployment to production (`/public_html/`) on main branch pushes; the deploy job only runs if the Gitleaks job passes
+- **Branch Strategy**: Deploy only from `main` branch; do feature work on a branch (`editor-prototype` is the current working branch and is far ahead of `main` — most of the current site exists only on this branch)
 - **Excluded Files** (per `deploy.yml`): `.git*`, `.github/**`, `node_modules/**`, `.gitleaks.toml`, `CLAUDE.md`, `README.md`, `.claude/**`, `.vscode/**`, `.gitignore`. The deploy action also writes `.ftp-deploy-sync-state.json` for incremental sync — do not commit it.
 
 ## Key Implementation Details (mermaid-tool.html)
@@ -103,6 +103,8 @@ SEO content lives in a slide-up drawer (`info-drawer` class) below `</main>`. Tr
 4. Test both HTTP server mode and file:// mode
 
 `examples/config.json` defines 8 categories (`community`, `basic`, `sequence`, `project`, `architecture`, `devops`, `data`, `security`) totaling 61 examples. Use the `/add-example` slash command to automate this process — note its argument hint currently lists only 5 categories but all 8 are valid targets.
+
+Note: three `.mmd` files on disk (`access-lifecycle.mmd`, `security-breach.mmd`, `system-secure.mmd`) are not referenced in `config.json` — the file count in `examples/` does not equal the example count.
 
 ## Adding New Pages
 
