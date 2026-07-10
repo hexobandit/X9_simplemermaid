@@ -98,7 +98,10 @@
         {"id": "incident-response", "title": "Incident Response", "file": "incident-response.mmd"},
         {"id": "oauth2-pkce", "title": "OAuth 2.0 PKCE", "file": "oauth2-pkce.mmd"},
         {"id": "mtls-handshake", "title": "mTLS Handshake", "file": "mtls-handshake.mmd"},
-        {"id": "soc2-compliance", "title": "SOC2 Compliance", "file": "soc2-compliance.mmd"}
+        {"id": "soc2-compliance", "title": "SOC2 Compliance", "file": "soc2-compliance.mmd"},
+        {"id": "access-lifecycle", "title": "Access Lifecycle", "file": "access-lifecycle.mmd"},
+        {"id": "security-breach", "title": "Security Breach Status", "file": "security-breach.mmd"},
+        {"id": "system-secure", "title": "System Secure Status", "file": "system-secure.mmd"}
       ]
     }
   }

@@ -2,154 +2,154 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://simplemermaid.com/</loc>
-    <lastmod>2026-03-25</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://simplemermaid.com/mermaid-tool.html</loc>
-    <lastmod>2026-03-25</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://simplemermaid.com/learn-mermaid.html</loc>
-    <lastmod>2026-03-25</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://simplemermaid.com/about.html</loc>
-    <lastmod>2026-03-25</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://simplemermaid.com/changelog.html</loc>
-    <lastmod>2026-03-25</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://simplemermaid.com/faq.html</loc>
-    <lastmod>2026-03-25</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://simplemermaid.com/privacy.html</loc>
-    <lastmod>2026-03-25</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://simplemermaid.com/terms.html</loc>
-    <lastmod>2026-03-25</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <!-- Blog -->
   <url>
     <loc>https://simplemermaid.com/blog/</loc>
-    <lastmod>2026-03-25</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://simplemermaid.com/blog/how-to-create-architecture-diagrams.html</loc>
-    <lastmod>2026-03-25</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://simplemermaid.com/blog/flowchart-best-practices.html</loc>
-    <lastmod>2026-03-18</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://simplemermaid.com/blog/sequence-diagram-tutorial-microservices.html</loc>
-    <lastmod>2026-03-12</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://simplemermaid.com/blog/mermaid-vs-drawio.html</loc>
-    <lastmod>2026-03-06</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://simplemermaid.com/blog/5-diagram-types-every-developer-should-know.html</loc>
-    <lastmod>2026-02-28</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://simplemermaid.com/blog/using-diagrams-for-documentation.html</loc>
-    <lastmod>2026-02-20</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://simplemermaid.com/blog/entity-relationship-diagrams-explained.html</loc>
-    <lastmod>2026-02-12</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://simplemermaid.com/blog/gantt-charts-project-management.html</loc>
-    <lastmod>2026-02-03</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://simplemermaid.com/blog/state-diagrams-ui-design.html</loc>
-    <lastmod>2026-01-22</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://simplemermaid.com/blog/how-to-document-apis-with-diagrams.html</loc>
-    <lastmod>2026-01-09</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://simplemermaid.com/blog/mermaid-js-beginners-guide.html</loc>
-    <lastmod>2025-12-28</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://simplemermaid.com/blog/diagrams-as-code-workflow.html</loc>
-    <lastmod>2025-12-15</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <!-- Guides -->
   <url>
     <loc>https://simplemermaid.com/guides/diagram-gallery.html</loc>
-    <lastmod>2026-03-25</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://simplemermaid.com/guides/best-practices.html</loc>
-    <lastmod>2026-03-25</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://simplemermaid.com/guides/use-cases.html</loc>
-    <lastmod>2026-03-25</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <!-- Use-case landing pages -->
   <url>
     <loc>https://simplemermaid.com/for/security-threat-modeling.html</loc>
-    <lastmod>2026-05-06</lastmod>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
