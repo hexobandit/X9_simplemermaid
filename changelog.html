@@ -938,7 +938,7 @@
             <div class="changelog-hero">
                 <h1>Changelog</h1>
                 <p>Track all the updates, new features, and improvements to SimpleMermaid</p>
-                <div class="current-version">Current Version: 1.4.0</div>
+                <div class="current-version">Current Version: 1.6.0</div>
             </div>
 
             <!-- Intro Section -->
@@ -947,14 +947,47 @@
                 <p>SimpleMermaid follows <a href="https://semver.org" target="_blank" style="color: var(--primary);">semantic versioning</a>: major versions introduce significant new capabilities, minor versions add features and improvements, and patch versions fix bugs. We ship updates regularly based on community feedback and our own roadmap.</p>
             </div>
 
-            <!-- Version 1.5.0 - Latest -->
+            <!-- Version 1.6.0 - Latest -->
+            <article class="version-entry">
+                <div class="version-header">
+                    <div class="version-info">
+                        <span class="version-number">v1.6.0</span>
+                        <span class="version-date">July 29, 2026</span>
+                    </div>
+                    <span class="version-tag tag-latest">Latest</span>
+                </div>
+                <div class="version-content">
+                    <p style="color: var(--text-secondary); margin-bottom: 1rem;">A housekeeping release. SimpleMermaid is one of several free tools we build, and this update introduces a small, polite way to discover the others — plus a site-wide link audit that fixed a broken button on the Learn page.</p>
+                    <div class="change-category">
+                        <h3>New Features</h3>
+                        <ul>
+                            <li><span class="highlight-feature">Discover our other projects</span> - A small dismissable card occasionally appears in the corner introducing our sister sites (DefenseModeling, Military Aircraft Tracker, Legenderby). It waits until you've been on a page a while, shows at most once every 12 hours, never blocks content, and closing it keeps it away</li>
+                        </ul>
+                    </div>
+                    <div class="change-category">
+                        <h3>Bug Fixes</h3>
+                        <ul>
+                            <li>Fixed the "Try in Editor" button in the Advanced Styling section of the Learn page, which pointed to a dead local link instead of the editor</li>
+                        </ul>
+                    </div>
+                    <div class="change-category">
+                        <h3>Under the hood</h3>
+                        <ul>
+                            <li>Audited every internal link and asset reference across all pages — all now resolve correctly on the live site, on localhost, and offline</li>
+                            <li>The promo card is a single zero-dependency script (<code>promo.js</code>), theme-aware in light and dark mode, and respects reduced-motion preferences</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Version 1.5.0 -->
             <article class="version-entry">
                 <div class="version-header">
                     <div class="version-info">
                         <span class="version-number">v1.5.0</span>
                         <span class="version-date">July 10, 2026</span>
                     </div>
-                    <span class="version-tag tag-latest">Latest</span>
+                    <span class="version-tag tag-minor">Feature</span>
                 </div>
                 <div class="version-content">
                     <p style="color: var(--text-secondary); margin-bottom: 1rem;">The editor got its biggest visual refresh since launch. The old three-row toolbar packed a dozen buttons into a cramped band that never quite matched the rest of the site. This release replaces it with a clean layout: a slim icon rail down the left for your tools, and a single, breathable toolbar up top for examples, export, and sharing. The whole editor now speaks the same indigo palette, rounded corners, and soft shadows as the landing page — one coherent product.</p>
