@@ -52,6 +52,7 @@
     "architecture": {
       "name": "System Architecture",
       "examples": [
+        {"id": "aws-vpc-basics", "title": "AWS VPC Basics", "file": "aws-vpc-basics.mmd"},
         {"id": "class-diagram", "title": "Class Diagram", "file": "class-diagram.mmd"},
         {"id": "state-diagram", "title": "State Diagram", "file": "state-diagram.mmd"},
         {"id": "erd", "title": "Entity Relationship", "file": "erd.mmd"},

@@ -1,0 +1,20 @@
+flowchart TB
+    subgraph Cloud["AWS Cloud"]
+        subgraph VPC["VPC - 10.0.0.0/16"]
+            subgraph Public["Public Subnet"]
+                ALB[Load Balancer]
+                NAT[NAT Gateway]
+            end
+            subgraph Private["Private Subnet"]
+                App1[App Server 1]
+                App2[App Server 2]
+                DB[(RDS Database)]
+            end
+        end
+    end
+
+    User[Users] --> ALB
+    ALB --> App1
+    ALB --> App2
+    App1 --> DB
+    App2 --> DB
