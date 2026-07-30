@@ -637,6 +637,29 @@
     
         .skip-link { position: absolute; left: -9999px; top: 0; z-index: 2000; background: #6366f1; color: #fff; padding: 0.6rem 1rem; border-radius: 0 0 8px 0; text-decoration: none; font-weight: 600; }
         .skip-link:focus { left: 0; }
+    
+        /* ===== Unified minimal header (aligned with index.html) ===== */
+        .sm-header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 1.8rem;background:var(--bg-primary);border-bottom:1px solid var(--border);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+        .sm-brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:var(--text-primary);font-weight:700;font-size:1.05rem;letter-spacing:-.01em}
+        .sm-logo{display:flex;align-items:center;gap:4px}
+        .sm-logo i{width:14px;height:14px;border-radius:4px;background:var(--primary)}
+        .sm-logo u{width:8px;height:2px;border-radius:1px;background:var(--primary)}
+        .sm-nav{display:flex;align-items:center;gap:1.6rem;font-size:.9rem;font-weight:500}
+        .sm-nav a{color:var(--text-secondary);text-decoration:none;transition:color .2s ease}
+        .sm-nav a:hover{color:var(--text-primary)}
+        .sm-nav .sm-editor{color:var(--text-primary);font-weight:600;white-space:nowrap;padding:.5rem 1.1rem;border-radius:10px;border:1px solid var(--border);transition:transform .2s ease,border-color .2s ease,background .2s ease,color .2s ease}
+        .sm-nav .sm-editor:hover{border-color:transparent;background:linear-gradient(135deg,#667eea 0%,#a78bfa 100%);color:#fff;transform:translateY(-1px)}
+        .sm-toggle{display:none;flex-direction:column;justify-content:center;gap:4px;width:38px;height:38px;padding:0;background:none;border:none;cursor:pointer}
+        .sm-toggle span{display:block;width:22px;height:2px;margin:0 auto;background:var(--text-primary);border-radius:2px;transition:transform .25s ease,opacity .2s ease}
+        .sm-toggle.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+        .sm-toggle.open span:nth-child(2){opacity:0}
+        .sm-toggle.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+        .sm-mobile{position:fixed;top:3.7rem;right:1.1rem;z-index:99;display:none;flex-direction:column;min-width:190px;padding:.5rem;background:var(--bg-primary);border:1px solid var(--border);border-radius:12px;box-shadow:0 20px 50px rgba(0,0,0,.28)}
+        .sm-mobile.open{display:flex}
+        .sm-mobile a{color:var(--text-primary);text-decoration:none;font-size:.95rem;font-weight:500;padding:.7rem .9rem;border-radius:8px;transition:background .2s ease,color .2s ease}
+        .sm-mobile a:hover{background:var(--bg-secondary);color:var(--primary)}
+        @media (max-width:720px){.sm-nav a:not(.sm-editor){display:none}.sm-nav{gap:.6rem}.sm-toggle{display:flex}}
+        @media (max-width:480px){.sm-header{padding:.9rem 1.1rem}.sm-brand-name{display:none}.sm-nav .sm-editor{padding:.5rem .9rem}}
     </style>
     <!-- Early theme detection to prevent flash -->
     <script>
@@ -785,46 +808,32 @@
 <body>
     <a href="#main-content" class="skip-link">Skip to content</a>
     <!-- Navigation Header -->
-    <header class="nav-header">
-        <nav class="nav-container">
-            <a href="index.html" class="nav-logo">
-                <div class="logo-icon">
-                    <div class="diagram-node"></div>
-                    <div class="diagram-connection"></div>
-                    <div class="diagram-node"></div>
-                    <div class="diagram-connection"></div>
-                    <div class="diagram-node"></div>
-                </div>
-                <span>SimpleMermaid</span>
-            </a>
-            
-            <!-- Desktop Menu -->
-            <ul class="nav-menu">
-                <li><a href="index.html" class="nav-link">Home</a></li>
-                <li><a href="learn-mermaid.html" class="nav-link">Learn</a></li>
-                <li><a href="blog/index.html" class="nav-link">Blog</a></li>
-                <li><a href="mermaid-tool.html" class="nav-link">Editor</a></li>
-                <li><button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle light/dark theme">☀️</button></li>
-                <li><a href="mermaid-tool.html" class="nav-cta">Start Creating</a></li>
-            </ul>
-            
-            <!-- Mobile Hamburger -->
-            <button class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </nav>
-        
-        <!-- Mobile Menu -->
-        <div class="mobile-menu" id="mobileMenu">
-            <a href="index.html" class="mobile-nav-link">Home</a>
-            <a href="learn-mermaid.html" class="mobile-nav-link">Learn</a>
-            <a href="blog/index.html" class="mobile-nav-link">Blog</a>
-            <a href="mermaid-tool.html" class="mobile-nav-link">Editor</a>
-            <a href="mermaid-tool.html" class="mobile-nav-link nav-cta">Start Creating</a>
-        </div>
-    </header>
+    <header class="sm-header">
+  <a class="sm-brand" href="index.html" aria-label="SimpleMermaid home">
+    <span class="sm-logo" aria-hidden="true"><i></i><u></u><i></i><u></u><i></i></span>
+    <span class="sm-brand-name">SimpleMermaid</span>
+  </a>
+  <nav class="sm-nav" aria-label="Primary">
+    <a href="features.html">Features</a>
+    <a href="learn-mermaid.html">Learn</a>
+    <a href="blog/index.html">Blog</a>
+    <a class="sm-editor" href="mermaid-tool.html">Open Editor →</a>
+    <button class="sm-toggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <!-- legacy stubs keep pre-existing page scripts null-safe after the header swap -->
+  <button id="themeToggle" hidden tabindex="-1" aria-hidden="true" style="display:none"></button>
+  <button id="hamburger" hidden tabindex="-1" aria-hidden="true" style="display:none"><span></span><span></span><span></span></button>
+  <div id="mobileMenu" hidden style="display:none"></div>
+</header>
+
+<nav class="sm-mobile" id="mobileNav" aria-label="Mobile menu">
+  <a href="features.html">Features</a>
+  <a href="learn-mermaid.html">Learn</a>
+  <a href="blog/index.html">Blog</a>
+  <a href="mermaid-tool.html">Editor</a>
+</nav>
     
     <!-- Main Content -->
     <main id="main-content" class="main-content">
@@ -1182,5 +1191,8 @@
         });
     </script>
     <script src="promo.js" defer></script>
+<script>
+(function(){var t=document.getElementById('navToggle'),m=document.getElementById('mobileNav');if(!t||!m)return;function c(){t.classList.remove('open');m.classList.remove('open');t.setAttribute('aria-expanded','false');}t.addEventListener('click',function(e){e.stopPropagation();var o=m.classList.toggle('open');t.classList.toggle('open',o);t.setAttribute('aria-expanded',o?'true':'false');});m.querySelectorAll('a').forEach(function(a){a.addEventListener('click',c);});document.addEventListener('click',function(e){if(!m.contains(e.target)&&!t.contains(e.target))c();});document.addEventListener('keydown',function(e){if(e.key==='Escape')c();});})();
+</script>
 </body>
 </html>

@@ -1,11 +1,9 @@
 test*
 CLAUDE.md
 .vscode/
-.claude 
+.claude/
 old/
-.DS_Store
 adsense-problem.md
 .DS_Store
 .github/.DS_Store
-.DS_Store
-.DS_Store
+.ftp-deploy-sync-state.json

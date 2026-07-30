@@ -16,6 +16,7 @@ Disallow: /README.md
 
 # Allow important pages
 Allow: /index.html
+Allow: /features.html
 Allow: /mermaid-tool.html
 Allow: /learn-mermaid.html
 Allow: /faq.html
