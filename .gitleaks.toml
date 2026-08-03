@@ -1,0 +1,14 @@
+# Gitleaks config for SimpleMermaid.
+# Keeps all of Gitleaks' default rules (useDefault = true) and only carves out
+# known-public, client-side identifiers that are meant to ship in the HTML.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Public client-side identifiers that are safe to commit and ship in page HTML (not secrets)"
+regexes = [
+  # Cloudflare Web Analytics beacon token. This is a public RUM site tag,
+  # delivered to every visitor's browser inside data-cf-beacon. It grants no
+  # account access and cannot be used to read data — nothing to rotate.
+  '''ee70613255424fb2b324673d25897a77''',
+]

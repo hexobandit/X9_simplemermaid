@@ -19,13 +19,12 @@ jobs:
     name: Gitleaks scan
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with: { fetch-depth: 0 }
-      - uses: gitleaks/gitleaks-action@v2
+      - uses: gitleaks/gitleaks-action@v3
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          args: detect --source . --redact --exit-code 1
+            GITLEAKS_CONFIG: ${{ github.workspace }}/.gitleaks.toml
 
 
   deploy:
@@ -33,7 +32,7 @@ jobs:
     needs: gitleaks
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       # Deploy over FTPS (explicit TLS on port 21)
       - name: Deploy to /public_html
