@@ -36,7 +36,7 @@ jobs:
 
       # Deploy over FTPS (explicit TLS on port 21)
       - name: Deploy to /public_html
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
           server: ${{ secrets.FTP_HOST }}          # e.g. ftp.trackmytime.net
           username: ${{ secrets.FTP_USER }}        # e.g. mf...@trackmytime.net
