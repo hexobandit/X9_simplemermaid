@@ -442,6 +442,16 @@
   .stop.center .lede { margin-left: auto; margin-right: auto; }
   .lede em { font-style: normal; color: var(--text); font-weight: 500; }
 
+  .hero-badges {
+    margin-top: 1.5rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .hero-badges b { color: var(--primary-soft); font-weight: 500; }
+
   .scroll-hint {
     margin-top: 2.4rem;
     font-family: var(--mono);
@@ -742,6 +752,7 @@
       <div class="cta-actions">
         <a class="btn btn-primary" href="mermaid-tool.html">🚀 Start Creating</a>
       </div>
+      <p class="hero-badges"><b>64</b> templates · PNG / SVG / PDF export · <b>100%</b> in your browser</p>
       <p class="scroll-hint"><b>↓</b> Scroll — dive into the flow</p>
     </div>
   </section>
@@ -804,8 +815,17 @@
 
 <script>
 /* Watchdog: if the three.js module below hasn't signalled readiness in 2.5s
-   (CDN blocked, WebGL init throw, JS error), fall back to a static page. */
+   (CDN blocked, WebGL init throw, JS error), fall back to a static page.
+   On file:// the CDN module can never load (null origin fails CORS for ES
+   modules), so skip the wait and go static immediately. */
 (function () {
+  /* On file:// the CDN module often can't load (null-origin CORS), so show the
+     static layout immediately instead of a 2.5s blank wait — but only
+     provisionally: if the scene does come up (some browsers allow it), the
+     __sceneReady callback below restores the full 3D experience. */
+  if (location.protocol === 'file:') {
+    document.documentElement.classList.add('no-3d');
+  }
   var t = setTimeout(function () { document.documentElement.classList.add('no-3d'); }, 2500);
   window.__sceneReady = function () {
     clearTimeout(t);

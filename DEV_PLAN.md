@@ -98,9 +98,10 @@ Same root cause as 2.3: innerHTML repaint + fragile TreeWalker cursor restoratio
 - Harden cursor save/restore, or move to textarea + syntax-highlight overlay (evaluate with 2.3 since they touch the same code).
 - **Done when:** cursor never jumps during fast typing on a 200-line diagram.
 
-### 2.5 Line numbers + error line highlighting ✍️
+### 🔶 2.5 Line numbers + error line highlighting ✍️ — gutter HALF DONE 2026-08-17
 Mermaid errors report line numbers but `formatErrorMessage` (~2058–2083) strips them, and the editor has no gutter — users manually count lines.
-- Add a line-number gutter synced to editor scroll; parse line/col out of Mermaid errors and highlight the offending line.
+- ✅ Line-number gutter shipped: read-only sibling element outside the contenteditable (can't interfere with cursor/undo), scroll-synced via transform; editor switched `pre-wrap` → `pre` so one line = one row (wrapping was what made earlier gutter attempts misalign). Hidden ≤600px.
+- Remaining: parse line/col out of Mermaid errors and highlight the offending gutter line. Same caution as all editor-layer work.
 - **Done when:** a syntax error visibly points at its line.
 
 ### 2.6 Preview pan + drag 🖱️
@@ -124,10 +125,8 @@ Current sanitizer (~1858–1869) only strips `<script>`, `javascript:`, and `on*
 - Add DOMPurify (pinned CDN + SRI) over rendered SVG output.
 - **Done when:** known SVG XSS vectors in diagram source do not execute from a shared URL.
 
-### 2.10 Blog → editor deep links 🔍
-Zero blog articles link to `mermaid-tool.html?example=…` (the landing page uses this pattern 5+ times). Readers finish a tutorial with no path into the product.
-- Add 1–2 "Open this in the editor" links per article, using `?example=` for existing examples or LZ-String `#diagram=` links for article-specific code.
-- **Done when:** all 12 articles funnel into the editor.
+### ✅ 2.10 Blog → editor deep links 🔍 — DONE (superseded by `try-in-editor.js`)
+All 12 blog articles (and the Learn page) load `try-in-editor.js`, which auto-appends "Try in Editor →" deep links to every Mermaid code block — verified 2026-08-17. Keyword detection covers all diagram types through Mermaid 11.16.
 
 ### 2.11 Feature usage analytics 📊
 Only page views are tracked — no data on what users actually do, which makes every future prioritization a guess.
@@ -155,7 +154,7 @@ Pipeline is gitleaks + FTPS only — nothing prevents deploying broken HTML or a
 - Surface the existing shortcuts (Ctrl+T/W/Tab/Enter/K…) in a `?`-triggered shortcuts modal — they're currently buried in the info drawer.
 - **Done when:** modals are keyboard-clean and shortcuts are discoverable.
 
-### 2.16 Above-the-fold competitive messaging 🔍
+### ✅ 2.16 Above-the-fold competitive messaging 🔍 — DONE 2026-08-17 (hero CTA + badge row "64 templates · PNG/SVG/PDF · 100% in your browser" on index; editor title/meta rewritten — also removed a false "collaborative features" claim; plus no-3d fallback so the hero is never blank)
 The feature set already clears the free-clone bar (64 templates vs. their "36+", PNG/SVG/PDF export, live error reporting, fully client-side) — but a 2026-08 competitor audit read the site as feature-poor because none of it is signaled up front. Cheapest, highest-leverage item from that review.
 - Landing hero: compact badge row naming the concrete differentiators ("64 templates · PNG/SVG/PDF export · 100% in your browser — no signup, no server"). Privacy claim is already true and buried in the info drawer; promote it.
 - Editor `<title>`/meta description: state export formats + client-side privacy (these drive the SERP snippet for navigational queries).

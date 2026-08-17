@@ -957,14 +957,48 @@
                 <p>SimpleMermaid follows <a href="https://semver.org" target="_blank" style="color: var(--primary);">semantic versioning</a>: major versions introduce significant new capabilities, minor versions add features and improvements, and patch versions fix bugs. We ship updates regularly based on community feedback and our own roadmap.</p>
             </div>
 
-            <!-- Version 1.6.0 - Latest -->
+            <!-- Version 1.7.0 - Latest -->
+            <article class="version-entry">
+                <div class="version-header">
+                    <div class="version-info">
+                        <span class="version-number">v1.7.0</span>
+                        <span class="version-date">August 17, 2026</span>
+                    </div>
+                    <span class="version-tag tag-latest">Latest</span>
+                </div>
+                <div class="version-content">
+                    <p style="color: var(--text-secondary); margin-bottom: 1rem;">A findability and freshness release: the editor is now one click away the moment the homepage loads, and the rendering engine picks up Mermaid's newest diagram types.</p>
+                    <div class="change-category">
+                        <h3>New Features</h3>
+                        <ul>
+                            <li><span class="highlight-feature">Start Creating, instantly</span> - The homepage now shows the Start Creating button and a quick feature summary (64 templates, PNG/SVG/PDF export, 100% in your browser) right when it loads — no more scrolling to the end to find the editor</li>
+                            <li><span class="highlight-feature">New Mermaid diagram types</span> - The editor runs Mermaid 11.16.1, and "Try in Editor" buttons now appear for all the latest diagram types: Venn, Ishikawa (fishbone), Swimlane, Railroad, Cynefin, Kanban, Packet, Architecture, Radar, and Treemap</li>
+                        </ul>
+                    </div>
+                    <div class="change-category">
+                        <h3>Bug Fixes</h3>
+                        <ul>
+                            <li>If the homepage's 3D scene can't load (blocked CDN, older graphics hardware), the page now falls back to a normal static layout instead of showing a blank screen</li>
+                        </ul>
+                    </div>
+                    <div class="change-category">
+                        <h3>Under the hood</h3>
+                        <ul>
+                            <li>Mermaid engine pinned to 11.16.1 (a security patch release) with subresource integrity verification</li>
+                            <li>Clearer editor page title and description for search results</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Version 1.6.0 -->
             <article class="version-entry">
                 <div class="version-header">
                     <div class="version-info">
                         <span class="version-number">v1.6.0</span>
                         <span class="version-date">July 29, 2026</span>
                     </div>
-                    <span class="version-tag tag-latest">Latest</span>
+                    <span class="version-tag tag-minor">Feature</span>
                 </div>
                 <div class="version-content">
                     <p style="color: var(--text-secondary); margin-bottom: 1rem;">A housekeeping release. SimpleMermaid is one of several free tools we build, and this update introduces a small, polite way to discover the others — plus a site-wide link audit that fixed a broken button on the Learn page.</p>

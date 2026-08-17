@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SimpleMermaid - Real-time Mermaid Diagram Editor</title>
+    <title>Mermaid Editor with Live Preview & PNG/SVG/PDF Export — SimpleMermaid</title>
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Real-time Mermaid diagram editor with live preview, instant sharing, and export to PNG/SVG. Create flowcharts, sequence diagrams, Gantt charts with collaborative features.">
+    <meta name="description" content="Free online Mermaid.js editor: live preview as you type, 64 ready-made templates, shareable links, and PNG/SVG/PDF export. 100% in your browser — no signup, no server.">
     <meta name="keywords" content="Mermaid editor, online diagram tool, flowchart maker, sequence diagram creator, Gantt chart tool, real-time editor, diagram sharing, PNG export, SVG export">
     <meta name="author" content="SimpleMermaid.com">
     
@@ -577,7 +577,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            row-gap: 0.3rem;
         }
+        .char-count { white-space: nowrap; }
+        .diagram-stats .stat-item { white-space: nowrap; }
 
         .panel-title {
             font-size: 0.72rem;
@@ -591,6 +595,7 @@
             display: flex;
             align-items: center;
             gap: 1rem;
+            flex-wrap: wrap;
         }
 
         .diagram-stats {
@@ -765,11 +770,49 @@
         /* Contenteditable editor (Prism-highlighted) */
         div.editor[contenteditable] {
             position: absolute;
-            inset: 0;
+            inset: 0 0 0 3em;
+            /* .editor sets width/height 100%; with left:3em that would override
+               right:0 and overflow the pane — let the inset size the box instead */
+            width: auto;
+            height: auto;
             overflow: auto;
-            white-space: pre-wrap;
-            word-break: break-word;
+            white-space: pre;
             cursor: text;
+        }
+
+        /* Line-number gutter: read-only sibling of the editor, never part of
+           its DOM — numbers can't interfere with typing/cursor logic.
+           Requires white-space: pre on the editor (1 logical line = 1 row). */
+        .editor-gutter {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3em;
+            font-size: 0.875rem; /* must match .editor so 3em == the editor's left inset */
+            overflow: hidden;
+            background-color: var(--editor-bg);
+            border-right: 1px solid var(--border-color);
+            pointer-events: none;
+            user-select: none;
+        }
+        /* Empty editor shows a multi-line placeholder hint — a "1" next to it
+           reads as broken numbering, so hide the numbers until there's content */
+        .editor-container:has(> .editor.is-empty) .editor-gutter-inner {
+            visibility: hidden;
+        }
+        .editor-gutter-inner {
+            padding: 1rem 0.6em 1rem 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Courier New', monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            text-align: right;
+            color: var(--text-muted);
+            white-space: pre;
+        }
+        @media (max-width: 600px) {
+            .editor-gutter { display: none; }
+            div.editor[contenteditable] { inset: 0; }
         }
         div.editor[contenteditable]:focus {
             outline: none;
@@ -1590,7 +1633,7 @@
 
                 <div class="topbar-actions">
                     <a href="changelog.html" class="version-link" title="View changelog">
-                        <span class="version-badge">v1.6.0</span>
+                        <span class="version-badge">v1.7.0</span>
                         <span>What's new</span>
                     </a>
                     <details class="export-menu">
@@ -1631,6 +1674,7 @@
                 <button id="addTabBtn" class="tab-add-btn" title="New tab (Ctrl+T)">+</button>
             </div>
             <div class="editor-container">
+                <div class="editor-gutter" aria-hidden="true"><div id="editorGutter" class="editor-gutter-inner">1</div></div>
                 <div
                     id="editor"
                     class="editor is-empty"
@@ -1806,6 +1850,17 @@ Or choose an example from the dropdown above!"
         }
 
         function createEditorAdapter(el) {
+            const gutter = document.getElementById('editorGutter');
+            let gutterLines = 0;
+            function updateGutter() {
+                if (!gutter) return;
+                const n = (el.textContent.match(/\n/g) || []).length + 1;
+                if (n === gutterLines) return;
+                gutterLines = n;
+                let nums = '';
+                for (let i = 1; i <= n; i++) nums += i + '\n';
+                gutter.textContent = nums;
+            }
             function paint(code) {
                 const text = code !== undefined ? code : el.textContent;
                 const focused = code === undefined && document.activeElement === el;
@@ -1813,8 +1868,12 @@ Or choose an example from the dropdown above!"
                 el.innerHTML = Prism.highlight(text, Prism.languages.mermaid, 'mermaid');
                 el.classList.toggle('is-empty', !el.textContent.length);
                 if (offset !== null) _setCaretCharOffset(el, offset);
+                updateGutter();
             }
             el.addEventListener('input', () => paint());
+            el.addEventListener('scroll', () => {
+                if (gutter) gutter.style.transform = 'translateY(' + (-el.scrollTop) + 'px)';
+            });
             el.addEventListener('keydown', (e) => {
                 if (e.key === 'Tab') {
                     e.preventDefault();
@@ -1969,9 +2028,17 @@ Or choose an example from the dropdown above!"
                 }
                 
                 dlog('🎨 Initializing Mermaid library...');
-                mermaid.initialize({
+                mermaid.initialize(this.buildMermaidConfig());
+                dlog('✅ Mermaid initialized successfully');
+            }
+
+            /* Mermaid config, theme-aware: real `dark` theme in dark mode
+               instead of light-theme SVGs restyled by CSS overrides. */
+            buildMermaidConfig() {
+                const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+                return {
                     startOnLoad: false,
-                    theme: 'default',
+                    theme: dark ? 'dark' : 'default',
                     securityLevel: 'strict', // Prevent script injection
                     htmlLabels: false, // Disable HTML in labels for security
                     flowchart: {
@@ -1999,8 +2066,7 @@ Or choose an example from the dropdown above!"
                     pie: {
                         useMaxWidth: true
                     }
-                });
-                dlog('✅ Mermaid initialized successfully');
+                };
             }
             
             /**
@@ -2410,8 +2476,10 @@ Or choose an example from the dropdown above!"
                     
                     this.setStatus('Rendered successfully', 'success');
 
-                    // Update diagram stats after successful render
-                    this.updateDiagramStats();
+                    // Update char count + diagram stats after successful render
+                    // (render can be triggered without typing — tab switch,
+                    // example load, share link — so the count must refresh here)
+                    this.updateCharCount();
 
                 } catch (error) {
                     console.error('❌ Render error:', error);
@@ -2476,10 +2544,45 @@ Or choose an example from the dropdown above!"
             }
             
             /**
+             * Styled in-page replacement for native confirm(). Resolves true/false.
+             */
+            showConfirm(title, message, okLabel) {
+                return new Promise((resolve) => {
+                    const modal = document.getElementById('confirmModal');
+                    const overlay = document.getElementById('confirmModalOverlay');
+                    const ok = document.getElementById('confirmModalOk');
+                    const cancel = document.getElementById('confirmModalCancel');
+                    document.getElementById('confirmModalTitle').textContent = title;
+                    document.getElementById('confirmModalMessage').textContent = message;
+                    ok.textContent = okLabel || 'Yes';
+                    const close = (result) => {
+                        modal.classList.remove('show');
+                        overlay.classList.remove('show');
+                        ok.removeEventListener('click', onOk);
+                        cancel.removeEventListener('click', onCancel);
+                        overlay.removeEventListener('click', onCancel);
+                        document.removeEventListener('keydown', onKey);
+                        resolve(result);
+                    };
+                    const onOk = () => close(true);
+                    const onCancel = () => close(false);
+                    const onKey = (e) => { if (e.key === 'Escape') onCancel(); };
+                    ok.addEventListener('click', onOk);
+                    cancel.addEventListener('click', onCancel);
+                    overlay.addEventListener('click', onCancel);
+                    document.addEventListener('keydown', onKey);
+                    modal.classList.add('show');
+                    overlay.classList.add('show');
+                    ok.focus();
+                });
+            }
+
+            /**
              * Clear the editor
              */
-            clearEditor() {
-                if (this.editor.value && !confirm('Are you sure you want to clear the editor?')) {
+            async clearEditor() {
+                if (this.editor.value &&
+                    !(await this.showConfirm('🗑️ Clear editor', 'This clears the current tab\'s diagram. This cannot be undone.', 'Clear'))) {
                     return;
                 }
 
@@ -2784,7 +2887,10 @@ Or choose an example from the dropdown above!"
                 // Save theme preference
                 localStorage.setItem(this.THEME_KEY, this.currentTheme);
 
-                // Re-render diagram with new theme
+                // Re-initialize Mermaid with the matching theme, then re-render
+                if (typeof mermaid !== 'undefined') {
+                    mermaid.initialize(this.buildMermaidConfig());
+                }
                 this.debouncedRender();
             }
 
@@ -3456,8 +3562,8 @@ Or choose an example from the dropdown above!"
             /**
              * Delete a saved diagram
              */
-            deleteDiagram(id) {
-                if (confirm('Are you sure you want to delete this diagram?')) {
+            async deleteDiagram(id) {
+                if (await this.showConfirm('🗑️ Delete diagram', 'Are you sure you want to delete this diagram?', 'Delete')) {
                     const diagrams = this.getSavedDiagrams();
                     const name = diagrams[id]?.name;
                     delete diagrams[id];
@@ -3953,6 +4059,19 @@ Or choose an example from the dropdown above!"
     </div>
     <div id="savedDiagramsOverlay" class="modal-overlay"></div>
     
+    <!-- Confirm Modal (styled replacement for native confirm()) -->
+    <div id="confirmModal" class="share-modal">
+        <div class="modal-content">
+            <h3 id="confirmModalTitle">Are you sure?</h3>
+            <p id="confirmModalMessage"></p>
+            <div class="modal-buttons">
+                <button id="confirmModalOk" class="btn btn-primary">Yes</button>
+                <button id="confirmModalCancel" class="btn btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <div id="confirmModalOverlay" class="modal-overlay"></div>
+
     <!-- Auto-save Indicator -->
     <div id="autoSaveIndicator" class="auto-save-indicator">✓ Auto-saved</div>
     <script src="promo.js" data-delay="60000" defer></script>
