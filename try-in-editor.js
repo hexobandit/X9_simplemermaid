@@ -12,7 +12,7 @@
     var LZ_SRC = 'https://cdn.jsdelivr.net/npm/lz-string@1.5.0/libs/lz-string.min.js';
     var LZ_SRI = 'sha384-0d+Gr7vM4Drod8E3hXKgciWJSWbjD/opKLLygI9ktiWbuvlDwQLzU46wJ9s5gsp7';
 
-    var MERMAID_KEYWORDS = /^(graph|flowchart|sequenceDiagram|classDiagram|stateDiagram(-v2)?|erDiagram|gantt|pie|journey|gitGraph|mindmap|timeline|quadrantChart|requirementDiagram|C4Context|C4Container|C4Component|sankey(-beta)?|xychart(-beta)?|block-beta)\b/;
+    var MERMAID_KEYWORDS = /^(graph|flowchart(-elk)?|sequenceDiagram|classDiagram(-v2)?|stateDiagram(-v2)?|erDiagram|gantt|pie|journey|gitGraph|mindmap|timeline|quadrantChart|requirementDiagram|C4Context|C4Container|C4Component|C4Dynamic|C4Deployment|sankey(-beta)?|xychart(-beta)?|block-beta|kanban|packet(-beta)?|architecture(-beta)?|radar-beta|treemap(-beta)?|venn-beta|ishikawa|eventmodeling|cynefin-beta|swimlane-beta|railroad(-ebnf|-abnf|-peg)?-beta|treeView-beta|wardley-beta)\b/;
 
     // Editor path relative to the current page, derived from this script's src
     // ("try-in-editor.js" at root, "../try-in-editor.js" from blog/ etc.)

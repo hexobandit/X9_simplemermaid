@@ -491,6 +491,27 @@
     gap: 1rem;
     flex-wrap: wrap;
   }
+  .stop:not(.center) .cta-actions { justify-content: flex-start; }
+  .stop.right .cta-actions { justify-content: flex-end; }
+
+  /* ---------- no-3d fallback ----------
+     Applied by the watchdog script when the three.js scene fails to start
+     (CDN blocked, WebGL unavailable). Turns the fixed scroll-driven stops
+     into a normal static page so content is never stuck at opacity 0. */
+  html.no-3d #scene,
+  html.no-3d .blur-veil,
+  html.no-3d .statusbar,
+  html.no-3d .spacer,
+  html.no-3d .scroll-hint { display: none; }
+  html.no-3d .stops { position: static; pointer-events: auto; padding-top: 5rem; }
+  html.no-3d .stop {
+    position: relative;
+    inset: auto;
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+    padding: 4rem 7vw;
+  }
 
   .btn {
     pointer-events: auto;
@@ -718,6 +739,9 @@
       <p class="eyebrow">graph TD — scroll to render</p>
       <h1>Text in.<br /><span class="grad">Diagram out.</span></h1>
       <p class="lede">SimpleMermaid is a fast, distraction-free Mermaid.js editor. Write plain text, watch it become a diagram — <em>no login, no backend, fully local.</em></p>
+      <div class="cta-actions">
+        <a class="btn btn-primary" href="mermaid-tool.html">🚀 Start Creating</a>
+      </div>
       <p class="scroll-hint"><b>↓</b> Scroll — dive into the flow</p>
     </div>
   </section>
@@ -776,6 +800,18 @@
     "three": "https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js"
   }
 }
+</script>
+
+<script>
+/* Watchdog: if the three.js module below hasn't signalled readiness in 2.5s
+   (CDN blocked, WebGL init throw, JS error), fall back to a static page. */
+(function () {
+  var t = setTimeout(function () { document.documentElement.classList.add('no-3d'); }, 2500);
+  window.__sceneReady = function () {
+    clearTimeout(t);
+    document.documentElement.classList.remove('no-3d');
+  };
+})();
 </script>
 
 <script type="module">
@@ -1171,6 +1207,7 @@ function frame(now) {
 
 readScroll();
 requestAnimationFrame(frame);
+if (window.__sceneReady) window.__sceneReady();
 </script>
 
 <!-- Mobile hamburger menu -->

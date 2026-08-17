@@ -137,6 +137,7 @@ Only page views are tracked — no data on what users actually do, which makes e
 ### 2.12 Expand `/for/` programmatic SEO pages 🔍
 `for/security-threat-modeling.html` is a working proof-of-concept; it's the only one. Each page targets a high-intent keyword cluster.
 - Build 3–5 more using the same structure: `for/api-documentation.html`, `for/database-schemas.html`, `for/devops-pipelines.html`, `for/microservices-architecture.html`. Reuse existing example diagrams per topic. Add to sitemap, robots.txt, footers.
+- **Second tier (competitive review 2026-08-17):** per-*diagram-type* tool pages, which target higher-volume queries than use-case pages ("flowchart maker online", "sequence diagram tool", "er diagram generator", "gantt chart maker"). Competitors run dozens of these and tool-pages outrank blog posts in this niche. Same showcase structure, but the H1/meta target the tool query and the CTA opens the editor pre-loaded with that diagram type. Start with the 4 highest-volume types: flowchart, sequence, ER, Gantt.
 - **Done when:** each page renders ~5 diagrams with "Open in editor" deep links and is in the sitemap.
 
 ### 2.13 Export upgrades 📤
@@ -153,6 +154,25 @@ Pipeline is gitleaks + FTPS only — nothing prevents deploying broken HTML or a
 - Trap Tab focus inside open modals; restore focus on close (all modals, ~2750+).
 - Surface the existing shortcuts (Ctrl+T/W/Tab/Enter/K…) in a `?`-triggered shortcuts modal — they're currently buried in the info drawer.
 - **Done when:** modals are keyboard-clean and shortcuts are discoverable.
+
+### 2.16 Above-the-fold competitive messaging 🔍
+The feature set already clears the free-clone bar (64 templates vs. their "36+", PNG/SVG/PDF export, live error reporting, fully client-side) — but a 2026-08 competitor audit read the site as feature-poor because none of it is signaled up front. Cheapest, highest-leverage item from that review.
+- Landing hero: compact badge row naming the concrete differentiators ("64 templates · PNG/SVG/PDF export · 100% in your browser — no signup, no server"). Privacy claim is already true and buried in the info drawer; promote it.
+- Editor `<title>`/meta description: state export formats + client-side privacy (these drive the SERP snippet for navigational queries).
+- **Done when:** template count, export formats, and the privacy story are visible without scrolling on `index.html` and present in the editor's title/meta.
+
+### ❌ 2.17 Lightweight syntax autocomplete ✍️ — PARKED (owner decision 2026-08-17)
+Syntax highlight / error / suggestion tooling has been a repeated source of pain in this codebase (see 2.3/2.4 — the contenteditable+Prism layer is already fragile). Owner: don't build autocomplete unless we're genuinely confident it can be done without destabilizing the editor. Revisit only after 2.3/2.4 have shipped and been stable for a while.
+
+### ❌ 2.18 Mermaid theme presets 🎨 — REJECTED (owner decision 2026-08-17)
+Multiple themes caused problems in the past; light + dark are deliberately the only modes. Do not add Dracula/Nord/etc.
+
+### 2.19 "What's new in Mermaid" content surface 🆕
+Mermaid is shipping fast (11.13–11.16 added Venn, Ishikawa, Event Modeling, Cynefin, Railroad, Swimlane) and almost nobody covers releases in plain English — low-competition freshness queries ("mermaid venn diagram", "mermaid swimlane syntax") plus a reason for repeat visits.
+- Recurring blog series ("New in Mermaid 11.16: …") — one article per notable release, each example with a Try-in-Editor deep link (`try-in-editor.js` keyword list already covers the new types as of 2026-08-17).
+- Small "New in Mermaid" callout box on `learn-mermaid.html` linking to the latest installment.
+- First installment covers the 11.13–11.16 wave; add new-type examples to `examples/` (`/add-example`) in the same pass, flagged "(beta)" where the syntax is still beta.
+- **Done when:** the first article is live, in the sitemap, linked from the learn page, and its diagrams open in the editor.
 
 ---
 
@@ -190,13 +210,29 @@ A JS error currently leaves the app stuck; render errors are only in the console
 Once 2.11 (analytics) shows what power users do, evaluate a paid tier. Candidate gates: cloud sync of saved diagrams, real-time collaboration, 4× exports without watermark, team/shared workspaces, private gallery. Requires the first backend component — decide deliberately (this abandons the "no backend" story, so it must earn it).
 - **Done when:** a written decision doc exists with usage data backing the chosen gate(s).
 
+### 3.8 AI diagram generation — decision gate 🤖
+Competitors ship "describe → diagram" AI generation. A hosted implementation needs a backend + paid API key (see 3.7's trade-off); the privacy-consistent variant is BYO-key: the user pastes their own Anthropic/OpenAI key, stored in localStorage, calls made directly from the browser — "your key never leaves your device" extends the existing privacy story instead of breaking it.
+- Wait for 2.11 analytics before committing; if built, a hosted-key version is the most natural pro-tier gate for 3.7.
+- **Done when:** a written go/no-go exists; if go, a prompt box produces valid Mermaid client-side with the user's own key.
+
 ---
+
+## Competitive review notes (2026-08-17)
+
+An external competitor audit (partial page extraction, so it under-read our feature set) raised five points. Disposition:
+
+- **Feature bar (Monaco, templates, export, privacy)** — mostly a *messaging* gap, not a feature gap: we already have 64 templates (they cite 36+ as the bar), PNG/SVG/PDF export, live error reporting, and a genuine 100% client-side story. → 2.16 (messaging, do first — it's hours, not days). Monaco itself: rejected. Autocomplete (2.17) parked and theme presets (2.18) rejected by owner — past pain with syntax tooling and multi-theme support outweighs the competitive pressure. Error *line markers* (2.5) stay planned but inherit the same caution: it touches the fragile editor layer, so bundle with 2.3/2.4.
+- **AI generation** — real trend, strategic cost. → 3.8 decision gate (BYO-key variant preserves the privacy story).
+- **Tool-pages per diagram type beat blog posts** — accepted; extends 2.12 with a per-type tier (flowchart/sequence/ER/Gantt first). Do 3.1 (shared assets) first or accept the copy-paste tax consciously — every new page deepens it.
+- **Navigational domains** (mermaideditor.com-style type-in capture) — business decision, not a code task: ~$10–40/yr per domain, 301-redirect to the site. Owner's call; no plan item.
+- **Verified during this review:** editor uses Prism contenteditable (not Monaco); privacy/client-side copy exists on index (8 mentions) and info drawer but not above the fold; "64 templates" is claimed on the landing page.
 
 ## Suggested sequencing
 
 1. **Week 1:** All of Phase 1 (each task is independent — highly parallelizable across dev models).
 2. **Week 2–3:** 2.1 → 2.2 (compliance then revenue), 2.3 + 2.4 together (same code), 2.7 (mobile), 2.10–2.11 (funnel + measurement).
 3. **Week 4+:** Remaining Phase 2 by taste, then 3.1 (pay down duplication before adding more pages), then the rest of Phase 3 guided by analytics from 2.11.
+4. **From the 2026-08-17 competitive review:** 2.16 (messaging) and 2.19's first article are the cheap immediate wins — do them next regardless of other sequencing. 2.12's per-type tool pages ideally wait on 3.1; 3.8 and the domain question wait on data/owner decision. (2.17 parked, 2.18 rejected — owner call.)
 
 ## Verified facts behind this plan (2026-07-07 audit)
 
