@@ -11,6 +11,18 @@
 (function () {
     'use strict';
 
+    // Own icons (no emoji fonts). promo.js stays self-contained, so the paths live here.
+    function ico(path) {
+        return '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" ' +
+            'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-3px">' + path + '</svg>';
+    }
+    var ICONS = {
+        shield: ico('<path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.2-7.5 9.5-4.3-1.3-7.5-4.9-7.5-9.5V6z"/><path d="M9 12l2.2 2.2L15.2 10"/>'),
+        plane: ico('<path d="M2.5 13.5l8.5-3V5a1.5 1.5 0 0 1 3 0v5.5l8.5 3V16l-8.5-2v4.2l2.2 1.6V22L12.5 21l-4.2 1v-2.2l2.2-1.6V14l-8 2z"/>'),
+        car: ico('<path d="M3 15.5l1.4-4.3A2 2 0 0 1 6.3 9.8H15a3 3 0 0 1 2.3 1.1L21 14v1.5z"/><circle cx="7.5" cy="17.2" r="1.8"/><circle cx="16.8" cy="17.2" r="1.8"/>'),
+        timer: ico('<circle cx="12" cy="13.5" r="7.5"/><path d="M12 13.5V9.5M9.5 3h5M12 3v3"/>')
+    };
+
     var SITES = [
         {
             id: 'defensemodeling',
@@ -18,7 +30,7 @@
             name: 'DefenseModeling.com',
             tag: 'Threat modeling, reversed',
             desc: 'Answer plain questions about your app or server and get a visual defense diagram. Free, no signup.',
-            emoji: '🛡️'
+            icon: ICONS.shield
         },
         {
             id: 'aircrafttracker',
@@ -26,7 +38,7 @@
             name: 'Military Aircraft Tracker',
             tag: 'Live military & government aircraft',
             desc: 'Watch reconnaissance flights and presidential transports live on a real-time ADS-B map.',
-            emoji: '✈️'
+            icon: ICONS.plane
         },
         {
             id: 'legenderby',
@@ -34,7 +46,7 @@
             name: 'Legenderby.io',
             tag: 'Crash. Smash. Survive.',
             desc: 'A destruction-derby browser game with physics-based mayhem. Take a break, wreck a car.',
-            emoji: '🏎️'
+            icon: ICONS.car
         },
         {
             id: 'trackmytime',
@@ -42,7 +54,7 @@
             name: 'TrackMyTime',
             tag: 'Where did the day go?',
             desc: 'A dead-simple time tracker to see where your hours actually go. Clean, fast, no clutter.',
-            emoji: '⏱️'
+            icon: ICONS.timer
         }
     ];
 
@@ -136,7 +148,7 @@
         toast.innerHTML =
             '<div class="sm-promo-kicker"><span>From the maker of SimpleMermaid</span>' +
             '<button class="sm-promo-close" type="button" aria-label="Dismiss">&times;</button></div>' +
-            '<div class="sm-promo-title">' + site.emoji + ' ' + site.name + '</div>' +
+            '<div class="sm-promo-title">' + site.icon + ' ' + site.name + '</div>' +
             '<div class="sm-promo-tag">' + site.tag + '</div>' +
             '<div class="sm-promo-desc">' + site.desc + '</div>' +
             '<a class="sm-promo-cta" href="' + site.url + '" target="_blank" rel="noopener">Check it out →</a>';

@@ -599,6 +599,7 @@
 </script>
 
 <body>
+<script src="../icons.js"></script>
     <a href="#main-content" class="skip-link">Skip to content</a>
     <header class="sm-header">
   <a class="sm-brand" href="../index.html" aria-label="SimpleMermaid home">
@@ -1006,12 +1007,12 @@ Policy -.->|Continuous Validation| Access
         const savedTheme = localStorage.getItem('simplemermaid-theme') || 'light';
         html.setAttribute('data-theme', savedTheme);
         document.body.setAttribute('data-theme', savedTheme);
-        themeToggle.textContent = savedTheme === 'light' ? '☀️' : '🌙';
+        themeToggle.innerHTML = smIcon(savedTheme === 'light' ? 'sun' : 'moon');
         themeToggle.addEventListener('click', () => {
             const t = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
             html.setAttribute('data-theme', t);
             document.body.setAttribute('data-theme', t);
-            themeToggle.textContent = t === 'light' ? '☀️' : '🌙';
+            themeToggle.innerHTML = smIcon(t === 'light' ? 'sun' : 'moon');
             localStorage.setItem('simplemermaid-theme', t);
         });
 

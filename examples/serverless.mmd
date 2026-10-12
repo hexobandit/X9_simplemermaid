@@ -1,10 +1,10 @@
 flowchart LR
-Client[📱 Client] --> APIGW[🚪 API Gateway]
+Client[Client] --> APIGW[API Gateway]
 APIGW --> Lambda1[λ Auth Function]
 APIGW --> Lambda2[λ CRUD Function]
 APIGW --> Lambda3[λ Process Function]
-Lambda1 --> Cognito[🔐 Cognito]
+Lambda1 --> Cognito[Cognito]
 Lambda2 --> DynamoDB[(DynamoDB)]
 Lambda3 --> S3[(S3 Bucket)]
 S3 --> Lambda4[λ Trigger Function]
-Lambda4 --> SNS[📢 SNS Topic]
+Lambda4 --> SNS[SNS Topic]

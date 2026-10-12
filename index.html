@@ -665,8 +665,38 @@
     opacity: 1 !important;
     transform: none !important;
     visibility: visible !important;
-    padding: 4rem 7vw;
+    padding: 2rem 6vw;
+    justify-content: center;
   }
+  /* Static look: hero photo behind everything, each stop as a readable card */
+  html.no-3d body {
+    background:
+      linear-gradient(180deg, rgba(13, 18, 32, 0.38) 0%, rgba(13, 18, 32, 0.78) 60%, var(--bg) 100%),
+      url('simplemermaid-back.webp') center top / cover no-repeat;
+    background-color: var(--bg);
+  }
+  html.no-3d .stop .card {
+    width: min(720px, 100%);
+    max-width: none;
+    text-align: center;
+    padding: 2.4rem 2rem;
+    background: rgba(16, 25, 46, 0.72);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+  html.no-3d .stop .card::before { display: none; }
+  html.no-3d .stops .stop:first-child .eyebrow { display: none; } /* "scroll to render" only makes sense with the 3D scene */
+  html.no-3d .stop.right .card { text-align: center; }
+  html.no-3d .stop .lede,
+  html.no-3d .stop.right .lede { margin-left: auto; margin-right: auto; }
+  html.no-3d .stop .cta-actions,
+  html.no-3d .stop:not(.center) .cta-actions,
+  html.no-3d .stop.right .cta-actions { justify-content: center; }
+  html.no-3d .stop .code { max-width: 100%; overflow-x: auto; }
+  html.no-3d .seo-content { background: var(--bg); }
 
   .btn {
     pointer-events: auto;
@@ -852,18 +882,7 @@
 
 <body>
 
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <defs>
-    <symbol id="ico-rocket" viewBox="0 0 24 24"><path d="M12 2.5c3.4 2.1 5.4 5.4 5.4 9.3L15 15H9l-2.4-3.2c0-3.9 2-7.2 5.4-9.3z"/><circle cx="12" cy="9.2" r="1.7"/><path d="M9 15l-3 3.6 3.6-.6M15 15l3 3.6-3.6-.6M12 17.2V21.5"/></symbol>
-    <symbol id="ico-book" viewBox="0 0 24 24"><path d="M4 5.6C4 4.7 4.7 4 5.6 4H12v15H5.6C4.7 19 4 18.3 4 17.4z"/><path d="M20 5.6c0-.9-.7-1.6-1.6-1.6H12v15h6.4c.9 0 1.6-.7 1.6-1.6z"/></symbol>
-    <symbol id="ico-sparkles" viewBox="0 0 24 24"><path d="M11 3l1.9 5.1L18 10l-5.1 1.9L11 17l-1.9-5.1L4 10l5.1-1.9z"/><path d="M19 15.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></symbol>
-    <symbol id="ico-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9.5" rx="2.6"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.7" r="1.1"/></symbol>
-    <symbol id="ico-bolt" viewBox="0 0 24 24"><path d="M13.2 2.5L5.2 13.6h5.9L10.3 21.5l8.5-11.4h-6z"/></symbol>
-    <symbol id="ico-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
-    <symbol id="ico-export" viewBox="0 0 24 24"><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><path d="M12 4v11M7.6 10.6L12 15l4.4-4.4"/></symbol>
-    <symbol id="ico-tag" viewBox="0 0 24 24"><path d="M3 12.6V4.6A1.6 1.6 0 0 1 4.6 3h8l8.4 8.4a1.6 1.6 0 0 1 0 2.2l-7 7a1.6 1.6 0 0 1-2.2 0z"/><circle cx="8" cy="8" r="1.4"/></symbol>
-  </defs>
-</svg>
+<script src="icons.js"></script>
 
 
 <canvas id="scene" aria-hidden="true"></canvas>

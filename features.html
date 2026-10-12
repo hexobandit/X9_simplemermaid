@@ -909,7 +909,7 @@
         }
         
         .footer-links a::before {
-            content: '▶';
+            content: '▸';
             position: absolute;
             left: -15px;
             opacity: 0;
@@ -1787,6 +1787,7 @@
 </script>
 
 <body>
+<script src="icons.js"></script>
     <!-- Navigation Header -->
     <header class="sm-header">
   <a class="sm-brand" href="index.html" aria-label="SimpleMermaid home">
@@ -1826,10 +1827,10 @@
             </p>
             <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                 <a href="mermaid-tool.html" class="cta-button">
-                    🚀 Open the Editor
+                    <svg class="icon" aria-hidden="true"><use href="#ico-rocket"/></svg> Open the Editor
                 </a>
                 <a href="#templates" class="cta-button" style="background: transparent; color: white; border: 2px solid white;">
-                    📚 Browse Templates
+                    <svg class="icon" aria-hidden="true"><use href="#ico-book"/></svg> Browse Templates
                 </a>
             </div>
         </div>
@@ -1852,9 +1853,9 @@
             
             <div class="collab-badges">
                 <!-- 
-                <span class="badge-item">🏆 Featured Weekly</span>
-                <span class="badge-item">👤 Full Attribution</span>
-                <span class="badge-item">🌟 Community Gallery</span>
+                <span class="badge-item"><svg class="icon" aria-hidden="true"><use href="#ico-trophy"/></svg> Featured Weekly</span>
+                <span class="badge-item"><svg class="icon" aria-hidden="true"><use href="#ico-user"/></svg> Full Attribution</span>
+                <span class="badge-item"><svg class="icon" aria-hidden="true"><use href="#ico-star"/></svg> Community Gallery</span>
                 -->
                 <button class="collab-cta" onclick="document.getElementById('feedbackFab').click()">
                     <span>Submit Your Diagram</span>
@@ -1938,49 +1939,49 @@
         
         <div class="features-grid">
             <div class="feature-card">
-                <div class="feature-icon">👤</div>
+                <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#ico-user"/></svg></div>
                 <h3>No Account Required</h3>
                 <p>Start creating instantly. No signups, no passwords, no barriers. Share with anyone - they don't need accounts either.</p>
             </div>
 
             <div class="feature-card">
-                <div class="feature-icon">🔒</div>
+                <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#ico-lock"/></svg></div>
                 <h3>Privacy Focused</h3>
                 <p>No server storage, all processing happens in your browser. Your diagrams stay private.</p>
             </div>
 
             <div class="feature-card">
-                <div class="feature-icon">⚡</div>
+                <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#ico-bolt"/></svg></div>
                 <h3>Instant Preview</h3>
                 <p>Live diagram updates as you type. See your changes in real-time with no delays or refresh needed.</p>
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">🔗</div>
+                <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#ico-link"/></svg></div>
                 <h3>Share Instantly</h3>
                 <p>Create shareable links in seconds. No file uploads, no account requirements. Your diagrams are embedded in the URL and work on any device and never expire.</p>
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">📥</div>
+                <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#ico-download"/></svg></div>
                 <h3>Export to PNG/SVG</h3>
                 <p>Download your diagrams in multiple formats. Perfect for presentations and documentation.</p>
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">📚</div>
+                <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#ico-book"/></svg></div>
                 <h3>Rich Examples</h3>
                 <p>20+ ready-made templates including flowcharts, sequence diagrams, and architecture diagrams.</p>
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">💾</div>
+                <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#ico-save"/></svg></div>
                 <h3>Save & Load Diagrams</h3>
                 <p>Save your work locally in your browser with auto-save. Manage multiple diagrams with import/export backup.</p>
             </div>
 
             <div class="feature-card">
-                <div class="feature-icon">🎨</div>
+                <div class="feature-icon"><svg class="icon" aria-hidden="true"><use href="#ico-palette"/></svg></div>
                 <h3>Multiple Themes</h3>
                 <p>Choose between light, dark, and colorful modes. Perfect for any environment or preference.</p>
             </div>
@@ -1996,37 +1997,37 @@
             
             <div class="use-cases-grid">
                 <div class="use-case-card">
-                    <div class="use-case-title">👥 Team Collaboration</div>
+                    <div class="use-case-title"><svg class="icon" aria-hidden="true"><use href="#ico-users"/></svg> Team Collaboration</div>
                     <div class="use-case-description">Share system architecture diagrams with your development team</div>
                     <div class="use-case-quote">"Just send a link in Slack - everyone can see and edit instantly"</div>
                 </div>
                 
                 <div class="use-case-card">
-                    <div class="use-case-title">📋 Client Presentations</div>
+                    <div class="use-case-title"><svg class="icon" aria-hidden="true"><use href="#ico-clipboard"/></svg> Client Presentations</div>
                     <div class="use-case-description">Present project timelines without requiring clients to install software</div>
                     <div class="use-case-quote">"Clients love being able to view diagrams on their phones during meetings"</div>
                 </div>
                 
                 <div class="use-case-card">
-                    <div class="use-case-title">📖 Documentation</div>
+                    <div class="use-case-title"><svg class="icon" aria-hidden="true"><use href="#ico-book"/></svg> Documentation</div>
                     <div class="use-case-description">Embed live diagrams in wikis, docs, or GitHub repos</div>
                     <div class="use-case-quote">"Links stay fresh - no more outdated screenshots in our docs"</div>
                 </div>
                 
                 <div class="use-case-card">
-                    <div class="use-case-title">🚀 Rapid Prototyping</div>
+                    <div class="use-case-title"><svg class="icon" aria-hidden="true"><use href="#ico-rocket"/></svg> Rapid Prototyping</div>
                     <div class="use-case-description">Sketch user flows and system designs in minutes, not hours</div>
                     <div class="use-case-quote">"Perfect for quick wireframes during standups"</div>
                 </div>
                 
                 <div class="use-case-card">
-                    <div class="use-case-title">🔒 Security Reviews</div>
+                    <div class="use-case-title"><svg class="icon" aria-hidden="true"><use href="#ico-lock"/></svg> Security Reviews</div>
                     <div class="use-case-description">Create threat models and share privately with security teams</div>
                     <div class="use-case-quote">"Everything stays in our browser - no data goes to external servers"</div>
                 </div>
                 
                 <div class="use-case-card">
-                    <div class="use-case-title">🎓 Teaching & Learning</div>
+                    <div class="use-case-title"><svg class="icon" aria-hidden="true"><use href="#ico-cap"/></svg> Teaching & Learning</div>
                     <div class="use-case-description">Share examples with students without requiring account signups</div>
                     <div class="use-case-quote">"Students can access diagrams on any device immediately"</div>
                 </div>
@@ -2037,7 +2038,7 @@
     <section class="features">
         <!-- Pro Tip Section -->
         <div class="pro-tip">
-            <h4>💡 Pro Tip: Links Work Forever</h4>
+            <h4><svg class="icon" aria-hidden="true"><use href="#ico-bulb"/></svg> Pro Tip: Links Work Forever</h4>
             <p>Unlike other tools, your shared links never expire. Bookmark them, embed in documentation, or share with future team members.</p>
             <div class="pro-tip-example">
                 <strong>Example:</strong> simplemermaid.com/#diagram=eNp7...
@@ -2198,7 +2199,7 @@
             <p>Why is this the future? Because diagrams as code can be version-controlled, reviewed in pull requests, and updated in seconds. No more outdated screenshots or clunky drawing tools. Just write a few lines, get a shareable link, and your whole team is on the same page.</p>
 
             <a href="mermaid-tool.html" class="cta-secondary">
-                ✨ Try It Now
+                <svg class="icon" aria-hidden="true"><use href="#ico-sparkles"/></svg> Try It Now
             </a>
 
         </div>
@@ -2293,7 +2294,7 @@
         const savedTheme = localStorage.getItem('simplemermaid-theme') || 'light';
         html.setAttribute('data-theme', savedTheme);
         body.setAttribute('data-theme', savedTheme);
-        themeToggle.textContent = savedTheme === 'light' ? '☀️' : '🌙';
+        themeToggle.innerHTML = smIcon(savedTheme === 'light' ? 'sun' : 'moon');
 
         themeToggle.addEventListener('click', () => {
             const currentTheme = html.getAttribute('data-theme');
@@ -2301,7 +2302,7 @@
 
             html.setAttribute('data-theme', newTheme);
             body.setAttribute('data-theme', newTheme);
-            themeToggle.textContent = newTheme === 'light' ? '☀️' : '🌙';
+            themeToggle.innerHTML = smIcon(newTheme === 'light' ? 'sun' : 'moon');
             localStorage.setItem('simplemermaid-theme', newTheme);
         });
         
@@ -2352,7 +2353,7 @@
             button.addEventListener('click', function(e) {
                 if (this.href && this.href.includes('mermaid-tool.html')) {
                     this.style.opacity = '0.8';
-                    this.innerHTML = this.innerHTML.replace('🚀', '⏳').replace('✨', '⏳');
+                    this.querySelectorAll('use').forEach(u => u.setAttribute('href', '#ico-hourglass'));
                 }
             });
         });
@@ -2420,7 +2421,7 @@
                 setTimeout(() => {
                     closeModal();
                     // Show success message
-                    fabText.textContent = 'Thank you! 💜';
+                    fabText.innerHTML = 'Thank you! ' + smIcon('heart');
                     setTimeout(() => {
                         fabText.textContent = messages[0];
                     }, 3000);
@@ -2448,7 +2449,7 @@
             </button>
             
             <div class="modal-header">
-                <h3>We'd Love Your Feedback! 💡</h3>
+                <h3>We'd Love Your Feedback! <svg class="icon" aria-hidden="true"><use href="#ico-bulb"/></svg></h3>
                 <p>Have suggestions to improve SimpleMermaid? Created something amazing? Share it with us!</p>
             </div>
             

@@ -1,17 +1,17 @@
 flowchart TB
 subgraph Presentation [Presentation Tier]
-Web[🌐 Web Browser]
-Mobile[📱 Mobile App]
+Web[Web Browser]
+Mobile[Mobile App]
 end
 subgraph Application [Application Tier]
-LB[⚖️ Load Balancer]
-API1[🖥️ API Server 1]
-API2[🖥️ API Server 2]
-Cache[(🗄️ Redis Cache)]
+LB[Load Balancer]
+API1[API Server 1]
+API2[API Server 2]
+Cache[(Redis Cache)]
 end
 subgraph Data [Data Tier]
-Primary[(📀 Primary DB)]
-Replica[(📀 Replica DB)]
+Primary[(Primary DB)]
+Replica[(Replica DB)]
 end
 Web --> LB
 Mobile --> LB

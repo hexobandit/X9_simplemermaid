@@ -1,12 +1,12 @@
 flowchart LR
-Detect[🔍 Detect] --> Analyze[🔬 Analyze]
-Analyze --> Contain[🛡️ Contain]
-Contain --> Eradicate[🧹 Eradicate]
-Eradicate --> Recover[🔄 Recover]
-Recover --> Lessons[📝 Lessons Learned]
+Detect[Detect] --> Analyze[Analyze]
+Analyze --> Contain[Contain]
+Contain --> Eradicate[Eradicate]
+Eradicate --> Recover[Recover]
+Recover --> Lessons[Lessons Learned]
 Lessons -.-> Detect
 subgraph SIEM
-Logs[📊 Logs]
-Alerts[🚨 Alerts]
+Logs[Logs]
+Alerts[Alerts]
 end
 SIEM --> Detect

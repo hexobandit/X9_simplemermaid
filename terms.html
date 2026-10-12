@@ -467,7 +467,7 @@
         }
         
         .footer-links a::before {
-            content: '▶';
+            content: '▸';
             position: absolute;
             left: -15px;
             opacity: 0;
@@ -795,6 +795,7 @@
 </script>
 
 <body>
+<script src="icons.js"></script>
     <a href="#main-content" class="skip-link">Skip to content</a>
     <!-- Navigation Header -->
     <header class="sm-header">
@@ -829,7 +830,7 @@
         <div class="content-container">
             <!-- Hero Section -->
             <div class="terms-hero">
-                <h1>📜 Terms of Service</h1>
+                <h1><svg class="icon" aria-hidden="true"><use href="#ico-file"/></svg> Terms of Service</h1>
                 <p>Clear and fair terms for using SimpleMermaid</p>
             </div>
             
@@ -1082,7 +1083,7 @@
         const savedTheme = localStorage.getItem('simplemermaid-theme') || 'light';
         html.setAttribute('data-theme', savedTheme);
         body.setAttribute('data-theme', savedTheme);
-        themeToggle.textContent = savedTheme === 'light' ? '☀️' : '🌙';
+        themeToggle.innerHTML = smIcon(savedTheme === 'light' ? 'sun' : 'moon');
 
         themeToggle.addEventListener('click', () => {
             const currentTheme = html.getAttribute('data-theme');
@@ -1090,7 +1091,7 @@
 
             html.setAttribute('data-theme', newTheme);
             body.setAttribute('data-theme', newTheme);
-            themeToggle.textContent = newTheme === 'light' ? '☀️' : '🌙';
+            themeToggle.innerHTML = smIcon(newTheme === 'light' ? 'sun' : 'moon');
             localStorage.setItem('simplemermaid-theme', newTheme);
         });
         

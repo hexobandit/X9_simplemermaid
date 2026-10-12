@@ -475,7 +475,7 @@
         }
         
         .footer-links a::before {
-            content: '▶';
+            content: '▸';
             position: absolute;
             left: -15px;
             opacity: 0;
@@ -807,6 +807,7 @@
 </script>
 
 <body>
+<script src="icons.js"></script>
     <a href="#main-content" class="skip-link">Skip to content</a>
     <!-- Navigation Header -->
     <header class="sm-header">
@@ -900,19 +901,19 @@
                 
                 <div class="feature-grid">
                     <div class="feature-card">
-                        <h3>🛠️ Developer-First Design</h3>
+                        <h3><svg class="icon" aria-hidden="true"><use href="#ico-wrench"/></svg> Developer-First Design</h3>
                         <p>Built by developers, for developers. Write diagrams as code using familiar syntax.</p>
                     </div>
                     <div class="feature-card">
-                        <h3>🚀 Instant Collaboration</h3>
+                        <h3><svg class="icon" aria-hidden="true"><use href="#ico-rocket"/></svg> Instant Collaboration</h3>
                         <p>Share technical diagrams instantly via URL. No accounts, no friction.</p>
                     </div>
                     <div class="feature-card">
-                        <h3>⚡ Productivity Focused</h3>
+                        <h3><svg class="icon" aria-hidden="true"><use href="#ico-bolt"/></svg> Productivity Focused</h3>
                         <p>Zero setup time. Start documenting your architecture immediately.</p>
                     </div>
                     <div class="feature-card">
-                        <h3>🏢 Built for Teams</h3>
+                        <h3><svg class="icon" aria-hidden="true"><use href="#ico-building"/></svg> Built for Teams</h3>
                         <p>Designed for engineering workflows including technical documentation and system design.</p>
                     </div>
                 </div>
@@ -1010,15 +1011,15 @@
 
                 <div class="feature-grid">
                     <div class="feature-card">
-                        <h3>🔒 Privacy First</h3>
+                        <h3><svg class="icon" aria-hidden="true"><use href="#ico-lock"/></svg> Privacy First</h3>
                         <p>Your diagrams are processed entirely in your browser. We don't store, transmit, or analyze your diagram content. When you share a link, the diagram data is encoded in the URL itself, not on our servers. We believe your intellectual property should stay yours.</p>
                     </div>
                     <div class="feature-card">
-                        <h3>🎯 Developer Experience</h3>
+                        <h3><svg class="icon" aria-hidden="true"><use href="#ico-target"/></svg> Developer Experience</h3>
                         <p>Every feature we add is evaluated through one lens: does it make developers more productive? We resist feature bloat and focus on doing fewer things exceptionally well. A fast, focused tool beats a slow, feature-packed one every time.</p>
                     </div>
                     <div class="feature-card">
-                        <h3>🌐 Open Web</h3>
+                        <h3><svg class="icon" aria-hidden="true"><use href="#ico-globe"/></svg> Open Web</h3>
                         <p>SimpleMermaid is built on open web standards with no proprietary lock-in. Your diagrams are plain text Mermaid syntax that works anywhere Mermaid is supported: GitHub, GitLab, Notion, Confluence, and dozens of other platforms. We will never hold your data hostage.</p>
                     </div>
                 </div>
@@ -1151,7 +1152,7 @@
         const savedTheme = localStorage.getItem('simplemermaid-theme') || 'light';
         html.setAttribute('data-theme', savedTheme);
         body.setAttribute('data-theme', savedTheme);
-        themeToggle.textContent = savedTheme === 'light' ? '☀️' : '🌙';
+        themeToggle.innerHTML = smIcon(savedTheme === 'light' ? 'sun' : 'moon');
 
         themeToggle.addEventListener('click', () => {
             const currentTheme = html.getAttribute('data-theme');
@@ -1159,7 +1160,7 @@
 
             html.setAttribute('data-theme', newTheme);
             body.setAttribute('data-theme', newTheme);
-            themeToggle.textContent = newTheme === 'light' ? '☀️' : '🌙';
+            themeToggle.innerHTML = smIcon(newTheme === 'light' ? 'sun' : 'moon');
             localStorage.setItem('simplemermaid-theme', newTheme);
         });
         

@@ -1,10 +1,10 @@
 flowchart LR
 classDef threat fill:#fca5a5,stroke:#f66,stroke-width:2px,color:#000
-Client[📱 Client] --> API[🔌 REST API]
-API --> Auth[🔐 Auth]
-API --> Data[(💾 Database)]
-Injection([💉 SQL Injection]):::threat -.-> API
-BrokenAuth([🔓 Broken Auth]):::threat -.-> Auth
-DataExposure([📤 Data Exposure]):::threat -.-> Data
-RateLimit([⚡ No Rate Limit]):::threat -.-> API
-BFLA([🎭 BFLA/BOLA]):::threat -.-> API
+Client[Client] --> API[REST API]
+API --> Auth[Auth]
+API --> Data[(Database)]
+Injection([SQL Injection]):::threat -.-> API
+BrokenAuth([Broken Auth]):::threat -.-> Auth
+DataExposure([Data Exposure]):::threat -.-> Data
+RateLimit([No Rate Limit]):::threat -.-> API
+BFLA([BFLA/BOLA]):::threat -.-> API

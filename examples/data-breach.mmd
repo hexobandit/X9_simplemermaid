@@ -1,12 +1,12 @@
 flowchart TD
 classDef danger fill:#f66,stroke:#900,color:#fff
 classDef warning fill:#fb0,stroke:#a80,color:#000
-Recon[🔍 Reconnaissance] --> Exploit[💥 Initial Exploit]
-Exploit --> Foothold[🦶 Establish Foothold]
-Foothold --> Escalate[⬆️ Privilege Escalation]
+Recon[Reconnaissance] --> Exploit[Initial Exploit]
+Exploit --> Foothold[Establish Foothold]
+Foothold --> Escalate[Privilege Escalation]
 Escalate --> Lateral[↔️ Lateral Movement]
-Lateral --> Exfil[📤 Data Exfiltration]
-Exfil --> Impact[💀 Impact]:::danger
-Detect([🚨 Detection]):::warning -.-> Foothold
+Lateral --> Exfil[Data Exfiltration]
+Exfil --> Impact[Impact]:::danger
+Detect([Detection]):::warning -.-> Foothold
 Detect -.-> Lateral
 Detect -.-> Exfil

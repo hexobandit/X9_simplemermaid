@@ -1,18 +1,18 @@
 flowchart TB
 subgraph External
-User[👤 User]
-Device[💻 Device]
+User[User]
+Device[Device]
 end
 subgraph ZeroTrust [Zero Trust Architecture]
-IDP[🔐 Identity Provider]
-MFA[📱 MFA]
-Policy[📋 Policy Engine]
-Access[🚪 Access Proxy]
+IDP[Identity Provider]
+MFA[MFA]
+Policy[Policy Engine]
+Access[Access Proxy]
 end
 subgraph Resources
-App1[📦 App 1]
-App2[📦 App 2]
-Data[(🗄️ Data)]
+App1[App 1]
+App2[App 2]
+Data[(Data)]
 end
 User --> IDP
 Device --> IDP

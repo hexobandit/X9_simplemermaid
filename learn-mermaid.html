@@ -631,7 +631,7 @@
         }
         
         .footer-links a::before {
-            content: '▶';
+            content: '▸';
             position: absolute;
             left: -15px;
             opacity: 0;
@@ -966,6 +966,7 @@
 </script>
 
 <body>
+<script src="icons.js"></script>
     <a href="#main-content" class="skip-link">Skip to content</a>
     <!-- Navigation Header -->
     <header class="sm-header">
@@ -1000,7 +1001,7 @@
         <div class="content-container">
             <!-- Hero Section -->
             <div class="learn-hero">
-                <h1>🚀 Master Mermaid.js Diagrams</h1>
+                <h1><svg class="icon" aria-hidden="true"><use href="#ico-rocket"/></svg> Master Mermaid.js Diagrams</h1>
                 <p>Transform your ideas into beautiful diagrams with the simplest syntax you'll ever learn</p>
             </div>
             
@@ -1018,17 +1019,17 @@
 
                 <div class="tutorial-grid">
                     <div class="tutorial-card">
-                        <h3>📝 Text-Based</h3>
+                        <h3><svg class="icon" aria-hidden="true"><use href="#ico-edit"/></svg> Text-Based</h3>
                         <p>Write diagrams as code using intuitive syntax. No dragging, no clicking - just type and see your diagram appear.</p>
                     </div>
 
                     <div class="tutorial-card">
-                        <h3>⚡ Instant Rendering</h3>
+                        <h3><svg class="icon" aria-hidden="true"><use href="#ico-bolt"/></svg> Instant Rendering</h3>
                         <p>Watch your diagrams come to life in real-time as you type. Perfect for rapid prototyping and quick iterations.</p>
                     </div>
 
                     <div class="tutorial-card">
-                        <h3>🎨 Professional Output</h3>
+                        <h3><svg class="icon" aria-hidden="true"><use href="#ico-palette"/></svg> Professional Output</h3>
                         <p>Generate beautiful, publication-ready diagrams that look great in documentation, presentations, and reports.</p>
                     </div>
                 </div>
@@ -1042,7 +1043,7 @@
                 </div>
                 
                 <div class="syntax-guide">
-                    <h3>🔰 Your First Diagram</h3>
+                    <h3><svg class="icon" aria-hidden="true"><use href="#ico-check-circle"/></svg> Your First Diagram</h3>
                     <p>Every Mermaid diagram starts with declaring its type. Here's the simplest flowchart:</p>
                     
                     <div class="code-block">flowchart TD
@@ -1058,21 +1059,21 @@ B --> C[End]</div>
                     
                     <ul class="practice-list">
                         <li>
-                            <span class="practice-icon">📍</span>
+                            <span class="practice-icon"><svg class="icon" aria-hidden="true"><use href="#ico-pin"/></svg></span>
                             <div class="practice-content">
                                 <h4>Direction</h4>
                                 <p><code class="code-inline">TD</code> = Top Down, <code class="code-inline">LR</code> = Left Right, <code class="code-inline">BT</code> = Bottom Top, <code class="code-inline">RL</code> = Right Left</p>
                             </div>
                         </li>
                         <li>
-                            <span class="practice-icon">📦</span>
+                            <span class="practice-icon"><svg class="icon" aria-hidden="true"><use href="#ico-box"/></svg></span>
                             <div class="practice-content">
                                 <h4>Node Syntax</h4>
                                 <p><code class="code-inline">A[Text]</code> creates a rectangle node with label "Text"</p>
                             </div>
                         </li>
                         <li>
-                            <span class="practice-icon">➡️</span>
+                            <span class="practice-icon"><svg class="icon" aria-hidden="true"><use href="#ico-arrow-right"/></svg></span>
                             <div class="practice-content">
                                 <h4>Connections</h4>
                                 <p><code class="code-inline">--></code> creates an arrow between nodes</p>
@@ -1091,7 +1092,7 @@ B --> C[End]</div>
                 
                 <div class="tutorial-grid">
                     <div id="flowchart" class="tutorial-card">
-                        <h3>📊 Flowchart</h3>
+                        <h3><svg class="icon" aria-hidden="true"><use href="#ico-chart"/></svg> Flowchart</h3>
                         <p>Perfect for processes, workflows, and decision trees</p>
                         <div class="code-block">flowchart LR
     Start --> Process
@@ -1101,7 +1102,7 @@ B --> C[End]</div>
                     </div>
                     
                     <div id="sequence" class="tutorial-card">
-                        <h3>🔄 Sequence Diagram</h3>
+                        <h3><svg class="icon" aria-hidden="true"><use href="#ico-refresh"/></svg> Sequence Diagram</h3>
                         <p>Ideal for showing interactions between systems or components</p>
                         <div class="code-block">sequenceDiagram
     User->>Server: Request
@@ -1111,7 +1112,7 @@ B --> C[End]</div>
                     </div>
                     
                     <div id="gantt" class="tutorial-card">
-                        <h3>📅 Gantt Chart</h3>
+                        <h3><svg class="icon" aria-hidden="true"><use href="#ico-calendar"/></svg> Gantt Chart</h3>
                         <p>Great for project timelines and task scheduling</p>
                         <div class="code-block">gantt
     title Project Plan
@@ -1123,7 +1124,7 @@ B --> C[End]</div>
                     </div>
                     
                     <div id="class" class="tutorial-card">
-                        <h3>🏗️ Class Diagram</h3>
+                        <h3><svg class="icon" aria-hidden="true"><use href="#ico-layers"/></svg> Class Diagram</h3>
                         <p>Essential for object-oriented design and system architecture</p>
                         <div class="code-block">classDiagram
     class User {
@@ -1139,7 +1140,7 @@ B --> C[End]</div>
                     </div>
                     
                     <div class="tutorial-card">
-                        <h3>🔀 State Diagram</h3>
+                        <h3><svg class="icon" aria-hidden="true"><use href="#ico-shuffle"/></svg> State Diagram</h3>
                         <p>Show state transitions and system behavior</p>
                         <div class="code-block">stateDiagram
     [*] --> Idle
@@ -1150,7 +1151,7 @@ B --> C[End]</div>
                     </div>
                     
                     <div class="tutorial-card">
-                        <h3>🗄️ Entity Relationship</h3>
+                        <h3><svg class="icon" aria-hidden="true"><use href="#ico-database"/></svg> Entity Relationship</h3>
                         <p>Design database schemas and relationships</p>
                         <div class="code-block">erDiagram
     CUSTOMER ||--o{ ORDER : places
@@ -1168,7 +1169,7 @@ B --> C[End]</div>
                 </div>
                 
                 <div class="syntax-guide">
-                    <h3>🔷 Basic Shapes</h3>
+                    <h3><svg class="icon" aria-hidden="true"><use href="#ico-diamond"/></svg> Basic Shapes</h3>
                     <p>Surround text with different brackets to create various shapes:</p>
                     
                     <table class="syntax-table">
@@ -1283,7 +1284,7 @@ B --> C[End]</div>
                 
                 <div class="example-container">
                     <div class="example-header">
-                        <span class="example-title">🎨 Custom Colors & Styles</span>
+                        <span class="example-title"><svg class="icon" aria-hidden="true"><use href="#ico-palette"/></svg> Custom Colors & Styles</span>
                         <a href="mermaid-tool.html#diagram=GYGw9g7gxgFghgJwC4AIAqARAUC3KCCA2gHJgIC2cIKpAJgKYC6OeAQoQMoCuUU9Azv0YAuUfx59BLXAGFCAdUQA7AJZKA5iNERla9dJQZCAUQQIyW4fTNkDBqCDiCM9YCnG8B-FMBUgQwgDEAKxQAEYAHKEANPxI5gDW9EEAzPQR9AAsAIyx8WBJALQQKrRIMMIATAAOAB7RUGDgCEHAbfaOzq4oOgiqGj5+AYHAAAxwtJn0eYnJgfRQAJwA7NnAMwX0xaXlVXUNTWSt7XgoDk78Lm7W5giD-kG0i8Epmetxs0FLKaOVUBtFEplCo1eqNZrHYB2U74FCFQoAPhQrAMsPhSJkqLhiMMQA" class="try-button">Try in Editor →</a>
                     </div>
                     
@@ -1306,7 +1307,7 @@ B --> C[End]</div>
                 
                 <div class="example-container">
                     <div class="example-header">
-                        <span class="example-title">📦 Subgraphs for Organization</span>
+                        <span class="example-title"><svg class="icon" aria-hidden="true"><use href="#ico-box"/></svg> Subgraphs for Organization</span>
                     </div>
                     
                     <p>Group related nodes using subgraphs:</p>
@@ -1529,7 +1530,7 @@ flowchart LR
 
                 <ul class="practice-list">
                     <li>
-                        <span class="practice-icon">✅</span>
+                        <span class="practice-icon"><svg class="icon" aria-hidden="true"><use href="#ico-check-circle"/></svg></span>
                         <div class="practice-content">
                             <h4>Use Descriptive Labels</h4>
                             <p>Instead of abstract identifiers like A, B, C, use meaningful names that describe what each node represents: User, AuthService, PostgresDB. A reader should understand the diagram without needing a legend. For connection labels, use action verbs: "authenticates," "queries," "returns" rather than generic terms like "connects to."</p>
@@ -1537,7 +1538,7 @@ flowchart LR
                     </li>
 
                     <li>
-                        <span class="practice-icon">✅</span>
+                        <span class="practice-icon"><svg class="icon" aria-hidden="true"><use href="#ico-check-circle"/></svg></span>
                         <div class="practice-content">
                             <h4>Break Complex Diagrams</h4>
                             <p>If your diagram has more than 15-20 nodes, it's probably trying to show too much at once. Split it into focused views: a high-level system overview, a detailed authentication flow, a data pipeline diagram. Each diagram should answer one question clearly rather than trying to document everything in a single image.</p>
@@ -1545,7 +1546,7 @@ flowchart LR
                     </li>
 
                     <li>
-                        <span class="practice-icon">✅</span>
+                        <span class="practice-icon"><svg class="icon" aria-hidden="true"><use href="#ico-check-circle"/></svg></span>
                         <div class="practice-content">
                             <h4>Use Consistent Direction</h4>
                             <p>Pick a flow direction that matches the mental model of your audience. Top-down (TD) works well for hierarchical processes and decision trees. Left-to-right (LR) is natural for sequential workflows and timelines. Whichever you choose, be consistent across your project's diagrams so readers can build intuition.</p>
@@ -1553,7 +1554,7 @@ flowchart LR
                     </li>
 
                     <li>
-                        <span class="practice-icon">✅</span>
+                        <span class="practice-icon"><svg class="icon" aria-hidden="true"><use href="#ico-check-circle"/></svg></span>
                         <div class="practice-content">
                             <h4>Apply Color Coding</h4>
                             <p>Use colors to convey meaning, not just for decoration. Establish a consistent palette: green for success paths, red for error states, blue for external services, gray for optional steps. Document your color conventions so the whole team uses them consistently. Use classDef to define reusable styles.</p>
@@ -1561,7 +1562,7 @@ flowchart LR
                     </li>
 
                     <li>
-                        <span class="practice-icon">✅</span>
+                        <span class="practice-icon"><svg class="icon" aria-hidden="true"><use href="#ico-check-circle"/></svg></span>
                         <div class="practice-content">
                             <h4>Group Related Items</h4>
                             <p>Use subgraphs to create visual boundaries that mirror your system's architecture. Group nodes by service, by team ownership, by deployment environment, or by security boundary. This makes large diagrams scannable and helps readers quickly find the section relevant to them.</p>
@@ -1569,7 +1570,7 @@ flowchart LR
                     </li>
 
                     <li>
-                        <span class="practice-icon">✅</span>
+                        <span class="practice-icon"><svg class="icon" aria-hidden="true"><use href="#ico-check-circle"/></svg></span>
                         <div class="practice-content">
                             <h4>Label Important Connections</h4>
                             <p>Not every arrow needs a label, but critical transitions should be annotated. Decision branches should always show the condition (Yes/No, Success/Failure). API calls should show the method and endpoint. Data flows should indicate what data is being passed. When in doubt, add the label; a slightly verbose diagram is better than an ambiguous one.</p>
@@ -1622,7 +1623,7 @@ flowchart LR
                     <h2>Ready to Create?</h2>
                     <p style="font-size: 1.125rem; margin: 1rem 0;">Start creating beautiful diagrams with what you've learned</p>
                     <a href="mermaid-tool.html" class="nav-cta" style="display: inline-block; margin: 1rem; padding: 1rem 2rem; font-size: 1.125rem;">
-                        🚀 Open SimpleMermaid Editor
+                        <svg class="icon" aria-hidden="true"><use href="#ico-rocket"/></svg> Open SimpleMermaid Editor
                     </a>
                 </div>
             </section>
@@ -1707,7 +1708,7 @@ flowchart LR
         const savedTheme = localStorage.getItem('simplemermaid-theme') || 'light';
         html.setAttribute('data-theme', savedTheme);
         body.setAttribute('data-theme', savedTheme);
-        themeToggle.textContent = savedTheme === 'light' ? '☀️' : '🌙';
+        themeToggle.innerHTML = smIcon(savedTheme === 'light' ? 'sun' : 'moon');
 
         themeToggle.addEventListener('click', () => {
             const currentTheme = html.getAttribute('data-theme');
@@ -1715,7 +1716,7 @@ flowchart LR
 
             html.setAttribute('data-theme', newTheme);
             body.setAttribute('data-theme', newTheme);
-            themeToggle.textContent = newTheme === 'light' ? '☀️' : '🌙';
+            themeToggle.innerHTML = smIcon(newTheme === 'light' ? 'sun' : 'moon');
             localStorage.setItem('simplemermaid-theme', newTheme);
 
             // Update try-button links with new theme
