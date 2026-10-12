@@ -163,8 +163,10 @@ The feature set already clears the free-clone bar (64 templates vs. their "36+",
 ### ❌ 2.17 Lightweight syntax autocomplete ✍️ — PARKED (owner decision 2026-08-17)
 Syntax highlight / error / suggestion tooling has been a repeated source of pain in this codebase (see 2.3/2.4 — the contenteditable+Prism layer is already fragile). Owner: don't build autocomplete unless we're genuinely confident it can be done without destabilizing the editor. Revisit only after 2.3/2.4 have shipped and been stable for a while.
 
-### ❌ 2.18 Mermaid theme presets 🎨 — REJECTED (owner decision 2026-08-17)
-Multiple themes caused problems in the past; light + dark are deliberately the only modes. Do not add Dracula/Nord/etc.
+### ✅ 2.18 Mermaid theme presets 🎨 — REOPENED & SHIPPED as native Mermaid themes (v1.9.0, owner OK 2026-10-12)
+History: the 2025 attempt recoloured light SVGs with `!important` CSS and a theme could be paired with the wrong background, so it was rejected 2026-08-17.
+Root cause found 2026-10-12: those CSS overrides (they also flattened Gantt bars) plus theme/surface mismatch. New approach: Mermaid's *own* themes (Default, Neutral, Forest, Dark — `base` is a blank canvas, deliberately omitted) selected via a picker in the preview header, each rendered on a matching surface (`data-diagram-surface`, `--diagram-bg`), exports use that surface. Legacy dark overrides are scoped to Auto mode only (`html[data-diagram="auto"]`).
+Guard rails: `tests.html` "Diagram themes" group + the qa-editor theme × app-mode contrast matrix (`themes.js`). Still out of scope: Dracula/Nord-style custom palettes.
 
 ### 2.19 "What's new in Mermaid" content surface 🆕
 Mermaid is shipping fast (11.13–11.16 added Venn, Ishikawa, Event Modeling, Cynefin, Railroad, Swimlane) and almost nobody covers releases in plain English — low-competition freshness queries ("mermaid venn diagram", "mermaid swimlane syntax") plus a reason for repeat visits.
@@ -220,7 +222,7 @@ Competitors ship "describe → diagram" AI generation. A hosted implementation n
 
 An external competitor audit (partial page extraction, so it under-read our feature set) raised five points. Disposition:
 
-- **Feature bar (Monaco, templates, export, privacy)** — mostly a *messaging* gap, not a feature gap: we already have 64 templates (they cite 36+ as the bar), PNG/SVG/PDF export, live error reporting, and a genuine 100% client-side story. → 2.16 (messaging, do first — it's hours, not days). Monaco itself: rejected. Autocomplete (2.17) parked and theme presets (2.18) rejected by owner — past pain with syntax tooling and multi-theme support outweighs the competitive pressure. Error *line markers* (2.5) stay planned but inherit the same caution: it touches the fragile editor layer, so bundle with 2.3/2.4.
+- **Feature bar (Monaco, templates, export, privacy)** — mostly a *messaging* gap, not a feature gap: we already have 64 templates (they cite 36+ as the bar), PNG/SVG/PDF export, live error reporting, and a genuine 100% client-side story. → 2.16 (messaging, do first — it's hours, not days). Monaco itself: rejected. Autocomplete (2.17) parked; theme presets (2.18) were first rejected, then reopened and shipped as native Mermaid themes (v1.9.0). Syntax-tooling pain still outweighs the competitive pressure for autocomplete. Error *line markers* (2.5) stay planned but inherit the same caution: it touches the fragile editor layer, so bundle with 2.3/2.4.
 - **AI generation** — real trend, strategic cost. → 3.8 decision gate (BYO-key variant preserves the privacy story).
 - **Tool-pages per diagram type beat blog posts** — accepted; extends 2.12 with a per-type tier (flowchart/sequence/ER/Gantt first). Do 3.1 (shared assets) first or accept the copy-paste tax consciously — every new page deepens it.
 - **Navigational domains** (mermaideditor.com-style type-in capture) — business decision, not a code task: ~$10–40/yr per domain, 301-redirect to the site. Owner's call; no plan item.
@@ -231,7 +233,7 @@ An external competitor audit (partial page extraction, so it under-read our feat
 1. **Week 1:** All of Phase 1 (each task is independent — highly parallelizable across dev models).
 2. **Week 2–3:** 2.1 → 2.2 (compliance then revenue), 2.3 + 2.4 together (same code), 2.7 (mobile), 2.10–2.11 (funnel + measurement).
 3. **Week 4+:** Remaining Phase 2 by taste, then 3.1 (pay down duplication before adding more pages), then the rest of Phase 3 guided by analytics from 2.11.
-4. **From the 2026-08-17 competitive review:** 2.16 (messaging) and 2.19's first article are the cheap immediate wins — do them next regardless of other sequencing. 2.12's per-type tool pages ideally wait on 3.1; 3.8 and the domain question wait on data/owner decision. (2.17 parked, 2.18 rejected — owner call.)
+4. **From the 2026-08-17 competitive review:** 2.16 (messaging) and 2.19's first article are the cheap immediate wins — do them next regardless of other sequencing. 2.12's per-type tool pages ideally wait on 3.1; 3.8 and the domain question wait on data/owner decision. (2.17 parked; 2.18 shipped in v1.9.0 after the owner reopened it.)
 
 ## Verified facts behind this plan (2026-07-07 audit)
 

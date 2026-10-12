@@ -124,6 +124,14 @@
                 "@type": "Answer",
                 "text": "Click Share in the editor to get a link. The diagram is encoded in the URL, so anyone who opens the link sees exactly what you made and can edit their own copy."
             }
+        },
+        {
+            "@type": "Question",
+            "name": "Can I highlight or draw on my diagram?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Press D (or click the highlighter button) in the editor to draw on top of your diagram with a highlighter or pen in six colors, with an eraser and undo/redo. Drawings stay aligned when you zoom or pan, and PNG, SVG and PDF exports include them unless you untick Include my drawings."
+            }
         }
     ]
 }
@@ -265,6 +273,9 @@
   .sec-body p { color: #d1d5db; line-height: 1.75; font-size: 1.05rem; margin-bottom: 1rem; }
   .sec a, .site-footer a { color: var(--primary-soft); text-decoration: none; }
   .sec a:hover { text-decoration: underline; }
+  .sec a.btn-primary { color: #7c3aed; }
+  .sec a.btn-ghost { color: #fff; }
+  .sec a.btn:hover { text-decoration: none; }
   .sec code { font-family: var(--mono); background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border); border-radius: 6px; padding: 0.05rem 0.4rem; font-size: 0.88em; color: #e5e7eb; }
   .cta-row { display: flex; gap: 0.9rem; justify-content: center; flex-wrap: wrap; margin-top: 1.8rem; }
   .cta-row a:hover { text-decoration: none; }
@@ -335,6 +346,33 @@
   .site-footer a:hover { color: #fff; text-decoration: underline; }
   .site-footer-bottom { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.85rem; }
   body.past-scene .statusbar { opacity: 0; pointer-events: none; }
+
+  /* drawing showcase */
+  .showcase { display: grid; grid-template-columns: 1fr 1.05fr; gap: 2.6rem; align-items: center; margin-top: 2.6rem; text-align: left; }
+  .showcase ul { list-style: none; padding: 0; margin: 0 0 1.6rem; }
+  .showcase li { display: flex; gap: 0.8rem; align-items: flex-start; margin-bottom: 1rem; color: #d1d5db; line-height: 1.6; }
+  .showcase li .icon { margin-top: 0.2rem; color: var(--primary-soft); width: 1.25rem; height: 1.25rem; }
+  .showcase li strong { color: #fff; }
+  .showcase kbd { font-family: var(--mono); font-size: 0.82em; padding: 0.1rem 0.45rem; border: 1px solid var(--border); border-bottom-width: 2px; border-radius: 6px; background: rgba(255, 255, 255, 0.06); color: #e5e7eb; }
+  .demo-card { background: linear-gradient(180deg, rgba(22, 34, 60, 0.9), rgba(13, 21, 38, 0.95)); border: 1px solid var(--border); border-radius: 20px; padding: 0.8rem; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35); }
+  .demo-bar { display: flex; align-items: center; gap: 0.4rem; padding: 0.2rem 0.4rem 0.7rem; }
+  .demo-bar i { width: 10px; height: 10px; border-radius: 50%; background: #374151; }
+  .demo-bar span { margin-left: auto; font-family: var(--mono); font-size: 0.7rem; color: var(--muted); letter-spacing: 0.04em; }
+  .demo-card svg.demo { display: block; width: 100%; height: auto; border-radius: 12px; background: #0d1526; }
+  .demo .n { fill: #131b30; stroke: #818cf8; stroke-width: 1.6; }
+  .demo .t { fill: #e5e7eb; font: 600 13px var(--font); text-anchor: middle; dominant-baseline: central; }
+  .demo .e { stroke: #94a3b8; stroke-width: 1.5; fill: none; }
+  .demo .l { fill: #9ca3af; font: 500 11px var(--font); text-anchor: middle; }
+  .demo .mk { fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; opacity: 0; }
+  .demo .mk1 { stroke: #facc15; stroke-width: 22; animation: mk1 8s ease-in-out infinite; }
+  .demo .mk2 { stroke: #ef4444; stroke-width: 4; animation: mk2 8s ease-in-out infinite; }
+  .demo .mk3 { stroke: #4ade80; stroke-width: 14; animation: mk3 8s ease-in-out infinite; }
+  @keyframes mk1 { 0% { stroke-dashoffset: 1; opacity: .45 } 3% { opacity: .45 } 18% { stroke-dashoffset: 0; opacity: .45 } 88% { stroke-dashoffset: 0; opacity: .45 } 96% { stroke-dashoffset: 0; opacity: 0 } 100% { stroke-dashoffset: 1; opacity: 0 } }
+  @keyframes mk2 { 0%, 18% { stroke-dashoffset: 1; opacity: 1 } 40% { stroke-dashoffset: 0; opacity: 1 } 88% { stroke-dashoffset: 0; opacity: 1 } 96% { stroke-dashoffset: 0; opacity: 0 } 100% { stroke-dashoffset: 1; opacity: 0 } }
+  @keyframes mk3 { 0%, 40% { stroke-dashoffset: 1; opacity: .45 } 58% { stroke-dashoffset: 0; opacity: .45 } 88% { stroke-dashoffset: 0; opacity: .45 } 96% { stroke-dashoffset: 0; opacity: 0 } 100% { stroke-dashoffset: 1; opacity: 0 } }
+  @media (max-width: 860px) { .showcase { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: reduce) { .demo .mk { animation: none; stroke-dashoffset: 0; opacity: .6; } .demo .mk2 { opacity: 1; } }
+
   html.no-3d .seo-content { box-shadow: none; }
 
   @media (max-width: 900px) {
@@ -931,7 +969,7 @@
       <div class="cta-actions">
         <a class="btn btn-primary" href="mermaid-tool.html"><svg class="icon" aria-hidden="true"><use href="#ico-rocket"/></svg> Start Creating</a>
       </div>
-      <p class="hero-badges"><b>64</b> templates · PNG / SVG / PDF export · <b>100%</b> in your browser</p>
+      <p class="hero-badges"><b>64</b> templates · draw &amp; highlight · PNG / SVG / PDF export · <b>100%</b> in your browser</p>
       <p class="scroll-hint"><b>↓</b> Scroll — dive into the flow</p>
     </div>
   </section>
@@ -1062,6 +1100,40 @@
       <p class="sec-note">Want inspiration first? Browse the <a href="guides/diagram-gallery.html">diagram gallery</a>, read the <a href="guides/best-practices.html">best practices guide</a> or see <a href="guides/use-cases.html">real-world use cases</a>.</p>
     </section>
 
+    <section class="sec" id="draw-on-diagrams">
+      <div class="sec-head">
+        <h2>Mark it up <em>like a whiteboard</em></h2>
+        <p class="sec-sub">Circle the risky service, highlight the happy path, then export the diagram with your marks on it.</p>
+      </div>
+      <div class="showcase">
+        <div>
+          <ul>
+            <li><svg class="icon" aria-hidden="true"><use href="#ico-highlighter"/></svg><span><strong>Highlighter and pen.</strong> Six colors, an eraser, and undo/redo. Press <kbd>D</kbd> and start drawing right on top of your diagram.</span></li>
+            <li><svg class="icon" aria-hidden="true"><use href="#ico-move"/></svg><span><strong>Marks stay put.</strong> Zoom in, drag the canvas with the right mouse button, resize the window. Your highlights stay exactly where you drew them.</span></li>
+            <li><svg class="icon" aria-hidden="true"><use href="#ico-export"/></svg><span><strong>Export with your drawings.</strong> PNG, SVG and PDF include your marks. Prefer a clean copy? Untick one box.</span></li>
+            <li><svg class="icon" aria-hidden="true"><use href="#ico-lock"/></svg><span><strong>Still private.</strong> Drawings are saved in your browser with the tab, like everything else.</span></li>
+          </ul>
+          <a class="btn btn-primary" href="mermaid-tool.html"><svg class="icon" aria-hidden="true"><use href="#ico-highlighter"/></svg> Try drawing in the editor</a>
+        </div>
+        <div class="demo-card" aria-hidden="true">
+          <div class="demo-bar"><i></i><i></i><i></i><span>draw mode</span></div>
+          <svg class="demo" viewBox="0 0 440 290" role="img" focusable="false">
+            <defs><marker id="dm-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#94a3b8"/></marker></defs>
+            <rect class="n" x="170" y="14" width="100" height="34" rx="6"/><text class="t" x="220" y="31">Start</text>
+            <path class="e" d="M220 48V86" marker-end="url(#dm-arrow)"/>
+            <path class="n" d="M220 88L292 128L220 168L148 128Z"/><text class="t" x="220" y="128">Decision</text>
+            <path class="e" d="M262 152L320 212" marker-end="url(#dm-arrow)"/><text class="l" x="312" y="178">Yes</text>
+            <path class="e" d="M178 152L118 212" marker-end="url(#dm-arrow)"/><text class="l" x="128" y="178">No</text>
+            <rect class="n" x="262" y="216" width="116" height="34" rx="6"/><text class="t" x="320" y="233">Process</text>
+            <rect class="n" x="62" y="216" width="116" height="34" rx="6"/><text class="t" x="120" y="233">End</text>
+            <path class="mk mk1" pathLength="1" d="M136 128Q220 116 304 130"/>
+            <path class="mk mk2" pathLength="1" d="M252 232C250 202 392 200 396 232C399 266 254 268 252 232Z"/>
+            <path class="mk mk3" pathLength="1" d="M66 262L176 264"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
     <section class="sec">
       <div class="sec-head">
         <h2>Why people <em>use SimpleMermaid</em></h2>
@@ -1091,6 +1163,7 @@
         <div class="sx-card"><h3>Which diagram types does SimpleMermaid support?</h3><p>Everything Mermaid.js supports, including flowcharts, sequence diagrams, class diagrams, state diagrams, entity relationship diagrams, Gantt charts and user journeys. The editor ships with 64 ready-made templates to start from.</p></div>
         <div class="sx-card"><h3>Are my diagrams uploaded to a server?</h3><p>No. Diagrams are rendered and stored in your browser. When you share a diagram, the whole diagram is compressed into the link itself, so there is nothing to upload and no account to create.</p></div>
         <div class="sx-card"><h3>How do I share a Mermaid diagram?</h3><p>Click Share in the editor to get a link. The diagram is encoded in the URL, so anyone who opens the link sees exactly what you made and can edit their own copy.</p></div>
+        <div class="sx-card"><h3>Can I highlight or draw on my diagram?</h3><p>Yes. Press D (or click the highlighter button) in the editor to draw on top of your diagram with a highlighter or pen in six colors, with an eraser and undo/redo. Drawings stay aligned when you zoom or pan, and PNG, SVG and PDF exports include them unless you untick Include my drawings.</p></div>
       </div>
       <p class="sec-note"><a href="faq.html">More questions and answers →</a></p>
     </section>

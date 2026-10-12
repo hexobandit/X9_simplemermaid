@@ -1,9 +1,9 @@
 # SimpleMermaid
 
-> SimpleMermaid is a free, browser-based editor for Mermaid.js diagrams. Write Mermaid code, see a live preview, share the diagram as a link (the diagram is stored in the URL), and export to PNG, SVG, PDF or Markdown. No signup; diagrams are processed locally in the browser.
+> SimpleMermaid is a free, browser-based editor for Mermaid.js diagrams. Write Mermaid code, see a live preview, share the diagram as a link (the diagram is stored in the URL), and export to PNG, SVG, PDF or Markdown. You can also draw on a diagram with a highlighter or pen and export it with your marks. No signup; diagrams are processed locally in the browser.
 
 ## Product
-- [Mermaid editor](https://simplemermaid.com/mermaid-tool.html): live preview, 64 ready-made templates, shareable links, export, light and dark themes
+- [Mermaid editor](https://simplemermaid.com/mermaid-tool.html): live preview, 64 ready-made templates, shareable links, highlighter and pen drawing layer, export, light/dark modes and Mermaid diagram themes
 - [Features and templates](https://simplemermaid.com/features.html): all features and every template in one place
 
 ## Learn
