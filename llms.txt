@@ -1,0 +1,23 @@
+# SimpleMermaid
+
+> SimpleMermaid is a free, browser-based editor for Mermaid.js diagrams. Write Mermaid code, see a live preview, share the diagram as a link (the diagram is stored in the URL), and export to PNG, SVG, PDF or Markdown. No signup; diagrams are processed locally in the browser.
+
+## Product
+- [Mermaid editor](https://simplemermaid.com/mermaid-tool.html): live preview, 64 ready-made templates, shareable links, export, light and dark themes
+- [Features and templates](https://simplemermaid.com/features.html): all features and every template in one place
+
+## Learn
+- [Learn Mermaid syntax](https://simplemermaid.com/learn-mermaid.html): tutorial for flowcharts, sequence, class, state, ER, Gantt and more
+- [Blog](https://simplemermaid.com/blog/): guides on diagram types, diagrams-as-code workflows, and Mermaid vs draw.io
+- [FAQ](https://simplemermaid.com/faq.html): common questions about the editor, sharing, privacy and export
+
+## Guides
+- [Diagram gallery](https://simplemermaid.com/guides/diagram-gallery.html)
+- [Diagram best practices](https://simplemermaid.com/guides/best-practices.html)
+- [Use cases](https://simplemermaid.com/guides/use-cases.html)
+- [Security threat modeling with Mermaid](https://simplemermaid.com/for/security-threat-modeling.html)
+
+## About
+- [About SimpleMermaid](https://simplemermaid.com/about.html)
+- [Changelog](https://simplemermaid.com/changelog.html)
+- [Privacy](https://simplemermaid.com/privacy.html)

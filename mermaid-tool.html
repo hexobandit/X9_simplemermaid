@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mermaid Editor with Live Preview & PNG/SVG/PDF Export — SimpleMermaid</title>
+    <title>Free Mermaid Live Editor: Preview & Export | SimpleMermaid</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     
     <!-- SEO Meta Tags -->
     <meta name="description" content="Free online Mermaid.js editor: live preview as you type, 64 ready-made templates, shareable links, and PNG/SVG/PDF export. 100% in your browser — no signup, no server.">
@@ -23,12 +24,39 @@
     <meta name="twitter:title" content="SimpleMermaid - Real-time Mermaid Diagram Editor">
     <meta name="twitter:description" content="Real-time Mermaid diagram editor with live preview, instant sharing, and export to PNG/SVG.">
     <meta name="twitter:image" content="https://simplemermaid.com/simplemermaid.png">
+    <meta name="twitter:creator" content="@simplemermaid">
+    <meta name="twitter:site" content="@simplemermaid">
     
     <!-- Additional SEO -->
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
     <link rel="canonical" href="https://simplemermaid.com/mermaid-tool.html">
     <meta name="theme-color" content="#6366f1">
     
+    <!-- Structured data: the editor itself -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "SimpleMermaid Mermaid Editor",
+        "url": "https://simplemermaid.com/mermaid-tool.html",
+        "description": "Free online Mermaid.js editor with live preview, 64 ready-made templates, shareable links, and PNG/SVG/PDF/Markdown export. Runs entirely in your browser.",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web Browser",
+        "isAccessibleForFree": true,
+        "browserRequirements": "Requires JavaScript",
+        "featureList": [
+            "Live preview as you type",
+            "64 ready-made diagram templates",
+            "Shareable links with the diagram stored in the URL",
+            "Export to PNG, SVG, PDF and Markdown",
+            "Light and dark themes",
+            "No signup; diagrams stay in your browser"
+        ],
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "publisher": { "@type": "Organization", "name": "SimpleMermaid.com", "url": "https://simplemermaid.com/", "logo": "https://simplemermaid.com/simplemermaid.png" }
+    }
+    </script>
+
     <!-- Google AdSense Account -->
     <meta name="google-adsense-account" content="ca-pub-8641410034592329">
 
@@ -566,6 +594,7 @@
             margin: 0 auto;
         }
 
+        .info-drawer-content h1,
         .info-drawer-content h2 {
             font-size: 1.3rem;
             color: var(--text-primary);
@@ -1805,7 +1834,7 @@ Or choose an example from the dropdown above!"
     <div class="info-drawer" id="infoDrawer">
         <button class="info-drawer-close" id="infoClose">Close</button>
         <div class="info-drawer-content">
-            <h2>SimpleMermaid Diagram Editor</h2>
+            <h1>SimpleMermaid Diagram Editor</h1>
             <p>Welcome to SimpleMermaid, a free real-time Mermaid.js editor for creating flowcharts, sequence diagrams, Gantt charts, class diagrams, state diagrams, entity relationship diagrams, and more. Write your diagram code on the left, see it render instantly on the right. No account required, and your diagrams never leave your browser.</p>
 
             <div class="info-drawer-grid">
