@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Changelog - SimpleMermaid Updates & Release Notes</title>
 
@@ -951,24 +952,61 @@
             <div class="changelog-hero">
                 <h1>Changelog</h1>
                 <p>Track all the updates, new features, and improvements to SimpleMermaid</p>
-                <div class="current-version">Current Version: 1.8.1</div>
+                <div class="current-version">Current Version: 1.9.0</div>
             </div>
 
             <!-- Intro Section -->
             <div class="content-section" style="margin-bottom: 2rem;">
                 <p>Welcome to the SimpleMermaid changelog. This page documents every update we ship, from major new features to subtle quality-of-life improvements. We believe in transparent development, so you can always see exactly what changed and why.</p>
-                <p>SimpleMermaid follows <a href="https://semver.org" target="_blank" style="color: var(--primary);">semantic versioning</a>: major versions introduce significant new capabilities, minor versions add features and improvements, and patch versions fix bugs. We ship updates regularly based on community feedback and our own roadmap.</p>
+                <p>SimpleMermaid follows <a href="https://semver.org" target="_blank" rel="noopener noreferrer" style="color: var(--primary);">semantic versioning</a>: major versions introduce significant new capabilities, minor versions add features and improvements, and patch versions fix bugs. We ship updates regularly based on community feedback and our own roadmap.</p>
             </div>
 
-            <!-- Version 1.8.1 - Latest -->
+            <!-- Version 1.9.0 - Latest -->
+            <article class="version-entry">
+                <div class="version-header">
+                    <div class="version-info">
+                        <span class="version-number">v1.9.0</span>
+                        <span class="version-date">October 12, 2026</span>
+                    </div>
+                    <span class="version-tag tag-latest">Latest</span>
+                </div>
+                <div class="version-content">
+                    <p style="color: var(--text-secondary); margin-bottom: 1rem;">Pan around big diagrams, highlight what matters like on a whiteboard, and export your drawings. Plus an important security fix.</p>
+                    <div class="change-category">
+                        <h3>New Features</h3>
+                        <ul>
+                            <li><span class="highlight-feature">Right-drag to pan</span> - Hold the right mouse button (or the middle one) and drag to move the diagram around. Click the zoom percentage to reset zoom and position</li>
+                            <li><span class="highlight-feature">Highlighter &amp; pen</span> - Press <code>D</code> or click the highlighter button to draw on top of your diagram: highlighter, pen, eraser, six colors, undo/redo and clear. Drawings stay glued to the diagram through zoom and pan, and are remembered per tab</li>
+                            <li><span class="highlight-feature">Export with drawings</span> - PNG, SVG and PDF exports include your drawings; untick &ldquo;Include my drawings&rdquo; in the export dialog to leave them out</li>
+                        </ul>
+                    </div>
+                    <div class="change-category">
+                        <h3>Security</h3>
+                        <ul>
+                            <li>Fixed a cross-site scripting issue: crafted diagram text could run script through the editor's error message. Error text is now always shown as plain text</li>
+                            <li>Saved and imported diagrams are validated, and the saved-diagram list no longer builds HTML from stored names or ids</li>
+                            <li>Oversized share links are refused instead of freezing the tab</li>
+                            <li>Third-party scripts are version-pinned with integrity checks everywhere, jsPDF is updated to a patched release, and every page now ships a baseline Content Security Policy</li>
+                        </ul>
+                    </div>
+                    <div class="change-category">
+                        <h3>Improvements</h3>
+                        <ul>
+                            <li>Exported image and PDF sizes no longer change with the on-screen zoom level</li>
+                            <li>The example diagrams no longer rely on emoji, so they look the same on every device</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Version 1.8.1 -->
             <article class="version-entry">
                 <div class="version-header">
                     <div class="version-info">
                         <span class="version-number">v1.8.1</span>
                         <span class="version-date">October 12, 2026</span>
                     </div>
-                    <span class="version-tag tag-latest">Latest</span>
-                </div>
+                                    </div>
                 <div class="version-content">
                     <p style="color: var(--text-secondary); margin-bottom: 1rem;">A polish release: readable text in both themes, a PNG export fix, and better discoverability.</p>
                     <div class="change-category">

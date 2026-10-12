@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
+    <meta http-equiv="Content-Security-Policy" content="object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>SimpleMermaid.com — Text in. Diagram out. Online Mermaid Editor</title>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -1138,6 +1139,9 @@
 {
   "imports": {
     "three": "https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js"
+  },
+  "integrity": {
+    "https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js": "sha384-AGb1dmc6iKzaUdiKzoPrjurf+KS2wBFi+pjOpaJcgaw+7KKLb6xukClmpc64hKhg"
   }
 }
 </script>

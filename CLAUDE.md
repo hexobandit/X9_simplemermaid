@@ -31,6 +31,7 @@ Single-file application containing all CSS, HTML, and JS:
 - CSS custom properties for theming (`:root` and `[data-theme="dark"]`) — token set aligned with `index.html` (indigo `#6366f1`/`#8b5cf6`, `--radius: 12px`, shared shadow scale, `--brand-gradient`)
 - SVG-specific dark theme overrides for Mermaid diagrams
 - **Shell layout**: left icon `.rail` (Save/My Diagrams/Clear/Layout, then Info/BMC/Theme pinned bottom) + a single `.topbar` (brand, category/example selects, version link, Export dropdown, Copy, gradient Share CTA), inside `.app-shell` > `.workspace`. Rail/topbar buttons **reuse the original element ids** so the `SimpleMermaid` class wiring is untouched — never rename these ids. Export uses a native `<details class="export-menu">` (no JS dependency). Icons are inline SVGs; the `ICONS` const (declared just above `class SimpleMermaid`) supplies the sun/moon/cols/rows glyphs that `toggleTheme`/`toggleLayout` swap in.
+- **Pan + draw layer**: right/middle-button drag pans (`setupPan()`, translate stored per tab next to zoom). `Annotator` class (just above `class SimpleMermaid`, instance `app.annotator`) draws highlighter/pen strokes inside the diagram's own `<svg>` (`g#sm-annot`, coordinates in diagram units) so zoom/pan/exports include them for free; `prepareExportSvg()` is the single place exports clone the SVG. Stroke data round-trips through localStorage, so it is validated by `Annotator.sanitize()` and only ever turned into DOM via `createElementNS` + `setAttribute` — never `innerHTML`.
 - Info drawer with SEO content (slide-up panel triggered by rail info button)
 - `SimpleMermaid` class - Main application controller (search for `class SimpleMermaid`); the instance is exposed as `window.app`
 - Embedded fallback examples JSON for file:// protocol support (search for `embeddedExamples`)
@@ -65,6 +66,11 @@ npx serve .
 
 ### Direct File Access
 Open `mermaid-tool.html` directly in browser - uses embedded examples as fallback.
+
+### Security conventions (OWASP)
+- Never put user-influenced text into `innerHTML` (diagram source, tab/diagram names, Mermaid error messages, imported JSON, localStorage). Use `textContent` / DOM APIs; `showError()` and the saved-diagrams list already do. Saved/imported diagrams go through `SimpleMermaid.sanitizeSavedDiagrams()`.
+- Every third-party script is version-pinned with `integrity` + `crossorigin` (compute with `openssl dgst -sha384 -binary file | openssl base64 -A`); never load `.../mermaid/dist/...` unpinned. Every `target="_blank"` needs `rel="noopener noreferrer"`. Pages ship a minimal CSP meta (`object-src 'none'; base-uri 'self'; form-action ...`).
+- `tests.html` has a Security group (XSS payloads, tampered storage, hostile import, size caps, SRI/CSP/noopener lint across the sitemap) — keep it green.
 
 ### Testing Changes
 - **Automated suite**: `tests.html` (repo root, dev-only, not deployed). Serve the folder (`python -m http.server`) and open `http://localhost:8000/tests.html`. It runs a zero-dependency in-browser harness: pure-logic LZ-String round-trip plus app-driven tests that load `mermaid-tool.html` in a hidden iframe and assert the **DOM-contract ids all resolve** and that `generateShareLink`/`formatErrorMessage`/`updateDiagramStats`/tabs/`toggleTheme` still work. It snapshots+restores `localStorage` so your saved work is untouched, shows a PASS/FAIL banner, and logs `TEST_SUMMARY:PASS|FAIL` to the console (for headless/CI scraping). Run it after any editor change — it's the regression net that proves a reskin didn't unwire the JS.

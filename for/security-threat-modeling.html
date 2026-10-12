@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mermaid for Security Threat Modeling - SimpleMermaid</title>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -998,7 +999,7 @@ Policy -.->|Continuous Validation| Access
     </footer>
 
     <!-- Mermaid render -->
-    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11.16.1/dist/mermaid.min.js" integrity="sha384-aBQXj4hK6Jm05i7aQAsUV3bLdSUrHX1BGYfMB0166TtWt/RRaw+h0Eelme9OCOvy" crossorigin="anonymous"></script>
 
     <script>
         // Theme + nav (mirrors the pattern on /guides/*)
