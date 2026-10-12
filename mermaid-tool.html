@@ -51,8 +51,10 @@
         /* CSS Variables for Theme System */
         :root {
             /* Brand — aligned with index.html (indigo/violet) */
-            --primary-color: #6366f1;
-            --primary-hover: #4f46e5;
+            --primary-color: #4f46e5;
+            --primary-hover: #4338ca;
+            --primary-text: #4f46e5;
+            --error-text: #b91c1c;
             --primary-soft: rgba(99, 102, 241, 0.12);
             --brand-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --success-color: #10b981;
@@ -65,8 +67,8 @@
             --bg-tertiary: #f1f5f9;
             --bg-canvas: #f4f5fb;
             --text-primary: #1f2937;
-            --text-secondary: #6b7280;
-            --text-muted: #9ca3af;
+            --text-secondary: #4b5563;
+            --text-muted: #5b6472;
             --border-color: #e5e7eb;
             --shadow-color: rgba(0, 0, 0, 0.1);
             --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -83,8 +85,10 @@
 
         /* Dark Theme */
         [data-theme="dark"] {
-            --primary-color: #8b5cf6;
-            --primary-hover: #7c3aed;
+            --primary-color: #7c3aed;
+            --primary-hover: #6d28d9;
+            --primary-text: #a78bfa;
+            --error-text: #f87171;
             --primary-soft: rgba(139, 92, 246, 0.18);
             --bg-primary: #111827;
             --bg-secondary: #1f2937;
@@ -92,7 +96,7 @@
             --bg-canvas: #0b1120;
             --text-primary: #f9fafb;
             --text-secondary: #d1d5db;
-            --text-muted: #9ca3af;
+            --text-muted: #b0b7c3;
             --border-color: #374151;
             --shadow-color: rgba(0, 0, 0, 0.3);
             --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
@@ -174,7 +178,7 @@
         .rail-btn svg { width: 20px; height: 20px; pointer-events: none; }
         .rail-btn:hover {
             background-color: var(--primary-soft);
-            color: var(--primary-color);
+            color: var(--primary-text);
         }
         .rail-btn img { border-radius: 4px; }
 
@@ -269,7 +273,7 @@
         }
 
         .version-link:hover {
-            color: var(--primary-color);
+            color: var(--primary-text);
             border-color: var(--primary-color);
             background: var(--primary-soft);
         }
@@ -460,7 +464,7 @@
         }
         
         .btn-success {
-            background-color: var(--success-color);
+            background-color: #047857;
             color: white;
         }
         
@@ -470,7 +474,7 @@
         }
         
         .btn-warning {
-            background-color: var(--warning-color);
+            background-color: #b45309;
             color: white;
         }
         
@@ -674,7 +678,7 @@
         }
 
         .diagram-stats .diagram-type {
-            color: var(--primary-color);
+            color: var(--primary-text);
             font-weight: 500;
         }
 
@@ -805,7 +809,7 @@
         }
 
         .tab-add-btn:hover {
-            color: var(--primary-color);
+            color: var(--primary-text);
             background-color: var(--bg-secondary);
         }
 
@@ -885,11 +889,11 @@
             white-space: pre-wrap;
         }
         .editor .token.comment    { color: var(--text-muted); font-style: italic; }
-        .editor .token.keyword    { color: var(--primary-color); font-weight: 600; }
+        .editor .token.keyword    { color: var(--primary-text); font-weight: 600; }
         .editor .token.string     { color: #16a34a; }
         [data-theme="dark"] .editor .token.string { color: #4ade80; }
         .editor .token.arrow,
-        .editor .token.operator   { color: #ea580c; }
+        .editor .token.operator   { color: #c2410c; }
         [data-theme="dark"] .editor .token.arrow,
         [data-theme="dark"] .editor .token.operator { color: #fb923c; }
         .editor .token.punctuation { color: var(--text-muted); }
@@ -944,7 +948,7 @@
         .zoom-btn:hover {
             background: var(--bg-secondary);
             border-color: var(--primary-color);
-            color: var(--primary-color);
+            color: var(--primary-text);
         }
 
         .zoom-btn:disabled {
@@ -961,7 +965,7 @@
         }
 
         .zoom-level:hover {
-            color: var(--primary-color);
+            color: var(--primary-text);
         }
 
         .preview.zoomed {
@@ -976,7 +980,7 @@
             border-radius: 0.375rem;
             padding: 1rem;
             margin: 1rem;
-            color: var(--error-color);
+            color: var(--error-text);
             font-size: 0.875rem;
             display: flex;
             align-items: center;
@@ -1196,6 +1200,25 @@
         [data-theme="dark"] .preview svg ellipse {
             fill: var(--bg-secondary) !important;
             stroke: var(--border-color) !important;
+        }
+
+        /* Gantt bars: the blanket rect rule above flattens every bar to one colour, which hid
+           the dark "done" text (#2c2c2c). Give each bar state its own fill with readable text. */
+        [data-theme="dark"] .preview svg rect.task {
+            fill: #6d5bd0 !important;
+            stroke: #a78bfa !important;
+        }
+        [data-theme="dark"] .preview svg rect.task[class*="active"] {
+            fill: #a78bfa !important;
+            stroke: #c4b5fd !important;
+        }
+        [data-theme="dark"] .preview svg rect.task[class*="crit"]:not([class*="done"]):not([class*="active"]) {
+            fill: #b91c1c !important;
+            stroke: #fca5a5 !important;
+        }
+        [data-theme="dark"] .preview svg rect.task[class*="done"] {
+            fill: #d1d5db !important;
+            stroke: #9ca3af !important;
         }
 
         /* Style path elements used as node shapes (Round Edges, Diamond, Angled Rectangle, etc.) */
@@ -1581,11 +1604,11 @@
                 '#smConsentBanner{position:fixed;left:50%;transform:translateX(-50%);bottom:12px;z-index:10010;max-width:560px;width:calc(100vw - 24px);background:var(--bg-primary,#fff);color:var(--text-primary,#1f2937);border:1px solid var(--border,var(--border-color,#e5e7eb));border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,.25);padding:1rem 1.25rem;font-size:.9rem;line-height:1.5;font-family:inherit}' +
                 '[data-theme="dark"] #smConsentBanner{background:var(--bg-secondary,#1f2937);color:var(--text-primary,#f9fafb)}' +
                 '#smConsentBanner p{margin:0}' +
-                '#smConsentBanner a{color:var(--primary,var(--primary-color,#6366f1));text-decoration:none;font-weight:600}' +
+                '#smConsentBanner a{color:var(--primary-text,#4f46e5);text-decoration:none;font-weight:600}' +
                 '.sm-consent-actions{display:flex;gap:.5rem;justify-content:flex-end;margin-top:.8rem;flex-wrap:wrap}' +
                 '.sm-consent-actions button{border-radius:8px;padding:.5rem 1.1rem;font-weight:600;cursor:pointer;font-size:.85rem;font-family:inherit}' +
-                '#smConsentAccept{background:#6366f1;color:#fff;border:1px solid #6366f1}' +
-                '#smConsentAccept:hover{background:#4f46e5}' +
+                '#smConsentAccept{background:#4f46e5;color:#fff;border:1px solid #4f46e5}' +
+                '#smConsentAccept:hover{background:#4338ca}' +
                 '#smConsentDecline{background:transparent;color:inherit;border:1px solid var(--border,var(--border-color,#9ca3af))}' +
                 '#smConsentDecline:hover{border-color:#6366f1;color:#6366f1}';
             document.head.appendChild(css);
@@ -1810,9 +1833,9 @@ Or choose an example from the dropdown above!"
 
             <p>SimpleMermaid supports all Mermaid.js diagram types including flowcharts, sequence diagrams, class diagrams, state diagrams, entity relationship diagrams, Gantt charts, pie charts, and user journey maps. The editor features dark mode for comfortable extended use, horizontal and vertical layout modes, resizable panels, and real-time syntax error reporting. All processing happens locally in your browser with no server-side dependencies, making it completely private and offline-capable.</p>
 
-            <p style="margin-top: 1rem;"><a href="learn-mermaid.html" style="color: var(--primary-color); text-decoration: none; font-weight: 600;">Learn Mermaid.js syntax &rarr;</a> &nbsp; <a href="blog/index.html" style="color: var(--primary-color); text-decoration: none; font-weight: 600;">Read our blog &rarr;</a> &nbsp; <a href="faq.html" style="color: var(--primary-color); text-decoration: none; font-weight: 600;">FAQ &rarr;</a></p>
+            <p style="margin-top: 1rem;"><a href="learn-mermaid.html" style="color: var(--primary-text); text-decoration: none; font-weight: 600;">Learn Mermaid.js syntax &rarr;</a> &nbsp; <a href="blog/index.html" style="color: var(--primary-text); text-decoration: none; font-weight: 600;">Read our blog &rarr;</a> &nbsp; <a href="faq.html" style="color: var(--primary-text); text-decoration: none; font-weight: 600;">FAQ &rarr;</a></p>
 
-            <p style="margin-top: 0.5rem;"><a href="guides/use-cases.html" style="color: var(--primary-color); text-decoration: none; font-weight: 600;">Use-case scenarios &rarr;</a> &nbsp; <a href="guides/best-practices.html" style="color: var(--primary-color); text-decoration: none; font-weight: 600;">Diagram best practices &rarr;</a> &nbsp; <a href="for/security-threat-modeling.html" style="color: var(--primary-color); text-decoration: none; font-weight: 600;">Threat model templates &rarr;</a> &nbsp; <a href="#" onclick="smConsent.manage(); return false;" style="color: var(--text-muted); text-decoration: none;">Cookie preferences</a></p>
+            <p style="margin-top: 0.5rem;"><a href="guides/use-cases.html" style="color: var(--primary-text); text-decoration: none; font-weight: 600;">Use-case scenarios &rarr;</a> &nbsp; <a href="guides/best-practices.html" style="color: var(--primary-text); text-decoration: none; font-weight: 600;">Diagram best practices &rarr;</a> &nbsp; <a href="for/security-threat-modeling.html" style="color: var(--primary-text); text-decoration: none; font-weight: 600;">Threat model templates &rarr;</a> &nbsp; <a href="#" onclick="smConsent.manage(); return false;" style="color: var(--text-muted); text-decoration: none;">Cookie preferences</a></p>
         </div>
     </div>
 
@@ -2091,6 +2114,11 @@ Or choose an example from the dropdown above!"
                 return {
                     startOnLoad: false,
                     theme: dark ? 'dark' : 'default',
+                    // Gantt (light): stock white-on-periwinkle bars are ~2.9:1. Dark bars are set in CSS
+                    // (`[data-theme="dark"] .preview svg rect.task`) because those rules use !important.
+                    themeVariables: dark
+                        ? {}
+                        : { taskBkgColor: '#5b5fd1', taskBorderColor: '#4338ca', critBkgColor: '#dc2626', critBorderColor: '#991b1b' },
                     securityLevel: 'strict', // Prevent script injection
                     htmlLabels: false, // Disable HTML in labels for security
                     flowchart: {
@@ -2943,6 +2971,7 @@ Or choose an example from the dropdown above!"
                     ctx.scale(scale, scale);
 
                     img.onload = () => {
+                        try {
                         // Fill background (skip entirely for transparent PNG)
                         const bgColor = this.resolveExportBackground();
                         if (bgColor) {
@@ -2974,12 +3003,16 @@ Or choose an example from the dropdown above!"
                                 reject(new Error('Failed to create PNG blob'));
                             }
                         }, 'image/png');
+                        } catch (error) {
+                            // e.g. SecurityError from a tainted canvas: reject instead of hanging forever
+                            reject(error);
+                        }
                     };
                     
                     img.onerror = () => reject(new Error('Failed to load SVG image'));
                     
                     // Convert SVG to data URL
-                    const svgData = new XMLSerializer().serializeToString(svg);
+                    const svgData = new XMLSerializer().serializeToString(this.rasterSafeSvg(svg));
                     const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
                     const url = URL.createObjectURL(svgBlob);
                     img.src = url;
@@ -3057,11 +3090,47 @@ Or choose an example from the dropdown above!"
                     img.onerror = () => reject(new Error('Failed to load SVG image for PDF'));
 
                     // Convert SVG to data URL
-                    const svgData = new XMLSerializer().serializeToString(svg);
+                    const svgData = new XMLSerializer().serializeToString(this.rasterSafeSvg(svg));
                     const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
                     const url = URL.createObjectURL(svgBlob);
                     img.src = url;
                 });
+            }
+
+            /**
+             * Clone of the diagram SVG that is safe to rasterize. <foreignObject> labels
+             * (journey sections, htmlLabels) taint the canvas, which makes toBlob throw, so
+             * they are swapped for plain SVG <text> centred in the same box.
+             */
+            rasterSafeSvg(svg) {
+                const clone = svg.cloneNode(true);
+                const live = svg.querySelectorAll('foreignObject');
+                clone.querySelectorAll('foreignObject').forEach((fo, i) => {
+                    const label = (fo.textContent || '').replace(/\s+/g, ' ').trim();
+                    if (label) {
+                        const src = live[i];
+                        const el = src.querySelector('div, span, p') || src;
+                        const cs = getComputedStyle(el);
+                        const x = parseFloat(fo.getAttribute('x')) || 0;
+                        const y = parseFloat(fo.getAttribute('y')) || 0;
+                        const w = parseFloat(fo.getAttribute('width')) || 0;
+                        const h = parseFloat(fo.getAttribute('height')) || 0;
+                        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                        text.setAttribute('x', x + w / 2);
+                        text.setAttribute('y', y + h / 2);
+                        text.setAttribute('text-anchor', 'middle');
+                        text.setAttribute('dominant-baseline', 'central');
+                        text.setAttribute('font-family', cs.fontFamily);
+                        text.setAttribute('font-size', cs.fontSize);
+                        text.setAttribute('font-weight', cs.fontWeight);
+                        text.setAttribute('fill', cs.color);
+                        text.textContent = label;
+                        fo.parentNode.replaceChild(text, fo);
+                    } else {
+                        fo.remove();
+                    }
+                });
+                return clone;
             }
 
             /**
