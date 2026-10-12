@@ -777,7 +777,7 @@
         "name": "Changelog - SimpleMermaid Updates & Release Notes",
         "description": "SimpleMermaid changelog and release notes. See the latest updates, new features, bug fixes, and improvements.",
         "url": "https://simplemermaid.com/changelog.html",
-        "dateModified": "2026-07-10",
+        "dateModified": "2026-10-12",
         "isPartOf": {
             "@type": "WebSite",
             "name": "SimpleMermaid",
@@ -950,7 +950,7 @@
             <div class="changelog-hero">
                 <h1>Changelog</h1>
                 <p>Track all the updates, new features, and improvements to SimpleMermaid</p>
-                <div class="current-version">Current Version: 1.8.0</div>
+                <div class="current-version">Current Version: 1.8.1</div>
             </div>
 
             <!-- Intro Section -->
@@ -959,14 +959,41 @@
                 <p>SimpleMermaid follows <a href="https://semver.org" target="_blank" style="color: var(--primary);">semantic versioning</a>: major versions introduce significant new capabilities, minor versions add features and improvements, and patch versions fix bugs. We ship updates regularly based on community feedback and our own roadmap.</p>
             </div>
 
-            <!-- Version 1.8.0 - Latest -->
+            <!-- Version 1.8.1 - Latest -->
+            <article class="version-entry">
+                <div class="version-header">
+                    <div class="version-info">
+                        <span class="version-number">v1.8.1</span>
+                        <span class="version-date">October 12, 2026</span>
+                    </div>
+                    <span class="version-tag tag-latest">Latest</span>
+                </div>
+                <div class="version-content">
+                    <p style="color: var(--text-secondary); margin-bottom: 1rem;">A polish release: readable text in both themes, a PNG export fix, and better discoverability.</p>
+                    <div class="change-category">
+                        <h3>Bug Fixes</h3>
+                        <ul>
+                            <li><span class="highlight-feature">PNG export hang</span> - Exporting a User Journey diagram as PNG (or PDF) no longer hangs; its labels are now rendered safely for image export</li>
+                            <li><span class="highlight-feature">Readable Gantt charts</span> - Done, active and critical task bars now keep readable text in light and dark themes (dark-theme "done" tasks were nearly invisible)</li>
+                        </ul>
+                    </div>
+                    <div class="change-category">
+                        <h3>Improvements</h3>
+                        <ul>
+                            <li>Higher-contrast muted text, links, buttons, toasts and the cookie banner in both light and dark themes</li>
+                            <li>Clearer page titles, richer link previews and an <code>llms.txt</code> so search and AI tools can find and describe SimpleMermaid</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Version 1.8.0 -->
             <article class="version-entry">
                 <div class="version-header">
                     <div class="version-info">
                         <span class="version-number">v1.8.0</span>
                         <span class="version-date">August 17, 2026</span>
                     </div>
-                    <span class="version-tag tag-latest">Latest</span>
                 </div>
                 <div class="version-content">
                     <p style="color: var(--text-secondary); margin-bottom: 1rem;">An export release: the quick Export dropdown grew into a proper export dialog — same two clicks for the default flow, with new knobs when you need them.</p>

@@ -99,6 +99,30 @@
                 "@type": "Answer",
                 "text": "Yes, SimpleMermaid is completely free. No registration, no limits, no watermarks. Create unlimited diagrams and share them with anyone."
             }
+        },
+        {
+            "@type": "Question",
+            "name": "Which diagram types does SimpleMermaid support?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Everything Mermaid.js supports, including flowcharts, sequence diagrams, class diagrams, state diagrams, entity relationship diagrams, Gantt charts and user journeys. The editor ships with 64 ready-made templates to start from."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Are my diagrams uploaded to a server?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No. Diagrams are rendered and stored in your browser. When you share a diagram, the whole diagram is compressed into the link itself, so there is nothing to upload and no account to create."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "How do I share a Mermaid diagram?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Click Share in the editor to get a link. The diagram is encoded in the URL, so anyone who opens the link sees exactly what you made and can edit their own copy."
+            }
         }
     ]
 }
@@ -206,6 +230,126 @@
   }
 
   .spacer { height: 560vh; }
+
+  /* ---------- crawlable content below the scroll scene ---------- */
+  .seo-content {
+    position: relative;
+    z-index: 25;
+    background:
+      radial-gradient(900px 420px at 50% 0%, rgba(99, 102, 241, 0.10), transparent 70%),
+      var(--bg);
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -40px 80px rgba(13, 18, 32, 0.9);
+  }
+  .seo-inner { max-width: 1080px; margin: 0 auto; padding: 1rem 6vw 4rem; }
+  .sec { padding: 4.5rem 0 0.5rem; text-align: center; }
+  .sec-head h2 {
+    font-size: clamp(1.9rem, 4.2vw, 2.9rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  .sec-head h2 em {
+    font-style: italic;
+    font-weight: 600;
+    padding-right: 0.12em;
+    background: linear-gradient(135deg, #818cf8 0%, #a78bfa 55%, #34d399 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .sec-sub { max-width: 600px; margin: 1rem auto 0; color: var(--muted); font-size: 1.02rem; line-height: 1.65; }
+  .sec-body { max-width: 720px; margin: 1.6rem auto 0; }
+  .sec-body p { color: #d1d5db; line-height: 1.75; font-size: 1.05rem; margin-bottom: 1rem; }
+  .sec a, .site-footer a { color: var(--primary-soft); text-decoration: none; }
+  .sec a:hover { text-decoration: underline; }
+  .sec code { font-family: var(--mono); background: rgba(255, 255, 255, 0.06); border: 1px solid var(--border); border-radius: 6px; padding: 0.05rem 0.4rem; font-size: 0.88em; color: #e5e7eb; }
+  .cta-row { display: flex; gap: 0.9rem; justify-content: center; flex-wrap: wrap; margin-top: 1.8rem; }
+  .cta-row a:hover { text-decoration: none; }
+
+  .sx-card {
+    background: linear-gradient(180deg, rgba(22, 34, 60, 0.85), rgba(16, 25, 46, 0.85));
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 1.5rem;
+    text-align: left;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .sx-card:hover { transform: translateY(-3px); border-color: rgba(129, 140, 248, 0.5); box-shadow: 0 18px 40px rgba(99, 102, 241, 0.18); }
+  .sx-card h3 { font-size: 1.1rem; font-weight: 650; margin: 0 0 0.5rem; color: #fff; }
+  .sx-card p { color: #c4cad6; font-size: 0.97rem; line-height: 1.65; margin: 0 0 0.7rem; }
+  .sx-card p:last-child { margin-bottom: 0; }
+
+  /* how it works: numbered steps joined by dashed connectors */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.6rem; margin-top: 2.6rem; }
+  .step { position: relative; text-align: center; }
+  .step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 2.9rem;
+    left: calc(100% - 0.2rem);
+    width: calc(1.6rem + 0.4rem);
+    border-top: 2px dashed rgba(129, 140, 248, 0.45);
+  }
+  .step-num {
+    width: 3.4rem; height: 3.4rem; margin: 0 auto 1rem; border-radius: 50%;
+    display: grid; place-items: center; font-family: var(--mono); font-weight: 600; font-size: 1.15rem; color: #fff;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6); box-shadow: 0 8px 22px rgba(99, 102, 241, 0.4);
+  }
+  .step h3 { text-align: center; }
+
+  .type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-top: 2.6rem; }
+  .chip {
+    display: inline-block; font-family: var(--mono); font-size: 0.78rem; color: #6ee7b7;
+    background: rgba(16, 185, 129, 0.10); border: 1px solid rgba(16, 185, 129, 0.28);
+    border-radius: 8px; padding: 0.25rem 0.6rem; margin-bottom: 0.9rem;
+  }
+
+  .bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.2rem; margin-top: 2.6rem; }
+  .bento .sx-card:nth-child(-n+2) { grid-column: span 3; }
+  .bento .sx-card:nth-child(n+3) { grid-column: span 2; }
+  .icon { width: 1.2em; height: 1.2em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+  .bento .ico {
+    display: grid; place-items: center; width: 3rem; height: 3rem; margin-bottom: 1rem; border-radius: 14px;
+    color: #c7d2fe; background: linear-gradient(135deg, rgba(99, 102, 241, 0.28), rgba(139, 92, 246, 0.16));
+    border: 1px solid rgba(129, 140, 248, 0.35);
+  }
+  .bento .ico .icon { width: 1.5rem; height: 1.5rem; }
+
+  .pull { margin: 3.5rem auto 0; max-width: 640px; font-size: clamp(1.25rem, 2.6vw, 1.7rem); font-weight: 600; line-height: 1.4; color: #e5e7eb; }
+  .pull em { font-style: italic; color: var(--primary-soft); }
+  .sec-note { max-width: 680px; margin: 1.4rem auto 0; color: #c4cad6; line-height: 1.7; font-size: 1rem; }
+
+  .faq-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; margin-top: 2.6rem; }
+
+  .site-footer { border-top: 1px solid var(--border); background: #0a0f1c; position: relative; z-index: 25; }
+  .site-footer-inner { max-width: 1080px; margin: 0 auto; padding: 2.5rem 6vw 1.5rem; }
+  .site-footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 2rem; }
+  .site-footer h3 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 0.8rem; }
+  .site-footer ul { list-style: none; padding: 0; margin: 0; }
+  .site-footer li { margin-bottom: 0.45rem; }
+  .site-footer a { color: #d1d5db; font-size: 0.95rem; }
+  .site-footer a:hover { color: #fff; text-decoration: underline; }
+  .site-footer-bottom { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.85rem; }
+  body.past-scene .statusbar { opacity: 0; pointer-events: none; }
+  html.no-3d .seo-content { box-shadow: none; }
+
+  @media (max-width: 900px) {
+    .steps { grid-template-columns: repeat(2, 1fr); row-gap: 2rem; }
+    .step:nth-child(2)::after, .step:last-child::after { display: none; }
+    .type-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .steps, .type-grid, .faq-grid { grid-template-columns: 1fr; }
+    .step::after { display: none !important; }
+    .bento { grid-template-columns: 1fr; }
+    .bento .sx-card:nth-child(n) { grid-column: auto; }
+    .sec { padding-top: 3.2rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { .sx-card { transition: none; } .sx-card:hover { transform: none; } }
+
 
   /* blurs the 3D scene behind the final screen */
   .blur-veil {
@@ -708,6 +852,20 @@
 
 <body>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="ico-rocket" viewBox="0 0 24 24"><path d="M12 2.5c3.4 2.1 5.4 5.4 5.4 9.3L15 15H9l-2.4-3.2c0-3.9 2-7.2 5.4-9.3z"/><circle cx="12" cy="9.2" r="1.7"/><path d="M9 15l-3 3.6 3.6-.6M15 15l3 3.6-3.6-.6M12 17.2V21.5"/></symbol>
+    <symbol id="ico-book" viewBox="0 0 24 24"><path d="M4 5.6C4 4.7 4.7 4 5.6 4H12v15H5.6C4.7 19 4 18.3 4 17.4z"/><path d="M20 5.6c0-.9-.7-1.6-1.6-1.6H12v15h6.4c.9 0 1.6-.7 1.6-1.6z"/></symbol>
+    <symbol id="ico-sparkles" viewBox="0 0 24 24"><path d="M11 3l1.9 5.1L18 10l-5.1 1.9L11 17l-1.9-5.1L4 10l5.1-1.9z"/><path d="M19 15.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></symbol>
+    <symbol id="ico-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9.5" rx="2.6"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.7" r="1.1"/></symbol>
+    <symbol id="ico-bolt" viewBox="0 0 24 24"><path d="M13.2 2.5L5.2 13.6h5.9L10.3 21.5l8.5-11.4h-6z"/></symbol>
+    <symbol id="ico-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+    <symbol id="ico-export" viewBox="0 0 24 24"><path d="M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/><path d="M12 4v11M7.6 10.6L12 15l4.4-4.4"/></symbol>
+    <symbol id="ico-tag" viewBox="0 0 24 24"><path d="M3 12.6V4.6A1.6 1.6 0 0 1 4.6 3h8l8.4 8.4a1.6 1.6 0 0 1 0 2.2l-7 7a1.6 1.6 0 0 1-2.2 0z"/><circle cx="8" cy="8" r="1.4"/></symbol>
+  </defs>
+</svg>
+
+
 <canvas id="scene" aria-hidden="true"></canvas>
 <div class="blur-veil" id="blurVeil" aria-hidden="true"></div>
 
@@ -751,7 +909,7 @@
       <h1>Text in.<br /><span class="grad">Diagram out.</span></h1>
       <p class="lede">SimpleMermaid is a fast, distraction-free Mermaid.js editor. Write plain text, watch it become a diagram — <em>no login, no backend, fully local.</em></p>
       <div class="cta-actions">
-        <a class="btn btn-primary" href="mermaid-tool.html">🚀 Start Creating</a>
+        <a class="btn btn-primary" href="mermaid-tool.html"><svg class="icon" aria-hidden="true"><use href="#ico-rocket"/></svg> Start Creating</a>
       </div>
       <p class="hero-badges"><b>64</b> templates · PNG / SVG / PDF export · <b>100%</b> in your browser</p>
       <p class="scroll-hint"><b>↓</b> Scroll — dive into the flow</p>
@@ -764,7 +922,7 @@
       <h2>If you can type,<br />you can diagram.</h2>
       <p class="lede">A flowchart is six lines of plain syntax. Version it, diff it, paste it in a PR.</p>
       <pre class="code"><span class="k">graph</span> TD
-  A[💡 Idea] <span class="a">--&gt;</span> B[Write plain text]
+  A[Idea] <span class="a">--&gt;</span> B[Write plain text]
   B <span class="a">--&gt;</span> C{Mermaid parses}
   C <span class="a">--&gt;</span> D[Live preview]
   C <span class="a">--&gt;</span> E[Export SVG · PNG]
@@ -794,8 +952,8 @@
       <h2>No signup. Nothing leaves <span class="grad">your browser.</span></h2>
       <p class="lede">Offline-ready, privacy-first, and free. Your diagrams live where you do.</p>
       <div class="cta-actions">
-        <a class="btn btn-primary" href="mermaid-tool.html">🚀 Start Creating</a>
-        <a class="btn btn-ghost" href="learn-mermaid.html">📚 Learn Mermaid</a>
+        <a class="btn btn-primary" href="mermaid-tool.html"><svg class="icon" aria-hidden="true"><use href="#ico-rocket"/></svg> Start Creating</a>
+        <a class="btn btn-ghost" href="learn-mermaid.html"><svg class="icon" aria-hidden="true"><use href="#ico-book"/></svg> Learn Mermaid</a>
       </div>
       <p class="stats"><span><b>3,000+</b> developers monthly</span><span><b>64</b> templates</span><span><b>0</b> accounts required</span></p>
       <p class="fineprint"><a href="features.html">Explore every feature &amp; all 64 templates →</a></p>
@@ -805,6 +963,157 @@
 </div>
 
 <div class="spacer" aria-hidden="true"></div>
+
+<main class="seo-content" id="about-simplemermaid">
+  <div class="seo-inner">
+
+    <section class="sec">
+      <div class="sec-head">
+        <h2>What is <em>SimpleMermaid?</em></h2>
+        <p class="sec-sub">A free, browser-based editor that turns plain text into diagrams.</p>
+      </div>
+      <div class="sec-body">
+        <p>SimpleMermaid is a free, browser-based editor for <a href="learn-mermaid.html">Mermaid.js</a> diagrams. You write a few lines of plain text, and it turns them into a flowchart, sequence diagram, Gantt chart, class diagram, state diagram or entity relationship diagram, with a live preview that updates as you type.</p>
+        <p>Because a diagram is just text, you can keep it in version control, review changes in a pull request and paste it straight into documentation. There is no account to create and nothing to install: everything runs in your browser, so your diagrams stay with you.</p>
+      </div>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="mermaid-tool.html"><svg class="icon" aria-hidden="true"><use href="#ico-rocket"/></svg> Open the editor</a>
+        <a class="btn btn-ghost" href="features.html"><svg class="icon" aria-hidden="true"><use href="#ico-sparkles"/></svg> See all templates</a>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-head">
+        <h2>How to create a <em>Mermaid diagram</em></h2>
+        <p class="sec-sub">Four steps from blank page to shareable diagram.</p>
+      </div>
+      <ol class="steps" style="list-style:none;padding:0">
+        <li class="step sx-card"><span class="step-num">1</span><h3>Open the editor</h3><p>Go to SimpleMermaid.com and click &#39;Start Creating&#39; to open the diagram editor.</p></li>
+        <li class="step sx-card"><span class="step-num">2</span><h3>Choose a diagram type</h3><p>Start with <code>flowchart TD</code> for top-down flowcharts, <code>sequenceDiagram</code> for sequence diagrams, or <code>gantt</code> for Gantt charts.</p></li>
+        <li class="step sx-card"><span class="step-num">3</span><h3>Add content</h3><p>Type your diagram code in the editor. Use brackets for nodes [Like This] and arrows --&gt; for connections.</p></li>
+        <li class="step sx-card"><span class="step-num">4</span><h3>Share or export</h3><p>Click &#39;Share&#39; for a shareable link, or export to PNG, SVG, PDF or Markdown.</p></li>
+      </ol>
+      <p class="sec-note">New to the syntax? The <a href="learn-mermaid.html">Mermaid syntax tutorial</a> and the <a href="blog/mermaid-js-beginners-guide.html">beginner&#39;s guide</a> walk through it step by step, and the editor includes 64 ready-made templates you can open and adapt.</p>
+    </section>
+
+    <section class="sec">
+      <div class="sec-head">
+        <h2>Diagrams for <em>every kind of team</em></h2>
+        <p class="sec-sub">Everything Mermaid.js can draw, with guides for each type.</p>
+      </div>
+      <div class="type-grid">
+        <div class="sx-card">
+          <span class="chip">flowchart TD</span>
+          <h3>Flowcharts</h3>
+          <p>Map processes, decisions and workflows with nodes and arrows.</p>
+          <p><a href="blog/flowchart-best-practices.html">Flowchart best practices →</a></p>
+        </div>
+        <div class="sx-card">
+          <span class="chip">sequenceDiagram</span>
+          <h3>Sequence diagrams</h3>
+          <p>Show how services, APIs and people exchange messages over time.</p>
+          <p><a href="blog/sequence-diagram-tutorial-microservices.html">Sequence diagrams for microservices →</a></p>
+        </div>
+        <div class="sx-card">
+          <span class="chip">gantt</span>
+          <h3>Gantt charts</h3>
+          <p>Plan sprints and releases with tasks, dependencies and milestones.</p>
+          <p><a href="blog/gantt-charts-project-management.html">Gantt charts for project management →</a></p>
+        </div>
+        <div class="sx-card">
+          <span class="chip">erDiagram</span>
+          <h3>Entity relationship diagrams</h3>
+          <p>Describe database tables and how they relate to each other.</p>
+          <p><a href="blog/entity-relationship-diagrams-explained.html">ER diagrams explained →</a></p>
+        </div>
+        <div class="sx-card">
+          <span class="chip">stateDiagram-v2</span>
+          <h3>State diagrams</h3>
+          <p>Model the states of a UI or system and the transitions between them.</p>
+          <p><a href="blog/state-diagrams-ui-design.html">State diagrams for UI design →</a></p>
+        </div>
+        <div class="sx-card">
+          <span class="chip">architecture · threats</span>
+          <h3>Architecture &amp; threat models</h3>
+          <p>Document systems, trust boundaries and attack paths as code.</p>
+          <p><a href="blog/how-to-create-architecture-diagrams.html">Architecture diagrams →</a><br /><a href="for/security-threat-modeling.html">Threat modeling templates →</a></p>
+        </div>
+      </div>
+      <p class="sec-note">Want inspiration first? Browse the <a href="guides/diagram-gallery.html">diagram gallery</a>, read the <a href="guides/best-practices.html">best practices guide</a> or see <a href="guides/use-cases.html">real-world use cases</a>.</p>
+    </section>
+
+    <section class="sec">
+      <div class="sec-head">
+        <h2>Why people <em>use SimpleMermaid</em></h2>
+        <p class="sec-sub">Fast, private and free, with nothing between you and the diagram.</p>
+      </div>
+      <div class="bento">
+        <div class="sx-card"><span class="ico" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#ico-lock"/></svg></span><h3>Private by design</h3><p>Diagrams are rendered and stored in your browser. Sharing encodes the diagram in the link, with no upload and no account.</p></div>
+        <div class="sx-card"><span class="ico" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#ico-bolt"/></svg></span><h3>Instant preview</h3><p>Every keystroke re-renders, with zoom, tabs for several diagrams, and light and dark themes.</p></div>
+        <div class="sx-card"><span class="ico" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#ico-link"/></svg></span><h3>Share with a link</h3><p>Anyone who opens the link sees your diagram and can edit their own copy.</p></div>
+        <div class="sx-card"><span class="ico" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#ico-export"/></svg></span><h3>Export anywhere</h3><p>Download PNG for slides, SVG for scalable graphics, PDF for documents, or Markdown with a ready-to-paste <code>mermaid</code> code block.</p></div>
+        <div class="sx-card"><span class="ico" aria-hidden="true"><svg class="icon" aria-hidden="true"><use href="#ico-tag"/></svg></span><h3>Free</h3><p>No registration, no limits, no watermarks.</p></div>
+      </div>
+      <p class="pull">Great diagrams start as <em>plain text.</em></p>
+      <p class="sec-note">Comparing tools? Read <a href="blog/mermaid-vs-drawio.html">Mermaid vs draw.io</a> to see when text-based diagrams beat drag-and-drop, and how <a href="blog/diagrams-as-code-workflow.html">diagrams as code</a> fits into a developer workflow.</p>
+    </section>
+
+    <section class="sec">
+      <div class="sec-head">
+        <h2>Frequently asked <em>questions</em></h2>
+        <p class="sec-sub">Quick answers about the editor, sharing and privacy.</p>
+      </div>
+      <div class="faq-grid">
+        <div class="sx-card"><h3>What is SimpleMermaid?</h3><p>SimpleMermaid is a free online Mermaid.js diagram editor that lets you create flowcharts, sequence diagrams, Gantt charts, and more with instant sharing and export capabilities. No login required.</p></div>
+        <div class="sx-card"><h3>How do I create a flowchart online?</h3><p>Use SimpleMermaid&#39;s online editor to create flowcharts instantly. Type &#39;flowchart TD&#39; to start, add nodes with brackets like [Start], and connect them with arrows --&gt;. Live preview shows your diagram in real-time.</p></div>
+        <div class="sx-card"><h3>Can I export diagrams to PNG or SVG?</h3><p>Yes, SimpleMermaid allows you to export your diagrams to PNG for presentations or SVG for scalable graphics. Click the export buttons in the editor toolbar.</p></div>
+        <div class="sx-card"><h3>Is SimpleMermaid free to use?</h3><p>Yes, SimpleMermaid is completely free. No registration, no limits, no watermarks. Create unlimited diagrams and share them with anyone.</p></div>
+        <div class="sx-card"><h3>Which diagram types does SimpleMermaid support?</h3><p>Everything Mermaid.js supports, including flowcharts, sequence diagrams, class diagrams, state diagrams, entity relationship diagrams, Gantt charts and user journeys. The editor ships with 64 ready-made templates to start from.</p></div>
+        <div class="sx-card"><h3>Are my diagrams uploaded to a server?</h3><p>No. Diagrams are rendered and stored in your browser. When you share a diagram, the whole diagram is compressed into the link itself, so there is nothing to upload and no account to create.</p></div>
+        <div class="sx-card"><h3>How do I share a Mermaid diagram?</h3><p>Click Share in the editor to get a link. The diagram is encoded in the URL, so anyone who opens the link sees exactly what you made and can edit their own copy.</p></div>
+      </div>
+      <p class="sec-note"><a href="faq.html">More questions and answers →</a></p>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="site-footer-grid">
+      <div>
+        <h3>Product</h3>
+        <ul>
+          <li><a href="mermaid-tool.html">Editor</a></li>
+          <li><a href="learn-mermaid.html">Learn Syntax</a></li>
+          <li><a href="features.html">Features &amp; Templates</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="blog/index.html">Blog</a></li>
+          <li><a href="guides/diagram-gallery.html">Diagram Gallery</a></li>
+          <li><a href="guides/best-practices.html">Best Practices</a></li>
+          <li><a href="guides/use-cases.html">Use Cases</a></li>
+          <li><a href="for/security-threat-modeling.html">Threat Model Templates</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Company</h3>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="changelog.html">Changelog</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
+          <li><a href="#" onclick="smConsent.manage(); return false;">Cookie Preferences</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="site-footer-bottom">© SimpleMermaid.com — free Mermaid.js diagram editor.</p>
+  </div>
+</footer>
 
 <script type="importmap">
 {
@@ -925,7 +1234,7 @@ function shapePath(type, w, h) {
   return s;
 }
 
-function nodeTexture({ label, type, stroke, blur = 0 }) {
+function nodeTexture({ label, type, stroke, blur = 0, icon }) {
   const W = 640, H = type === "diamond" || type === "circle" ? 640 : 300;
   const c = document.createElement("canvas");
   c.width = W; c.height = H;
@@ -952,7 +1261,21 @@ function nodeTexture({ label, type, stroke, blur = 0 }) {
   g.font = "600 58px -apple-system, system-ui, 'Segoe UI', Roboto, sans-serif";
   g.textAlign = "center";
   g.textBaseline = "middle";
-  g.fillText(label, W / 2, H / 2);
+  if (icon === "bulb") {
+    // custom lightbulb glyph (24-unit path), drawn left of the label instead of an emoji
+    const size = 64, gap = 20, textW = g.measureText(label).width;
+    const x0 = (W - (size + gap + textW)) / 2;
+    g.save();
+    g.translate(x0, H / 2 - size / 2);
+    g.scale(size / 24, size / 24);
+    g.strokeStyle = "#fcd34d"; g.lineWidth = 1.9; g.lineCap = "round"; g.lineJoin = "round";
+    g.stroke(new Path2D("M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.6.5 1 1.2 1 2.2h5.2c0-1 .4-1.7 1-2.2A6 6 0 0 0 12 3z"));
+    g.restore();
+    g.textAlign = "left";
+    g.fillText(label, x0 + size + gap, H / 2);
+  } else {
+    g.fillText(label, W / 2, H / 2);
+  }
   g.filter = "none";
   const tex = new THREE.CanvasTexture(c);
   tex.colorSpace = THREE.SRGBColorSpace;
@@ -963,7 +1286,7 @@ function nodeTexture({ label, type, stroke, blur = 0 }) {
 const bodyMat = new THREE.MeshStandardMaterial({ color: 0x121a30, roughness: 0.55, metalness: 0.25 });
 const nodeGlowTex = glowTexture("rgba(99, 102, 241, 0.9)");
 
-function makeNode({ label, type = "rect", stroke = "#6366f1", pos, w = 4.8, h = 2.0 }) {
+function makeNode({ label, icon, type = "rect", stroke = "#6366f1", pos, w = 4.8, h = 2.0 }) {
   if (type === "diamond") { w = 3.8; h = 3.8; }
   if (type === "circle") { w = 3.0; h = 3.0; }
   const group = new THREE.Group();
@@ -986,10 +1309,10 @@ function makeNode({ label, type = "rect", stroke = "#6366f1", pos, w = 4.8, h = 
   // two face layers: blurred far away, crisp up close
   const faceH = type === "diamond" || type === "circle" ? w : w * (300 / 640);
   const matBlur = new THREE.MeshBasicMaterial({
-    map: nodeTexture({ label, type, stroke, blur: 11 }), transparent: true,
+    map: nodeTexture({ label, type, stroke, blur: 11, icon }), transparent: true,
   });
   const matSharp = new THREE.MeshBasicMaterial({
-    map: nodeTexture({ label, type, stroke, blur: 0 }), transparent: true, opacity: 0,
+    map: nodeTexture({ label, type, stroke, blur: 0, icon }), transparent: true, opacity: 0,
   });
   const faceBlur = new THREE.Mesh(new THREE.PlaneGeometry(w, faceH), matBlur);
   faceBlur.position.z = 0.29;
@@ -1006,7 +1329,7 @@ function makeNode({ label, type = "rect", stroke = "#6366f1", pos, w = 4.8, h = 
 
 // graph TD — the diagram
 const nodes = {
-  A: makeNode({ label: "💡 Idea", pos: [0, 1.7, 0], stroke: "#8b5cf6", w: 3.6 }),
+  A: makeNode({ label: "Idea", icon: "bulb", pos: [0, 1.7, 0], stroke: "#8b5cf6", w: 3.6 }),
   B: makeNode({ label: "Plain text", pos: [0, 1.7, -11] }),
   C: makeNode({ label: "Parse", type: "diamond", pos: [0, 1.7, -21], stroke: "#a855f7" }),
   D: makeNode({ label: "Preview", pos: [-6.8, 1.7, -31], w: 4.2 }),
@@ -1085,9 +1408,15 @@ const edgeSchedule = [
 let targetP = 0;
 let p = 0;
 
+const spacerEl = document.querySelector(".spacer");
 function readScroll() {
-  const max = document.documentElement.scrollHeight - window.innerHeight;
+  // The crawlable content below the scene must not stretch the scene's scroll range.
+  const sceneEnd = spacerEl && spacerEl.offsetHeight
+    ? spacerEl.offsetTop + spacerEl.offsetHeight
+    : document.documentElement.scrollHeight;
+  const max = sceneEnd - window.innerHeight;
   targetP = max > 0 ? Math.min(window.scrollY / max, 1) : 0;
+  document.body.classList.toggle("past-scene", max > 0 && window.scrollY > max + window.innerHeight * 0.25);
 }
 window.addEventListener("scroll", readScroll, { passive: true });
 
