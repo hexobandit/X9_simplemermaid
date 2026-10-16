@@ -736,6 +736,11 @@
         .main-container.vertical .separator {
             cursor: row-resize;
         }
+
+        /* Code panel fully hidden: preview takes whole workspace */
+        .main-container.code-hidden > .panel:first-child,
+        .main-container.code-hidden > .separator { display: none; }
+        .rail-btn.active { color: var(--primary-color); }
         
         /* Editor Styles */
         .editor-container {
@@ -1823,6 +1828,10 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="3" x2="12" y2="21"/></svg>
             </button>
 
+            <button id="codeToggleBtn" class="rail-btn" data-tip="Hide code" title="Hide / show code panel (Ctrl+\)" aria-label="Hide code panel" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </button>
+
             <span class="rail-spacer"></span>
 
             <button id="infoBtn" class="rail-btn" data-tip="About this editor" title="About this editor" aria-label="About this editor">
@@ -2886,6 +2895,11 @@ Or choose an example from the dropdown above!"
                     if (e.key === 'Escape' && this.exportModal.classList.contains('show')) this.closeExportModal();
                 });
                 this.layoutBtn.addEventListener('click', () => this.toggleLayout());
+                const codeToggleBtn = document.getElementById('codeToggleBtn');
+                if (codeToggleBtn) codeToggleBtn.addEventListener('click', () => this.toggleCode());
+                document.addEventListener('keydown', (e) => {
+                    if ((e.ctrlKey || e.metaKey) && e.key === '\\') { e.preventDefault(); this.toggleCode(); }
+                });
                 this.themeBtn.addEventListener('click', () => this.toggleTheme());
 
                 // Tab controls
@@ -3949,6 +3963,24 @@ Or choose an example from the dropdown above!"
             }
             
             /**
+             * Show/hide the code panel entirely (preview fills the workspace)
+             */
+            toggleCode(force) {
+                const mainContainer = document.querySelector('.main-container');
+                const hidden = typeof force === 'boolean' ? force : !mainContainer.classList.contains('code-hidden');
+                mainContainer.classList.toggle('code-hidden', hidden);
+                const btn = document.getElementById('codeToggleBtn');
+                if (btn) {
+                    btn.classList.toggle('active', hidden);
+                    btn.setAttribute('aria-pressed', String(hidden));
+                    btn.dataset.tip = hidden ? 'Show code' : 'Hide code';
+                    btn.setAttribute('aria-label', hidden ? 'Show code panel' : 'Hide code panel');
+                }
+                try { localStorage.setItem('simplemermaid-code-hidden', hidden ? '1' : '0'); } catch (e) {}
+                this.debouncedRender();
+            }
+
+            /**
              * Start resizing panels
              */
             startResize(e) {
@@ -4194,6 +4226,8 @@ Or choose an example from the dropdown above!"
                     } else if (!savedLayout && !this.isVertical && window.matchMedia('(max-width: 768px)').matches) {
                         this.toggleLayout();
                     }
+
+                    if (localStorage.getItem('simplemermaid-code-hidden') === '1') this.toggleCode(true);
 
                     // Load panel size
                     const savedPanelSize = localStorage.getItem('simplemermaid-panel-size');
